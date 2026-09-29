@@ -30,3 +30,19 @@ Each line has exactly these 12 keys:
 - `alternative_path`: string or null
 
 `progress.json` is the run checkpoint (last completed CVE ID and total count).
+
+## CWE analysis
+
+Two extra tables derived from the same CVE corpus:
+
+- `cwes.tsv` — every unique CWE that appears across the 380,265 CVEs, with how
+  many CVEs cite it and its canonical name. 811 unique CWEs; 197,740 CVEs
+  (52%) carry at least one CWE id.
+- `cwe_web_triggerable.tsv` — each CWE classified by whether the weakness can be
+  triggered via a web request (`web_triggerable` = `yes` | `conditional` | `no`).
+  The label combines (a) the weakness definition and (b) empirical evidence:
+  `pct_web` is the share of that CWE's CVEs we labelled `SERVER_WEB_REQUEST`.
+  `basis` shows both signals; `review_flag` marks definition-vs-evidence
+  disagreements. Capability is existential — a CWE is `yes`/`conditional` if
+  either the definition or the evidence supports a web-request trigger.
+  Tally: 314 `yes`, 332 `conditional`, 165 `no`.
