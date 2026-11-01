@@ -3384,6 +3384,100 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-13242",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Drupal Geolocation Field SQLi. SA-CONTRIB-2026-062 states only that 'one of the provided views filters does not sufficiently sanitize values if exposed to user input'; it names no view, filter, parameter or endpoint, rates exploitability 'Theoretical' (no public exploit), and exploitation depends on a site-specific View that exposes the affected filter. No named HTTP parameter or path to build a request or a WAF signature from.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.drupal.org/sa-contrib-2026-062",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-13242/",
+      "https://osv.dev/vulnerability/DRUPAL-CONTRIB-2026-062"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13010",
+    "group": "READY",
+    "result": "DROPPED_OTHER",
+    "notes": "JoomSport SQLi is via the 'event' SHORTCODE ATTRIBUTE, not an HTTP request parameter. A Contributor exploits it by embedding [joomsport ... event=\"<SQLi>\"] in post/page content; the payload therefore travels inside post_content on the generic post-save request, and the injection executes only when the shortcode is later rendered. There is no distinct named HTTP parameter on the wire to carry the payload, so a WAF request tied to this CVE's path+parameter (spec condition 2) cannot be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/joomsport-sports-league-results-management/joomsport-579-authenticated-contributor-sql-injection-via-event-shortcode-attribute",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13010",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-13010/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13262",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Majestic Support SQLi via 'val' (smartreply). The parameter 'val' and the required 'get-smart-reply' nonce are named, but the actual admin-ajax ACTION name (the routing key that determines the path, dispatched in includes/ajax.php) is not stated in the CVE/Wordfence/fieldguide text. It could not be verified via live sources: the wordpress.org trac/svn source is provenance-blocked here, plugin zip download is proxy-blocked (403), and plugintests class pages 404. Building would require guessing the action, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/502577dd-49e3-419d-8b37-591be69ad131?source=cve",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-13262/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13262"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13161",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "TrueBooker SQLi via 'alldata[truebooker_user]'. The parameter is named and the handler lives in main/function_ajax.php guarded by check_ajax_referer, but the admin-ajax ACTION name is not stated in the CVE/Wordfence text and could not be verified live (trac/svn provenance-blocked, plugin download proxy-blocked 403, plugintests structure page lists function names but not wp_ajax hook registrations). Avoided guessing the endpoint action.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/9b0e973b-f0bf-44d1-b964-e259f68291aa?source=cve",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13161",
+      "https://mail.plugintests.com/plugins/wporg/truebooker-appointment-booking/1.1.3/structure"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13009",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "AI Copilot - Content Generator SQLi via the DataTables 'order[0][dir]' parameter (classes/table.php / modules/workspace/controller.php) gated by a waic-nonce. The parameter is named, but the admin-ajax ACTION name is not stated in the CVE/Wordfence text and could not be verified live (trac/svn provenance-blocked, plugin download proxy-blocked 403, plugintests class pages 404). Avoided guessing the endpoint action.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/2a965a23-5594-4925-8104-6f387a60ab49?source=cve",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-copilot-content-generator",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13009"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13200",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Mediavine Create SQLi via the 'order' parameter (lib/creations/class-creations-api.php advanced-filter branch, triggered by linked_posts/created_after/etc.). The parameter is named, but the exact REST route and namespace could not be verified from any reachable live source (trac provenance-blocked, plugin download proxy-blocked 403, plugintests class pages 404, and no third-party page documents the mv-create REST path). Did not invent the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/9279e01d-53b8-4816-b405-0db2f984cb5a?source=cve",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13200",
+      "https://plugintests.com/plugins/wporg/mediavine-create/1.7.0/structure/classes/Mediavine\\Create\\Creations_API"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13191",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Mediavine Create SQLi via the 'order_by' parameter (lib/db-interface/class-mv-dbi.php, products listing, REST permission callback defaults to publish_posts). The parameter is named, but the exact REST route and namespace could not be verified from any reachable live source (trac provenance-blocked, plugin download proxy-blocked 403, plugintests class pages 404). Did not invent the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/46fa99f1-9152-4130-a5b1-2ea10032069b?source=cve",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13191"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13011",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP ERP SQLi via the 'orderby' parameter (modules/hrm/includes/functions-leave.php / LeaveRequestsListTable.php, gated by erp_list_employee capability). The parameter is named, but the vector could not be pinned down live: it is unclear whether the injectable request is the erp/v1 REST leave-requests route or an admin list-table page, and the exact route/path could not be verified (trac provenance-blocked, plugin download proxy-blocked 403, plugintests class pages 404). Did not invent the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/208c8f55-14e0-47c4-b310-dd7b7edbadd4?source=cve",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-13011"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-12983",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -3575,6 +3669,43 @@
       "https://cvefeed.io/vuln/detail/CVE-2026-12077",
       "https://www.ionix.io/threat-center/cve-2026-12077/",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-12077"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11973",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP-Lister Lite for eBay <= 3.8.8 authenticated (shop manager+) SQLi via the 'orderby' GET parameter of a WP_List_Table (ProfilesModel/StocksLogTable/EbayOrdersModel). The parameter and method (GET) are known, but the reachable admin page slug (/wp-admin/admin.php?page=<slug>) could not be recovered: Wordfence and cvefeed give no endpoint, and the plugins.trac.wordpress.org source files could not be fetched (PROVENANCE_REQUIRED - not reachable via a live search result). Building would require guessing the admin page slug, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2026-11973",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/cec0d64e-7b31-4484-8237-2ab4d730ab86?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-lister-for-ebay/trunk/classes/model/ProfilesModel.php#L304",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-11973"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11969",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP TripAdvisor Review Slider <= 14.3 authenticated (administrator+) SQLi via the 'curselrevs[]' parameter. The parameter is named, but the reachable endpoint (AJAX action name or admin page/form that submits curselrevs[]) could not be recovered: Wordfence/cvefeed give no endpoint and name no AJAX action, and the plugins.trac.wordpress.org admin class source could not be fetched (PROVENANCE_REQUIRED). Building would require guessing the action/path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.sentinelone.com/vulnerability-database/cve-2026-11969/",
+      "https://plugins.trac.wordpress.org/browser/wp-tripadvisor-review-slider/tags/14.3/admin/class-wp-tripadvisor-review-slider-admin.php#L671",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-11969"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11920",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "JoomSport <= 5.7.9 authenticated (administrator+) time-based SQLi via the 'order' GET parameter (triggered only when 'orderby' is also present) in includes/pages/joomsport-page-boxfields.php. The parameter and method (GET) are known, but the reachable admin page slug (/wp-admin/admin.php?page=<slug>) could not be recovered: Wordfence/cvefeed give no endpoint, and the plugins.trac.wordpress.org source could not be fetched (PROVENANCE_REQUIRED). Building would require guessing the admin page slug, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2026-11920",
+      "https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/tags/5.7.8/includes/pages/joomsport-page-boxfields.php#L35",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-11920"
     ]
   },
   {
@@ -3793,6 +3924,71 @@
     "links_checked": [
       "https://blog.blacklanternsecurity.com/p/cve-2026-10880-osnexus-quantastor",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-10880"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-10207",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PickPlugins Question Answer WordPress plugin SQLi via the 'id' GET parameter in qa_user_profile_card() (confirmed: $_GET['id'] -> wp_unslash -> direct concatenation into a SELECT). The vulnerable code runs inside the [qa_user_profile] shortcode (includes/shortcodes/class-shortcode-user-profile.php includes templates/user-profile/user-profile.php). The plugin registers no rewrite rule and no fixed endpoint, so the profile page URL is site-defined; no PoC/advisory gives a concrete path. Parameter and attack class are known but a faithful path cannot be set without guessing. Wordfence page is JS-rendered (empty on fetch); nuclei template is wordfence version-check only, not a real request.",
+    "waf_rules_found": [
+      "https://github.com/topscoder/nuclei-wordfence-cve/blob/main/nuclei-templates/2026/CVE-2026-10207-question_answer-178e2537-e900-4264-9b29-1bb5bac36f48.yaml (version-detection only)"
+    ],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/178e2537-e900-4264-9b29-1bb5bac36f48?source=cve",
+      "https://plugins.trac.wordpress.org/browser/question-answer/tags/1.2.73/templates/user-profile/user-profile-hook.php#L98",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-10207",
+      "https://github.com/pickplugins/question-answer (source: shortcode qa_user_profile, no rewrite rule)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-10204",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "OFCMS 1.1.3 SQL injection in the Query function of SysUserController.java (JSON Query Interface). The advisory names only the Java controller class file, not an HTTP route; no named on-the-wire parameter. OFCMS is JFinal-based and the controller class path is not the URL. No PoC is reachable (gitee issue blocked, no GitHub mirror found via gh search code), and offseq/NVD give no request. Path and wire parameter cannot be determined without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/367484",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-10204",
+      "https://gitee.com/oufu/ofcms/issues/IJLL09"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-10203",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "OFCMS 1.1.3 SQL injection in the Query function of SystemParamController.java (JSON Query Interface). Only the Java controller class file is named, not an HTTP route or wire parameter. OFCMS is JFinal-based (controller class != URL). PoC unreachable (gitee blocked, no GitHub mirror), offseq/NVD give no request. Cannot set path/parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/367483",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-10203",
+      "https://gitee.com/oufu/ofcms/issues/IJLIYP"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-10202",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "OFCMS 1.1.3 SQL injection in the Query function of SystemDictController.java (JSON Query Interface). Only the Java controller class file is named, not an HTTP route or wire parameter. OFCMS is JFinal-based (controller class != URL). PoC unreachable (gitee blocked, no GitHub mirror), offseq/NVD give no request. Cannot set path/parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/367482",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-10202",
+      "https://radar.offseq.com/threat/cve-2026-10202-sql-injection-in-ofcms-a428366f",
+      "https://gitee.com/oufu/ofcms/issues/IJLIBT"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-10193",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "OFCMS SQL injection in the Query function of ComnController.java via argument system.user.query (JSON Query Interface). The parameter key system.user.query is named, but no HTTP route/path is given; OFCMS is JFinal-based so the controller class file is not the URL. offseq explicitly reproduces no PoC/route; gitee issue blocked and no GitHub mirror found via gh search code. A faithful request path cannot be set without guessing, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/367474",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-10193",
+      "https://radar.offseq.com/threat/cve-2026-10193-sql-injection-in-ofcms-f5eed7a2",
+      "https://gitee.com/oufu/ofcms/issues/IJLFCA"
     ]
   },
   {
