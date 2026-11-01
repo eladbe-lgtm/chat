@@ -7401,6 +7401,34 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-6739",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is in the 'id' ATTRIBUTE of the [wpquiz] shortcode, not an HTTP request parameter. The payload only reaches SQL when a post/page containing the shortcode is rendered; there is no direct named HTTP parameter to target and the storing (post save) endpoint plus field would be a guess. Wordfence advisory is JS-rendered (empty via fetch); plugins.trac.wordpress.org and the plugin zip on downloads.wordpress.org were both blocked by the proxy, so the shortcode handler could not be inspected for an alternative AJAX/REST entry.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/16444905-b111-4b4f-a9f0-d8728da2ebfb?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wpquiz/trunk/wpquiz.php",
+      "https://downloads.wordpress.org/plugin/wpquiz.0.4.2.zip",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-6739",
+      "https://www.cve.org/CVERecord?id=CVE-2025-6739"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-6717",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via an 'id' parameter reachable by Subscriber+, which implies an admin-ajax action or plugin route, but the action name / route is not public. Wordfence advisory is JS-rendered (empty via fetch); the plugins.trac.wordpress.org fix changeset (3329617@b1-accounting) and the b1-accounting.2.2.56 plugin zip were both blocked by the proxy, so the vulnerable file/function and the real request path could not be recovered. Building admin-ajax.php?action=<guess>&id=<sqli> would be a guessed endpoint (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a601d0de-2f09-4f5c-8937-dfa20f1c64ec?source=cve",
+      "https://plugins.trac.wordpress.org/changeset?reponame=&old=3329617%40b1-accounting&new=3329617%40b1-accounting",
+      "https://downloads.wordpress.org/plugin/b1-accounting.2.2.56.zip",
+      "https://cvefeed.io/vuln/detail/CVE-2025-6717",
+      "https://www.cve.org/CVERecord?id=CVE-2025-6717"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-6580",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -7434,6 +7462,33 @@
     "links_checked": [
       "https://www.wordfence.com/threat-intel/vulnerabilities/id/188baddc-134c-4a82-898b-9b038e795893?source=cve",
       "https://plugins.trac.wordpress.org/changeset/3332052/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-6189",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Authenticated (Contributor+) time-based SQLi via the meta_key parameter in the Duplicate Page and Post WordPress plugin. The vulnerable parameter is known, but no public source confirms the request path / wp-ajax action that carries meta_key. The plugin source (plugins.trac.wordpress.org) and the plugin zip (downloads.wordpress.org) were unreachable (provenance block / proxy 403), and Wordfence pages are JS-rendered and returned empty. Building would require guessing the admin-ajax.php action, which SPEC section 6.5 forbids. Dropped rather than invent the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4120c8e6-e162-4adf-890c-8070e5009748?source=cve",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/duplicate-wp-page-post/duplicate-page-and-post-295-authenticated-contributor-sql-injection-via-meta-key-parameter",
+      "https://plugins.trac.wordpress.org/browser/duplicate-wp-page-post/trunk/duplicate-wp-page-post.php",
+      "https://plugins.trac.wordpress.org/export/HEAD/duplicate-wp-page-post/trunk/duplicate-wp-page-post.php",
+      "https://downloads.wordpress.org/plugin/duplicate-wp-page-post.2.9.5.zip",
+      "https://cvefeed.io/vuln/detail/CVE-2025-6189"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-6184",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Authenticated (Tutor Instructor+) time-based SQLi via the order parameter in get_submitted_assignments() of Tutor LMS Pro. Only the Pro version is affected and its source is not publicly downloadable; the vulnerable parameter (order) and function are known, but no public source confirms the admin-ajax action / REST route that carries it. Wordfence pages are JS-rendered (empty via fetch); the Pro zip is not on downloads.wordpress.org. Building would require guessing the endpoint action, which SPEC section 6.5 forbids. Dropped rather than invent the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4b41d134-be9e-469f-b26b-ac30d95db0a3?source=cve",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/tutor-pro/tutor-lms-pro-elearning-and-online-course-solution-370-authenticated-tutor-instructor-sql-injection",
+      "https://cvefeed.io/vuln/detail/CVE-2025-6184"
     ]
   },
   {
@@ -7518,6 +7573,19 @@
     "waf_rules_found": [],
     "links_checked": [
       "https://github.com/dataease/SQLBot/security/advisories/GHSA-q2q6-gqqh-4xrx"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-5756",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the file /Admin/EditCity.php ('The manipulation leads to sql injection') but no vulnerable parameter. The GitHub PoC (Darlingzero2/cve/issues/1) and all aggregator detail pages reachable from this environment do not name a parameter, and GitHub (api, raw, and web) is fully blocked in this session. Would require inventing a parameter (e.g. id), which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Darlingzero2/cve/issues/1",
+      "https://vuldb.com/?id.311299",
+      "https://cvefeed.io/vuln/detail/CVE-2025-5756",
+      "https://www.cve.org/CVERecord?id=CVE-2025-5756"
     ]
   },
   {
