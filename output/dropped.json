@@ -23157,6 +23157,85 @@
     ]
   },
   {
+    "cve_id": "CVE-2020-36945",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WebDamn User Registration & Login System SQLi auth bypass. The parameter (email/username + password) and class (login SQLi) are clear, but the exact login endpoint/path is only in the exploit-db PoC (49170), which is not fetchable this session (egress proxy 403 for exploit-db; WebFetch poisoned by an earlier PROVENANCE prompt). There is no public GitHub repo to recover the path from, so the exact POST target cannot be confirmed without guessing. Dropped to avoid inventing an endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.exploit-db.com/exploits/49170",
+      "https://www.vulncheck.com/advisories/webdamn-user-registration-login-system-with-user-panel-sqli-auth-bypass",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-36945"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36869",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Nagios XI (<5.7.5) authenticated SQLi in the SNMP Trap Interface edit page. Only a VulnCheck advisory is referenced; it is not fetchable this session (egress proxy 403; WebFetch poisoned). The description does not name a concrete path or injectable parameter, and no public PoC/nuclei template path was recoverable. Dropped to avoid guessing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/nagios-xi-sqli-via-snmp-trap-interface-edit-page",
+      "https://www.nagios.com/changelog/nagios-xi/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36859",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Nagios XI Core Config Manager (CCM <3.0.7 / XI <5.7.4) authenticated SQLi in object edit pages. Only a VulnCheck advisory is referenced (not fetchable; egress proxy 403, WebFetch poisoned). 'Multiple SQLi in object edit pages' with no specific path or parameter named, and no public PoC path recoverable. Dropped to avoid inventing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/nagios-xi-ccm-sqli-via-object-edit-pages",
+      "https://www.nagios.com/changelog/nagios-xi/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36857",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Nagios XI (<5.6.14) post-authentication SQLi in the SNMP Trap Interface page. Only a VulnCheck advisory is referenced (not fetchable; egress proxy 403, WebFetch poisoned). No concrete path or injectable parameter in the description, and no public PoC path recoverable. Dropped to avoid guessing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/nagios-xi-authenticated-sqli-via-snmp-trap-interface-page",
+      "https://www.nagios.com/changelog/nagios-xi/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36648",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "pouetnet/pouet 2.0 SQLi via the 'howmany' argument. The VulDB-style description names the argument but not the reachable PHP page/path. The fix commit (11d6159...) is the only entry reference and is not fetchable (GitHub egress requires add_repo, which is disallowed; WebFetch poisoned). A gh code search of the current repo for 'howmany' returned no matches (the vulnerable code was changed by the fix), so the reachable HTTP endpoint for the parameter could not be determined. Dropped to avoid guessing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/pouetnet/pouet2.0/commit/11d615931352066fb2f6dcb07428277c2cd99baf",
+      "https://vuldb.com/?id.217641"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36645",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "square/squalor is a Go library for issuing SQL statements against MySQL (a database access toolkit), not a web application. The vulnerability is in the library's query construction; there is no HTTP endpoint or inbound request parameter. Not expressible as a WAF web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/square/squalor/pull/76",
+      "https://github.com/square/squalor/commit/f6f0a47cc344711042eb0970cb423e6950ba3f93",
+      "https://vuldb.com/?id.217623"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36631",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "barronwaffles dwc_network_server_emulator SQLi in update_profile() of gamespy/gs_database.py. The firstname/lastname arguments arrive over the GameSpy presence/profile protocol (a custom backslash-delimited TCP protocol), not over HTTP. The injectable path is in the GameSpy server, not the emulator's HTTP (NAS) component, so it cannot be expressed as an inbound HTTP request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/barronwaffles/dwc_network_server_emulator/commit/f70eb21394f75019886fbc2fb536de36161ba422",
+      "https://vuldb.com/?id.216772"
+    ]
+  },
+  {
     "cve_id": "CVE-2020-36540",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -23837,6 +23916,105 @@
       "https://github.com/c610/free/",
       "https://code610.blogspot.com/2020/04/postauth-sqli-in-centreon-1910-1el7.html",
       "https://nvd.nist.gov/vuln/detail/CVE-2020-22425"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22175",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\betweendates-detailsreports.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22175"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22174",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\book-appointment.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22174"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22173",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\edit-profile.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22173"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22172",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\get_doctor.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22172"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22171",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\registration.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22171"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22170",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\get_doctor.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22170"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22169",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\appointment-history.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22169"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22168",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\change-emaild.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22168"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-22166",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PHPGurukul Hospital Management System 4.0 SQLi; NVD description names the file \\hms\\forgot-password.php but not the vulnerable parameter. The only PoC ref is the itodaro repo, which is unreachable here: per-repo GitHub API returns 403, global code search returns no indexed content for the repo, WebFetch is provenance-blocked, and NVD API is proxy-blocked. A SQLi WAF request needs the exact injected parameter; not inventing one per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/itodaro/PHPGurukul_Hospital_Management_System4.0_cve",
+      "https://www.cve.org/CVERecord?id=CVE-2020-22166"
     ]
   },
   {
