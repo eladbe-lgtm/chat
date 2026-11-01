@@ -21531,6 +21531,63 @@
     ]
   },
   {
+    "cve_id": "CVE-2021-43863",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Nextcloud Android app SQL injection is in the FileContentProvider Android content provider, exploited by a malicious app on the same device via local IPC (content:// URIs), not an inbound HTTP request. No server-side web entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/nextcloud/android/security/advisories/GHSA-vjp2-f63v-w479",
+      "https://hackerone.com/reports/1358597"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43766",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Odyssey (PostgreSQL connection pooler) SQL injection is performed by a man-in-the-middle on the PostgreSQL wire protocol during connection startup, not over HTTP. No HTTP path/parameter exists.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/yandex/odyssey/issues/376",
+      "https://www.postgresql.org/support/security/CVE-2021-23214/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43822",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Jackalope Doctrine-DBAL is a PHP PHPCR library; SQL injection occurs when a consuming application passes an unsanitized node name/XPath into QOMWalker. There is no fixed HTTP endpoint or named request parameter - it depends entirely on the host application, so no faithful CVE-tied request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/jackalope/jackalope-doctrine-dbal/security/advisories/GHSA-ph98-v78f-jqrm",
+      "https://github.com/jackalope/jackalope-doctrine-dbal/commit/9d179a36d320330ddb303ea3a7c98d3a33d231db"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43806",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Tuleap CVS-repository commit browse/search SQL injection (authenticated). The advisory and fix commit do not disclose the exact HTTP path or injectable parameter, and GitHub blob/raw and the GHSA API are blocked in this environment, so the entry point could not be recovered. No generic/guessed path produced.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Enalean/tuleap/security/advisories/GHSA-x8fr-8gvw-cc4v",
+      "https://github.com/Enalean/tuleap/commit/b82be896b00a787ed46a77bd4700e8fccfe2e5ba"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43650",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Softwell WebRun 3.6.0.42 SQL injection via P_0 (login username). The full POST body and injectable parameter are known from exploit-db (action=executeRule...&P_0=...&P_1=pwd), but no source discloses the server-side URL/servlet path the request is sent to, and inventing a path would fail the CVE-tie condition. Body/param recoverable; path not public.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.exploit-db.com/exploits/50542",
+      "https://www.exploit-db.com/raw/50542",
+      "https://cyber.vumetric.com/vulns/softwell/webrun/",
+      "https://www.allsafe.com.tr/?p=580890"
+    ]
+  },
+  {
     "cve_id": "CVE-2021-43608",
     "group": "READY",
     "result": "DROPPED_NOT_WEB",
@@ -21540,6 +21597,98 @@
       "https://github.com/doctrine/dbal/commit/9dcfa4cb6c03250b78a84737ba7ceb82f4b7ba4d",
       "https://github.com/doctrine/dbal/security/advisories/GHSA-r7cj-8hjg-x622",
       "https://www.doctrine-project.org/2021/11/11/dbal3-vulnerability-fixed.html"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43408",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Copy Delete Posts / Duplicate Post WordPress plugin SQLi in post/handler.php. The CVE description gives no AJAX action or parameter. The only PoC/detail sources (plugins.trac.wordpress.org source browser and the AppCheck-NG advisory) are blocked in this environment (trac PROVENANCE_REQUIRED; AppCheck repeatedly PROVENANCE_REQUIRED). No advisory exposed the admin-ajax action + injected parameter, so a WAF request tied to the CVE cannot be built without guessing the action/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://plugins.trac.wordpress.org/browser/copy-delete-posts/tags/1.2.0/post/handler.php#L510",
+      "https://appcheck-ng.com/security-advisory-duplicate-post-wordpress-plugin-sql-injection-vulnerability/",
+      "https://cveawg.mitre.org/api/cve/CVE-2021-43408"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43362",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "MedData HBYS SQL injection. CVE description gives no path or parameter. Only PoC is a GitHub gist (gist.github.com/Blackh4n/...) which is blocked in this environment (PROVENANCE_REQUIRED). WebSearch surfaced only aggregator/tracker pages (INCIBE, Debian tracker, launchpad) with no endpoint or parameter. Cannot build without inventing the entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/Blackh4n/9d8feaf1cfb68f66de17361e85f616d4",
+      "https://www.incibe.es/en/incibe-cert/early-warning/vulnerabilities/cve-2021-43362",
+      "https://security-tracker.debian.org/tracker/CVE-2021-43362"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43361",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "MedData HBYS SQL injection. CVE description gives no path or parameter. The only PoC is a .txt in the bartutku/CVE-2021-43361 GitHub repo; GitHub raw/contents are blocked here (proxy 403, per-repo gh 403 requiring add_repo which is disallowed, and search/code is HTTP 429 rate-limited). WebSearch surfaced only tracker pages. Cannot build without inventing the entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/bartutku/CVE-2021-43361/blob/main/CVE-2021-43361.txt",
+      "https://raw.githubusercontent.com/bartutku/CVE-2021-43361/main/CVE-2021-43361.txt",
+      "https://security-tracker.debian.org/tracker/CVE-2021-43361"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43091",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "YesWiki SQL injection via the email parameter in the registration form. The parameter (email) is known but the CVE description and aggregator pages give no concrete path/action for the registration endpoint. PoC detail is on huntr.dev (blocked, PROVENANCE_REQUIRED) and the fix commit on GitHub (blocked). circl.lu confirmed only the parameter, not the path. Building the request would require guessing the YesWiki handler path, which fails condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.dev/bounties/07f245a7-ee9f-4b55-a0cc-13d5cb1be6e0/",
+      "https://github.com/yeswiki/yeswiki/commit/c9785f9a92744c3475f9676a0d8f95de24750094",
+      "https://vulnerability.circl.lu/vuln/CVE-2021-43091"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-43010",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Safedog Apache v4.0.30255 'SQL injection bypass'. This is a WAF-bypass technique against the Safedog product itself (a collection of evasion payloads in crow821/crowsec), not a vulnerability in a specific web application with a fixed path and parameter. There is no CVE-specific endpoint + named parameter to tie a request to, so no faithful CVE-specific WAF request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/crow821/crowsec/tree/master/bypass_safedog1025"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-42369",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Imagicle Application Suite SQLi via the Contact Manager 'Export to CSV' feature. No accessible source gave the exact HTTP path or injectable parameter; the Zigrin advisory and GitHub PoC were not fetchable (PROVENANCE_REQUIRED). Will not guess an endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://zigrin.com/advisories/imagicle-sql-injection-vulnerability-in-contacts-csv-export/",
+      "https://vulnerability.circl.lu/vuln/CVE-2021-42369",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-42369"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-42235",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "osTicket SQLi in the 'login and password reset process'. No accessible source (acunetix, circl, NVD) named the exact injectable parameter; the fix commit was not fetchable (per-repo GitHub API blocked, no add_repo). Will not guess the injectable field.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://acunetix.com/vulnerabilities/web/osticket-improper-neutralization-of-special-elements-used-in-an-sql-command-sql-injection-vulnerability-cve-2021-42235",
+      "https://github.com/osTicket/osTicket/commit/e28291022e662ffa754e170c09cade7bdadf3fd9"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-42185",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "wdja v2.1 SQLi in the 'foreground search function'. No accessible source confirmed the exact path or search parameter; the shadoweb/wdja issue and XingHe0 PoC report were not fetchable/searchable (per-repo API blocked, repo not in global search). Will not guess the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/XingHe0/Vulnerability-Report/blob/main/wdja%20v2.1.md",
+      "https://github.com/shadoweb/wdja/issues/12"
     ]
   },
   {
