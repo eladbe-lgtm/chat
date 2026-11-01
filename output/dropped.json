@@ -2557,6 +2557,86 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-2508",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Gravity Forms Booking / Gravity Bookings is a premium plugin (slug gf-bookings-premium); source is not on wordpress.org SVN and no PoC reproduces the request. Only the vulnerable 'staff_id' parameter (authenticated Subscriber+ time-based SQLi) is known; no path, AJAX action, REST route, or HTTP method is confirmable, so a faithful request cannot be built without guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/gf-bookings-premium/gravity-forms-booking-271-authenticated-subscriber-time-based-sql-injection-via-staff-id",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-2508/",
+      "https://gravitybooking.com/docs/gravity-forms-booking/changelog/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-2468",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "SQLi is via the 'qntn_wp_access' cookie, but get_json_cookie() runs sanitize_text_field() then base64_decode() then json_decode() before the injectable 'access' email values reach the SQL. The payload is therefore base64-encoded JSON on the wire (opaque), so no SQLi WAF signature can match the cookie. Spec says drop base64/opaque-on-wire payloads.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/653e20ae-f018-41b5-a973-f73fddae70e5?source=cve",
+      "https://plugins.trac.wordpress.org/browser/quentn-wp/tags/1.2.12/includes/class-quentn-wp-restrict-access.php#L483"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-2413",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "get_global_remediations() interpolates a page URL string into a SQL JOIN (page_url = '$url'), but $url is a function argument; the plugin source does not show how a request value (query param vs $_SERVER REQUEST_URI) reaches it, nor the route/permission. The injection also requires the Remediation module active (plugin connected to an Elementor account). No concrete named request parameter/route is confirmable, so a faithful request cannot be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/00e070b7-bdf6-4a80-a3ee-628243f1cc25?source=cve",
+      "https://plugins.trac.wordpress.org/browser/pojo-accessibility/tags/4.0.3/modules/remediation/database/remediation-entry.php#L215"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-2409",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Delinea Cloud Suite SQL injection (argument injection) known only from a vendor release-note/advisory. No PoC, no HTTP path, parameter, or method is published, so no CVE-specific request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://docs.delinea.com/online-help/cloud-suite/release-notes/cloud-suite/25.2.htm#Resolved",
+      "https://delinea.com/security-advisories"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-2283",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via 'blog_id' (multisite, admin-level) in the network-admin login list table. The CVE names only an internal source file (inc/admin/class-network-admin-login-list-table.php) and the parameter, not a reachable HTTP endpoint. The actual URL is a WP network-admin page slug (admin.php?page=...) that could not be confirmed: trac source and the GitHub mirror were not fetchable in this session (provenance/policy blocked) and repo clones are disallowed. Sending the parameter to a guessed admin page slug would fail the CVE-tie condition.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4552786b-3362-45bf-9012-cd52f69f0462?source=cve",
+      "https://plugins.trac.wordpress.org/browser/user-login-history/tags/2.1.7/inc/admin/class-network-admin-login-list-table.php",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-2283/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-2279",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via 'sort_by'/'sort_order' (admin-level) in myLinksDump.php. The CVE names the internal plugin source file and the parameters but not a reachable HTTP endpoint; the vulnerable code is an admin page whose menu slug could not be confirmed (trac source and GitHub mirror not fetchable in this session; clones disallowed). A guessed admin page slug would fail the CVE-tie condition.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/02b03c4a-1b2a-4fd0-887d-930229dc384f?source=cve",
+      "https://plugins.trac.wordpress.org/browser/mylinksdump/tags/1.6/myLinksDump.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-2232",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated time-based SQLi via 'search' in wc-product-table-lite search.php. The CVE names the internal source file search.php and the parameter, but the reachable HTTP entry point (admin-ajax.php action / REST route / or direct-file access) could not be confirmed from accessible sources: trac and the GitHub plugin mirror were not fetchable in this session (provenance/policy blocked) and clones are disallowed. The 'search' parameter sent to a guessed path would fail the CVE-tie condition.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f2891f3d-9081-4a9f-8408-2373ce1d0306?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wc-product-table-lite/tags/4.6.2/search.php",
+      "https://db.gcve.eu/vuln/cve-2026-2232"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-2176",
     "group": "READY",
     "result": "DROPPED_NOT_WEB",
@@ -4764,6 +4844,44 @@
       "https://wpscan.com/vulnerability/eb2f34bd-c626-4831-a886-c82882073bcd/",
       "https://fieldguide.lutrasecurity.com/CVE-2026-3430",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-3430"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3334",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CMS Commander is a remote-management 'worker'-type plugin. The SQLi in the restore workflow (lib/CMSC/Backup.php, params or_blogname/or_blogdescription/or_admin_email) is reached only through a signed, API-key-authenticated master->client management call whose payload arrives as a serialized/base64 blob, not as a plain WAF-visible HTTP parameter. No public endpoint + on-wire parameter is confirmable, and the SQLi signature is not expressible on the wire. Trac/Wordfence refs were not fetchable in this environment (GitHub/vendor provenance-blocked).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/0311b546-01a4-4be8-97f3-6df6cd79c3fe?source=cve",
+      "https://plugins.trac.wordpress.org/browser/cms-commander-client/tags/2.288/lib/CMSC/Backup.php#L1639",
+      "https://www.cve.org/CVERecord?id=CVE-2026-3334"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3359",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQLi via the 'inputs' parameter of Form Maker by 10Web (<=1.15.42). The parameter name is known but no reference gives the concrete front-end endpoint (admin-ajax action name or page/task) or HTTP method, and the zeropath write-up explicitly omits the request shape. Wordfence, the Trac fix changeset (3518461) and GitHub refs were not fetchable here (provenance-blocked). Building would require inventing the endpoint, which fails the CVE-tie condition.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f37cc880-d8a4-431a-9639-abf01163030a?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3518461/form-maker",
+      "https://researcher.branch.zeropath.com/blog/cve-2026-3359-form-maker-10web-sql-injection",
+      "https://www.cve.org/CVERecord?id=CVE-2026-3359"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3292",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "The vulnerable sink is the generic DB-library method findAll() in frphp/lib/Model.php (confirmed in source: public function findAll($conditions=null,...)), labelled 'Batch Interface' with argument 'data'. This is a library function, not a web-facing file, and no reference maps it to a concrete HTTP route + on-wire parameter. The authoritative PoC gist (0psPwn) is a github gist that is provenance-blocked here. Cannot build without inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/0psPwn/46468da7329f7c676c737b4b6b473ddc",
+      "https://vuldb.com/?id.348018",
+      "https://github.com/Cherry-toto/jizhicms (source: frphp/lib/Model.php findAll)",
+      "https://www.cve.org/CVERecord?id=CVE-2026-3292"
     ]
   },
   {
