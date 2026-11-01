@@ -22821,6 +22821,94 @@
     ]
   },
   {
+    "cve_id": "CVE-2021-24141",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WPScan advisory confirms admin+ SQLi in Advanced Database Cleaner <3.0.2 but gives no HTTP method, path, admin page/AJAX action or parameter. The only PoC is a Google Drive file that cannot be opened; the Trac changeset is blocked. No concrete path+parameter to build a faithful request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/5c8adca0-fe19-4624-81ef-465b8d007f93"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-23837",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "flatCore CMS <2.0.0 build 139 time-based blind SQLi via the selected_folder POST body parameter in the acp interface. The parameter is known from the CVE text, but the exact acp path was not confirmed: the PacketStorm PoC is behind a proof-of-work wall, the sec-consult reference is only a vulnerability-lab listing, and a GitHub code search for selected_folder was rate-limited (HTTP 429). Would not invent the acp endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/flatCore/flatCore-CMS",
+      "http://packetstormsecurity.com/files/160936/flatCore-CMS-XSS-File-Disclosure-SQL-Injection.html",
+      "https://sec-consult.com/vulnerability-lab/",
+      "https://www.cyberdetails.org/2021/01/cve-2021-23837.html"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-23405",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "pimcore <10.0.7 SQL injection via the unchecked storeId parameter in collectionsActionGet/groupsActionGet of ClassificationstoreController. The vulnerable controller and parameter are known, but the exact admin route path and HTTP method could not be confirmed: WebFetch of the fix PR returned PROVENANCE_REQUIRED (then poisoned WebFetch for the session) and GitHub code search was rate-limited. Would not invent the admin route path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/pimcore/pimcore/pull/9572",
+      "https://snyk.io/vuln/SNYK-PHP-PIMCOREPIMCORE-1316297"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-23214",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "PostgreSQL pre-auth SQL injection is exploited by a man-in-the-middle attacker injecting queries into the PostgreSQL wire protocol during connection establishment under trust/cert authentication. It is not an inbound HTTP request and cannot be expressed as a WAF webRequest.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.postgresql.org/support/security/CVE-2021-23214/",
+      "https://github.com/postgres/postgres/commit/28e24125541545483093819efae9bca603441951"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-22859",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "EIC e-document system SQLi in the 'users' data querying function'. Advisory names no concrete path or parameter. PoC gist (gist.github.com/tonykuo76/807c838b75879b0d327782dfcd2c3bea) and TWCERT advisory were not retrievable (github gists API session-blocked, WebFetch provenance-blocked, twcert.org.tw proxy-blocked 403). No concrete path+parameter could be confirmed; not guessing per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/tonykuo76/807c838b75879b0d327782dfcd2c3bea",
+      "https://www.twcert.org.tw/en/cp-139-4519-fa4aa-2.html",
+      "https://cvefeed.io/vuln/detail/CVE-2021-22859"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-22848",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "HGiga MailSherlock MSR45/SSR45 SQLi described only as 'a URL parameter of email pages' with no PoC and no named path or parameter. TWCERT advisory (twcert.org.tw) proxy-blocked. No concrete entry point; not guessing per SPEC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.twcert.org.tw/tw/cp-132-4521-a4fd8-1.html"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-21465",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "SAP Business Warehouse 'BW Database Interface' SQL injection. The attack surface is the ABAP BW Database Interface reached via SAP GUI/RFC function modules, not an inbound HTTP endpoint with a path+parameter. Packetstorm PoC behind proof-of-work wall. No HTTP request can faithfully represent this exploit.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "http://packetstormsecurity.com/files/167229/SAP-Application-Server-ABAP-ABAP-Platform-Code-Injection-SQL-Injection-Missing-Authorization.html",
+      "https://launchpad.support.sap.com/#/notes/2986980"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-21427",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "OpenMage magento-lts GHSA-fvrf-9428-527m. Despite the CWE-89 tag, the advisory describes an administrator gaining 'unauthorized access to restricted resources' (backport of CVE-2021-21024, an authorization/access-control flaw). There is no injection payload, named parameter, or attack signature to recreate; a path-only request fails condition 1 (no WAF signature).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/OpenMage/magento-lts/security/advisories/GHSA-fvrf-9428-527m"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-4935",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -22830,6 +22918,66 @@
       "https://wpscan.com/vulnerability/54bc1bf4-1033-49e2-aff9-a14c834c35bd/",
       "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/suretriggers/ottokit-all-in-one-automation-platform-1123-unauthenticated-sql-injection",
       "https://nvd.nist.gov/vuln/detail/cve-2026-4935"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36540",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names file /product.php but does NOT name the injectable argument ('The manipulation leads to sql injection'). No PoC link. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.159438"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36539",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names argument 'id' but no file/path ('some unknown processing'). No PoC link. Cannot build a request without a path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.159953"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36537",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names argument 'id' but no file/path ('an unknown function'). No PoC link. Cannot build a request without a path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.159954"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36536",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names file /main.php but does NOT name the injectable argument ('The manipulation leads to sql injection'). No PoC link. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.159956"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36136",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Parameter pm_sendmail is named 'in csz_model.php', which is a CodeIgniter model (not a directly reachable HTTP endpoint). The GitHub issue PoC (cskaza/cszcms#26) is blocked (PROVENANCE_REQUIRED). gh search returned no results. No concrete HTTP path + parameter could be confirmed without inventing the route.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/cskaza/cszcms/issues/26"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36074",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Description names only 'the title parameter' with no file/path. Sibling CVE-2020-36077 names orderadd.php/customer, but there is no confirmation the title param lives there. README PoC could not be read (WebFetch poisoned; gh code search 429 rate-limited). Cannot build without inventing the file.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Abdallah-Fouad-X/CVE-s/blob/main/README.md"
     ]
   },
   {

