@@ -6414,6 +6414,31 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-11204",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "RegistrationMagic (WordPress) authenticated (Administrator+) SQL injection in the reports service (services/class_rm_reports_service.php). Neither the MITRE/CVE record nor fetchable sources name the exact injectable parameter or the admin page / AJAX action that reaches it, and the Wordfence advisory page and the plugins.trac source could not be fetched (blocked). Per spec, no endpoint/parameter may be invented, so no faithful request can be built. The record also mentions an unauthenticated reflected XSS chain via the User-Agent header on form submission, but a User-Agent XSS is not expressible as a named-parameter payload tied to a confirmed path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/custom-registration-form-builder-with-submission-manager/registrationmagic-custom-registration-forms-user-registration-payment-and-user-login-6062-authenticated-administrator-sql-injection",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-11204",
+      "https://plugins.trac.wordpress.org/browser/custom-registration-form-builder-with-submission-manager/trunk/services/class_rm_reports_service.php?rev=3360241"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10878",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi auth bypass in AdminPando 1.0.1 login; username/password parameters are known, but no accessible source discloses the login endpoint path. The PoC repo README and the author's blog are both unfetchable (PROVENANCE_REQUIRED), gh code search returns no indexed content for the PoC repo, and NVD/INCIBE/CVE mirrors only repeat the prose description without a path. Must not guess the endpoint, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/onurcangnc/CVE-2025-10878-AdminPandov1.0.1-SQLi",
+      "https://onurcangenc.com.tr/posts/cve-2025-10878-sql-authentication-bypass-in-fikir-odalar%C4%B1-adminpando/",
+      "https://www.incibe.es/en/incibe-cert/early-warning/vulnerabilities/cve-2025-10878",
+      "https://nvd.nist.gov/vuln/detail/cve-2025-10878"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-10844",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -6423,6 +6448,97 @@
       "https://vuldb.com/?id.325206",
       "https://karinagante.github.io/cve-2025-10844/#proof-of-concept-poc",
       "https://nvd.nist.gov/vuln/detail/CVE-2025-10844"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10762",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "DooTask SQLi via keys[department]. Description names the Laravel controller file (app/Http/Controllers/Api/UsersController.php) and the argument (keys[department]) but not the HTTP route/path. A controller file is not a URL; the public API route (e.g. /api/users/...) could not be confirmed (GitHub issue #283 not retrievable this run, gh code search unauthenticated, WebFetch blocked). Would not invent the route path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/kuaifan/dootask/issues/283",
+      "https://vuldb.com/?id.325117",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-10762"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10748",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "RapidResult WordPress plugin SQLi via the 's' parameter (contributor-level). Wordfence names the parameter and the Trac line (rapidresult.php#L112) but not the reachable HTTP endpoint (shortcode render / page / AJAX action). The 's' parameter is handled inside the main plugin file, not a directly-accessible script, so no faithful path could be confirmed (Wordfence/Trac pages not retrievable this run, WebFetch blocked). Would not invent the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4e5d7d04-f73a-48ea-81e3-36a514c76cc6?source=cve",
+      "https://plugins.trac.wordpress.org/browser/rapidresult/tags/1.2/rapidresult.php#L112"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10743",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Outdoor WordPress plugin SQLi via the 'edit' action (unauthenticated), Trac actions.php#L73. The advisory names the action but not the injected parameter, nor the reachable HTTP endpoint (admin-ajax action name vs direct file). Without a confirmable parameter + path the payload cannot be placed faithfully (Wordfence/Trac not retrievable this run, WebFetch blocked). Would not invent.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/6038accc-98ac-496c-9c53-ec06b2045324?source=cve",
+      "https://plugins.trac.wordpress.org/browser/outdoor/trunk/actions.php#L73"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10740",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "URL Shortener Plugin for WordPress: missing capability check on the verifyRequest function (broken authorization / unauthorized modification of links). This is an access-control flaw with no injection payload or attack signature a WAF can match (condition 1 fails). Mislabeled as SQL injection in the queue; the actual CWE-862-style issue carries no malicious pattern.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/29cc5016-005e-48e8-b929-5064798f24da?source=cve",
+      "https://plugins.trac.wordpress.org/browser/exact-links/trunk/app/Http/Routes/api.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10738",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "URL Shortener Plugin for WordPress (exact-links) SQLi via the 'analytic_id' parameter (unauthenticated). Wordfence names the parameter and the model file (LinkAnalytics.php) plus a custom route file (app/Http/Routes/api.php), but the concrete reachable HTTP path (custom REST/API route) could not be confirmed (pages not retrievable this run, WebFetch blocked). Parameter known but path not confirmable; would not invent the route.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/1b4acf11-114a-4e97-89cd-1d387f14a730?source=cve",
+      "https://plugins.trac.wordpress.org/browser/exact-links/trunk/app/Models/LinkAnalytics.php?rev=3210852"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10730",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Wp tabber widget WordPress plugin SQLi via the 'wp-tabber-widget' shortcode (contributor-level). The injection is through a shortcode attribute rendered server-side, not a direct HTTP parameter/endpoint. Faithfully simulating it would require an authenticated post-save request carrying the shortcode, and the specific injectable attribute/endpoint is not confirmable (Wordfence/Trac not retrievable this run, WebFetch blocked). Would not invent.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/317e17ac-74bd-44cd-8bae-aa893c588a46?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-tabber-widget/trunk/wp-tabber-widget.php#L51"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10683",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the 'uid' parameter is confirmed (Patchstack/Wordfence), but requires Administrator access and the exact admin-page path/slug carrying uid is not public. The fix diff (trac changeset 3388578) and Wordfence advisory were inaccessible (trac WebFetch PROVENANCE_REQUIRED; Wordfence page returned empty), and the plugin zip download was blocked by the proxy (403). Only the parameter name is known, not the endpoint, so building would require inventing a path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://patchstack.com/database/wordpress/plugin/email-subscription-with-secure-captcha/vulnerability/wordpress-easy-email-subscription-plugin-1-3-authenticated-admin-sql-injection-via-uid-vulnerability",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/c2353d9d-d5ae-4470-9c0f-119acecd6686?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3388578/email-subscription-with-secure-captcha"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10682",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is reachable only via the 'id' attribute of the [tariffuxx_configurator] shortcode (Contributor+), i.e. the payload is embedded inside saved post content, not a direct keyed HTTP request parameter named id. There is no confirmable request-level parameter to key a WAF rule to (the injectable value rides inside the post 'content' body on save), so it cannot be expressed as a CVE-tied path+parameter request. The fix diff (trac changeset 3465105) was inaccessible (WebFetch PROVENANCE_REQUIRED) and the plugin zip download was proxy-blocked (403).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.cvelogic.com/cve/CVE-2025-10682",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-10682",
+      "https://plugins.trac.wordpress.org/changeset/3465105/"
     ]
   },
   {
