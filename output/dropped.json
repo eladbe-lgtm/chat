@@ -7589,6 +7589,56 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-5590",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Time-based SQLi via the 'id' parameter reaching query/db_gallery.php (line 57), requiring Contributor-level access. The parameter is known but the concrete HTTP entry point (admin page slug or AJAX action that feeds db_gallery.php) is not public. The Wordfence advisory is JS-only (empty when fetched), plugins.trac.wordpress.org is proxy-blocked (403), and no PoC HTTP request is available. Building a request line would require guessing the path, which fails condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/e1f230f5-d40c-43b2-82f2-c920dca9707f?source=cve",
+      "https://plugins.trac.wordpress.org/browser/responsive-owl-carousel/trunk/query/db_gallery.php#L57",
+      "https://cve.circl.lu/vuln/CVE-2025-5590",
+      "https://www.sentinelone.com/vulnerability-database/cve-2025-5590/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-5583",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB and every accessible mirror (circl.lu, ptsecurity) state only '/register.php ... the manipulation leads to SQL injection' with NO named parameter. The PoC filename (sqli_register.php.md) also carries no parameter, and the YZS17 GitHub PoC is provenance-blocked in this environment. Without the named parameter the payload cannot be placed faithfully and inventing a parameter is disallowed.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/YZS17/CVE/blob/main/CodeAstro_Real_Estate_Management_System/sqli_register.php.md",
+      "https://dbugs.ptsecurity.com/vulnerability/PT-2025-23791",
+      "https://cvepremium.circl.lu/vuln/fkie_cve-2025-5583"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-5563",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection via the 'wp-addpub' shortcode (authenticated Contributor+). The injectable shortcode ATTRIBUTE name and the exact storing HTTP request could not be determined: the Wordfence advisory and the plugin source (plugins.trac.wordpress.org) were not reachable during build (egress policy / provenance blocked), and GitHub code search was unavailable (invalid GH_TOKEN). Building the post-save request would require guessing the shortcode attribute, which would fail condition 2 (tied to the CVE). Dropped rather than invent a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f8945eed-eee4-4043-b6ab-d1ea553a4a23?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-addpub/trunk/wp-addpub.php#L541",
+      "https://plugins.trac.wordpress.org/browser/wp-addpub/trunk/wp-addpub.php#L57"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-5487",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "AutomatorWP WordPress plugin authenticated (admin+) time-based SQLi. The vulnerable parameter (field_conditions) is known, but no public source gives the concrete request path / AJAX action or REST route to reach it. The Wordfence advisory returned empty, the plugins.trac changeset and tags/5.2.3/.../all-posts.php browser pages were blocked (PROVENANCE_REQUIRED), and WPScan confirms only the parameter. Building a request would require guessing the admin-ajax action, which fails condition 2 (never invent an endpoint/action).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/automatorwp/automatorwp-525-authenticated-administrator-sql-injection-via-field-conditions",
+      "https://wpscan.com/vulnerability/049adacb-0969-4a9e-b960-41203c36cc14/",
+      "https://plugins.trac.wordpress.org/changeset?new=3307465%40automatorwp%2Ftrunk&old=3302138%40automatorwp%2Ftrunk",
+      "https://plugins.trac.wordpress.org/browser/automatorwp/tags/5.2.3/integrations/automatorwp/triggers/all-posts.php"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-5388",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -7623,6 +7673,31 @@
       "https://www.incibe.es/en/incibe-cert/early-warning/vulnerabilities/cve-2025-5384",
       "https://gitee.com/erzhongxmu/JEEWMS/issues/IC5FNV (provenance-blocked)",
       "https://vuldb.com/?id.310677"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-5170",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Entry point is a Java Spring controller method (AdminShitiController.AdminShitiListRequestVo, argument stTypeIds), not a flat file = URL. No PoC link is provided and no advisory, aggregator, nuclei template or WAF rule discloses the HTTP route that maps to this controller/action, so the request path cannot be determined without inventing it.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.310258",
+      "https://www.tenable.com/cve/CVE-2025-5170",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-5170",
+      "https://wx.mail.qq.com/s?k=oVXdxVkeZQAlUQwVe2"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-4928",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names the file /save_lawyer_edit_profile.php but names NO specific parameter ('The manipulation leads to sql injection ... Multiple parameters might be affected'). Spec forbids inventing a parameter. GitHub PoC (hhhanxx/attack issue 8) and cvefeed were provenance-blocked in this session, so no parameter could be recovered. Dropped rather than guess.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/hhhanxx/attack/issues/8",
+      "https://vuldb.com/?id.309490",
+      "https://cvefeed.io/vuln/detail/CVE-2025-4928"
     ]
   },
   {
