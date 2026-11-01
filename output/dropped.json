@@ -4097,6 +4097,43 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-9010",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PixelYourSite 'Boost' plugin time-based SQLi. The vulnerable parameters are named (current_url, user_name) but the exact server endpoint (admin-ajax action name or REST route) is not published anywhere reachable: the Wordfence advisory page renders only via JavaScript (empty over WebFetch), the plugin source is not mirrored on GitHub (gh search code found no match), and the WPScan link surfaced was for a different CVE. Building a request would require guessing the AJAX action/path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/1cac2397-bb38-40d6-b90d-68e3ea136267?source=cve",
+      "https://wpscan.com/vulnerability/14ec5a83-1b78-4500-9a6f-e567bcc3f319/",
+      "https://www.pixelyoursite.com/boost-plugin"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-8978",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "OptinCraft plugin authenticated (admin-level) SQLi via the 'order_by' parameter. The parameter and the affected source files (CampaignController.php, CampaignRepository.php, wpmvc Compiler.php) are known, but neither Wordfence nor the CVE record publishes the HTTP route, and the exact REST/AJAX endpoint could not be confirmed: the plugins.trac source files were blocked (PROVENANCE_REQUIRED), the plugin is not mirrored on GitHub, and plugintests did not expose the route. Determining the path would require guessing the wpmvc route namespace, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f28a95b0-0f7d-43c4-acf9-13c561245f4b?source=cve",
+      "https://plugins.trac.wordpress.org/browser/optincraft/tags/1.0.2/app/Http/Controllers/Admin/CampaignController.php#L37",
+      "https://wordpress.org/plugins/optincraft/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-8734",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Oinone Pamirs SQLi in RSQLToSQLNodeConnector.makeVariable of the queryListByWrapper interface. No HTTP endpoint path or request parameter is named in any reachable source: the VulDB submit pages are blocked, the GitHub issue PoC (SourByte05/SourByte-Lab#12) and offseq/releasealert pages give only the component/function name, not a path or parameter. Proprietary product with no public source to recover the route. Building a request would require guessing both path and parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SourByte05/SourByte-Lab/issues/12",
+      "https://radar.offseq.com/threat/cve-2026-8734-sql-injection-in-oinone-pamirs-53b070a1",
+      "https://releasealert.dev/github/SourByte05/SourByte-Lab/cves",
+      "https://vuldb.com/vuln/364322"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-8125",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4132,6 +4169,30 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-7688",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Dolibarr ERP CRM Shipments API SQLi via _checkValForAPI (htdocs/api/class/api.class.php, used by api_shipments.class.php). VulDB names only the generic argument 'fields' (the object properties sent in a create/update body), not a specific injectable wire parameter; _checkValForAPI iterates every field, and VulDB marks exploitation as high-complexity/difficult. The public PoC was unreachable (no poc_refs; only VulDB) and no specific vulnerable field could be confirmed, so building would require guessing which field reaches SQL. Per spec, never guess the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/360858",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-7688",
+      "https://radar.offseq.com/threat/cve-2026-7688-sql-injection-in-dolibarr-erp-crm-929b3058",
+      "https://github.com/Dolibarr/dolibarr (api.class.php _checkValForAPI, api_shipments.class.php index())"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7591",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "astro-mcp-server is a Model Context Protocol server; the SQL injection is in src/index.ts via the MCP tool argument request.params.arguments. The tainted value arrives inside a JSON-RPC MCP tool-call envelope consumed as a library/stdio API, not as a named server-side HTTP parameter on the wire, so there is no faithful, WAF-signaturable inbound HTTP request to build (spec \u00a73.4).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/TimBroddin/astro-mcp-server/issues/2",
+      "https://vuldb.com/vuln/360544"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-7389",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4155,6 +4216,32 @@
       "https://github.com/frappe/frappe/security/advisories/GHSA-2c4m-999q-xhx4",
       "https://fieldguide.lutrasecurity.com/CVE-2026-31877",
       "https://osv.dev/vulnerability/CVE-2026-31877"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7206",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "dubydu sqlite-mcp is a Python MCP server (SQL injection in the extract_to_json function in src/entry.py via the output_filename argument). The vulnerable input is an MCP tool-call argument delivered over JSON-RPC (stdio/SSE), not a named parameter of a server-side web application. No HTTP route or on-the-wire HTTP parameter is published, and the argument would sit inside an opaque JSON-RPC body, so there is no standard WAF signature surface tied to a path+parameter. Fits spec 3.4 drop criteria (library / Python API, parameter not named as an HTTP param). Offseq/NVD rate it network-reachable but neither names a protocol or HTTP endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://radar.offseq.com/threat/cve-2026-7206-sql-injection-in-dubydu-sqlite-mcp-2e443e21",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-7206",
+      "https://vuldb.com/vuln/359806",
+      "https://github.com/dubydu/sqlite-mcp/commit/a5580cb992f4f6c308c9ffe6442b2e76709db548 (gh/WebFetch access blocked in this session)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7083",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "likeadmin_php <=1.9.6 SQL injection in the queryResult() function of server/app/adminapi/lists/tools/DataTableLists.php (dataTable Admin API). The advisory names only the backend PHP file and function; no HTTP parameter name and no concrete admin-API route are published, and the GitHub PoC issue (#8) was unreachable (provenance-blocked). gh search code confirmed the file/function exist but a single matched line gives no injectable request parameter. Per spec the parameter must be named and never guessed, so no faithful request could be built. No WAF rule or nuclei template found.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/359658",
+      "https://api.osv.dev/v1/vulns/CVE-2026-7083",
+      "https://github.com/likeadmin-likeshop/likeadmin_php/ (gh search code: DataTableLists.php queryResult confirmed)",
+      "https://github.com/likeadmin-likeshop/likeadmin_php/issues/8 (PoC, unreachable)"
     ]
   },
   {
