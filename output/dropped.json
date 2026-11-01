@@ -5531,6 +5531,39 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-15494",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi sink is UserMapper.xml with argument 'Username'. The PoC (github.com/xkalami-Tta0/CVE) is unreachable (PROVENANCE_REQUIRED) and the VulDB description names only the mapper XML file, not an HTTP endpoint. The RainyGao/DocSys source confirms login.do/getUserByName exist but no endpoint exposing a parameter named 'Username' into an injectable UserMapper query could be confirmed for the affected 2.02.37 version (only the diverged mirror RainyGao-GitHub/DocSys is code-searchable, and it does not expose this param). Endpoint/parameter not confirmable without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/xkalami-Tta0/CVE/blob/main/DocSys/SQL%E6%B3%A8%E5%85%A52.02.37.md",
+      "https://vuldb.com/?id.340272",
+      "https://radar.offseq.com/threat/cve-2025-15494-sql-injection-in-rainygao-docsys-b9ed3d2b"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-15477",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection is via the Bucketlister shortcode's 'category' and 'id' attributes, which are stored inside WordPress post content by an authenticated Contributor and only executed when the post containing the shortcode is rendered. There is no direct inbound HTTP request carrying a named parameter 'category'/'id' that triggers the query; the injection is a stored/second-order sink reached through shortcode rendering, so no confirmable path+parameter HTTP request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/fba36ebc-a396-4eb8-8cb6-afc50b9c974e?source=cve",
+      "https://plugins.trac.wordpress.org/browser/the-bucketlister/tags/0.1.5/bucketlister.php#L19"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-15441",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Form Maker by 10Web SQLi occurs only when the admin-only 'MySQL Mapping' feature is in use. The WPScan reference gives no path, parameter, or HTTP request, and no PoC/fix diff exposing a concrete entry point was obtainable. Spec forbids guessing the path/parameter, so no faithful request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/41f69b0a-4d17-4a6b-b803-ea1c370e3cc0/"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-15392",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -5659,6 +5692,30 @@
       "https://vuldb.com/?id.337424",
       "https://nvd.nist.gov/vuln/detail/CVE-2025-14899",
       "https://github.com/YZS17/CVE/blob/main/CodeAstro_Real_Estate_Management_System/stateadd.php-sqli.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14770",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Shipping Rate By Cities WordPress plugin SQLi. Wordfence/Patchstack/NVD confirm the vulnerable value is the 'city' parameter, but the only technical reference is a source line (shiprate-cities-method-class.php#L372) inside a WooCommerce WC_Shipping_Method class. 'city' is an internal $package destination field populated via the WooCommerce shipping/checkout AJAX (e.g. update_order_review / calc_shipping_city), not a directly-named HTTP endpoint+parameter. No PoC, nuclei template, or WAF rule naming the exact request path/wire-parameter is public, and the plugin source at line 372 is not readable here (trac WebFetch blocked, no github mirror accessible, repo clones disallowed). Cannot satisfy condition 2 (confirmed path+parameter) without guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/11e7e798-9fb9-4cff-a96f-a0003f203f5f?source=cve",
+      "https://plugins.trac.wordpress.org/browser/shipping-rate-by-cities/trunk/shiprate-cities-method-class.php#L372",
+      "https://patchstack.com/database/wordpress/plugin/shipping-rate-by-cities/vulnerability/wordpress-shipping-rate-by-cities-plugin-2-0-0-unauthenticated-sql-injection-via-city-parameter-vulnerability"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14719",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Relevanssi (Free < 4.26.0, Premium < 2.29.0) Contributor+ SQL injection. Public sources (WPScan, NVD, cvelogic) state only that 'a parameter' is not sanitized before use in a SQL statement and that contributor+ roles can exploit it; none names the parameter, endpoint, or HTTP method. WPScan PoC page is gated. Relevanssi exposes an 'orderby' search parameter historically linked to ORDER BY injection, but mapping this specific CVE to 'orderby' would be a guess. Cannot satisfy condition 2 (confirmed path+parameter) without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/bd8e27c7-8f97-4313-b16e-50ac6f0676f5/",
+      "https://www.cvelogic.com/cve/CVE-2025-14719",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-14719"
     ]
   },
   {
