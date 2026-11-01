@@ -8492,6 +8492,35 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-2010",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "JobWP plugin SQLi confirmed in the 'jobwp_upload_resume' parameter (fix in core/job_application.php), but the exact AJAX action / endpoint path could not be confirmed. The nuclei template (projectdiscovery CVE-2025-2010) and WordPress trac changeset exist but were unreachable from this session (GitHub/trac provenance-blocked, downloads.wordpress.org egress-blocked, projectdiscovery template body JS-rendered). Spec forbids guessing the admin-ajax action, so dropped. Resumable: read the nuclei template or plugin source to obtain the action name, then build POST /wp-admin/admin-ajax.php with action=<confirmed> and jobwp_upload_resume=' OR 1=1-- -.",
+    "waf_rules_found": [
+      "nuclei: projectdiscovery CVE-2025-2010 (content unreadable from this session)"
+    ],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/b3b658f0-b9d8-4b7f-8d40-39ce185ef797?source=cve",
+      "https://cloud.projectdiscovery.io/library/CVE-2025-2010",
+      "https://cve.socradar.io/cve/CVE-2025-2010",
+      "https://www.cvelogic.com/cve/CVE-2025-2010",
+      "https://plugins.trac.wordpress.org/changeset/3271612/jobwp/tags/2.4.0/core/job_application.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-1958",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "aaluoxiang oa_system (oasys) SQLi via the 'outtype' argument. The named location is a MyBatis mapper file (src/main/resources/mappers/address-mapper.xml), which is a data-layer file, not an HTTP path. The Spring MVC controller route/URL that reaches this query and the HTTP method could not be confirmed from accessible sources (GitHub PoC provenance-blocked; no readable controller mapping found; gh search code returned nothing). Spec forbids inventing an endpoint, so dropped. Resumable: read the oasys AddressController @RequestMapping to recover the URL for the outtype parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/qkdjksfkeg/cve_article/blob/main/oasys/SQL%20injection.md",
+      "https://vuldb.com/?id.298559",
+      "https://www.tenable.com/cve/CVE-2025-1958",
+      "https://gitee.com/xue_mu/oa_system"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-1843",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -8628,6 +8657,31 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-1117",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CoinRemitter 0.0.1/0.0.2 OpenCart SQL injection via the 'coin' argument. The VulDB/CVE description states the vulnerable part is unknown ('This affects an unknown part') and gives no OpenCart route/controller. The only entry-point source is the mcdruid PoC gist, which was not retrievable (all GitHub/gist and raw hosts are policy-blocked 403/provenance in this session). Building a request would require guessing the OpenCart index.php?route= endpoint, which is forbidden. Parameter 'coin' is known but the path is not.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/mcdruid/d4bdd8ffb8988bce9408c6bac40a15c5",
+      "https://github.com/CoinRemitter/opencart/releases/tag/0.0.3",
+      "https://vuldb.com/?id.295023",
+      "https://www.cve.org/CVERecord?id=CVE-2025-1117"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0959",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Eventer (WordPress Event & Booking Manager) <= 3.9.9.2 SQL injection via the 'reg_id' parameter, authenticated Subscriber+. The Wordfence advisory names the parameter but not the endpoint (the AJAX action / admin-ajax action or REST route). The Wordfence page returned empty and could not be re-fetched, and the plugin is paid (CodeCanyon) so no public source/fix diff is reachable; all GitHub/raw hosts are policy-blocked. Building would require guessing the admin-ajax action name, which is forbidden (fails condition 2). Parameter 'reg_id' is known but the path/action is not.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/bd42c89e-57db-458f-910c-404a5615f280?source=cve",
+      "https://codecanyon.net/item/eventer-wordpress-event-manager-plugin/20972534",
+      "https://www.cve.org/CVERecord?id=CVE-2025-0959"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-14785",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -8667,6 +8721,56 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-0866",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Legoeso PDF Manager time-based SQLi via 'checkedVals' in a WP_List_Table bulk action (class-pdf-doc-list-table.php, Author+). Parameter is known but the concrete entry point (admin page slug / bulk-action URL that receives checkedVals) could not be determined: Wordfence advisory is JS-rendered (empty to fetch) and the plugins.trac/svn source was provenance-blocked. Would require guessing the admin page path, so dropped per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/5e640767-7998-4404-a894-0b1794464c66?source=cve",
+      "https://plugins.trac.wordpress.org/browser/legoeso-pdf-manager/trunk/inc/admin/class-pdf-doc-list-table.php",
+      "https://cvemon.intruder.io/cves/CVE-2025-0866"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0861",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VR-Frases plugin SQLi via 'several parameters' (vr-frases-admin.php, Admin+ per Wordfence). Advisory names neither the specific injectable parameter names nor a concrete endpoint/admin page; Wordfence is JS-rendered and plugins.svn/trac source was blocked (client_error / provenance). No determinable path+parameter, so dropped per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/1d9d5afb-d38d-442c-8511-f1683739a1da?source=cve",
+      "https://plugins.svn.wordpress.org/vr-frases/tags/3.0.1/includes/vr-frases-admin.php",
+      "https://www.cvelogic.com/cve/CVE-2025-0861"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0821",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Bit Assist plugin time-based SQLi via 'id' (WidgetChannelController.php, Subscriber+). Parameter is known but the concrete route could not be determined: SentinelOne notes exploitation targets the plugin's authenticated endpoints via /wp-json/ or admin-ajax 'generally' without naming the route; Wordfence JS-rendered, plugins.trac source provenance-blocked. Would require guessing the REST route/action path, so dropped per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/b64fc9d8-ea02-49e7-add1-8d83f0f41431?source=cve",
+      "https://plugins.trac.wordpress.org/browser/bit-assist/tags/1.5.2/backend/app/HTTP/Controllers/WidgetChannelController.php",
+      "https://www.sentinelone.com/vulnerability-database/cve-2025-0821/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0723",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ProfileGrid WordPress plugin SQLi via rid and search parameters (confirmed), Subscriber+ auth, handled in class-profile-magic-request.php / class-profile-magic-chat-system.php (WP admin-ajax.php AJAX action). The exact wp_ajax action name needed to route the request could not be confirmed: the trac source files and the Wordfence advisory detail were blocked by fetch provenance, and the plugin zip download (downloads.wordpress.org) is policy-denied (403). Parameter is known but the full admin-ajax endpoint/action could not be recovered without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/140fa6e8-4381-4df2-af62-44d40b116daf?source=cve",
+      "https://plugins.trac.wordpress.org/browser/profilegrid-user-profiles-groups-and-communities/tags/5.9.4.2/includes/class-profile-magic-request.php#L2379",
+      "https://plugins.trac.wordpress.org/browser/profilegrid-user-profiles-groups-and-communities/tags/5.9.4.2/includes/class-profile-magic-chat-system.php#L39",
+      "https://cvefeed.io/vuln/detail/CVE-2025-0723",
+      "https://www.tenable.com/cve/CVE-2025-0723"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-0558",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -8676,6 +8780,58 @@
       "https://github.com/ggg48966/123123/blob/main/TDuckCloud.md",
       "https://vuldb.com/?id.292492",
       "https://www.sentinelone.com/vulnerability-database/cve-2025-0558/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0410",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "liujianview gymxmjpa 1.0 Spring/JPA SQLi. VulDB names only the Java controller MenberConntroller.java (method MenberDaoInpl) and the argument hyname, not an HTTP route. The @RequestMapping path is needed to build a CVE-tied request but is not public: the GitHub PoC issue is provenance-blocked and raw.githubusercontent.com is policy-blocked (403) in this session, so the controller source could not be read, and stack.watch/advisories confirm no route is published. The parameter name alone is insufficient without the path (spec forbids guessing the endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/liujianview/gymxmjpa/issues/10",
+      "https://vuldb.com/?id.291286",
+      "https://raw.githubusercontent.com/liujianview/gymxmjpa/main/src/main/java/com/liujian/gymxmjpa/controller/MenberConntroller.java",
+      "https://stack.watch/vuln/CVE-2025-0410/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0409",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "liujianview gymxmjpa 1.0 Spring/JPA SQLi. VulDB names only the Java controller MembertypeController.java (method MembertypeDaoImpl) and the argument typeName, not an HTTP route. The @RequestMapping path is needed to build a CVE-tied request but is not public: the GitHub PoC issue is provenance-blocked and raw.githubusercontent.com is policy-blocked (403) in this session, so the controller source could not be read, and stack.watch/advisories confirm no route is published. The parameter name alone is insufficient without the path (spec forbids guessing the endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/liujianview/gymxmjpa/issues/9",
+      "https://vuldb.com/?id.291285",
+      "https://raw.githubusercontent.com/liujianview/gymxmjpa/main/src/main/java/com/liujian/gymxmjpa/controller/MembertypeController.java",
+      "https://stack.watch/vuln/CVE-2025-0409/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0408",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "liujianview gymxmjpa 1.0 Spring/JPA SQLi. VulDB names only the Java controller LoosController.java (method LoosDaoImpl) and the argument loosName, not an HTTP route. The @RequestMapping path is needed to build a CVE-tied request but is not public: the GitHub PoC issue is provenance-blocked and raw.githubusercontent.com is policy-blocked (403) in this session, so the controller source could not be read, and stack.watch/advisories confirm no route is published. The parameter name alone is insufficient without the path (spec forbids guessing the endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/liujianview/gymxmjpa/issues/8",
+      "https://vuldb.com/?id.291284",
+      "https://raw.githubusercontent.com/liujianview/gymxmjpa/main/src/main/java/com/liujian/gymxmjpa/controller/LoosController.java",
+      "https://stack.watch/vuln/CVE-2025-0408/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0407",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "liujianview gymxmjpa 1.0 Spring/JPA SQLi. VulDB names only the Java controller EquipmentController.java (method EquipmentDaoImpl) and the argument hyname, not an HTTP route. The @RequestMapping path is needed to build a CVE-tied request but is not public: the GitHub PoC issue is provenance-blocked and raw.githubusercontent.com is policy-blocked (403) in this session, so the controller source could not be read, and stack.watch/advisories confirm no route is published. The parameter name alone is insufficient without the path (spec forbids guessing the endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/liujianview/gymxmjpa/issues/7",
+      "https://vuldb.com/?id.291283",
+      "https://raw.githubusercontent.com/liujianview/gymxmjpa/main/src/main/java/com/liujian/gymxmjpa/controller/EquipmentController.java",
+      "https://stack.watch/vuln/CVE-2025-0407/"
     ]
   },
   {
