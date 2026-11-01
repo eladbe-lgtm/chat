@@ -4065,6 +4065,84 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-51825",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "JeecgBoot /jeecg-boot/online/cgreport/head/parseSql takes a JSON body whose 'sql' field is Base64-encoded and decoded server-side (the parseSql controller Base64-decodes before running the blacklist check that this CVE bypasses). The SQL keywords therefore never appear in plaintext on the wire, so an OWASP CRS 942 SQLi signature cannot match it. Per spec, Base64/opaque-on-wire payloads are dropped. Endpoint and attack class are confirmed, but it is not a valid WAF signature test.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-51825",
+      "https://db.fluidattacks.com/adv/maven/org.jeecgframework.boot%3Ajeecg-boot-base-core/CVE-2025-51825",
+      "https://cvefeed.io/vuln/detail/CVE-2025-51825",
+      "https://r4gd0ll.github.io/2025/JEECGBOOT_BYPASS_SQLInject.html (blocked: PROVENANCE_REQUIRED)",
+      "https://github.com/jeecgboot/JeecgBoot/issues/8335 (not accessible)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-51683",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "mJobtime v15.7.2 blind SQLi via POST to the ASP.NET page method /Default.aspx/update_profile_Server. The path and POST method are confirmed, but the injectable JSON field/parameter name is only in the InfoGuard advisory, which is not fetchable (PROVENANCE_REQUIRED); NVD/MITRE/news articles do not name it. Per spec, never invent a parameter: path known but parameter not confirmable -> dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-51683",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-51683",
+      "https://cybersecuritynews.com/attackers-exploiting-mjobtime-app-vulnerability/amp/",
+      "https://labs.infoguard.ch/advisories/cve-2025-51682_cve-2025-51683_time_management_softare_sqli-rce/ (blocked: PROVENANCE_REQUIRED)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-51667",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "simple-admin-core /sys-api/role/update 'limited SQL injection'. The endpoint and method (POST JSON) are known, but the specific injectable field (orderBy/sort/etc.) is only in GitHub issue #333 and a Gist, both inaccessible (PROVENANCE_REQUIRED); NVD/GitLab/offseq do not name the field. A 'limited' injection with an unknown field cannot be faithfully reproduced without guessing the parameter -> dropped per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-51667",
+      "https://radar.offseq.com/threat/cve-2025-51667-na-f4fbba25",
+      "https://advisories.gitlab.com/pkg/golang/github.com/suyuan32/simple-admin-core/CVE-2025-51667/",
+      "https://github.com/suyuan32/simple-admin-core/issues/333 (not accessible)",
+      "https://gist.github.com/66Giraffe66/fc258f7fcc65a6a1a1a01e217977b92d (blocked: PROVENANCE_REQUIRED)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-51510",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "MoonShine (moonshine-tree-resource <2.0.2) SQLi reached through the Laravel MoonShine admin panel 'Blog -> Categories' tree resource. No concrete HTTP route + parameter is public; the advisory only names the UI page, and the PoC repos (GiacoLenzo2109/MoonShine_Software_PoCs) were not fetchable (GitHub provenance-blocked). Cannot build a faithful request line without inventing the route/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-51510",
+      "https://github.com/GiacoLenzo2109/MoonShine_Software_PoCs",
+      "https://github.com/lee-to/moonshine-tree-resource"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-51092",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "LogIn-SignUp (VishnuSivadasVS) SQLi lives in DataBase.php logIn()/signUp() which concatenate user input. The advisory and Mend.io name only the internal file/functions, not the on-the-wire endpoint path, HTTP method or form field names. The only write-up (abimelsbk.hashnode.dev) was provenance-blocked. Cannot determine a confirmable request path/parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://abimelsbk.hashnode.dev/sql-injection-vulnerability-at-login-signup-php-project",
+      "https://mend.io/vulnerability-database/CVE-2025-51092",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-51092"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-50984",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "diskover-web v2.3.0 Community Edition boolean-blind SQLi in the Elasticsearch configuration form POST params (ES_HOST, ES_PASS, ES_PORT, ...). The injectable parameters are well documented, but no source (NVD, Tenable, INCIBE, vuln.today) gives the exact endpoint/PHP file the form POSTs to; that path is only in the 4rdr/proofs write-up, which was provenance-blocked (GitHub). Cannot build a request line without inventing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/4rdr/proofs/blob/main/info/diskover-web-v2.3.0-community-edition-sqli.md",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-50984",
+      "https://www.tenable.com/cve/CVE-2025-50984",
+      "https://www.incibe.es/en/incibe-cert/early-warning/vulnerabilities/cve-2025-50984"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-50229",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4409,6 +4487,107 @@
       "https://cert-portal.siemens.com/productcert/html/ssa-318832.html",
       "https://stack.watch/vuln/CVE-2025-40755",
       "https://www.sentinelone.com/vulnerability-database/cve-2025-40755/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-40623",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "INCIBE/CVE text names only a web-service operation ('createNotificationAndroid') and parameters ('Sender','email'), with no URL path, HTTP method, or wire format (query vs SOAP/XML vs JSON). TCMAN GIM is proprietary; no PoC, nuclei template, or public source confirms the path. Building would require inventing the endpoint path and parameter location, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-tcmans-gim",
+      "https://www.cve.org/CVERecord?id=CVE-2025-40623"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-40622",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Names only the 'GetLastDatePasswordChange' operation and 'username' parameter, no URL path/method/wire format. TCMAN GIM is proprietary; no PoC or public source confirms the HTTP path. Cannot build without inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-tcmans-gim",
+      "https://www.cve.org/CVERecord?id=CVE-2025-40622"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-40621",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Names only the 'ValidateUserAndGetData' operation and 'User' parameter, no URL path/method/wire format. TCMAN GIM is proprietary; no PoC or public source confirms the HTTP path. Cannot build without inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-tcmans-gim",
+      "https://www.cve.org/CVERecord?id=CVE-2025-40621"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-40620",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Names only the 'ValidateUserAndWS' operation and 'User' parameter, no URL path/method/wire format. TCMAN GIM is proprietary; no PoC or public source confirms the HTTP path. Cannot build without inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-tcmans-gim",
+      "https://www.cve.org/CVERecord?id=CVE-2025-40620"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34247",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advantech WebAccess/VPN is closed-source. CVE/advisory name only a PHP controller.action (NetworksController.addNetworkAction) and a generic 'datatable search parameters', with no HTTP path and no specific parameter name. The VulnCheck advisory with the real request was not retrievable (PROVENANCE_REQUIRED). Public mirrors (stack.watch, osv.dev) carry no path/param. Cannot confirm path+parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-networkscontroller",
+      "https://stack.watch/vuln/CVE-2025-34246/",
+      "https://www.cve.org/CVERecord?id=CVE-2025-34247"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34246",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Closed-source Advantech WebAccess/VPN. Names only AjaxPrevalidationController.ajaxAction and generic 'datatable search parameters', no HTTP path or specific parameter. VulnCheck advisory not retrievable (PROVENANCE_REQUIRED); public mirrors give no request details. Cannot build without inventing path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxprevalidationcontroller",
+      "https://stack.watch/vuln/CVE-2025-34246/",
+      "https://www.cve.org/CVERecord?id=CVE-2025-34246"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34245",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Closed-source Advantech WebAccess/VPN. Names only AjaxStandaloneVpnClientsController.ajaxAction and generic 'datatable search parameters', no HTTP path or specific parameter. VulnCheck advisory not retrievable (PROVENANCE_REQUIRED). Cannot build without inventing path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxstandalonevpnclientscontroller",
+      "https://www.cve.org/CVERecord?id=CVE-2025-34245"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34244",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Closed-source Advantech WebAccess/VPN. Names only AjaxFwRulesController.ajaxDeviceFwRulesAction and generic 'datatable search parameters', no HTTP path or specific parameter. VulnCheck advisory not retrievable (PROVENANCE_REQUIRED). Cannot build without inventing path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxfwruelscontroller-ajaxdevicefwrulesaction",
+      "https://www.cve.org/CVERecord?id=CVE-2025-34244"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34243",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Closed-source Advantech WebAccess/VPN. Names only AjaxFwRulesController.ajaxNetworkFwRulesAction and generic 'datatable search parameters', no HTTP path or specific parameter. VulnCheck advisory not retrievable (PROVENANCE_REQUIRED); confirmed via gh search (cvelistV5, vulnrichment, GHSA) that only the controller.action name is public. Cannot build without inventing path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxfwrulescontroller-ajaxnetworkfwrulesaction",
+      "https://www.cve.org/CVERecord?id=CVE-2025-34243"
     ]
   },
   {
