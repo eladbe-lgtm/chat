@@ -11644,6 +11644,104 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-12744",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "SQL injection is inside the Amazon Redshift JDBC Driver's getSchemas/getTables/getColumns metadata APIs (Java method calls that build queries from schema/table/column name-pattern arguments). There is no inbound HTTP endpoint/parameter to send a WAF request to.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/aws/amazon-redshift-jdbc-driver/security/advisories/GHSA-8596-2jgr-ppj7",
+      "https://aws.amazon.com/security/security-bulletins/AWS-2024-015/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12614",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "This CVE is a missing-capability-check (broken access control / CSRF) issue on the pms_save_setting and post_new_pass AJAX actions - no injection payload. The malicious request carries no WAF-detectable attack signature (it is a normal settings/password-add request), so condition 1 cannot be met. (The separate SQLi CVEs for the same plugin, 12613/12615, are built.)",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/898c5554-fd02-47a2-a1f9-1c488cfab57e?source=cve",
+      "https://plugins.svn.wordpress.org/passwords-manager/tags/1.4.8/include/pms-passwords-ajax-action.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12609",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE names the 'view-attendance' page and the mj_smgt_view_student_attendance() function but does NOT name the injectable parameter. Plugin is premium (CodeCanyon), source not public; Wordfence page is JS-rendered (empty via fetch) and aggregators only restate the CVE text. Could not confirm a named parameter without guessing, so dropped per spec (never invent a parameter).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a8790df5-7228-4854-870c-1e6d3d0cfbaa?source=cve",
+      "https://cvefeed.io/vuln/detail/CVE-2024-12609"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12612",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE says injection 'via several parameters across multiple AJAX actions' without naming any specific parameter or action. Plugin is premium (CodeCanyon), source not public; Wordfence page JS-rendered (empty via fetch), aggregators only restate CVE text. No concrete path+parameter found, so dropped per spec (never invent a parameter).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/258877a7-670c-4a3c-8107-47dc7ba6a5ed?source=cve"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12109",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Admin+ SQLi in Product Labels For Woocommerce; neither the vulnerable parameter nor the endpoint/action is named in any public source. WPScan/Wordfence advisory is JS-rendered (empty on fetch) and GitHub/trac diff access was blocked this session. No concrete path+parameter to build without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/2eca2f88-c843-4794-8cd9-46f17c92753a/",
+      "https://cvemon.intruder.io/cves/CVE-2024-12109",
+      "https://security-tracker.debian.org/tracker/CVE-2024-12109"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12031",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the floating_content_duplicate_post function in Advanced Floating Content; the vulnerable parameter is not named in any accessible source (Wordfence advisory JS-rendered, cvefeed/cvemon do not reproduce it, trac diff blocked). Cannot identify the named parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/927076bc-bafa-43d6-bf3b-5861844c932a?source=cve",
+      "https://cvefeed.io/vuln/detail/CVE-2024-12031"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12030",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the 'key' attribute of the [mdf_value] shortcode in MDTF. The payload is carried inside post_content as a shortcode attribute (Contributor stores a post), not as a discrete HTTP request parameter sent to a named endpoint. No clean path+parameter a WAF rule can target; no direct HTTP entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d2ead824-2722-4b09-8387-e064dee371c1?source=cve"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-12023",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via 'formId' in FULL - Cliente (elementor-crm Hooks.php). The parameter is named but the endpoint/admin-ajax action and HTTP method are not public in any accessible source (Wordfence JS-rendered, circl.lu/NVD do not reproduce, trac source blocked). PRO-only. Cannot build a tied path without inventing the action.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/86e990ae-6bfe-4f2b-8c37-b0675430a638?source=cve",
+      "https://vulnerability.circl.lu/vuln/CVE-2024-12023"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-11958",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "SQL injection is in the duckdb_retriever component of the run-llama/llama_index Python library (SQL built without prepared statements, reachable via the library API, leading to local RCE by installing the duckdb shellfs extension). There is no inbound HTTP request / server-side web endpoint exposed by the CVE, so it cannot be expressed as a WAF webRequest.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.com/bounties/8ddf66e1-f74c-4d53-992b-76bc45cacac1",
+      "https://github.com/run-llama/llama_index/commit/35bd221e948e40458052d30c6ef2779bc965b6d0"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-13242",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -11735,6 +11833,19 @@
     "links_checked": [
       "https://www.wordfence.com/threat-intel/vulnerabilities/id/208c8f55-14e0-47c4-b310-dd7b7edbadd4?source=cve",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-13011"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-11009",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Authenticated (admin) time-based SQLi in the 'post_id' parameter of the Pagup Automatic Internal Links for SEO WordPress plugin. Only the parameter name is public; no admin-ajax action, REST route or admin page path could be confirmed from Wordfence, aggregators, or search. gh API blocked for this session (add_repo forbidden) and the trac changeset was not fetchable without provenance, so the concrete endpoint could not be recovered. Cannot tie path+parameter to the CVE.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/35a690c5-dc7e-4bb7-be5b-c70bd0ea7d10?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3197510/",
+      "https://cvepremium.circl.lu/vuln/ghsa-qm6j-3575-m93v",
+      "https://patchstack.com/database/wordpress/plugin/automatic-internal-links-for-seo"
     ]
   },
   {
