@@ -4463,6 +4463,17 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-5100",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is via the ARRAY KEYS of the 'regions' request parameter on the AWP Classifieds search page. The parameter is read by awpcp_get_var() in frontend/page-search-ads.php, but that template is loaded only through the plugin's shortcode (frontend/shortcode.php), so it runs on an install-specific WordPress page (page_id/slug and search view are not fixed). No canonical path or PoC request exists, so a faithful request cannot be built without guessing the path. Parameter confirmed; path not confirmable.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/7908d167-f831-4ed0-b754-2b390b5c3b2c?source=cve",
+      "https://plugins.trac.wordpress.org/browser/another-wordpress-classifieds-plugin/tags/4.4.4/frontend/page-search-ads.php#L63"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-4935",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4512,6 +4523,31 @@
       "https://www.wordfence.com/threat-intel/vulnerabilities/id/7e963601-dc41-4218-9119-708c74e51bc2?source=cve",
       "https://plugins.trac.wordpress.org/browser/easy-sticky-sidebar/tags/1.7.4/inc/ClassActions.php#L193",
       "https://plugins.svn.wordpress.org/easy-sticky-sidebar/tags/1.7.4/inc/ClassActions.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4608",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ProfileGrid WordPress plugin blind SQLi via the 'rid' parameter (authenticated, Subscriber+). The parameter is known from Wordfence/CVE, but the exact HTTP entry point (admin-ajax.php action name / REST route handling rid) could not be confirmed: Wordfence advisory, plugins.trac.wordpress.org source and changeset, and the plugin ZIP download were all blocked by proxy policy (403) or returned empty; aggregator PoCs only restate the VulDB/CVE text. Building would require guessing the AJAX action, which fails condition 2 (tied-to-CVE). No generic payload sent to a guessed path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/3f58ed72-5a0b-4b43-ad76-7730c79741da?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3491679/",
+      "https://plugins.trac.wordpress.org/browser/profilegrid-user-profiles-groups-and-communities/trunk/includes/class-profile-magic-request.php#L2448",
+      "https://downloads.wordpress.org/plugin/profilegrid-user-profiles-groups-and-communities.5.9.8.4.zip"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4593",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "erupt EruptDataQuery (erupt-ai/.../EruptDataQuery.java) HQL injection in the 'MCP Tool Interface' component. The input is an LLM/MCP tool-call argument, not a named HTTP parameter: the advisory gives no HTTP path and no argument name, and the data flows through the AI/MCP tool layer (analogous to spec's MetaGPT eval-of-LLM-output case). No faithfully reconstructable inbound WAF HTTP request (no confirmable path + parameter). No generic payload sent to a guessed path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.352430",
+      "https://github.com/erupts/erupt (erupt-ai module source)",
+      "https://www.cve.org/CVERecord?id=CVE-2026-4593"
     ]
   },
   {
