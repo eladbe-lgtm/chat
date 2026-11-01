@@ -3040,6 +3040,116 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-15478",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "IceHRM SQL injection in core/src/Reports/User/Reports/EmployeeAttendanceReport.php via the employeeList argument (UserReport Endpoint). The vulnerable source file and parameter are known, but the exact inbound HTTP endpoint used to invoke the report (path/method/how employeeList is submitted) is not public in any non-GitHub source. The GitHub issue PoC (issues/376) and the raw source (raw.githubusercontent / jsDelivr) are provenance-gated and could not be fetched from this environment, so the endpoint path would have to be guessed. Per spec, never invent an endpoint; dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/gamonoid/icehrm/issues/376",
+      "https://radar.offseq.com/threat/cve-2026-15478-sql-injection-in-icehrm-13c7d17f2f0427ad",
+      "https://osv.dev/vulnerability/CVE-2026-15478",
+      "https://api.osv.dev/v1/vulns/CVE-2026-15478",
+      "https://raw.githubusercontent.com/gamonoid/icehrm/master/core/src/Reports/User/Reports/EmployeeAttendanceReport.php",
+      "https://cdn.jsdelivr.net/gh/gamonoid/icehrm@master/core/src/Reports/User/Reports/EmployeeAttendanceReport.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15361",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Content Views (< 4.5) SQL injection via an AJAX action missing a capability check (WPScan vuln name 'preview_request'). The WPScan page explicitly withholds the PoC (scheduled for 2026-09-10) and does not name the AJAX action or the injectable parameter. The plugin's SVN trunk files returned 404 at the probed paths and the Wordfence source is blocked in this environment, so the exact action and parameter could not be confirmed. Building would require guessing the action/parameter; per spec, dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/3fa62b23-a0a7-4b42-b8dd-0eb6e01972b2/",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-15361/",
+      "https://plugins.svn.wordpress.org/content-views-query-and-display-post-page/trunk/content-views-query-and-display-post-page.php",
+      "https://plugins.svn.wordpress.org/content-views-query-and-display-post-page/trunk/readme.txt"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15335",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "REST route POST /wp-json/booking-package/v1/request (permission_callback __return_true) confirmed, but the injectable 'email' is nested inside a per-form (form<N>) data structure whose exact request-body shape is not public, and the value passes through is_email(), which rejects a clean SQL signature. Cannot place a faithful, WAF-detectable payload in the exact parameter without inventing the body.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/8bc86a29-cb1f-4711-925c-51dbbf682477?source=cve",
+      "https://plugins.svn.wordpress.org/booking-package/tags/1.7.20/index.php",
+      "https://www.cve.org/CVERecord?id=CVE-2026-15335"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15300",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via distance/lat/lng read from $_SERVER['QUERY_STRING'] in gmw_locations_query() during the GEO my WP posts-locator proximity search. That query runs via the posts_clauses filter on a WP_Query triggered from a site-specific page hosting the GMW search-form/results shortcode; there is no fixed plugin path or AJAX action to target. No search AJAX action exists in the plugin for this path. Exact inbound path is not determinable without guessing a page, so dropped per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ecbc7f05-fc4f-4276-968e-04222a64e55a?source=cve",
+      "https://github.com/Fitoussi/geo-my-wp (plugins/posts-locator/includes/class-gmw-wp-query.php gmw_locations_query)",
+      "https://www.cve.org/CVERecord?id=CVE-2026-15300"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15289",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Time-based SQLi via 'wpdevart_id' requires the Pro version with the 'Delete previous dates' option enabled; the vulnerable sink lives in the paid Pro code, which is not publicly available. In the free source the parameter is cast with %d / esc_html (not injectable), so the exact injectable action and query context cannot be confirmed. Dropped to avoid guessing the sink.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/8c052622-ac99-4069-b7df-41aea303ed9d?source=cve",
+      "https://plugins.svn.wordpress.org/booking-calendar/trunk/includes/main_class.php",
+      "https://www.cve.org/CVERecord?id=CVE-2026-15289"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15281",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "Second-order SQLi: a malicious objectId is first stored via the WordPress core save-attachment-compat AJAX action (saveAjaxAttachmentData) and only later retrieved and imploded into a NOT IN() clause in addQueryExcludedPostFilter(). The stored value is an integer-like array key, so no inline SQL attack signature appears on the wire in the storing request, and the triggering request is a normal page view. No single faithful request carries a WAF-detectable signature.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/8ebfc52b-278c-49d5-9226-d28a59335d46?source=cve",
+      "https://plugins.svn.wordpress.org/user-access-manager/tags/2.3.12/src/Controller/Frontend/PostController.php",
+      "https://www.cve.org/CVERecord?id=CVE-2026-15281"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15137",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names file \\inc\\classes\\View.php argument ID. View.php is an internal included PHP class (reads $_GET['id'] into a questions query), not a directly web-reachable endpoint; the actual calling page (URL) that invokes the vulnerable method could not be determined and the GitHub PoC issue (github.com/susususua-AI/CVE/issues/2) is inaccessible from this environment (provenance-blocked / API not enabled). Building would require guessing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/susususua-AI/CVE/issues/2",
+      "https://vuldb.com/vuln/376952",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-15137/",
+      "https://github.com/Prajeesh-A/Interview_management_System (source mirror)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15073",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Second 'orderby' SQLi sink in KiviCare DoctorSessionController (lines L648/L660), distinct from CVE-2026-15072. Same injectable parameter and same controller base route (kivicare/v1/doctor-sessions), but the distinct REST sub-route/method for this second sink could not be confirmed from available online sources without guessing, and would otherwise duplicate the CVE-2026-15072 request. Wordfence page returned no content and plugin trac is blocked here.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4f5ff7bc-9443-4b34-abd3-dac800f162a1?source=cve",
+      "https://github.com/WordPressBugBounty/plugins-kivicare-clinic-management-system (source mirror)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15067",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Snowflake Terraform Provider SQL/DDL injection. The injection occurs through Terraform workspace variables / data-source and resource inputs executed under the provider's Snowflake session; it is a Terraform provider (IaC CLI/library), not an inbound HTTP request to a WAF-protected web server. No server-side inbound HTTP signature to simulate.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/snowflakedb/terraform-provider-snowflake/releases"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-15062",
     "group": "READY",
     "result": "DROPPED_NOT_WEB",
@@ -3214,6 +3324,18 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-13766",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "DBIx::QuickORM is a Perl ORM library (SQL::Abstract subclass that never sets quote_char, so caller-supplied identifiers like order_by/where column keys reach SQL raw). The vulnerability is a code-level API issue: injection only occurs if a host application forwards untrusted input into an affected identifier position. There is no inbound HTTP endpoint, path, or parameter defined by the library itself, so no faithful WAF web request can be built. Fix is a library patch (0.000026) that quotes identifiers.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/exodist/DBIx-QuickORM/commit/43d7684682050780f056f25e1879191fb0a3265e.patch",
+      "https://metacpan.org/release/EXODIST/DBIx-QuickORM-0.000026/changes",
+      "https://www.cve.org/CVERecord?id=CVE-2026-13766"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-13569",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -3259,6 +3381,52 @@
       "https://github.com/drose025/security/blob/main/1.md",
       "https://vuldb.com/cve/CVE-2026-13529",
       "https://www.cve.org/CVERecord?id=CVE-2026-13529"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-12582",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "Library Management System <3.5.8 SQLi via 'book_id' at admin-ajax.php (action=owt7_front_handler, param=owt7_lms_do_user_checkout). Per the WPScan PoC the SQL payload is sent base64-encoded in book_id (e.g. base64 of '0 UNION SELECT SLEEP(5),1-- -'), so the injection is opaque on the wire and carries no SQLi signature a WAF can match. Dropped per spec (base64/opaque payload).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/762dd8c3-8972-46ef-90c2-9f3f5dce4370/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-12283",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Amazon aws-athena-query-federation Synapse connector SQL injection via a crafted table name. The injection occurs inside the Java/Lambda federated-query connector when it builds a query for Azure Synapse from a table name supplied through the Athena SQL interface; there is no inbound server-side HTTP request with a named parameter that a WAF inspects. Not an inbound HTTP web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://aws.amazon.com/security/security-bulletins/2026-059-aws/",
+      "https://osv.dev/vulnerability/CVE-2026-12283"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-12079",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Dokan Pro <= 5.0.4 authenticated SQLi via the 'orderby' parameter. The parameter is named, but no public source gives the exact endpoint/path (AJAX action or REST route). Dokan Pro is a closed-source paid plugin, so there is no trac fix diff or PoC exposing the route. Building would require guessing the path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dokan-pro/dokan-pro-504-authenticated-subscriber-sql-injection-via-orderby-parameter",
+      "https://cvefeed.io/vuln/detail/CVE-2026-12079",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-12079"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-12077",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Dokan Pro <= 5.0.4 unauthenticated time-based SQLi via the 'latitude' and 'longitude' parameters. Parameters are named, but no public source gives the exact endpoint/path (AJAX action or REST route). Dokan Pro is closed-source, so no trac fix diff or PoC exposing the route. Building would require guessing the path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dokan-pro/dokan-pro-504-unauthenticated-sql-injection-via-latitude-and-longitude-parameters",
+      "https://cvefeed.io/vuln/detail/CVE-2026-12077",
+      "https://www.ionix.io/threat-center/cve-2026-12077/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-12077"
     ]
   },
   {
@@ -3356,6 +3524,45 @@
     "waf_rules_found": [],
     "links_checked": [
       "https://github.com/nicolargo/glances/security/advisories/GHSA-49g7-2ww7-3vf5"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11480",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "BeikeShop second-order SQL injection via 'settings.value' in the Admin Design Builder. The description only names a Laravel routes source file (beike/Admin/Routes/admin.php), not a reachable HTTP URL path, and does not state how settings.value is submitted on the wire. Second-order (stored then triggered) and admin-authenticated. PoC commit, the anonymous.4open.science report, and the VulDB PoC were not reachable, so no concrete endpoint/parameter-on-wire could be confirmed. Not guessing a path/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://osv.dev/vulnerability/CVE-2026-11480",
+      "https://vuldb.com/vuln/369100",
+      "https://github.com/beikeshop/beikeshop/commit/2fa9805411088069fcc3b0c15b2f1f33d6e09958",
+      "https://anonymous.4open.science/r/beikeshop-4B75/second-order-sqli-report.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11475",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Kushan2k student-management-system SQL injection in getStatus of controllers/GradeController.php (Certificate Verification Endpoint), argument nic. The description names only an MVC controller source file, not a reachable URL route, and does not say how nic is passed. The PoC GitHub issue (issues/2) returned PROVENANCE_REQUIRED and no public source gave the route. Not guessing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cve.report/CVE-2026-11475",
+      "https://releasealert.dev/github/Kushan2k/student-management-system/cves",
+      "https://vuldb.com/vuln/369095",
+      "https://github.com/Kushan2k/student-management-system/issues/2"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11473",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "jflyfox jfinal_cms SQL injection in the list function of AdvicefeedbackController.java, argument orderBy. The description names only a Java controller source file, not a reachable URL route, and does not state how orderBy is passed. The PoC GitHub issue (issues/62) was unreachable (PROVENANCE_REQUIRED) and the gitee source could not be fetched (rate limit); no public source confirmed the admin route. Not guessing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://radar.offseq.com/threat/cve-2026-11473-sql-injection-in-jflyfox-jfinalcms-5fa4c920",
+      "https://cvefeed.io/vuln/detail/CVE-2026-11473",
+      "https://vuldb.com/vuln/369093",
+      "https://github.com/jflyfox/jfinal_cms/issues/62"
     ]
   },
   {
