@@ -22909,6 +22909,108 @@
     ]
   },
   {
+    "cve_id": "CVE-2021-21380",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "XWiki Ratings API Rating Script Service exposes an SQL API without escaping 'from'/'where' arguments. Exploited by a user with Script rights writing a wiki-script macro inside page content, not via a fixed HTTP path+named parameter. The injection point is a scripting-API argument embedded in authored page content, so no stable path/parameter signature can be built for a WAF.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/xwiki/xwiki-platform/security/advisories/GHSA-79rg-7mv3-jrr5",
+      "https://jira.xwiki.org/browse/XWIKI-17662"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4450",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Post Grid WordPress plugin blind SQLi 'via post metadata' (authenticated contributor). The description names no concrete HTTP path or single request parameter; the payload is stored in post meta and later flows into a query. plugins.trac fix diff is blocked in this environment and Wordfence gives no PoC request, so the exact storing request + parameter could not be confirmed. No guessed endpoint built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a321b112-ce37-4a0e-800f-f3feef6ac799?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/2644269"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4336",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ITRS monitor-ninja SQLi in modules/reports/models/scheduled_reports.php. VulDB names the file but not the HTTP route or request parameter. The fix commit (GitHub) could not be read (github blobs blocked, gh per-repo API 403, gh global code search rate-limited), and no write-up exposes the path+parameter. No endpoint guessed.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ITRS-Group/monitor-ninja/commit/6da9080faec9bca1ca5342386c0421dca0a6c0cc",
+      "https://vuldb.com/?id.230084"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4313",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "NethServer phonehome SQLi in get_info/get_country_coor of server/index.php. VulDB names the file/functions but not the specific GET parameter carrying the injection. Fix PR/commit on GitHub could not be read (github blocked, gh per-repo 403, gh global search rate-limited); no write-up gives the parameter. No endpoint guessed.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/NethServer/nethserver-phonehome/pull/10",
+      "https://github.com/NethServer/nethserver-phonehome/commit/759c30b0ddd7d493836bbdf695cf71624b377391",
+      "https://vuldb.com/?id.218393"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4308",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WebPA SQLi described as 'some unknown processing' with no file, path or parameter in the advisory. Fix commit on GitHub could not be read (github blocked, gh per-repo 403, gh global search rate-limited). No concrete HTTP entry point available.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/WebPA/WebPA/pull/87",
+      "https://github.com/WebPA/WebPA/commit/8836c4f549181e885a68e0e7ca561fdbcbd04bf0",
+      "https://vuldb.com/?id.217637"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4301",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "phpwcms SQLi via the argument $phpwcms['db_prepend']. This is an internal configuration array value (DB table prefix from the config file / installer), not a user-supplied HTTP request parameter, so it is not reachable as a path+parameter for a WAF signature at request time.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/slackero/phpwcms/commit/77dafb6a8cc1015f0777daeb5792f43beef77a9d",
+      "https://vuldb.com/?id.217418"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4298",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Hesburgh Libraries Sipity (Ruby on Rails) SQLi in SearchCriteriaForWorksParameter (app/parameters/.../search_criteria_for_works_parameter.rb). VulDB names the Ruby class but not the HTTP route or request parameter name. Fix commit on GitHub could not be read (github blocked, gh per-repo 403, gh global search rate-limited). No concrete path+parameter to build without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ndlib/sipity/commit/d1704c7363b899ffce65be03a796a0ee5fdbfbdc",
+      "https://vuldb.com/?id.217179"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4290",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "DHBW 'Fallstudie' (Node.js) SQLi in app/config/passport.js login (argument id/email). The injection is in the passport local-strategy auth query, but the advisory gives no concrete HTTP route for the login POST. Fix commit on GitHub could not be read (github blocked, gh per-repo 403, gh global search rate-limited); building would require guessing the login path. Dropped rather than invent an endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/maboehm/fallstudie/commit/5c13c6a972ef4c07c5f35b417916e0598af9e123",
+      "https://vuldb.com/?id.216907"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4276",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "dns-stats hedgehog SQLi in DSCIOManager::dsc_import_input_from_source (src/DSCIOManager.cpp), a C++ data-import routine on the Data Manager server. The advisory explicitly states exploitation assumes a compromised Data Manager server and the product is unsupported; the sink is a local/internal C++ import function, not an inbound HTTP request with a path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/dns-stats/hedgehog/pull/190",
+      "https://github.com/dns-stats/hedgehog/commit/58922c345d3d1fe89bb2020111873a3e07ca93ac",
+      "https://vuldb.com/?id.216746"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-4935",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -22918,6 +23020,73 @@
       "https://wpscan.com/vulnerability/54bc1bf4-1033-49e2-aff9-a14c834c35bd/",
       "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/suretriggers/ottokit-all-in-one-automation-platform-1123-unauthenticated-sql-injection",
       "https://nvd.nist.gov/vuln/detail/cve-2026-4935"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4262",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi in getRows() of src/Mgallegos/LaravelJqgrid/Repositories/EloquentRepositoryAbstract.php. This is a reusable Laravel/Composer library (laravel-jqgrid) that processes jqGrid AJAX parameters (sidx/sord/filters), but it ships no fixed HTTP route or path; the endpoint is defined by the host application. No concrete path/parameter can be reconstructed without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/mgallegos/laravel-jqgrid/pull/72",
+      "https://github.com/mgallegos/laravel-jqgrid/commit/fbc2d94f43d0dc772767a5bdb2681133036f935e",
+      "https://vuldb.com/?id.216271"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4208",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ExportFeed WordPress plugin SQLi via the product_id POST parameter, exploitable by high-privilege (admin) users. The WPScan advisory names the parameter but not the admin page slug / admin-ajax action / REST route that receives it. WebFetch was poisoned by an earlier PROVENANCE_REQUIRED prompt and wpscan.com could not be read, so the exact endpoint could not be confirmed. Building would require guessing the WordPress admin path, which fails condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/0cf63b44-f709-4ba4-be14-1eea934c2007"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-4134",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Fancy Product Designer WordPress plugin SQLi via the ID parameter in inc/api/class-view.php, exploitable by administrators. The file and parameter are named but the HTTP route (REST namespace or admin-ajax action) that maps to class-view.php is not public; the Wordfence advisory could not be fetched (WebFetch poisoned, wordfence blocked). No concrete path can be reconstructed without inventing the WordPress endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/vulnerability-advisories/#CVE-2021-4134",
+      "https://vulnerability.circl.lu/vuln/CVE-2021-4134"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-3958",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ipack SCADA Software blind SQL injection (TR-CERT/USOM-style vendor advisory). The only PoC is a .txt file in paradessia/cve; GitHub blob/raw is blocked and per-repo contents API returns 403, and the vendor description publishes no path or parameter. No concrete HTTP entry point available.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/paradessia/cve/blob/main/Ipack-Scada-Automation.txt",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-3958"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-3860",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "JFrog Artifactory (Enterprise+ only) blind SQL injection by a low-privileged authenticated user due to incomplete validation in an SQL query. Neither the vendor bulletin nor any accessible source names the vulnerable REST path or parameter; the packetstorm PoC is behind a proof-of-work wall. No concrete path/parameter to build a faithful request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "http://packetstormsecurity.com/files/177162/JFrog-Artifactory-SQL-Injection.html",
+      "https://www.jfrog.com/confluence/display/JFROG/CVE-2021-3860%3A+Artifactory+Low+Privileged+Blind+SQL+Injection"
+    ]
+  },
+  {
+    "cve_id": "CVE-2021-3817",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "wbce_cms SQL injection (CWE-89). The huntr report is blocked, the packetstorm reference is an 'Admin Password Reset' write-up behind a proof-of-work wall, and the fix commit could not be read (GitHub blob/raw blocked, per-repo API 403). The description does not name a path or parameter, so no faithful request could be reconstructed without guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.dev/bounties/c330dc0d-220a-4b15-b785-5face4cf6ef7",
+      "https://github.com/wbce/wbce_cms/commit/6ca63f0cad5f0cd606fdb69a372f09b7d238f1d7",
+      "http://packetstormsecurity.com/files/165377/WBCE-CMS-1.5.1-Admin-Password-Reset.html"
     ]
   },
   {
@@ -22978,6 +23147,17 @@
     "waf_rules_found": [],
     "links_checked": [
       "https://github.com/Abdallah-Fouad-X/CVE-s/blob/main/README.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-36072",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE text names only the 'id' parameter for Tailor Management System v.1 with no page/file. The sibling CVEs (36071 email.php/customer, 36073 document.php/detail) name specific pages, but 36072 does not, and the shared PoC README (Abdallah-Fouad-X/CVE-s) could not be retrieved (WebFetch returned PROVENANCE_REQUIRED and GitHub code search was rate-limited/429). Cannot determine the vulnerable page without guessing, so not built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Abdallah-Fouad-X/CVE-s/blob/main/README.md",
+      "https://www.cve.org/CVERecord?id=CVE-2020-36072"
     ]
   },
   {
