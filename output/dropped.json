@@ -4319,6 +4319,42 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-6991",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "colinhacks Zod is a TypeScript/JavaScript schema-validation library. The 'SQL injection' label refers to a regex in packages/zod/src/v4/core/regexes.ts (CUID data-type handler) and is a dubious VulDB classification. There is no server-side HTTP endpoint, no path and no parameter to target; a WAF cannot see a library call. Not an inbound web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/359543",
+      "https://nvd.nist.gov/vuln/detail/cve-2026-6991",
+      "https://radar.offseq.com/threat/cve-2026-6991-sql-injection-in-colinhacks-zod-78af498c"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-6674",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WordPress plugin 'CMS fuer Motorrad Werkstaetten' <= 1.0.0, authenticated (subscriber+) SQL injection via the 'arttype' parameter in includes/cfmw-positions.php (lines 202/207). Parameter name is known, but the HTTP entry point (shortcode page, admin-ajax action or REST route that reaches this include) is not published. Plugin is not on GitHub, the Wordfence CVE record gives only the parameter, plugins.trac source pages are blocked (PROVENANCE_REQUIRED) and the downloads.wordpress.org plugin zip is blocked by the proxy (403). Cannot confirm method+path without guessing, so dropped per spec (never guess the path).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/af4bd5f6-4f0e-4035-8544-48154a05cef1?source=cve",
+      "https://plugins.trac.wordpress.org/browser/cms-fuer-motorrad-werkstaetten/tags/1.0.0/includes/cfmw-positions.php#L207",
+      "https://cvefeed.io/vuln/detail/CVE-2026-6674",
+      "https://downloads.wordpress.org/plugin/cms-fuer-motorrad-werkstaetten.1.0.0.zip"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-6626",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Cockpit-HQ Cockpit <= 2.13.5 NoSQL injection in the Asset Handler/Aggregate Handler (CWE-943), label_confidence low. The CVE description names no parameter ('improper neutralization of special elements in data query logic') and the PoC repo NicolasPauferro/studiesofnosqli has no readable content. No parameter is named anywhere, so the exact injection point cannot be determined without guessing; NoSQL operators on the wire would also be opaque. Dropped per spec (never guess the parameter).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/358261",
+      "https://github.com/NicolasPauferro/studiesofnosqli"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-30951",
     "group": "READY",
     "result": "DROPPED_NOT_WEB",
@@ -4371,6 +4407,79 @@
       "https://github.com/wing3e/public_exp/issues/19",
       "https://vuldb.com/vuln/354654",
       "https://github.com/AlejandroArciniegas/mcp-data-vis"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-5206",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the component 'Payment Handler' and the injectable arguments (Payment_id/Amount/customer_id/payment_type/customer_name) but no file/endpoint path. Affected code is explicitly 'unknown'. PoC (github.com/maidangdang1/CVE/issues/5) is a GitHub issue that is blocked on fetch (PROVENANCE_REQUIRED). gh code search for the Simple Gym Management System source returned nothing. No concrete path confirmable without guessing, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/354336",
+      "https://cvefeed.io/vuln/detail/CVE-2026-5206",
+      "https://github.com/maidangdang1/CVE/issues/5"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-5195",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB/NVD describe only the 'User Registration Handler' component with no file path and no named parameter ('manipulation can lead to sql injection'). craftedsignal and cvefeed mirrors confirm no file or field name. PoC (github.com/maidangdang1/CVE/issues/1) blocked on fetch. No concrete path + parameter, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/354293",
+      "https://feed.craftedsignal.io/briefs/2026-04-student-membership-sql-injection/",
+      "https://github.com/maidangdang1/CVE/issues/1"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-5182",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names argument 'searchteacher' but the 'file' is literally the product name ('file Teacher Record System'), i.e. no real endpoint path. fieldguide/mondoo/NVD mirrors give no php file. gh code search for 'searchteacher' returned only unrelated C++/C#/Java desktop projects; exploit-db hits were the unrelated older 'Teachers Record Management System' (CVE-2021-26822). PoC (github.com/dyh1213-wq/cve/issues/6) blocked on fetch. Cannot determine the request path without guessing, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/vuln/354250",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-5182",
+      "https://nvd.nist.gov/vuln/detail/cve-2026-5182",
+      "https://github.com/dyh1213-wq/cve/issues/6"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4935",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "OttoKit: All-in-One Automation Platform (SureTriggers) WordPress plugin < 1.1.23 unauthenticated SQLi. The CVE/WPScan/Wordfence description is generic ('does not properly sanitize user input before using it in a SQL statement') and names no REST route, action, or parameter. The WPScan PoC page is not reachable in this session (WebFetch blocked) and no nuclei template or fix diff exposing the concrete endpoint/parameter was found via gh search or web search. Building a WordPress REST SQLi request would require guessing the route and parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/54bc1bf4-1033-49e2-aff9-a14c834c35bd/",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/suretriggers/ottokit-all-in-one-automation-platform-1123-unauthenticated-sql-injection",
+      "https://nvd.nist.gov/vuln/detail/cve-2026-4935"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4834",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP ERP Pro (premium plugin) unauthenticated SQLi via the 'search_key' parameter. The Wordfence advisory and CVE name only the parameter, not the HTTP endpoint/path, AJAX action or REST route. WP ERP Pro is a paid plugin with no public source (no GitHub/trac copy found via gh search code), so the request path/action cannot be confirmed. Building would require guessing the admin-ajax action, which fails condition 2 (tied to the CVE). The parameter+payload alone would be a generic payload to a guessed path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d3849db8-5c9e-410e-be53-c9ab76162630?source=cve",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/erp-pro/wp-erp-pro-151-unauthenticated-sql-injection-via-search-key-parameter",
+      "https://wperp.com/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4574",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB/NVD description names only the component 'User Profile Update Handler' and the argument firstName - no file path. The only path source is the PoC on a code host (raw.githubusercontent / jsdelivr), which is provenance-blocked in this session, and gh code search returned no source file. Per spec we do not invent a path, so no faithful request can be built. Parameter (firstName) and class (SQLi) are confirmed; only the endpoint is missing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/meifukun/Web-Security-PoCs/blob/main/Simple-E-learning-System/SQLi-UserProfile-firstName.md",
+      "https://vulnerability.circl.lu/vuln/cve-2026-4574",
+      "https://vuldb.com/?id.352411"
     ]
   },
   {
