@@ -2503,6 +2503,63 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-29047",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GLPI authenticated SQLi 'via the logs export feature'. The GHSA advisory, NVD, fieldguide and CVE record give no HTTP path, parameter or PoC, and no public fix diff/nuclei/WAF rule surfaced that names the logs-export endpoint or the injectable parameter. Building a request would require guessing the path and parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/glpi-project/glpi/security/advisories/GHSA-3m49-qf92-vccr",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-29047",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-29047"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-28785",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ghostfolio SQLi via getHistorical() reached by bypassing symbol validation in the manual asset import feature (second-order). Neither the GHSA advisory, the 2.244.0 release notes (only 'Refactored queries in the data provider service to use Prisma safe query methods') nor any PoC names the API route/controller or the exact request shape for the symbol parameter. No faithful path+parameter could be confirmed, so building it would require guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ghostfolio/ghostfolio/security/advisories/GHSA-m5cc-7jw5-34xp",
+      "https://github.com/ghostfolio/ghostfolio/releases/tag/2.244.0",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-28785"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-28438",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "CocoIndex Doris target connector SQLi via an unvalidated table name. The table name comes from application code / upstream config, not from an inbound HTTP parameter on a server endpoint. No path/parameter to send as an HTTP request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/cocoindex-io/cocoindex/security/advisories/GHSA-59g6-v3vg-f7wc",
+      "https://github.com/cocoindex-io/cocoindex/commit/ba2fc4a89e22d35572c64bd2990737c7913b0729"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-28211",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "NVDA Dev & Test Toolbox add-on: Python expressions embedded in a maliciously crafted local log file are eval'd when the user opens and reads it with log reader commands. Local file + user interaction, not an inbound HTTP request. (CWE-943 label is misleading; it is code eval of a local file.)",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox/security/advisories/GHSA-39pg-6xpm-mjgf",
+      "https://github.com/CyrilleB79/NVDA-Dev-Test-Toolbox/commit/21a0544432b08971b5d18320e8256be12c610bea"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-28399",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "NocoDB DATEADD formula 'unit' SQLi: injection lives inside a formula expression (knex.raw) and only bypasses a Literal-node check; quote characters are stripped. No concrete column-create endpoint/parameter documented and the on-the-wire payload is a formula expression, not a classic SQL signature a WAF would reliably block. Both conditions uncertain; dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/nocodb/nocodb/security/advisories/GHSA-45rp-9p97-h852",
+      "https://github.com/nocodb/nocodb/releases/tag/0.301.3"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-27697",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -2535,6 +2592,244 @@
       "https://github.com/discourse/discourse/security/advisories/GHSA-m6qf-h49w-h38w",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-27149",
       "https://osv.dev/vulnerability/CVE-2026-27149"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-26263",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated time-based blind SQLi in GLPI's Search engine (FAQ). Advisory and all write-ups (lutrasecurity, craftedsignal) give no concrete path or parameter; GLPI search uses complex criteria[] arrays and the injectable parameter is not published. No WAF rule/nuclei template found. Cannot build without guessing the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/glpi-project/glpi/security/advisories/GHSA-346p-qj3v-9rxj",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-26263",
+      "https://feed.craftedsignal.io/briefs/2026-04-glpi-sql-injection/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-26198",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Ormar is a Python async ORM. The injection is in the QuerySet.min()/max() methods, which pass an attacker-supplied column name into sqlalchemy.text(). This is a library/Python-API sink, not an inbound HTTP request with a fixed path or parameter; exploitation depends on the host application. No server-side HTTP endpoint to simulate.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/collerek/ormar/security/advisories/GHSA-xxh2-68g9-8jqr",
+      "https://github.com/collerek/ormar/commit/a03bae14fe01358d3eaf7e319fcd5db2e4956b16"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-26001",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GLPI Inventory Plugin < 1.6.6 SQLi 'on dropdown_calendar Report' with adequate rights. Advisory names only the feature title, no path/parameter. The commit linked from OSV (b0c5d82) is just the 1.6.6 release/version bump, not the SQLi fix; no concrete fix diff, WAF rule, or nuclei template found that names the endpoint and parameter. Cannot build without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/glpi-project/glpi-inventory-plugin/security/advisories/GHSA-gp4r-m42c-wvgx",
+      "https://osv.dev/vulnerability/CVE-2026-26001",
+      "https://github.com/glpi-project/glpi-inventory-plugin/commit/b0c5d82629e3b47993003fe499e279802bcfdb66"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25947",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Worklenz multiple SQLi. Advisory states PoC requests were shared privately; only backend controller/socket.io files are named (projects-controller.ts, tasks-controller-v2.ts, etc.) with no HTTP route paths or request parameter names. Fix diff shows flatString/IN-clause and ORDER BY patterns but not the routes or query params that supply them. Cannot build a faithful request without guessing path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Worklenz/worklenz/security/advisories/GHSA-f2f8-2ppj-85pf",
+      "https://github.com/Worklenz/worklenz/commit/76e5cb0f5dd566fb65586cd3db30ee951c92a32b"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25936",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GLPI authenticated SQLi. Advisory gives only a high-level description (no endpoint, method, or parameter) and no PoC; reporter login-securite. No path/parameter recoverable from public sources.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/glpi-project/glpi/security/advisories/GHSA-qw3x-7vv2-7759"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25773",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Focalboard 8.0 second-order blind SQLi via stored category id, executed on the category reorder API. Product is unsupported/unmaintained; researcher write-ups (lutrasecurity) withhold the PoC. No public source gives the concrete storing endpoint/JSON field (client-supplied category id) needed to build the faithful request; would require inventing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/mattermost-community/focalboard",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-25773",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-25773"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25591",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "New API /api/token/search LIKE wildcard injection (DoS via resource exhaustion). PoC payload is only SQL LIKE wildcards: keyword=% or keyword=%_%_%_%_%_% (empty token). Contains no SQL/attack signature (no quotes, UNION, comment, SLEEP); OWASP CRS would not block bare %/_ wildcards. Fails condition 1.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/QuantumNous/new-api/security/advisories/GHSA-w6x6-9fp7-fqm4"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25554",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "OpenSIPS auth_jwt module SQLi via the JWT 'tag' claim in jwt_db_authorize(). OpenSIPS is a SIP server; the JWT is delivered over SIP signaling (SIP headers), not an inbound HTTP request, so a web application firewall does not see it. Not a server-side HTTP web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/OpenSIPS/opensips/pull/3807",
+      "https://github.com/OpenSIPS/opensips/commit/3822d33c1c6b25832fdd88da1d23eed74be55b05",
+      "https://www.vulncheck.com/advisories/opensips-auth-jwt-sql-injection-enables-jwt-authentication-bypass"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25544",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "Payload CMS blind SQLi when querying json/richText fields. Endpoint/param are known (GET /api/<collection> e.g. /api/posts, 'where' JSON filter), but the only faithful exploit payload is a JSONPath tautology breakout (e.g. where={\"metadata.role\":{\"equals\":\"x\\\" || @ == @ || @ == \\\"\"}}). It carries no standard SQL signature (no SQL keyword, UNION, comment or SLEEP) and would not reliably trigger an OWASP CRS SQLi rule; a UNION/SLEEP payload would not be faithful to the JSONPath injection. Fails condition 1.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/payloadcms/payload/security/advisories/GHSA-xx6w-jxg9-2wh8",
+      "https://www.exploit-db.com/raw/52671"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25240",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PEAR pearweb SQLi in user::maintains() when $role is an array interpolated into a 'role IN (...)' clause via implode(). The advisory describes only the code path, not any HTTP endpoint, method, or request parameter that an attacker uses to supply the role array, and no PoC exists. Repo archived. Cannot determine a concrete path+parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/pear/pearweb/security/advisories/GHSA-xw9g-5gr2-c44f"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25239",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi in apidoc_queue insertion (include/pear-database-release.php). The injected $file value is built from the package name/version taken from the uploaded package tarball's metadata during release::upload/validateUpload, not from a nameable inbound HTTP parameter. The payload would ride inside an uploaded .tgz (opaque on the wire), so no faithful raw request with the payload in a named parameter can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/pear/pearweb/security/advisories/GHSA-f9mg-x463-3vxg",
+      "https://raw.githubusercontent.com/pear/pearweb/master/include/pear-database-release.php",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-25239/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-25076",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi in Anchore Enterprise GraphQL Reports API. The VulnCheck/vendor advisory and NVD give no GraphQL endpoint path, query/mutation, or injectable field/argument, and no PoC. Cannot name the exact parameter without guessing, so condition 2 cannot be met.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/anchore-enterprise-graphql-reports-api-sql-injection",
+      "https://docs.anchore.com/current/docs/release_notes/enterprise/5251/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-25076"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-24782",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Multiple SQLi in Kiteworks Secure Data Forms (FormBuilder role). Commercial product; the GHSA advisory gives no URL path, parameter name, or PoC, and no public exploit/WAF rule exists. Cannot determine a concrete path+parameter, so condition 2 cannot be met.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/kiteworks/security-advisories/security/advisories/GHSA-849r-gm3r-4v5c"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-22206",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SPIP < 4.4.10 union-based SQLi in the private area (espace prive). Vendor advisory and VulnCheck advisory disclose no vulnerable file, URL path, or parameter; no public PoC and no accessible fix diff identifying the injected parameter. Cannot build a CVE-faithful request without inventing path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/spip-sql-injection-rce-via-union-php-tags",
+      "https://blog.spip.net/Mise-a-jour-de-securite-sortie-de-SPIP-4-4-10.html",
+      "https://db.gcve.eu/vuln/CVE-2026-22206"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-22197",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GestSup < 3.2.60 multiple SQLi in the asset list (filter/search/sort params). VulnCheck advisory gives no URL path, method, or parameter names; GestSup source is not publicly browsable and the changelog page has no technical detail. Multiple parameters implicated but none named. Cannot build without inventing path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/gestsup-multiple-sqli-in-asset-list",
+      "https://gestsup.fr/index.php?page=changelog"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-22196",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GestSup < 3.2.60 SQLi in ticket creation. VulnCheck advisory gives no URL path, method, or parameter name; no public PoC and source not browsable. Cannot build without inventing path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/gestsup-sqli-in-ticket-creation",
+      "https://gestsup.fr/index.php?page=changelog"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-22195",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GestSup < 3.2.60 SQLi in the search bar. VulnCheck advisory gives no URL path, method, or parameter name; no public PoC and source not browsable. Cannot build without inventing path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/gestsup-sqli-in-search-bar",
+      "https://gestsup.fr/index.php?page=changelog"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-22193",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "wpDiscuz < 7.6.47 SQLi in getAllSubscriptions(). The injected columns (email, activation_key, subscription_date, imported_from) are known, but no source (advisory/writeups) discloses the AJAX action name or admin-ajax path/request shape that reaches the function, and plugins.svn.wordpress.org is blocked in this environment (connect refused). The named fields appear to be import-derived rather than direct request params. Cannot build a CVE-faithful request without inventing the endpoint/action.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/wpdiscuz-before-sql-injection-in-getallsubscriptions",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-22193",
+      "https://mondoo.com/vulnerability-intelligence/vulnerability/CVE-2026-22193",
+      "https://plugins.svn.wordpress.org/wpdiscuz/trunk/ (blocked: connect refused)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-22044",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GLPI (>=0.85, <10.0.23) authenticated SQLi. GHSA advisory body is minimal and multiple DBs state 'No specific vulnerable endpoint or payload has been publicly disclosed.' No path, parameter, or fix commit identified. Cannot build without inventing path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/glpi-project/glpi/security/advisories/GHSA-569q-j526-w385",
+      "https://www.wiz.io/vulnerability-database/cve/cve-2026-22044",
+      "https://github.com/glpi-project/glpi/releases/tag/10.0.23"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-21630",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Joomla core SQLi via improperly built ORDER BY clause in the com_content articles webservice (endpoint /api/index.php/v1/content/articles is core-standard). However, the Joomla security advisory and all third-party pages withhold the exact injected parameter (the ordering/list[*] key), and no PoC, nuclei template, or accessible fix commit confirms it (GitHub GraphQL search blocked, REST commit search empty). Per spec, not guessing the parameter. Could be revisited if a PoC or fix diff surfaces the exact ordering param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://developer.joomla.org/security-centre/1028-20260302-core-sql-injection-in-com-content-articles-webservice-endpoint.html",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-21630",
+      "https://stack.watch/vuln/CVE-2026-21630"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-21410",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "InSAT MasterSCADA BUK-TS SQLi in its 'main web interface' (proprietary OT/SCADA product). CISA ICS advisory icsa-26-055-01 and the CSAF record describe only a generic main-web-interface SQLi with no endpoint, parameter, or PoC disclosed. Cannot build without inventing path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.cisa.gov/news-events/ics-advisories/icsa-26-055-01",
+      "https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-055-01.json"
     ]
   },
   {
@@ -2612,6 +2907,40 @@
     "links_checked": [
       "https://github.com/MobSF/Mobile-Security-Framework-MobSF/security/advisories/GHSA-hqjr-43r5-9q58",
       "https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/6f8a43c1b78d21cfbd7186aaafa7f622d990e0f1"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-20284",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Cisco ISE SXP REST API SQL injection. Advisory gives no endpoint path, HTTP method or vulnerable parameter; authenticated admin-only, SXP enabled. No public PoC naming a concrete entry point. Cannot build a CVE-tied request without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-mult-vul-ymSsTLCc"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-19949",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "All-in-One WP Migration SQL injection via archive restore. The injected SQL lives inside the uploaded migration archive (opaque/binary chunked multipart upload via ai1wm import), not a named HTTP parameter; no clean WAF signature on the wire tied to a specific parameter. Spec: drop when payload is opaque-encoded on the wire.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/22e273d9-a268-4dc5-b1f6-3bc5c29232c5?source=cve",
+      "https://plugins.trac.wordpress.org/changeset?reponame=&old=3656677%40all-in-one-wp-migration&new=3656677%40all-in-one-wp-migration"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-19926",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Evergreen open-ils.fielder SQL injection via /osrf-gateway-v1. The endpoint file is known but the OpenSRF method and injectable parameter are described as 'unknown function'; no public PoC names them, and Launchpad bug / security release / VulDB sources were blocked (robots/Anubis/client error). Building would require guessing the gateway method and parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://bugs.launchpad.net/evergreen/+bug/2147196",
+      "https://evergreen-ils.org/Evergreen-security-release-3-14-12-3-15-12-3-16-6-3-17-beta2",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-19926/",
+      "https://vuldb.com/vuln/390177"
     ]
   },
   {
