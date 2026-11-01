@@ -13461,6 +13461,29 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-3604",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the 'tagged_filter' attribute of the [osm_map_v3] shortcode. The value flows into the OL3_createMarkerList() $wpdb query, but it is supplied as a shortcode attribute stored in post content (contributor-level), not via any dedicated HTTP parameter. The plugin's only wp_ajax actions (act_saveGeotag, act_saveMarker) do not read tagged_filter and do not render the map, so there is no named-parameter/path to target without guessing the generic post-save request. Current trunk uses $wpdb->prepare (patched).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/c8eebc67-e590-4d7f-8925-e5e5090cedf0?source=cve",
+      "https://plugins.svn.wordpress.org/osm/trunk/osm.php",
+      "https://plugins.trac.wordpress.org/changeset/3153019 (blocked: permission prompt timed out)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3561",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the 'Term' custom field (includes/fields/term.php). The injectable value is a CFS field value saved when editing a post (stored vector); it is carried inside the generic post-save request as cfs[input][<field_id>] with no public dedicated AJAX endpoint or named HTTP parameter. field_id and request shape would have to be guessed. GitHub source and trac blocked by permission timeout; no public PoC with a concrete path+parameter found.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/afc00118-e87e-475a-8ad6-b68d09ee2e44?source=cve",
+      "https://raw.githubusercontent.com/mgibbs189/custom-field-suite/963dfcede18ff4ad697498556d9058db07d74fa3/includes/fields/term.php (blocked: permission prompt timed out)"
+    ]
+  },
+  {
     "cve_id": "CVE-2024-3518",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -13542,6 +13565,43 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-3055",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unlimited Elements For Elementor time-based SQLi via 'id'. The vulnerable code named by the advisory is a generic DB wrapper (inc_php/framework/db.class.php), not a routable endpoint. No concrete admin-ajax action, REST route or admin page that reaches db.class.php with the 'id' parameter could be confirmed. Wordfence advisory page is JS-rendered (empty on fetch) and aggregator fetches were blocked by a stuck permission prompt this session. Without a confirmed path+action, placing the payload would require inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ebc0c8e6-a365-4ef7-9c1a-41454855096c",
+      "https://plugins.trac.wordpress.org/browser/unlimited-elements-for-elementor/tags/1.5.93/inc_php/framework/db.class.php#L238",
+      "https://cvemon.intruder.io/cves/CVE-2024-3055"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3041",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Netentsec NS-ASG SQLi at /protocol/log/listloginfo.php. The VulDB description names the file but NOT the injectable parameter, so the payload cannot be placed faithfully. The flyyue2001 PoC markdown was not retrievable (GitHub contents API requires repo access which is disabled, raw URL blocked, and aggregator WebFetch blocked by a stuck permission prompt). Endpoint is known but no named parameter -> cannot build without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/flyyue2001/cve/blob/main/NS-ASG-sql-listloginfo.md",
+      "https://vuldb.com/?id.258430",
+      "https://cvemon.intruder.io/cves/CVE-2024-3041"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3039",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Shanghai Brad BladeX SQLi at /api/blade-user/export-user. The exact payload is known (updatexml(1,concat(0x3f,md5(123456),0x3f),1)=1) but neither VulDB nor the cvemon aggregator (fetched) names WHICH query parameter carries it. The researcher advisory (spoofer.cn/bladex_sqli/) and cvefeed were blocked by a stuck permission prompt this session. Endpoint + payload known but no confirmed injectable parameter -> cannot build without inventing the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvemon.intruder.io/cves/CVE-2024-3039",
+      "https://spoofer.cn/bladex_sqli/",
+      "https://cvefeed.io/vuln/detail/CVE-2024-3039",
+      "https://vuldb.com/?id.258426"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-10835",
     "group": "READY",
     "result": "DROPPED_NO_SIGNATURE",
@@ -13609,6 +13669,87 @@
     "links_checked": [
       "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-amssplus-amss",
       "https://cvefeed.io/vuln/detail/CVE-2024-2587"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2480",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only a component ('Executa Page') and Portuguese argument names (Companhia/Planta/Agente de/Agente ate) for MHA Sistemas arMHAzena, with no file path, URL or PoC. The linked johnermac write-up was not fetchable (permission/robots). No concrete path+parameter could be confirmed without guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.256888",
+      "https://johnermac.github.io/cve/sqli/",
+      "https://www.sentinelone.com/vulnerability-database/cve-2024-2480/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2386",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "The 'id' value is a shortcode ATTRIBUTE of the put_wpgm shortcode in WP MAPS (wp-google-map-plugin), not a direct HTTP request parameter. Exploitation requires an authenticated contributor to embed [put_wpgm id=\"<SQLi>\"] in post content; there is no confirmed HTTP endpoint/AJAX action that takes 'id' into the query, and the SVN trunk main file was not fetchable. Building a request would require guessing the post-save path and the signature would not sit in a named 'id' parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4f0deb68-3caf-4ad6-977e-0e954d29e6b7?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3108077/wp-google-map-plugin",
+      "https://plugins.svn.wordpress.org/wp-google-map-plugin/trunk/wpgmp.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2344",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Avada WordPress theme authenticated (editor+) SQLi via the 'entry' parameter. The parameter name is known but no public source gives the HTTP path / AJAX action / REST route to reach it. The PoC gist (Xib3rR4dAr) was blocked (provenance), the plugin fix diff was not available, and Wordfence/SentinelOne/NVD describe only generic 'Avada AJAX or admin-post handlers' without a concrete endpoint. Building a request would require guessing the path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/Xib3rR4dAr/05a32f63d75082ab05de27e313e70fa3 (blocked)",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ccf0d2ca-2891-45d1-8ea2-90dd435b359f?source=cve",
+      "https://www.sentinelone.com/vulnerability-database/cve-2024-2344/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2342",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Simply Schedule Appointments WordPress plugin authenticated (contributor+) SQLi via the customer_id parameter. Wordfence classifies it as 'SQL injection via shortcode' (customer_id is a shortcode attribute, not a URL/form parameter), so there is no fixed HTTP path; the request that delivers it (post save / shortcode preview) is not specified in any public PoC. The plugins.trac.wordpress.org fix changeset was blocked (provenance). Cannot build a faithful request without guessing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/0c0dd466-a78a-4b79-b9bd-5363f69d9a4c?source=cve",
+      "https://plugins.trac.wordpress.org/changeset?new=3054815%40simply-schedule-appointments%2Ftrunk&old=3054636%40simply-schedule-appointments%2Ftrunk (blocked)",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/simply-schedule-appointments/appointment-booking-calendar-simply-schedule-appointments-booking-plugin-1677-authenticated-contributor-sql-injection-via-shortcode"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2341",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Simply Schedule Appointments WordPress plugin authenticated (subscriber+) SQLi via the keys parameter. Same situation as CVE-2024-2342: shortcode-attribute SQLi with no public HTTP path; trac fix changeset blocked (provenance). Cannot build a faithful request without guessing the path/method.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/e4930b03-9142-464e-98ae-a910dfa46f2a?source=cve",
+      "https://plugins.trac.wordpress.org/changeset?new=3054815%40simply-schedule-appointments%2Ftrunk&old=3054636%40simply-schedule-appointments%2Ftrunk (blocked)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2338",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "PostgreSQL Anonymizer (DALIBO) SQL injection via security-label masking expressions, leading to privilege escalation to superuser. The vulnerability is exploited through PostgreSQL SQL commands (SECURITY LABEL on a table owned by the attacker) inside a database session, not through an inbound HTTP request. No web path/parameter exists; not a WAF-testable web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gitlab.com/dalibo/postgresql_anonymizer/-/commit/f55daadba3fa8226029687964aa8889d01a79778"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-1863",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Sante PACS Server token-endpoint SQL injection on port 3000. The only reference is ZDI-24-193, which names the vulnerable 'token' parameter but never discloses the HTTP path/endpoint of the token service. No PoC, nuclei template, or aggregator gives a concrete path+parameter to reconstruct a faithful request, and inventing the endpoint is not allowed.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.zerodayinitiative.com/advisories/ZDI-24-193/",
+      "https://cvefeed.io/vuln/detail/CVE-2024-1863",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-1863"
     ]
   },
   {
