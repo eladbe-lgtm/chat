@@ -3040,6 +3040,89 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-15062",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Snowflake Snowpark Python SDK. The SQL injection is reached only through Python API methods (DataFrameReader.dbapi(), the location parameter of DataFrameWriter write methods, and DataFrame.to_csv() normalize_path() bypass) invoked in-process by an authenticated SDK user. There is no inbound server-side HTTP request to simulate.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/snowflakedb/snowpark-python/blob/main/CHANGELOG.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-15023",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "Events Manager WordPress plugin, second-order SQLi. The SQL-carrying value is a custom-field META KEY planted via the generic WordPress add-meta/post-editor flow (stored verbatim in wp_postmeta), not an Events Manager-specific endpoint or parameter. The injection only fires later when the event_duplicate / location_duplicate action (action=event_duplicate&event_id=..&_wpnonce=.., read from $_REQUEST, confirmed in em-actions.php) reads the stored keys and concatenates them; that trigger request carries no attack signature. No single CVE-tied request both carries a WAF signature and targets an EM-specific path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://plugins.svn.wordpress.org/events-manager/trunk/em-actions.php",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/fe1e8c38-345a-4529-81ba-188a8dc58503?source=cve"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-14962",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ELEX WooCommerce Request a Quote (<2.4.1) unauthenticated SQLi. No public source names the vulnerable parameter or the endpoint/path; the WPScan advisory is behind login and the NVD/offseq entries describe only 'a parameter'. Cannot build without inventing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://radar.offseq.com/threat/cve-2026-14962-cwe-89-sql-injection-in-elex-woocommerce-request-a-quote-1a1dd6670896acc8",
+      "https://wpscan.com/vulnerability/854a0756-ff87-4a65-959a-2e051a302a12/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-14920",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "AcyMailing (<10.11.1) unauthenticated SQLi via the subscription[] parameter. The parameter name is public (cvefeed/Wordfence), but there is no fixed endpoint path: AcyMailing's WordPress frontend subscription form posts to whatever page hosts the shortcode/widget and is processed on the init hook via a Joomla-emulation Router (confirmed by the plugin bootstrap, which only routes acymailing_* pages). Without a stable path a faithful WAF request cannot be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2026-14920",
+      "https://plugins.svn.wordpress.org/acymailing/trunk/index.php",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/acymailing/acymailing-an-ultimate-newsletter-plugin-and-marketing-automation-solution-for-wordpress-10111-unauthenticated-sql-injection"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-14872",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Database for Contact Form 7, WPforms, Elementor forms (<1.5.5) authenticated SQLi via an 'id' parameter. Could not match the CVE's plugin to a confirmed wp.org slug/endpoint: the similarly named 'database-for-cf7' plugin is a different, CF7-only plugin (v1.2.6) whose only id-column query reads a differently named 'selected' parameter, so its endpoints do not correspond to this CVE. The generic 'id' parameter plus an unknown admin page/AJAX endpoint would require guessing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2026-14872",
+      "https://plugins.svn.wordpress.org/database-for-cf7/trunk/database-for-cf7.php",
+      "https://wpscan.com/vulnerability/557414c2-70b9-4466-8727-d8a2c9a8a502/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-14785",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Web Directory Free (w2dc) WordPress plugin <=1.7.13 unauthenticated SQLi via the 'levels' parameter. The parameter name is authoritative, but the exact endpoint (admin-ajax.php action registered in classes/ajax_controller.php, or the frontend listing route in classes/frontend_controller.php) could not be confirmed. Source access was unavailable in this environment: plugins.trac.wordpress.org and Wordfence are blocked, GitHub/api.github.com require add_repo (not approvable), SVN/raw curl is proxy-blocked (403 CONNECT), and the versioned jsDelivr source file could not be fetched (provenance). Building a request would require guessing the AJAX action/path, which the spec forbids.",
+    "waf_rules_found": [
+      "Sigma rule described (matches patterns in the 'levels' parameter) per craftedsignal brief; rule text not retrievable"
+    ],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/7320421b-6b88-452d-a363-a71cdf7953a6?source=cve",
+      "https://feed.craftedsignal.io/briefs/2026-07-wordpress-web-directory-free-sqli/",
+      "https://fastly.jsdelivr.net/wp/web-directory-free/trunk/readme.txt",
+      "https://plugins.trac.wordpress.org/browser/web-directory-free/tags/1.7.13/classes/ajax_controller.php#L38"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-14782",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Amelia booking WordPress plugin <=2.4.3 authenticated (wpamelia-manager) SQLi via the Customer Import feature (src/Infrastructure/Repository/User/UserRepository.php line 476). The exact admin-ajax action (Amelia routes via action=wpamelia_api with a 'call' path) and the precise injectable import parameter could not be determined. Source access was unavailable: plugins.trac/Wordfence blocked, GitHub requires add_repo, SVN/raw curl proxy-blocked, versioned jsDelivr source not fetchable (provenance). Building a request would require guessing the action and parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/b3a58e68-d1f1-4d4f-ac64-bc6cb7dbdbfc?source=cve",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-14782",
+      "https://plugins.trac.wordpress.org/browser/ameliabooking/tags/2.4.3/src/Infrastructure/Repository/User/UserRepository.php#L476"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-14751",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -3140,6 +3223,42 @@
       "https://github.com/weng-xianhu/eyoucms/issues/68",
       "https://cvefeed.io/vuln/detail/CVE-2026-13569",
       "https://vuldb.com/cve/CVE-2026-13569"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13535",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CodeAstro Human Resource Management System: VulDB names only the internal model file hrsystem/application/models/Employee_model.php and the function GetFileInfo (argument ID), not an inbound HTTP path/route. The app is a CodeIgniter-style MVC project, so the actual URL that reaches GetFileInfo cannot be determined from the advisory. The GitHub PoC that would show the real request/URL is on GitHub, which is inaccessible in this session (add_repo and reader proxies denied). Cannot build a faithful request without inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ashikmd0507/CVE/tree/main/SQL%20Injection%20via%20GetFileInfo%20Function",
+      "https://vuldb.com/cve/CVE-2026-13535",
+      "https://www.cve.org/CVERecord?id=CVE-2026-13535"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13525",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CodeAstro Human Resource Management System: VulDB names only the internal model file application/models/Employee_model.php and the function emselectByCode (argument emid, Update_Earn_Leave endpoint), not an inbound HTTP path/route. Same reason as CVE-2026-13535 - the real URL is not in the advisory and the GitHub PoC is inaccessible in this session. Building would require inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ashikmd0507/CVE/tree/main/Time-Based%20Blind%20SQL%20Injection%20in%20Update_Earn_Leave%20via%20emid%20Parameter",
+      "https://vuldb.com/cve/CVE-2026-13525",
+      "https://www.cve.org/CVERecord?id=CVE-2026-13525"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-13529",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "YzmCMS up to 7.5: VulDB names the internal controller file /application/install/index.php and argument siteurl. YzmCMS routes through a front controller (index.php with module/controller/action params), so /application/install/index.php is not the real HTTP path and the exact installer URL + which install-step form carries siteurl are not in the advisory. Exploitability is reported as difficult/high-complexity. The GitHub PoC that would show the real request is inaccessible in this session. Cannot build without inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/drose025/security/blob/main/1.md",
+      "https://vuldb.com/cve/CVE-2026-13529",
+      "https://www.cve.org/CVERecord?id=CVE-2026-13529"
     ]
   },
   {
