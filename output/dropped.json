@@ -8608,6 +8608,64 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-1750",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "SQL injection is in the DuckDBVectorStore.delete() method of the run-llama/llama_index Python library (ref_doc_id manipulated in-process). llama_index is an imported library with no HTTP server exposing this sink, so there is no inbound server-side HTTP request to simulate. Per SPEC 3.4, library/Python-API injections are dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.com/bounties/e1302233-9180-4269-9047-1526247d2cd8",
+      "https://github.com/run-llama/llama_index/commit/369a2942df2efcf6b74461c45d20a0af1fbe4ae2"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-1735",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "The flaw is in PHP's own pgsql/pdo_pgsql escaping functions (pg_escape_string / PDO quoting) not checking the underlying quoting return value, causing a crash (CWE-476) when Postgres rejects the string. It is a language-runtime library bug reachable only through PHP application code calling those functions, not a specific inbound HTTP path/parameter. No attackable web entry point to build a request for.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/php/php-src/security/advisories/GHSA-hrwm-9436-5mv3"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-1670",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "Real SQLi in WPSchoolPress pages/wpsp-exams.php via the 'cid' parameter, but the sink reads it as base64_decode(sanitize_text_field($_GET['cid'])) before use in the SQL query. A faithful exploit must base64-ENCODE the SQL payload, which hides every SQLi signature (quotes, UNION, OR 1=1) from an OWASP CRS / ModSecurity WAF (it inspects the base64 blob, not the decoded SQL). Sending a raw, WAF-detectable SQL payload would not decode to valid SQL and would not reproduce the CVE. No standard WAF signature can match the real attack, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f38c28f4-e73a-4eb2-8bbd-73c849385c4e?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wpschoolpress/tags/2.2.16/pages/wpsp-exams.php#L186",
+      "common-repository/wpschoolpress mirror pages/wpsp-exams.php (source read via gh search code: $class_id = base64_decode(sanitize_text_field($_GET['cid'])))"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-1669",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "The AJAX action is known (wp_ajax_addNotify -> wpsp_addNotify in lib/wpsp-ajaxworks.php), but the specific unescaped user-supplied parameter that carries the SQL injection could not be recovered. The row insert in the function uses the parameterized $wpdb->insert(), so the injectable query/parameter is elsewhere in the function (line 4304) and is not disclosed by Wordfence/CVE text; the plugin mirror only yields single-line snippets via code search (no full function body), and trac/raw sources are provenance-blocked. Without the exact parameter, condition 2 (named parameter) cannot be met, so dropped rather than guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/b7413d90-aed1-4f78-a17c-bed76efb48f8?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wpschoolpress/tags/2.2.16/lib/wpsp-ajaxworks.php#L4304",
+      "common-repository/wpschoolpress mirror lib/wpsp-ajaxworks.php (gh search code: confirmed add_action('wp_ajax_addNotify','wpsp_addNotify') and $wpdb->insert parameterized)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-1648",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQLi via the 'lbid' parameter in Yawave's includes/shortcode.liveblog.php is confirmed, but the reachable HTTP route/method (admin-ajax action name, REST route, or the front-end page carrying the liveblog shortcode) could not be recovered online: the WordPress.org mirror (common-repository/yawave) is not indexed for code search (zero results for lbid/liveblog/shortcode), the atviksecurity write-up and trac source are provenance-blocked, and aggregator pages give no request. Without a confirmed path, condition 2 cannot be met without guessing, so dropped. Revisit if the atviksecurity advisory or plugin source becomes reachable.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/6a5cc21a-eb3a-429a-a0f9-0181d95a9eeb?source=cve",
+      "https://atviksecurity.com/yawave-wordpress-plugin-unauthenticated-sql-injection/ (PROVENANCE_REQUIRED - blocked)",
+      "https://plugins.trac.wordpress.org/browser/yawave/trunk/includes/shortcode.liveblog.php#L69 (PROVENANCE_REQUIRED - blocked)",
+      "https://cvefeed.io/vuln/detail/CVE-2025-1648"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-1520",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -8877,6 +8935,19 @@
       "https://vuldb.com/?id.291283",
       "https://raw.githubusercontent.com/liujianview/gymxmjpa/main/src/main/java/com/liujian/gymxmjpa/controller/EquipmentController.java",
       "https://stack.watch/vuln/CVE-2025-0407/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-0391",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "jeecg CgFormBuildController.saveOrUpdate confirmed as POST /cgFormBuildController.do?saveOrUpdate (dynamic online-form builder), but the advisory/VulDB entry names NO specific injectable argument and the PoC (gitee issue IBFKA8) was unreachable in this session. saveOrUpdate reads arbitrary form fields (tableName, id, dynamic columns) into dynamic SQL, so no faithful named parameter could be fixed without guessing. Dropped rather than invent a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.291125",
+      "https://gitee.com/erzhongxmu/JEEWMS/issues/IBFKA8",
+      "https://github.com/erzhongxmu/JeeWMS/blob/master/src/main/java/org/jeecgframework/web/cgform/controller/build/CgFormBuildController.java",
+      "https://www.cve.org/CVERecord?id=CVE-2025-0391"
     ]
   },
   {
