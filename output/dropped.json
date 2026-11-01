@@ -10188,6 +10188,56 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-36263",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Apache Submarine Server Core SQL injection in a retired, unsupported project. The advisory, OSV record, GHSA-v74c-qc46-9gg9 and fix PR #1121 describe a SQLi in the server core but no public source (CVE, Apache advisory, oss-security post, PoC aggregators) discloses the concrete REST path or the injectable parameter. The PR diff / repo content API is not reachable in this session (requires add_repo). No way to build a request tied to a specific path+parameter without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/apache/submarine/pull/1121",
+      "http://www.openwall.com/lists/oss-security/2024/06/12/1 (blocked)",
+      "https://github.com/apache/security-site/blob/main/static/projects/submarine/CVE-2024-36263.osv.json",
+      "https://www.cve.org/CVERecord?id=CVE-2024-36263"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-35563",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CDG-Server (esafenet/\u4ebf\u8d5b\u901a document security server) SQL injection via the permissionId parameter 'in CDGTempPermissions'. The CVE names only the parameter and a component/table name, not a URL path or HTTP method. No PoC, advisory, nuclei template or write-up accessible in this session discloses the request path or whether the entry point is an inbound HTTP request (the helloBegin blog PoC URL is blocked). Cannot build without inventing a path/method.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/helloBegin/blog/tree/main (blocked)",
+      "https://www.esafenet.com/dzwdaqglxt",
+      "https://www.cve.org/CVERecord?id=CVE-2024-35563"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-35409",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WeBid 1.1.2 SQL injection 'via admin/tax.php'. The file/path is known but no accessible source discloses the injectable parameter: the PoC and every CVE/NVD mirror repeat only 'vulnerable to SQL Injection via admin/tax.php' with no parameter or request. The WeBid source (renlok/WeBid) is not indexed by GitHub code search and the PoC / raw source URLs are blocked in this session, so the parameter cannot be confirmed. Not inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ixpqxi/CVE_LIST/blob/master/WeBid_sqli/WeBid_v1.1.2_sql_injection_vulnerability.md (blocked)",
+      "https://www.cve.org/CVERecord?id=CVE-2024-35409"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-36082",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "'Music Store - WordPress eCommerce' < 1.1.14 authenticated (admin) SQL injection. The fix is in music-store.php but the injectable parameter is not disclosed in any accessible source: the only PoC reference is the plugins.trac.wordpress.org changeset diff, which is blocked in this session, and the two public nuclei templates for this CVE are passive version-detection templates (they only fetch readme.txt / match the plugin path) with no exploit request or parameter. Cannot build without inventing the admin parameter.",
+    "waf_rules_found": [
+      "https://github.com/topscoder/nuclei-wordfence-cve (version-detection only, no exploit request)"
+    ],
+    "links_checked": [
+      "https://plugins.trac.wordpress.org/changeset?new=3085975%40music-store%2Ftrunk%2Fmusic-store.php&old=3079647%40music-store%2Ftrunk%2Fmusic-store.php (blocked)",
+      "https://jvn.jp/en/jp/JVN79213252/",
+      "https://www.cve.org/CVERecord?id=CVE-2024-36082"
+    ]
+  },
+  {
     "cve_id": "CVE-2024-35091",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -10730,6 +10780,42 @@
       "https://osv.dev/vulnerability/CVE-2024-29889",
       "https://www.incibe.es/en/incibe-cert/early-warning/vulnerabilities/cve-2024-29889",
       "https://www.sentinelone.com/vulnerability-database/cve-2024-29889/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-30801",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection in 'Cloud based customer service management platform' v1.0.0 Login.asp component. The only PoC reference (WarmBrew/web_vul CVES/CVE-2024-30801.md) contains only the copied CVE description text - no HTTP request, no injected parameter name, and no screenshot (verified via GitHub code-search text-match probes for POST/GET/username/sqlmap/select/union/Host/image - all absent). The vendor link (minipacs.com) has no PoC. Component known (Login.asp) but no parameter is named in any accessible source, so not built to avoid inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/WarmBrew/web_vul/blob/main/Cloud%20based%20customer%20service/SQLi.md",
+      "https://github.com/WarmBrew/web_vul/blob/main/CVES/CVE-2024-30801.md",
+      "http://www.minipacs.com/ylqxrj",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-30801"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-30858",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "netentsec NS-ASG 6.3 SQL injection via /admin/edit_fire_wall.php. The cited PoC (hundanchen69/cve NS-ASG-sql-edit_fire_wall.md) is not indexed by GitHub global code search and its raw/contents URLs are not retrievable in this session (provenance-blocked / repo access disabled). trickest/cve and 0xMarcio/pocindex mirrors only restate the one-line description with no request. Scanner plugins (w9scan ns-asg) that enumerate other NS-ASG injection points do NOT include edit_fire_wall.php, and the flyyue2001/cve collection has no edit_fire_wall file. The injected parameter is therefore not available in any accessible source; not built to avoid guessing the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/hundanchen69/cve/blob/main/NS-ASG-sql-edit_fire_wall.md",
+      "https://github.com/trickest/cve/blob/main/2024/CVE-2024-30858.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-30862",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "netentsec NS-ASG 6.3 SQL injection via /3g/index.php. The cited PoC (hundanchen69/cve NS-ASG-sql-index.md) is not indexed by GitHub global code search and its raw/contents URLs are not retrievable (provenance-blocked / repo access disabled). A same-named file in a DIFFERENT repo (flyyue2001/cve NS-ASG-sql-index.md) was readable and contains a concrete NS-ASG login SQLi: 'POST /vpnweb/index.php?para=index' with error-based updatexml injection in the body parameter check_VirtualSiteId (action=login_check, reads ISCUserTable). However that file names a DIFFERENT path (/vpnweb/index.php, not the CVE's /3g/index.php) and carries no CVE reference, so it cannot be confidently tied to CVE-2024-30862. Not built to avoid a path/parameter mismatch. Candidate request recorded here for a reviewer: body 'check_username=admin&check_username1=1&check_passwd=321&action=login_check&check_VirtualSiteId=1 and 1=(updatexml(1,concat(0x5e24,(select md5(1)),0x5e24),1))#'.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/hundanchen69/cve/blob/main/NS-ASG-sql-index.md",
+      "https://github.com/flyyue2001/cve/blob/main/NS-ASG-sql-index.md",
+      "https://github.com/trickest/cve/blob/main/2024/CVE-2024-30862.md"
     ]
   },
   {

