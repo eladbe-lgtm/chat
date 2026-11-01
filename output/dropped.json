@@ -15055,6 +15055,73 @@
     ]
   },
   {
+    "cve_id": "CVE-2023-39560",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ECTouch v2 SQLi is described only as a CODE location ($arr['id'] in \\default\\helpers\\insert.php), not an HTTP route. insert.php is an internal helper, not a routable endpoint; ECTouch uses MVC routing (index.php?m=...&c=...&a=...) and neither the checkmarx devhub entry nor reachable aggregators name the actual controller/action or request parameter. The PoC repo (Luci4n555/cve_ectouch) could not be fetched (raw PoC URL / provenance blocked; clones forbidden). No confirmed path+parameter, so not buildable without inventing an endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://devhub.checkmarx.com/?p=260716",
+      "https://github.com/Luci4n555/cve_ectouch",
+      "https://nvd.nist.gov/vuln/detail/cve-2023-39560"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-39423",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Resort Data Processing IRM Next Generation: the CVE description names the endpoint /irmdata/api/common and the attack (UNION SQL to leak the sessions table), but does NOT name the injectable request parameter. The detailed Bitdefender write-up (bitdefender.com/blog/labs/...) was not fetchable under provenance rules. Building a request would require inventing the parameter that carries the session id / UNION payload, which the spec forbids. Endpoint known but no named parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://bitdefender.com/blog/labs/check-out-with-extra-charges-vulnerabilities-in-hotel-booking-engine-explained",
+      "https://cveawg.mitre.org/api/cve/CVE-2023-39423"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-39365",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Cacti 'limited SQL injection via the external links feature combined with regex validation'. The GHSA-v5w7-hww7-2f22 advisory (which holds the PoC path and parameter) was not fetchable (github security-advisory page times out on provenance; repo-scoped gh api is blocked for this session; global advisory API blocked). Reachable aggregators (cvefeed) do not name the path or parameter. Distinct vector from CVE-2023-39361 (external links, not graph_view tree_content), so its entry point cannot be safely reused. No confirmed path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/cacti/cacti/security/advisories/GHSA-v5w7-hww7-2f22",
+      "https://cvefeed.io/vuln/detail/CVE-2023-39365"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-39357",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Cacti sql_save root-cause defect: when a column type is numeric, sql_save uses user input directly, creating 'multiple SQL injection vulnerabilities' across many files/functions. The advisory describes a shared sink (sql_save), not one concrete HTTP endpoint+parameter. GHSA-6jhp-mgqg-fhqg (with any concrete PoC endpoint) was not fetchable (github advisory provenance timeout; gh api blocked). No single confirmed path+parameter to build one faithful request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Cacti/cacti/security/advisories/GHSA-6jhp-mgqg-fhqg",
+      "https://cvefeed.io/vuln/detail/CVE-2023-39357"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-39524",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PrestaShop <=8.1.1 boolean-based SQL injection in the product search field of the back-office product page. The exact BO controller route and the injectable parameter name are not given by reachable sources; GHSA-75p5-jwx4-qw9h and the fix commit diff (2047d4c053043102bc46a37d383b392704bf14d7) were not fetchable (github provenance timeout; gh api blocked; no clones allowed). Requires authenticated BO access and an unknown parameter name. Not buildable without inventing the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/PrestaShop/PrestaShop/security/advisories/GHSA-75p5-jwx4-qw9h",
+      "https://stack.watch/vuln/CVE-2023-39524"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-39526",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PrestaShop <1.7.8.10/8.0.5/8.1.1 RCE via SQL injection + arbitrary file write in the back office. No reachable source gives the vulnerable BO controller/endpoint or the injectable parameter; GHSA-gf46-prm4-56pc and the fix commit diff (817847e2347844a9b6add017581f1932bcd28c09) were not fetchable (github provenance timeout; gh api blocked; no clones allowed). High-privilege back-office flaw with an unknown endpoint+parameter. Not buildable without inventing the entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/PrestaShop/PrestaShop/security/advisories/GHSA-gf46-prm4-56pc",
+      "https://vulnerability.cert.dk/vuln/ghsa-gf46-prm4-56pc"
+    ]
+  },
+  {
     "cve_id": "CVE-2023-39344",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -15248,6 +15315,55 @@
     "links_checked": [
       "https://github.com/parse-community/parse-server/security/advisories/GHSA-c442-97qw-j6c6",
       "https://corgea.com/advisories/vulnerabilities/CVE-2026-32234"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-31717",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Second FUXA <= 1.1.12 SQLi (distinct from the /api/signin issue CVE-2023-31719). CVE text only says the attack allows DB exfiltration; no concrete path or parameter is public. The PoC repo (MateusTesser/CVE-2023-31717) could not be fetched (GitHub raw/contents blocked this session, WebFetch rate-limited) and global code search surfaced no endpoint/parameter. Cannot build without inventing an entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/MateusTesser/CVE-2023-31717",
+      "https://github.com/frangoteam/FUXA",
+      "https://www.cve.org/CVERecord?id=CVE-2023-31717"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-31714",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Chitor-CMS before v1.1.2 'multiple SQL injection vulnerabilities' - no specific injectable path/parameter in the CVE text. Fix commit, exploit-db 51383 and packetstorm (chitorcms112-sql.txt) could not be fetched (GitHub raw/contents blocked, WebFetch rate-limited) and global code search returned only the generic description. Cannot pin a concrete path+parameter without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/waqaskanju/Chitor-CMS/commit/69d34420ad382c91b0c285432418c1b0810128c1",
+      "https://github.com/msd0pe-1/chitor-sqli",
+      "https://www.exploit-db.com/exploits/51383",
+      "https://www.cve.org/CVERecord?id=CVE-2023-31714"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-31038",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Apache Log4cxx SQL injection is in the ODBC appender of a C++ logging library: unescaped log message fields reach a SQL INSERT configured in a log4cxx config file. The injection vector is logged application data, not an inbound HTTP request to a web endpoint, and the appender/SQL are set via a local config file. No HTTP path/parameter exists to build a WAF request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://lists.apache.org/thread/vgjlpdf353vv91gryspwxrzj6p0fbjd9",
+      "https://www.cve.org/CVERecord?id=CVE-2023-31038"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-30867",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Apache StreamPark (incubating) authenticated SQL injection via name-based fuzzy search (jobName, roleName, etc.). The advisory (GHSA-rrcg-jwr5-32g7) and aggregators describe the bug class but give no concrete HTTP endpoint path, request method or exact parameter; the fix is in the MyBatis mapper. Requires authenticated system user and no public PoC request is available, so a path+parameter cannot be determined without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/advisories/GHSA-rrcg-jwr5-32g7",
+      "https://lists.apache.org/thread/bhdzh6hnh04yyf3g203bbyvxryd720o2",
+      "https://db.fluidattacks.com/adv/maven/org.apache.streampark%3Astreampark/CVE-2023-30867",
+      "https://www.cve.org/CVERecord?id=CVE-2023-30867"
     ]
   },
   {
