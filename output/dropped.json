@@ -6134,6 +6134,29 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-12807",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Rockwell Automation FactoryTalk DataMosaix Private Cloud: low-privilege users can perform sensitive database operations through 'exposed API endpoints'. The only reference is the Rockwell PSIRT advisory (SD1765), which names no concrete URL path, no parameter, no HTTP method and gives no PoC or payload. No public PoC, nuclei template, or WAF rule found. Building a faithful request would require inventing the endpoint and parameter, so dropped per spec section 1/5.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.rockwellautomation.com/en-us/trust-center/security-advisories/advisory.SD1765.html",
+      "https://www.cve.org/CVERecord?id=CVE-2025-12807"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-12743",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Google Cloud Looker: SQL injection via the 'schemas' parameter of the (developer-only) endpoint that generates new projects from a database connection named 'looker'. The Google Cloud bulletin (gcp-2025-052) and the Tenable research advisory (TRA-2025-43) describe the named parameter and attack class but no public PoC gives the concrete on-the-wire request: the Looker internal/IDE API path for project generation, the HTTP method, and how 'schemas' is serialized (query vs JSON body) are not documented in reachable sources (Tenable TRA-2025-43 was blocked at build time - PROVENANCE_REQUIRED). Building a faithful request would require guessing the path and request encoding, so dropped per spec section 1/5.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cloud.google.com/support/bulletins#gcp-2025-052",
+      "https://www.tenable.com/security/research/tra-2025-43",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-12743"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-12514",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -6542,6 +6565,86 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-10660",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Dashboard Chat authenticated SQLi via 'id'. Parameter name known but the AJAX action / admin-ajax.php route (or REST path) that consumes id is not stated in any non-blocked source; plugin source (trac) and the Wordfence/GitHub pages returned PROVENANCE_REQUIRED, and plugin-zip download is blocked by egress policy. Cannot tie payload to an exact path+action without guessing the action (spec condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/21ffbb00-7c84-4d00-9a7f-0e412d8d5ed7?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-dashboard-chat/tags/1.0.3/wp-dashboard-chat.php",
+      "https://www.kodemsecurity.com/cve-database/cve-2025-10660"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10655",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Frappe HelpDesk SQLi in get_dashboard_data. Only the Python function name is public; the exact whitelisted /api/method/... route and the injected parameter name are not in any non-blocked source. Fluid Attacks advisory and GitHub PR #2795 both returned PROVENANCE_REQUIRED. Building would require inventing the API route and parameter (spec: never invent an endpoint/parameter).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://fluidattacks.com/advisories/dyango",
+      "https://github.com/frappe/helpdesk/pull/2795",
+      "https://vuln.today/cve/CVE-2025-10655"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10652",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Robcore Netatmo SQLi via the module_id ATTRIBUTE of the robcore-netatmo shortcode. The injection point is a shortcode attribute rendered server-side from post content, not a directly reachable HTTP parameter at a fixed path; exploitation requires a Contributor to author/save a post containing the shortcode. No single inbound HTTP request carries the SQLi signature in a named parameter tied to a specific endpoint. Plugin source (trac) blocked.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ecd383f1-0546-4ff2-9f93-ee9d48ac3053?source=cve",
+      "https://plugins.trac.wordpress.org/browser/robcore-netatmo/tags/1.7/robcore-netatmo.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10649",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Welcart e-Commerce SQLi 'via the cookie' (Author+). The vulnerable cookie NAME is not stated in any non-blocked source; the fix changeset 3374119 on plugins.trac is blocked (PROVENANCE_REQUIRED) and the plugin zip is blocked by egress policy. Cannot place the SQLi payload in the exact named cookie without guessing (spec condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4d59eedb-550f-44c1-a0cd-609c5661134d?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3374119/usc-e-shop",
+      "https://cvefeed.io/vuln/detail/CVE-2025-10649"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10635",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Find Me On WordPress plugin (<=2.0.9.1) SQLi (Subscriber+). The WPScan description does not name the vulnerable parameter or the endpoint path, and the WPScan page / plugin source could not be fetched (blocked). Cannot identify an exact path+parameter to target.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/92e965aa-45fc-4189-a341-1ecac656ebf3/",
+      "https://cvefeed.io/vuln/detail/CVE-2025-10635"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10582",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Dispatcher SQLi via the 'id' SHORTCODE ATTRIBUTE handled by WP_Dispatcher_Shortcode (class-wp-dispatcher-shortcode.php L78), exploitable by Contributor+. 'id' is a shortcode attribute embedded in post_content via the post editor, not a named HTTP request parameter on the wire. There is no path+named-parameter at which the SQLi payload appears as a discrete argument (it only reaches the query after being stored inside post_content), so a CVE-faithful request (same path + same named parameter) cannot be built without guessing. Dropped per spec sections 1/6.6.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a9b3b6cc-faaa-46c2-ab82-00c7138a8f27?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-dispatcher/trunk/admin/class-wp-dispatcher-shortcode.php#L78"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10575",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP jQuery Pager SQLi via the 'ids' SHORTCODE ATTRIBUTE handled by WPJqueryPaged::get_gallery_page_imgs() (wp-jquery-paged.php L80), exploitable by Contributor+. 'ids' is a shortcode attribute placed in post_content through the post editor, not a named HTTP parameter transmitted on the wire. The SQLi payload only reaches the query after being stored as a shortcode attribute; no path+named-parameter request can be built that matches the CVE's parameter without guessing. Dropped per spec sections 1/6.6.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/3a70b64b-a0e8-4b5c-af05-cf8f1d611dec?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-jquery-pdf-paged/trunk/wp-jquery-paged.php#L80"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-10473",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -6551,6 +6654,18 @@
       "https://github.com/mo957/vuln/blob/main/ruoyi_sqlinject/ruoyi_sqlinject.md",
       "https://vuldb.com/?id.323905",
       "https://stack.watch/vuln/CVE-2025-10473/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10399",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Korzh EasyQuery up to 7.4.0 SQL injection in /api/easyquery/models/nwind/fetch (Query Builder UI). The VulDB/NVD description names the file but NO argument/parameter ('This manipulation causes sql injection'), and there is no PoC ref. The fetch endpoint takes an opaque JSON query-model body built by the Query Builder, so no concrete path+parameter can be pinned to write a faithful, WAF-blockable request. Per SPEC section 5, dropped as no concrete entry point rather than guessing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.323834",
+      "https://radar.offseq.com/threat/cve-2025-10399-sql-injection-in-korzh-easyquery-7ac92982",
+      "https://security-tracker.debian.org/tracker/CVE-2025-10399"
     ]
   },
   {
