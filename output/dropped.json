@@ -3816,6 +3816,44 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-56435",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "FoxCMS v1.2.6 SQLi 'file /DataBackup.php, parameter id'. Confirmed via QianFox/FoxCMS source that app/admin/controller/DataBackup.php reads $id=request->param('id') and runs raw Db::query(), with candidate actions restore()/delRestoreSerie()/delRestoreSeries(). But FoxCMS is a ThinkPHP multi-app: there is no reachable /DataBackup.php URL, the admin routing prefix is unknown, and the exact injectable action cannot be pinned. The only reference is an opaque Yuque collaborator-join link (no PoC). Cannot produce a faithful path+method, so no request built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.yuque.com/g/u43151774/zhyb2o/udq6lsnv80vnhbr4/collaborator/join?token=dU5eQpE4j6zEmVuK&source=doc_collaborator",
+      "https://github.com/QianFox/FoxCMS (app/admin/controller/DataBackup.php, via gh search code)",
+      "https://radar.offseq.com/threat/cve-2025-56435-na-ea89348f"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-56421",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "LimeSurvey <6.15.4 SQLi. CVE text only says 'allows a remote attacker to obtain sensitive information from the database' (CWE-89). The hongancalif advisory and the CVE record contain no endpoint path, no parameter name and no PoC request (only product/version/description sections and the fix PR link). No injectable path+parameter is confirmable, so no faithful request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/hongancalif/security-advisories/blob/main/CVE-2025-56421.md",
+      "https://advisories.gitlab.com/composer/limesurvey/limesurvey/CVE-2025-56421/",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-56421",
+      "https://github.com/LimeSurvey/LimeSurvey/pull/4328 (fix PR, not retrieved)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-56407",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "HuangDou UTCMS V9 SQLi in function RunSql of app/modules/ut-data/admin/mysql.php, argument sql (VulDB-style). This is an admin module file inside UTCMS's opaque module/action routing scheme; no reachable HTTP path or PoC URL is given (GitHub issue/markdown refs not retrievable, sibling CVE-2024-9918 also gives no URL). The 'sql' argument is itself an admin SQL-console input, so reaching RunSql requires an unknown mod/act URL. Cannot pin a faithful path, so no request built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/August829/Yu/blob/main/20250810_1.md (broken)",
+      "https://github.com/August829/CVEP/issues/4 (not retrievable)",
+      "https://cvefeed.io/vuln/detail/CVE-2025-56407",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-56407"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-55885",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4027,6 +4065,137 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-50229",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Jizhicms v2.5.4 SQL injection, but every accessible source only says 'product editing module' with no named file, parameter or HTTP method. The concrete entry point lives only in the GitHub issue #105 and the gist, both of which returned PROVENANCE_REQUIRED on WebFetch; MITRE/NVD/halosecurity records carry no parameter. Cannot build a CVE-tied request without inventing a path/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cveawg.mitre.org/api/cve/CVE-2025-50229",
+      "https://cve.halosecurity.com/cve-advisory/cve-2025-50229-jizhicms-sql-injection-leading-to-database-compromise",
+      "https://github.com/Cherry-toto/jizhicms/issues/105",
+      "https://gist.github.com/4iFei/14ad89c3b44348dd575bf5ae0ed5a19c"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-50192",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Chamilo <1.11.30 time-based SQL injection in /main/webservices/registration.soap.php. The file is known but no source gives the vulnerable SOAP action or the named parameter inside the SOAP envelope. The detail lives only in GHSA-g389-qq92-qxxf and the fix commit (GitHub), both PROVENANCE_REQUIRED on WebFetch; lutrasecurity/NVD carry only the filename. Building a SOAP body would require inventing the SOAP method and parameter, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://fieldguide.lutrasecurity.com/CVE-2025-50192",
+      "https://github.com/chamilo/chamilo-lms/security/advisories/GHSA-g389-qq92-qxxf",
+      "https://github.com/chamilo/chamilo-lms/commit/fd0f2a95b21fa28da47d785c88b879a77951b0f7",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-50192"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-49218",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Post-auth SQL injection in Trend Micro Endpoint Encryption PolicyServer, a proprietary enterprise appliance. Only a ZDI advisory and a Trend Micro KB are available (no public PoC). Neither discloses a concrete HTTP path or parameter, and the PolicyServer management interface is not a documented public web endpoint. Cannot build a faithful request without inventing the path/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://success.trendmicro.com/en-US/solution/KA-0019928",
+      "https://www.zerodayinitiative.com/advisories/ZDI-25-375/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-49211",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection in Trend Micro Endpoint Encryption PolicyServer, proprietary appliance. Only a ZDI advisory and a Trend Micro KB are available; no PoC, no disclosed HTTP path or parameter. Same situation as CVE-2025-49218. Cannot build without guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://success.trendmicro.com/en-US/solution/KA-0019928",
+      "https://www.zerodayinitiative.com/advisories/ZDI-25-368/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-48998",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "DataEase background-JDBC file read/deserialization (patch bypass of CVE-2025-27103). Exploitation is via an authenticated datasource configuration whose JDBC connection string points to an attacker-controlled database server (e.g. autoDeserialize parameters); the malicious part travels as a normal-looking JSON datasource config / JDBC URL and requires an external callout host. It does not carry a standard OWASP CRS attack signature (not SQLi/XSS/LFI/RCE on the wire), so no WAF signature class would block it, and it would need an attacker-owned DB host. GHSA advisories not fetchable (access blocked).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/dataease/dataease/security/advisories/GHSA-2wfc-qwx7-w692",
+      "https://github.com/dataease/dataease/security/advisories/GHSA-v4gg-8rp3-ccjx",
+      "https://osv.dev/vulnerability/CVE-2025-48998"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-46546",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Sherpa Orchestrator multiple time-based blind SQL injections. The affected endpoints are known (e.g. /api/gui/task/list/), but neither NVD, the CVE record, nor any accessible summary names the injectable parameter. The only PoC is a GitHub gist (ArtemBrylev) which is inaccessible (access blocked). A time-based blind payload cannot be placed faithfully without the parameter name, and guessing a list/sort/filter parameter is not allowed.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/ArtemBrylev/59b4c0825a988f39a58b79e4e8d2f378",
+      "https://cvefeed.io/vuln/detail/CVE-2025-46546",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-46546"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-46337",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "ADOdb is a PHP database abstraction library. The flaw is improper escaping in pg_insert_id() when called with user-supplied data against PostgreSQL. This is a library API, not a fixed HTTP endpoint: there is no CVE-defined path or parameter, and whether/how user input reaches pg_insert_id() depends entirely on the consuming application. No faithful per-CVE web request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ADOdb/ADOdb/security/advisories/GHSA-8x27-jwjr-8545",
+      "https://github.com/ADOdb/ADOdb/issues/1070",
+      "https://github.com/ADOdb/ADOdb/commit/11107d6d6e5160b62e05dff8a3a2678cf0e3a426"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-46268",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advantech WebAccess/SCADA SQL injection. The CISA ICS advisory and CSAF JSON describe only a generic 'SQL injection' with no HTTP path, parameter, or PoC request. Vendor bulletin gives no endpoint. Cannot build a faithful request without inventing the path/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2025/icsa-25-352-06.json",
+      "https://www.cisa.gov/news-events/ics-advisories/icsa-25-352-06",
+      "https://www.advantech.com/en-us/support/details/installation?id=1-MS9MJV"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-46188",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SourceCodester Client Database Management System 1.0 SQLi in superadmin_phpmyadmin.php. The CVE description names the file but no injectable parameter, so there is no confirmable place to put the payload. The GitHub PoC (x6vrn/mitre) and the generic Medium write-up could not be fetched in this run (WebFetch blocked: PROVENANCE_REQUIRED), and gh code access is gated per-repo here. Not dropping would require inventing a parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/x6vrn/mitre/blob/main/CVE-2025-46188.md",
+      "https://medium.com/@bijay.kumar1857/sql-injection-to-rce-exploitation-0a5048e592be",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-46188"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-46109",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "pbootCMS v3.2.5/v3.2.10 SQLi via a 'crafted GET request'. The CVE text gives no path and no parameter. The two references (GitHub issue #22, blog cocr.cc) that would hold the endpoint/parameter could not be fetched in this run (WebFetch blocked: PROVENANCE_REQUIRED; the mitre API confirmed the record itself names no path/param), and gh access is gated per-repo. No concrete path+parameter is confirmable, so dropped rather than guess a pbootCMS endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/pbootcmspro/PbootCMS/issues/22",
+      "http://cocr.cc/2025/04/17/pbootcms/",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-46109"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-45868",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "LogicalDOC Enterprise <=9.1.1 authenticated blind SQLi in the ComparisonServlet component. The CVE names the servlet/component but no injectable parameter and no URL path. The netero1010 PoC README that would name the parameter could not be fetched in this run (WebFetch blocked: PROVENANCE_REQUIRED) and gh access is gated per-repo. Without a confirmed parameter name the payload has no place to go, so dropped rather than invent one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/netero1010/Vulnerability-Disclosure/blob/main/CVE-2025-45868/README.md",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-45868"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-45820",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4112,6 +4281,87 @@
       "https://gist.github.com/LTLTLXEY/e00ec21b730742ef432a7a560cd9b70a",
       "https://github.com/3xxx/engineercms/blob/master/routers/router.go",
       "https://www.cve.org/CVERecord?id=CVE-2025-44830"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-44073",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SeaCMS v13.3 SQLi named only the component file admin_comment_news.php; no vulnerable parameter in the CVE text. The only PoC (GitHub 202110420106/CVE) was inaccessible (GitHub fetch/clone blocked in this run), and SeaCMS source could not be read to recover the parameter. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/202110420106/CVE/blob/master/seacms/seacms_comment_news_sql.md",
+      "https://cvefeed.io/vuln/detail/CVE-2025-44073",
+      "https://db.gcve.eu/vuln/CVE-2025-44073"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-44072",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SeaCMS v13.3 SQLi named only the component file admin_manager.php; no vulnerable parameter in the CVE text. GitHub PoC (202110420106/CVE) inaccessible and SeaCMS source unreadable, so the parameter could not be confirmed. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/202110420106/CVE/blob/master/seacms/seacms_manage_sql.md",
+      "https://www.vicarius.io/vsociety/vulnerabilities/cve-2025-44072",
+      "https://db.gcve.eu/vuln/CVE-2025-44072"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-44034",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "oa_system oasys v1.1 SQLi. Parameter 'alph' is known, but the CVE only cites the Java source class (cn/gson/oasys/controller/address/AddrController), not a servable HTTP route. The @RequestMapping path could not be confirmed (GitHub/Gitee fetch blocked, GitHub PoC inaccessible). Building an endpoint would require inventing the route.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://stack.watch/vuln/CVE-2025-44034/",
+      "https://dbugs.ptsecurity.com/researchers/Qkdjksfkeg",
+      "https://cvemon.intruder.io/cves/CVE-2025-44034",
+      "https://github.com/qkdjksfkeg/Security-Collections/blob/main/sqlinjection2.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-44033",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "oa_system oasys v1.1 SQLi described at the data layer (allDirector() method in AddressMapper.java). No HTTP route or request parameter is given; the mapper is reached by an unknown controller route (GitHub PoC and source inaccessible). Cannot build a request without inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/qkdjksfkeg/Security-Collections/blob/main/sqlinjection.md",
+      "https://stack.watch/vuln/CVE-2025-44033/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-43949",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "MuM MapEdit (mapedit-web) 24.2.3 SQLi. Neither NVD nor the GHSA/aggregator pages name a URL path or parameter; the only detail source is the GitHub PoC (Henkel-CyberVM/CVEs) which was inaccessible. No confirmable path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-43949",
+      "https://cvepremium.circl.lu/vuln/ghsa-92w5-fx6f-j3pw",
+      "https://github.com/Henkel-CyberVM/CVEs/tree/main/CVE-2025-43949"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-43923",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unicom Focal Point 7.6.1 SQLi via the 'image' parameter in ReportController (delete report image). Parameter is named but the CVE/vendor advisory gives no servable URL route (ReportController is a Java class), and there is no PoC. Cannot build without inventing the endpoint path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.unicomsi.com/products/focal-point/",
+      "https://www.unicomsi.com/security-advisory/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-41771",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Phoenix Contact AXC F 1152 authenticated SQLi in the controller web interface notification feature (SQLite). The CSAF advisory names neither the endpoint path nor the parameter; no PoC. Nothing concrete to build a signature against.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://phoenixcontact.csaf-tp.certvde.com/.well-known/csaf/white/2026/vde-2025-056.json"
     ]
   },
   {
