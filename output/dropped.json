@@ -2827,6 +2827,65 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-1432",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "T-Systems Buroweb SQLi. Endpoint /sta/CarpetaPublic/doEvent?APP_CODE=STA&PAGE_CODE=TABLON is known, but the INCIBE advisory only says 'several parameters' in the 'tablon' component are injectable and does not name any specific injectable parameter. The only named query params (APP_CODE, PAGE_CODE) are routing params with fixed values, not identified as injectable. Cannot place a payload in a named parameter without guessing, so condition 2 (named parameter) fails.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://incibe.es/en/incibe-cert/notices/aviso/sql-injection-sqli-buroweb-platform"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-1370",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SIBS woocommerce payment gateway, time-based SQLi via 'referencedId' (authenticated, Administrator+). Parameter is known and a param-based ModSecurity rule (matches ARGS:referencedId) is published, but no source names the HTTP endpoint/admin-ajax action/REST route where referencedId is processed in class-sibs-payment-gateway.php (advisory only says 'WordPress admin endpoints handling SIBS payment processing'). trac and jsdelivr plugin source are policy-blocked in this run and gh code search is unavailable, so the path cannot be confirmed; guessing an admin-ajax action would fail condition 2.",
+    "waf_rules_found": [
+      "ModSecurity rule matching ARGS:referencedId (param-only, no path) cited by freshysites.com security bulletin"
+    ],
+    "links_checked": [
+      "https://www.sentinelone.com/vulnerability-database/cve-2026-1370/",
+      "https://freshysites.com/security-bulletins/wordpress-security-bulletin-sibs-woocommerce-payment-gateway-plugin-cve-2026-1370/",
+      "https://plugins.trac.wordpress.org/browser/sibs-woocommerce/tags/2.2.0/class-sibs-payment-gateway.php (policy-blocked)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-1317",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Ultimate CSV Importer SQLi via a malicious 'file_name' stored during file upload and later used in a raw SQL query. The parameter is known but the HTTP upload endpoint (admin-ajax action / REST route) that sets file_name is not named in any public source; source files managerExtensions/LogManager.php and uploadModules/UrlUpload.php are only code locations. trac/jsdelivr source policy-blocked, gh code search unavailable. Cannot build a faithful request (endpoint + exact field carrying the filename) without guessing. Also a second-order SQLi (injection via stored filename), which does not map to a single on-wire signature in the named parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://freshysites.com/security-bulletins/wordpress-security-bulletin-wp-import-6-ultimate-csv-xml-importer-for-wordpress-cve-2026-1317/",
+      "https://plugins.trac.wordpress.org/browser/wp-ultimate-csv-importer/tags/7.34/managerExtensions/LogManager.php (policy-blocked)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-1258",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Mail Mint blind SQLi via 'order-by','order-type','selectedCourses' on the REST endpoints 'forms','automation','email/templates','contacts/import/tutorlms/map' (authenticated, Administrator+). The endpoint resource names and parameters are known, but the REST namespace prefix (wp-json/<namespace>/...) could not be confirmed from any public source (trac/jsdelivr source policy-blocked, gh code search unavailable, readme and docs do not document the namespace). Building a full /wp-json path would require inventing the namespace, violating 'never invent an endpoint'. Recoverable if the namespace is confirmed from the plugin source.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://getwpfunnels.com/docs/mail-mint/getting-started/plugin-overview",
+      "https://cdn.jsdelivr.net/wp/mail-mint/tags/1.14..2/README.txt",
+      "https://plugins.trac.wordpress.org/changeset/3449536 (policy-blocked)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-1250",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Court Reservation plugin unauthenticated SQLi via 'id' in public/class-courtres-public.php (~L97). Parameter is known, but the HTTP entry point (admin-ajax nopriv action name or public route reaching this code) is not named in any public source. trac and jsdelivr plugin source are policy-blocked, the Wordfence page renders empty, and gh code search is unavailable, so the action/path cannot be confirmed; guessing it would fail condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/court-reservation/court-reservation-manage-your-court-bookings-online-11011-unauthenticated-sql-injection (rendered empty)",
+      "https://socradar.io/free-tools/cve-radar/CVE-2026-1250",
+      "https://plugins.trac.wordpress.org/browser/court-reservation/tags/1.10.8/public/class-courtres-public.php (policy-blocked)"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-1050",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -3063,6 +3122,216 @@
     "links_checked": [
       "https://github.com/langchain-ai/langgraph/security/advisories/GHSA-9rwj-6rc7-p77c",
       "https://github.com/langchain-ai/langgraph/commit/297242913f8ad2143ee3e2f72e67db0911d48e2a"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-65133",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "School Management System 1.0 (manikandan580) SQLi. Description only says 'the affected endpoint' with no file/parameter. The only PoC is a GitHub README (TREXNEGRO/Security-Advisories) which is unreachable in this session (github.com and raw.githubusercontent.com return PROVENANCE_REQUIRED). No aggregator (appsecure, cvefeed, nvd) names the endpoint or parameter. Cannot build without inventing path+param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/TREXNEGRO/Security-Advisories/blob/main/CVE-2025-65133/README.md",
+      "https://www.appsecure.security/vulnerability-database/cve-2025-65133/",
+      "https://cvepremium.circl.lu/vuln/fkie_cve-2025-65125"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-65125",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "online-movie-booking 5.5 SQLi in movie_details.php. The file is named but the injectable PARAMETER is not public in any aggregator; PoC is in GitHub repo TheAnhaj/CVE-Researches (unreachable, github blocked). Building would require inventing the parameter name (likely id/mid but unconfirmed), which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/TheAnhaj/CVE-Researches",
+      "https://cvepremium.circl.lu/vuln/fkie_cve-2025-65125",
+      "https://www.codeant.ai/vulnerability-database/cve-2025-65125"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-65091",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "XWiki Full Calendar Macro <2.4.5 SQLi via the Calendar.JSONService wiki page. The vulnerable component (a wiki page) is known but the concrete HTTP request - the XWiki URL (/xwiki/bin/get/...) and the injected query parameter name - is not disclosed by any reachable source; GHSA and fix commit are on github (blocked). averlon/gitlab/sonatype mirrors carry no PoC request or parameter. Cannot build a faithful request without inventing the URL+param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/xwiki-contrib/macro-fullcalendar/security/advisories/GHSA-2g22-wg49-fgv5",
+      "https://github.com/xwiki-contrib/macro-fullcalendar/commit/5fdcf06a05015786492fda69b4d9dea5460cc994",
+      "https://research.averlon.ai/vulnerability-intelligence/cve/CVE-2025-65091",
+      "https://advisories.gitlab.com/pkg/maven/org.xwiki.contrib/macro-fullcalendar-pom/CVE-2025-65091/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-64493",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SuiteCRM 8.6.0-8.9.0 blind time-based SQLi inside the GraphQL-API 'appMetadata' operation. The endpoint (/api/graphql) and operation name are known, but the exact GraphQL query structure and the injected argument are not public; the PoC is in the GHSA (github, blocked). Reproducing a faithful GraphQL body would require inventing the field/argument, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SuiteCRM/SuiteCRM-Core/security/advisories/GHSA-5gcj-mfqq-v8f7",
+      "https://guide.sonatype.com/vulnerability/CVE-2025-64493",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-64493"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-64492",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SuiteCRM <=8.9.0 time-based blind SQLi. Description is generic (no file, parameter, or GraphQL operation named). Only PoC source is the GHSA (github, blocked). No reachable aggregator names an entry point. Cannot build without inventing path+param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SuiteCRM/SuiteCRM-Core/security/advisories/GHSA-54m4-4p54-j8hp"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-64488",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SuiteCRM 7.14.7-/8.x SQLi via a malicious 'call_id' in the Reschedule Call module. The parameter (call_id) and module are known, but the concrete endpoint - URL path plus module/action or entryPoint carrying call_id - is not disclosed by any reachable source; the two fix commits and GHSA are on github (blocked). Building the request line would require inventing the path/action, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SuiteCRM/SuiteCRM/security/advisories/GHSA-5v53-v44q-ww2c",
+      "https://cvefeed.io/vuln/detail/CVE-2025-64488",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-64488"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-64114",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ClipBucket v5 Custom Fields plugin SQL injection, exploitable only by authenticated admins with plugin-management privileges. The advisory/description names no file, path or parameter, and the GHSA advisory, fix commit, and .patch were all provenance-blocked in this run, so no concrete endpoint+parameter could be recovered. Not building a guessed admin path/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/MacWarrior/clipbucket-v5/security/advisories/GHSA-4g7x-j562-8g69",
+      "https://github.com/MacWarrior/clipbucket-v5/commit/b7289923177fe533ae908654ee3cd65b63ffb008.patch",
+      "https://www.cvelogic.com/cve/CVE-2025-64114"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-64104",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "langchain-ai/langgraph SQLite checkpoint/store: SQL injection via unparameterized string concatenation in the library's SQLite store implementation (Python/JS API). It is reached through LangGraph store method calls, not an inbound HTTP request to a defined server endpoint, so there is no WAF-inspectable path+parameter. Library API, per SPEC section 3.4 drop criteria.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/langchain-ai/langgraph/security/advisories/GHSA-7p73-8jqx-23r8",
+      "https://github.com/langchain-ai/langgraph/commit/bc9d45b476101e441cb1cc602dea03eb29232de4"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-63878",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Restaurant Website 'Restoran' v1.0 SQL injection 'via the Contact Form page'. The description names no handler file and no parameter, and the PoC markdown was provenance-blocked in this run. Without a confirmed path+parameter the payload cannot be placed in the CVE's named parameter (SPEC 6.3), so condition 2 cannot be met.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/rumanaemu/CVE-Research/blob/main/CVE-2025-63878.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-63724",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SVX Portal 2.7A SQL injection 'via crafted POST request to admin/update_setings.php'. The path is named but no POST parameter is given in the description, and the deepstrike.io write-up was provenance-blocked in this run. Without the injectable parameter name the payload cannot be placed in the CVE's parameter (SPEC 6.3); not sending a guessed parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://deepstrike.io/blog/sql-injection-in-svx-portal-v-2-7A"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62387",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQLi (credited to Positive Technologies). Ivanti advisory is login-walled and lists only CVE/CVSS; no public PoC, nuclei template, writeup, path or parameter. Cannot build a CVE-tied request without guessing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-October-2025",
+      "https://dbugs.ptsecurity.com/vulnerability/PT-2025-41830",
+      "https://cvefeed.io/vuln/detail/CVE-2025-62387"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62386",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQLi. Same as CVE-2025-62387: login-walled vendor advisory, no public path/parameter or PoC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-October-2025"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62385",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQLi. Same as CVE-2025-62387: no public path/parameter or PoC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-October-2025"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62384",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQLi. Same as CVE-2025-62387: no public path/parameter or PoC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-October-2025"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62383",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQLi. Same as CVE-2025-62387: no public path/parameter or PoC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-October-2025"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62367",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Taiga taiga-back <=6.8.3 time-based blind SQLi in 'the Taiga API' via response timing. GHSA advisory and NVD/osv name no concrete endpoint path or parameter; fix commit 675f652 is not retrievable in this session (GitHub API/fetch gated, WebFetch blocked). Building would require guessing the vulnerable API route+parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/taigaio/taiga-back/security/advisories/GHSA-chm9-9wwq-xffj",
+      "https://osv.dev/vulnerability/CVE-2025-62367",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-62367"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-62173",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "FreePBX Endpoint (restapps) authenticated SQLi in the Endpoint module REST API. GHSA advisory not fetchable (WebFetch blocked, FreePBX repos not public/indexed in gh search). Description gives no concrete REST route or single named parameter; building would require guessing the path. No nuclei template or PoC with a request found.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/FreePBX/security-reporting/security/advisories/GHSA-q3h9-fmpr-vpfw"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-61675",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "FreePBX Endpoint Manager authenticated SQLi across 'multiple parameters in basestation, model, firmware, and custom extension configuration' areas. No concrete HTTP path given; parameter names are generic and the containing endpoint/method are not public (repo not indexed, advisory not fetchable). Cannot tie a request to a specific path without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/FreePBX/security-reporting/security/advisories/GHSA-292p-rj6h-54cp"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-61943",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "AVEVA Process Optimization / Captive Historian: an authenticated Standard User tampers with queries in Captive Historian to achieve code execution under SQL Server. This is an OT thick-client / SQL-query-tampering issue, not an inbound HTTP request with a named web path+parameter. CISA ICS advisory gives no web endpoint. Not expressible as a WAF webRequest.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.cisa.gov/news-events/ics-advisories/icsa-26-015-01",
+      "https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-015-01.json",
+      "https://www.aveva.com/en/support-and-success/cyber-security-updates/"
     ]
   },
   {
