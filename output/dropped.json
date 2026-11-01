@@ -6165,6 +6165,89 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-11981",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WordPress WPSchoolPress plugin SQLi via the 'SCodes' parameter is handled by an admin-ajax.php AJAX action in lib/wpsp-ajaxworks.php (authenticated admin). The parameter is known but the wp_ajax_ action name (the discriminator needed to tie the request to the CVE) could not be confirmed: the trac source and Wordfence advisory were not retrievable (WebFetch PROVENANCE_REQUIRED / empty), gh search code unavailable. Building admin-ajax.php with a guessed action would fail condition 2; not guessed per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/04bc4a20-0136-4fb4-9489-07140b2b86aa?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wpschoolpress/tags/2.2.9/lib/wpsp-ajaxworks.php#L1872",
+      "https://plugins.trac.wordpress.org/changeset/3389346#file62"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11980",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WordPress Quick Featured Images plugin SQLi in the 'delete_orphaned' function is a second-order injection: the malicious value must first be stored in a post custom field (meta) by an author-level user, and only later flows into SQL when an Editor runs the Tools cleanup. There is no single inbound request carrying the SQLi signature in a CVE-specific named parameter - the triggering tool request contains no payload, and the storing request is the generic post/meta editor, not CVE-specific. Cannot be faithfully expressed as one WAF web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/590720a3-1881-4a5d-b004-ad92d386afe6?source=cve",
+      "https://plugins.trac.wordpress.org/browser/quick-featured-images/tags/13.7.3/admin/class-Quick_Featured_Images_Tools.php#L817"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11972",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WordPress TaxoPress 'AI Autotagger' plugin SQLi via the 'post_types' parameter (authenticated Editor+). The parameter is named in the CVE but the exact HTTP entry point (admin-ajax.php action name or REST route) could not be confirmed: the fix commit on github.com/TaxoPress/TaxoPress and the Wordfence advisory were not retrievable (WebFetch blocked/empty), gh search code unavailable. Building against a guessed action/route would fail condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/7e36f3a0-2215-4c1c-99c4-9405ad7b913b?source=cve",
+      "https://github.com/TaxoPress/TaxoPress/commit/fd35042973439719b4304b336663e46f13f1533a",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-11972"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11944",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "givanz Vvveb (<=1.0.7.3) SQLi in the Import function of admin/controller/tools/import.php ('Raw SQL Handler' component), requires high privileges (admin). The advisory names the source file but not the HTTP route (Vvveb uses an admin router) nor the injectable request parameter. The GitHub issue #332 and fix commit were not retrievable (WebFetch PROVENANCE_REQUIRED), gh search code unavailable, aggregators (offseq/osv/nvd) give no endpoint/parameter. No concrete path+parameter confirmable; not guessed per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/givanz/Vvveb/issues/332",
+      "https://github.com/givanz/Vvveb/commit/52204b4a106b2fb02d16eee06a88a1f2697f9b35",
+      "https://radar.offseq.com/threat/cve-2025-11944-sql-injection-in-givanz-vvveb-6d219942",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-11944"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11629",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the function getUserList of /Manage/getUserList.do (Java .do endpoint) with no injectable argument named; PoC (xkalami-Tta0/CVE DocSys md) was inaccessible (PROVENANCE_REQUIRED) and gh code search of RainyGao/DocSys returned no parameter. No confirmable parameter, so condition 2 cannot be met without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/xkalami-Tta0/CVE/blob/main/DocSys/sql%E6%B3%A8%E5%85%A5.md",
+      "https://vuldb.com/?id.328041",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-11629"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11623",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQLi known only from the vendor security advisory; no public PoC, no path, no parameter. Vendor bulletin gives no endpoint to target (spec section 7: vendor-only bulletins rarely give a path).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://forums.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-October-2025",
+      "https://stack.watch/vuln/CVE-2025-11623/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11606",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB/NVD/CVE record only name 'the component Search' of iPynch Social Network Website (rolling release, commit b6933b6) with an 'unknown function' and no file or parameter. The only PoC is a .docx (Lianhaorui/Report/sql.docx) that could not be fetched (GitHub blocked), and gh code search of CVE databases returned only the same vague description. No concrete path + parameter is confirmable, so no CVE-tied request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.327928",
+      "https://github.com/Lianhaorui/Report/blob/main/sql.docx",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-11606"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-33531",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
