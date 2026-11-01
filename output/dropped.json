@@ -6041,6 +6041,20 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-13251",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WeiYe-Jing datax-web SQLi. VulDB/NVD/CVE and all index mirrors describe only 'an unknown function' with NO file path, endpoint or parameter named. The only source with the concrete endpoint is the PoC at Xzzz111/exps (report.md), which could not be read: raw.githubusercontent WebFetch returned PROVENANCE_REQUIRED, the repo is not indexed by gh search code, and add_repo was denied. Cannot build a faithful request without inventing an endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.332585",
+      "https://api.osv.dev/v1/vulns/CVE-2025-13251",
+      "https://www.sentinelone.com/vulnerability-database/cve-2025-13251/",
+      "https://exploit-intel.com/vuln/CVE-2025-13251",
+      "https://github.com/Xzzz111/exps/blob/main/archives/datax-web-sql-injection-1/report.md"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-13192",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -6106,6 +6120,30 @@
     "waf_rules_found": [],
     "links_checked": [
       "https://www.wordfence.com/threat-intel/vulnerabilities/id/75de6387-fac7-403d-9e6c-89570658d978?source=cve"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-12514",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Centreon Infra Monitoring Open-tickets SQLi in 'Notification rules configuration parameters' requires elevated privileges, but no public source names a concrete HTTP path or parameter. The only reference is the login-walled Centreon security bulletin; the PoC collection entry only restates the advisory. Centreon admin config endpoints (/centreon/main.get.php?p=<numeric id>) and the open-tickets notification-rule parameter are not disclosed, so no faithful request can be built without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://thewatch.centreon.com/latest-security-bulletins-64/cve-2025-12514-centreon-open-tickets-high-severity-5343",
+      "https://github.com/HORKimhab/poc-cve-collection (CVE-2025-12514.md)",
+      "https://github.com/centreon/centreon/releases"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-12502",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Attention Bar WordPress plugin <= 0.7.2.1 Admin+ SQLi. No public source names the vulnerable parameter or endpoint (WPScan/OpenCVE/Checkmarx only state 'a user supplied parameter'). The plugin is closed/removed from wordpress.org and no source mirror is indexed, so the path+parameter cannot be confirmed. Building would require guessing the parameter, which spec section 2 forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/75e63134-4c8a-45fd-b7fc-db40644ddb8c/",
+      "https://devhub.checkmarx.com/?p=282057",
+      "https://www.cvelogic.com/cve/CVE-2025-12502 (OpenCVE KB)"
     ]
   },
   {
@@ -6281,6 +6319,17 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-11691",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "PPOM SQLi is in PPOM_Meta::get_fields_by_id($ppom_id), reached unauthenticated only when 'Enable Legacy Price Calculations' is on. Source review (gh search code, Codeinwp/woocommerce-product-addon) found the only nopriv AJAX actions are ppom_upload_file / ppom_delete_file (unrelated), and the REST route that calls get_fields_by_id is admin-only. No confirmable public HTTP path + parameter carries $ppom_id into the injection for the unauthenticated legacy-price-calc flow, so no faithful request could be built without guessing. Not dropped for lack of signature (it is SQLi) but for lack of a confirmable entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/eefcc290-b7f7-4cf0-9ccc-db4c883d6426?source=cve",
+      "https://plugins.trac.wordpress.org/browser/woocommerce-product-addon/trunk/classes/ppom.class.php#L337"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-11629",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -6326,6 +6375,31 @@
       "https://vuldb.com/?id.327710",
       "https://cvefeed.io/vuln/detail/CVE-2025-11551",
       "https://stack.watch/vuln/CVE-2025-11551/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11501",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQLi via 'tax_query' in WP 'Dynamically Display Posts' plugin. The vulnerable code is an internal frontend class (includes/frontend/classes/database-talk.php), not a directly requestable path. Could not confirm the HTTP transport of tax_query (shortcode attribute vs GET/POST query param vs admin-ajax action) from Wordfence/Wiz/Patchstack; trac source and advisory pages were blocked or empty. Building a request would require inventing the endpoint path and the parameter transport, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/b2ad5698-4299-48a4-bcc1-5f4436dfab27?source=cve",
+      "https://plugins.trac.wordpress.org/browser/dynamically-display-posts/trunk/includes/frontend/classes/database-talk.php#L38",
+      "https://www.wiz.io/vulnerability-database/cve/cve-2025-11501"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-11365",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Blind SQLi via the 'id' attribute of the [google_map] shortcode in WP Google Map Plugin (<=1.0), exploitable only by a Contributor+ authenticated user who embeds the shortcode in post content that is then rendered server-side. The injectable value lives inside shortcode text in post content, not in a confirmable top-level HTTP path+parameter; there is no direct request URL/parameter to target. The plugins.trac shortcode.php source and the Wordfence page could not be fetched (PROVENANCE_REQUIRED), so the exact rendering/preview endpoint could not be confirmed. Building a POST to a guessed /wp-admin/post.php content field would fail condition 2 (guessed path/param), so dropped per spec SS6.5.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a8ecc765-ae00-4091-81dc-e93f91bbd86e?source=cve",
+      "https://plugins.trac.wordpress.org/browser/wp-google-map/trunk/shortcode.php#L8",
+      "https://cvefeed.io/vuln/detail/CVE-2025-11365",
+      "https://www.incibe.es/incibe-cert/alerta-temprana/vulnerabilidades/cve-2025-11365"
     ]
   },
   {
