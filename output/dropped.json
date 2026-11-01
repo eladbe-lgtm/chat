@@ -4193,6 +4193,43 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-7545",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the controller file commonController.php (checkEmail endpoint); no usable URL route/path is published, and the exact parameter is not named - secondary briefs only infer an 'email' field. The PoC GitHub issue was unreachable from this environment. Building would require guessing both the path and the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2026-7545",
+      "https://dbugs.ptsecurity.com/researchers/Sqlmap961",
+      "https://feed.craftedsignal.io/briefs/2026-05-asms-sqli/",
+      "https://github.com/eqwerwq/CVE/issues/2",
+      "https://vuldb.com/vuln/360356"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7447",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB/CVE text for /admin/update_customer.php gives only garbled boilerplate ('manipulation of the argument type/length/business parameter validity') and names no concrete parameter. The PoC (zhi-cyber/cve issues/1) was unreachable and not indexed by gh code search. Choosing a parameter would be a guess.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2026-7447",
+      "https://github.com/zhi-cyber/cve/issues/1",
+      "https://vuldb.com/vuln/360188"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7435",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "SSCMS v7.4.0 stl:sqlContent SQL injection is exploited by submitting a crafted ENCRYPTED payload to /api/stl/actions/dynamic; the SQL is opaque/encrypted on the wire, so no WAF signature (OWASP CRS 942) is visible for a WAF to match. Per spec, dropped because the payload would be opaque on the wire.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/siteserver/cms/issues/3891",
+      "https://www.vulncheck.com/advisories/sscms-sql-injection-via-stl-sqlcontent-querystring"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-7389",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4242,6 +4279,43 @@
       "https://api.osv.dev/v1/vulns/CVE-2026-7083",
       "https://github.com/likeadmin-likeshop/likeadmin_php/ (gh search code: DataTableLists.php queryResult confirmed)",
       "https://github.com/likeadmin-likeshop/likeadmin_php/issues/8 (PoC, unreachable)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7070",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB/CVE text names only the 'Login' component and the argument 'Username' but does NOT name a file/path for code-projects Inventory Management System 1.0. The PoC repo (MyMySSS/CVE123) is not accessible from this environment, and gh code search returns many unrelated 'Inventory Management System' projects with differing login files (login.php, user_login.php, index.php), so the exact endpoint path cannot be confirmed. Spec forbids guessing the path, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/MyMySSS/CVE123/blob/main/cve/cve.md",
+      "https://vuldb.com/vuln/359645",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-7070"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7048",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Photo Gallery by 10Web (<=1.8.40) SQLi via the 'order_by' parameter. Confirmed from plugin source (common-repository/photo-gallery) that order_by is a gallery SHORTCODE attribute: the frontend AJAX handler (photo-gallery.php frontend_data) rebuilds params from the STORED shortcode via WDWLibrary::get('shortcode_id'), not from a directly-named inbound HTTP 'order_by' parameter. Wordfence confirms exploitation requires a contributor embedding a malicious shortcode in a post/draft (stored). There is no clean inbound HTTP request carrying order_by as its own named parameter; the signature would be nested inside post_content at a guessed save endpoint. Dropped rather than guess.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/27394b03-3604-4fb0-950f-e1f838cabb05?source=cve",
+      "https://plugins.trac.wordpress.org/browser/photo-gallery/tags/1.8.39/framework/WDWLibrary.php#L1351",
+      "https://plugins.trac.wordpress.org/browser/photo-gallery/trunk/frontend/controllers/controller.php#L354",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-7048"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-7023",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ByteDance coze-studio (<=0.5.1) 'SQL injection' in the ExecuteSQL function of backend/domain/memory/database/service/database_impl.go (databaseTool). The VulDB/CVE description names NO injectable parameter ('Performing a manipulation results in sql injection') and the affected function is a by-design SQL-execution tool for an agent, so raw SQL is the intended input carried in an opaque JSON/agent body. No specific named parameter and no distinct attack-signature boundary to build against. Spec forbids guessing the parameter, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gist.github.com/YLChen-007/272fe62967b42259ed767d109615030a",
+      "https://vuldb.com/vuln/359602",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-7023"
     ]
   },
   {
