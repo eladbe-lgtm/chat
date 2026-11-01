@@ -6542,6 +6542,89 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-10473",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is in the Java utility function filterKeyword() of /com/ruoyi/common/utils/sql/SqlUtil.java (Blacklist Handler) in yangzongzhuan RuoYi <=4.8.1 - i.e. a blacklist/filter-bypass in an internal library function, not a named HTTP endpoint or parameter. The VulDB/NVD description and the stack.watch write-up give only the source-file path and function, no HTTP method, route, or request parameter. The GitHub PoC (mo957/vuln md) was not fetchable (provenance-blocked). Building a request would require guessing the reaching endpoint/param (e.g. a list orderByColumn sink), which the spec forbids (no guessed path/parameter).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/mo957/vuln/blob/main/ruoyi_sqlinject/ruoyi_sqlinject.md",
+      "https://vuldb.com/?id.323905",
+      "https://stack.watch/vuln/CVE-2025-10473/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10048",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "My auctions allegro (free edition) authenticated (admin) SQLi via the 'order' parameter in a WP admin list table (classic ORDER BY injection). Parameter and attack class are known from Wordfence, but the exact endpoint path (admin.php?page=<slug> or the list-table handler) could not be confirmed: the main plugin file at plugins.svn.wordpress.org returned client_error and the menu/list-table code lives in sub-includes not reachable within provenance/rate limits. Building would require guessing the admin page slug (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/8d81c8d5-3862-4401-9226-9c7380f364a7?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3375019/my-auctions-allegro-free-edition",
+      "https://plugins.svn.wordpress.org/my-auctions-allegro-free-edition/trunk/my-auctions-allegro.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10047",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Email Tracker authenticated (admin) SQLi via the 'orderby' parameter in the email-log WP list table (ORDER BY injection). Parameter and class confirmed by Wordfence; source trace (email-tracker.php -> email-tracker-main.php -> et-admin.php / src/Admin/Email_List) could not reach the add_menu_page slug or the sort SQL within provenance/rate limits, so the exact admin.php?page=<slug> endpoint is unconfirmed. Building would require guessing the page slug (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ec4be524-a763-4f2b-8a1d-6189014b4d86?source=cve",
+      "https://plugins.svn.wordpress.org/email-tracker/trunk/email-tracker.php",
+      "https://plugins.svn.wordpress.org/email-tracker/trunk/email-tracker-main.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10045",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "onOffice for WP-Websites authenticated (editor) SQLi via 'order'/'orderby' GET parameters. Confirmed in source (plugin/Record/RecordManagerReadListViewEstate.php, getRecordsSortedAlphabetically(): $_GET['order']/$_GET['orderby'] interpolated into \"ORDER BY `{$orderBy}` {$order}\" before prepare; trunk now adds sanitize_key as the fix). Method (GET) and parameter confirmed, but the exact admin list-table page path (admin.php?page=<slug>) that invokes getRecordsSortedAlphabetically() is not in that file and could not be confirmed within provenance/rate limits. Building would require guessing the page path (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/259010bd-ccb4-4907-bea8-f49e6464eaa1?source=cve",
+      "https://plugins.svn.wordpress.org/onoffice-for-wp-websites/trunk/plugin/Record/RecordManagerReadListViewEstate.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10042",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Quiz Maker unauthenticated SQLi via a spoofed IP header (e.g. X-Forwarded-For) that is read by get_user_ip() and stored into a quiz-results SQL query. Only exploitable when the server is configured to take the IP from a user-supplied header and IP-based limiting is on. Source confirms the IP is read in ays_set_quiz_message_variables_data() via get_user_ip(), but the specific unauthenticated admin-ajax action name (wp_ajax_nopriv_ays_...) that reaches the vulnerable INSERT could not be confirmed (the 7k-line public class was only partially retrievable and the ajax registration/handler was not in the fetched portion). Without the confirmed action the admin-ajax endpoint target is a guess (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4eeae6dd-a41f-4878-aa92-064ec78367d7?source=cve",
+      "https://plugins.svn.wordpress.org/quiz-maker/tags/6.7.0.52/public/class-quiz-maker-public.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10037",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Featured Image from URL (FIFU) authenticated (admin) SQLi in get_posts_with_internal_featured_image() (admin/db.php). Vulnerable function named by Wordfence, but the HTTP entry point (which wp_ajax_ action/REST route invokes it and which request parameter feeds the injectable value) could not be confirmed: trunk admin/db.php returned client_error and tag 5.2.7 path 404'd within provenance/rate limits. No confirmable path+parameter, so building would be a guess (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/54c1b0e9-6fab-4452-b232-953e671f4d8d?source=cve",
+      "https://plugins.trac.wordpress.org/browser/featured-image-from-url/trunk/admin/db.php?rev=3348285",
+      "https://plugins.svn.wordpress.org/featured-image-from-url/tags/5.2.7/admin/db.php",
+      "https://plugins.svn.wordpress.org/featured-image-from-url/trunk/admin/db.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-10036",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Featured Image from URL (FIFU) authenticated (admin) SQLi in get_all_urls() (admin/api.php). Vulnerable function named by Wordfence, but the HTTP entry point (invoking wp_ajax_ action/REST route and the injectable request parameter) could not be confirmed: trunk/tag source for admin/api.php was not retrievable within provenance/rate limits. No confirmable path+parameter, so building would be a guess (fails condition 2).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ed54fe33-6467-4af2-ba28-dd17287d8f92?source=cve",
+      "https://plugins.trac.wordpress.org/browser/featured-image-from-url/trunk/admin/api.php?rev=3348285",
+      "https://plugins.svn.wordpress.org/featured-image-from-url/tags/5.2.7/admin/api.php"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-33531",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
