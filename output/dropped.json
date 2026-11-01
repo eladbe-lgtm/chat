@@ -6956,6 +6956,20 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-8977",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Simple Download Monitor <= 3.9.33 time-based SQLi via the 'order' parameter in the admin-side download-log listing/export (WP_List_Table sort direction), vulnerable code in main.php ~L255-261. The parameter and attack class are known, but the exact endpoint (the wp-admin page slug / log-export action URL that carries 'order') could not be confirmed from any accessible source: the Wordfence advisory is JS-rendered (empty via fetch), the GitHub-based PoC and WordPress trac/SVN are provenance- or egress-blocked in this session, and downloads.wordpress.org is not reachable to inspect main.php. Per SPEC the endpoint path must not be invented, so dropped rather than guess the admin slug/action.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/44a98565-7861-4489-9009-43292b6e46df?source=cve",
+      "https://db.gcve.eu/vuln/CVE-2025-8977",
+      "https://www.sentinelone.com/vulnerability-database/cve-2025-8977/",
+      "https://plugins.trac.wordpress.org/changeset/3346068/",
+      "https://plugins.trac.wordpress.org/browser/simple-download-monitor/tags/3.9.33/main.php"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-8931",
     "group": "READY",
     "result": "DROPPED_NOT_WEB",
@@ -7008,6 +7022,43 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-8781",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Bookster WordPress plugin SQL injection via the 'raw' parameter in src/Models/Database/QueryBuilder.php (authenticated, Administrator-level). The vulnerable parameter name is known, but the concrete entry point (the AJAX action / REST route / admin page that passes 'raw' into QueryBuilder) is not public. Plugin source is only on WordPress.org trac and SVN, both blocked in this environment (403 via proxy), downloads.wordpress.org zip also blocked, and there is no GitHub mirror (gh search code returned nothing). Without a real path, a request would be a guessed endpoint, so dropped rather than invent one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/1fc5f0ac-3323-4e6c-8900-10e13294ff9a?source=cve",
+      "https://plugins.trac.wordpress.org/browser/bookster/trunk/src/Models/Database/QueryBuilder.php#L133",
+      "https://plugins.trac.wordpress.org/changeset/3434484/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-8709",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "langchain-ai/langchain LangGraph SQLite store (langgraph-checkpoint-sqlite 2.0.10) SQL injection via filter operators ($eq, $ne, $gt, $lt, $gte, $lte) that are string-concatenated into queries. This is a Python library API (SqliteStore search/filter), exploited by calling the library with a crafted filter dict, not by an inbound HTTP request to a fixed path/parameter. No server-side web endpoint, so it cannot be expressed as a WAF webRequest.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.com/bounties/9793f4b3-76f8-44a4-989f-49a2177ee118"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-8416",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Product Filter for WooCommerce by WBW (woo-product-filter <= 2.9.7) unauth SQL injection. The vulnerable parameter 'filtersDataBackend' and a time-based payload (filtersDataBackend=1' AND SLEEP(5) AND '1'='1) are confirmed via Wordfence and the zeropath write-up, and the sink is in modules/woofilters/controller.php / mod.php. However the plugin receives this via an admin-ajax.php AJAX handler whose exact action name could not be verified: the plugin source (plugins.trac.wordpress.org, plugins.svn.wordpress.org), the plugin zip (downloads.wordpress.org) and the Wordfence/GitHub pages were all blocked or empty in this session, and no nuclei template was found. Without a confirmed method+path (admin-ajax.php action), building would require inventing the endpoint, which SPEC 1/6.5 forbids. Dropped rather than guess the action.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d1533e9a-dcb9-4fbb-a1a7-7f4dafd3a1c8?source=cve",
+      "https://zeropath.com/blog/cve-2025-8416-product-filter-by-wbw-sql-injection-summary",
+      "https://plugins.trac.wordpress.org/browser/woo-product-filter/tags/2.8.6/modules/woofilters/controller.php",
+      "https://plugins.svn.wordpress.org/woo-product-filter/tags/2.8.6/modules/woofilters/controller.php",
+      "https://downloads.wordpress.org/plugin/woo-product-filter.2.9.7.zip",
+      "https://releasealert.dev/wordpress/woo-product-filter/cves"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-8347",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -7031,6 +7082,17 @@
       "https://github.com/Z-Hub/Z-Push/pull/161/commits/f981d515a35ac4c303959af21dce880a5db02786",
       "https://security.snyk.io/vuln/SNYK-PHP-ZPUSHZPUSHDEV-10908180",
       "https://xbow.com/blog/xbow-zpush-sqli/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-7826",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection is in an attribute of the 'iNICtestimonial' WordPress shortcode (authenticated Contributor embeds the shortcode in post content). The specific injectable shortcode attribute name and the exact HTTP storing/rendering request are not public in the available sources, and the Wordfence advisory could not be retrieved (page returned no usable content through the agent proxy). A faithful request cannot be built without inventing the parameter/path, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/840fefde-8c9d-413f-a6a6-1e796fb9e910?source=cve",
+      "https://wordpress.org/plugins/indianic-testimonial/"
     ]
   },
   {
