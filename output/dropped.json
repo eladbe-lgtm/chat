@@ -16771,6 +16771,54 @@
     ]
   },
   {
+    "cve_id": "CVE-2023-5591",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection in librenms prior to 23.10.0, but no public path/parameter. The fix commit and the huntr bounty both returned a permission prompt (not fetchable), and gh API access to librenms/librenms is not enabled for this session (add_repo is disallowed). No concrete endpoint/parameter could be confirmed, so no faithful request could be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/librenms/librenms/commit/908aef65967ce6184bdc587fd105660d5d55129e",
+      "https://huntr.dev/bounties/54813d42-5b93-440e-b9b1-c179d2cbf090"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-5640",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE describes an unauthenticated SQL injection via an AJAX action in the Article Analytics plugin, but the exact AJAX action and parameter could not be confirmed. The devl00p PoC write-up and the WPScan advisory both returned permission prompts (not fetchable). The current SVN trunk source registers no AJAX action; its only unauthenticated SQL sink is the WordPress core 'p' query var (cast to int by core, unreliable) and the authenticated admin-settings save (does not match the unauthenticated AJAX description). Could not confirm a faithful entry point, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/9a383ef5-0f1a-4894-8f78-845abcb5062d",
+      "https://devl00p.github.io/posts/Injection-SQL-dans-le-plugin-Wordpress-Article-Analytics/",
+      "https://plugins.svn.wordpress.org/article-analytics/trunk/article-analytics.php",
+      "https://cvefeed.io/vuln/detail/CVE-2023-5640"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-5466",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection is via the 'setting' attribute of the [wp-anything-slider] shortcode, which only runs when a stored shortcode is rendered in post content; there is no direct HTTP request path/parameter carrying the injection. Review of the plugin source (plugins.svn.wordpress.org) shows the 'setting' value is passed through $wpdb->prepare() with a %s placeholder, so the shortcode SQL is actually parameterised (the real sink is an unescaped JS/XSS context). No faithful single HTTP request with a named parameter could be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/535e754e-f851-4809-a148-d9ba808b9d8a?source=cve",
+      "https://plugins.svn.wordpress.org/wp-anything-slider/trunk/wp-anything-slider.php",
+      "https://plugins.trac.wordpress.org/changeset/2985513/wp-anything-slider"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-5465",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL injection is via the 'group' attribute of the [popupwfancybox] shortcode, which only runs when a stored shortcode is rendered in post content; there is no direct HTTP request path/parameter carrying the injection. Plugin source (plugins.svn.wordpress.org) shows exploitation relies on a subtle double-$wpdb->prepare() %-placeholder confusion (not a classic quote-based payload), so no standard CRS SQLi signature maps cleanly, and the stored-shortcode entry point has no named HTTP parameter. Dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/c943cf0b-0e99-4d47-808d-2b803369d53a?source=cve",
+      "https://plugins.svn.wordpress.org/popup-with-fancybox/trunk/popup-with-fancybox.php",
+      "https://plugins.trac.wordpress.org/changeset/2985560/popup-with-fancybox"
+    ]
+  },
+  {
     "cve_id": "CVE-2023-5412",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -16874,6 +16922,79 @@
       "https://www.wordfence.com/threat-intel/vulnerabilities/id/bf50922a-58a6-4ca4-80b7-cafb37b87216?source=cve",
       "https://cvefeed.io/vuln/detail/CVE-2023-4999 (blocked - provenance permission)",
       "https://plugins.trac.wordpress.org/browser/horizontal-scrolling-announcement/trunk/horizontal-scrolling-announcement.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-4928",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE text only says 'SQL Injection in GitHub repository instantsoft/icms2 prior to 2.16.1' with no file or parameter. The only specific sources are the huntr bounty and the fix commit (3a6b148...), both on GitHub, which is not accessible in this session (add_repo/clone forbidden, raw.githubusercontent and gh api blocked). Aggregator pages only mirror the CVE text. No concrete path+parameter recoverable.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.dev/bounties/cb72cc17-5a0d-4392-9a5f-a13aa773de9e",
+      "https://github.com/instantsoft/icms2/commit/3a6b148fa2c943ee7647e0cd14bf68e026b15548",
+      "https://socradar.io/free-tools/cve-radar/CVE-2023-4928"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-4852",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names the route ?r=dashboard/database/optimize but no injectable argument. The only PoC (github.com/r1pte/cve/blob/main/sql.md) is inaccessible in this session (GitHub add_repo/clone forbidden; gh api and raw.githubusercontent return 403; aggregators only mirror the CVE text). Without a named parameter the request would fail condition 2, and SPEC forbids inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/r1pte/cve/blob/main/sql.md",
+      "https://vuldb.com/?id.239261",
+      "https://exploit-intel.com/vuln/CVE-2023-4852"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-4851",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names the route ?r=dashboard/position/edit&op=member but no injectable argument. The only PoC (github.com/liuqiba12345678/cve/blob/main/sql.md) is inaccessible in this session (GitHub add_repo/clone forbidden; gh api and raw.githubusercontent return 403; aggregators only mirror the CVE text). No named parameter recoverable; SPEC forbids inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/liuqiba12345678/cve/blob/main/sql.md",
+      "https://vuldb.com/?id.239260"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-4850",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names the route ?r=dashboard/position/del but no injectable argument ('affects an unknown part'). The only PoC (github.com/RCEraser/cve/blob/main/sql_inject_2.md) is inaccessible in this session (GitHub add_repo/clone forbidden; gh api and raw.githubusercontent return 403; exploit-intel/aggregators only mirror the CVE text). No named parameter recoverable; SPEC forbids inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/RCEraser/cve/blob/main/sql_inject_2.md",
+      "https://vuldb.com/?id.239259",
+      "https://exploit-intel.com/vuln/CVE-2023-4850"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-4745",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only file /importexport.php for Byzoro Smart S45F; no injectable parameter is stated ('the manipulation leads to sql injection'). The Jacky-Y PoC markdown (raw GitHub) is blocked and no accessible mirror (pocindex/trickest) contains the parameter. Building would require guessing the parameter, so it fails condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Jacky-Y/vuls/blob/main/vul6.md",
+      "https://cvefeed.io/vuln/detail/CVE-2023-4745",
+      "https://github.com/0xMarcio/pocindex/blob/master/cves/2023/CVE-2023-4745.md",
+      "https://vuldb.com/?id.238634"
+    ]
+  },
+  {
+    "cve_id": "CVE-2023-4741",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names the route ?r=diary/default/del (IBOS OA 4.5.5 Delete Logs Handler) but states no injectable argument. The wudidike PoC markdown (raw GitHub) is blocked and accessible mirrors (pocindex/trickest/exploit-intel) do not name the parameter. Building would require guessing the parameter, so it fails condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/wudidike/cve/blob/main/sql.md",
+      "https://exploit-intel.com/vuln/CVE-2023-4741",
+      "https://github.com/0xMarcio/pocindex/blob/master/cves/2023/CVE-2023-4741.md",
+      "https://vuldb.com/?id.238630"
     ]
   },
   {
