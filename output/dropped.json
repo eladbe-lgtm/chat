@@ -4143,6 +4143,55 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-50928",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "EHCP 20.04.1.b SQLi via the id parameter of the 'Change Settings' function. EHCP routes all functions through index.php?op=<function>, but no op route matching 'Change Settings' could be confirmed in the EHCP source, and the only PoC (PacketStorm 207907) was unreachable (PROVENANCE_REQUIRED). Building a path would require inventing the op route, so dropped rather than guess the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://packetstorm.news/files/id/207907",
+      "https://www.ehcp.net/?p=402",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-50928",
+      "gh search code (earnolmartin/EHCP-Force-Edition templates: no settings op found)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-50926",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "EHCP 20.04.1.b SQLi via the id parameter of the 'List All Email Addresses' function. The nearest confirmed op is index.php?op=listemailusers, but the CVE phrasing does not map to it with certainty and the id parameter's association with that op is unconfirmed; the only PoC (PacketStorm 207907) was unreachable (PROVENANCE_REQUIRED). Dropped rather than guess the exact path/parameter pairing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://packetstorm.news/files/id/207907",
+      "https://www.ehcp.net/?p=402",
+      "gh search code (earnolmartin/EHCP-Force-Edition templates)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-50585",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "StudentManage v1.0 SQLi in component /admin/adminStudentUrl. VulDB/NVD list only the file path with no argument/parameter named, and the PoC (SimonKang949/Vulnerabilities issue #2) was unreachable (PROVENANCE_REQUIRED). Without a named injectable parameter a faithful injection request cannot be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SimonKang949/Vulnerabilities/issues/2",
+      "https://cvefeed.io/vuln/detail/CVE-2025-50585",
+      "https://gitee.com/DayCloud/student-manage"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-50565",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Doubo ERP 1.0 SQLi. The CVE description ('lack of filtering of user input') names no file path, no parameter and no HTTP method; the PoC repo (OoO7ce/CVE-2025-50565) contents were not retrievable via gh search or fetch. No concrete path+parameter to build from.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/OoO7ce/CVE-2025-50565",
+      "https://cvefeed.io/vuln/detail/CVE-2025-50565",
+      "https://db.gcve.eu/vuln/CVE-2025-50565"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-50229",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4588,6 +4637,242 @@
     "links_checked": [
       "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxfwrulescontroller-ajaxnetworkfwrulesaction",
       "https://www.cve.org/CVERecord?id=CVE-2025-34243"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34242",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advantech WebAccess/VPN SQLi in AjaxNetworkController.ajaxAction() via 'datatable search parameters'. Only the Java controller method name is public; the exact URL path and the datatable search parameter name are not confirmable. VulnCheck advisory and vendor SA-2025-01 PDF were not retrievable; NVD/cvefeed restate only the controller name. Building would require inventing the request path/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxnetworkcontroller",
+      "https://cvefeed.io/vuln/detail/CVE-2025-34242",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-34242"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34241",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advantech WebAccess/VPN SQLi in AjaxDeviceController.ajaxDeviceAction() via datatable search parameters. Same as CVE-2025-34242: only the controller method is public; exact URL path and parameter name not confirmable (VulnCheck advisory and vendor PDF inaccessible).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-ajaxdevicecontroller-ajaxdeviceaction",
+      "https://stack.watch/vuln/CVE-2025-34241/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34240",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advantech WebAccess/VPN SQLi in AppManagementController.appUpgradeAction() via datatable search parameters. Same as CVE-2025-34242: only the controller method is public; exact URL path and parameter name not confirmable.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/advantech-webaccess-vpn-sqli-via-appmanagementcontroller-appupgradeaction"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34179",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "NetSupport Manager Gateway unauthenticated SQLi via the LinkName/URI value in the Connectivity Server/Gateway request handling. The gateway uses a proprietary framed request format over TLS (NetSupport protocol), not a standard nameable HTTP path+parameter a WAF inspects; the exact on-wire request structure is not confirmable (ret2.me write-up and VulnCheck advisory were blocked). No reconstructable raw HTTP request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://ret2.me/post/2025-12-04-exploiting-netsupport-gateway/",
+      "https://www.vulncheck.com/advisories/netsupport-manager-unauthenticated-sqli-local-file-disclosure",
+      "https://cvepremium.circl.lu/vuln/ghsa-7jfx-h9gc-8r8r"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-34136",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Commvault CommServe/Web Server (CVWebService) unauthenticated SQLi. Neither the CVE record, NVD, GCVE, nor the vendor advisory CV_2025_04_2 expose a concrete endpoint path or injectable parameter; the VulnCheck advisory with technical detail was not retrievable. No confirmable path+parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulncheck.com/advisories/commvault-commserve-web-server-unauth-sqli",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-34136",
+      "https://documentation.commvault.com/securityadvisories/CV_2025_04_2.html"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-32968",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "XWiki HQL/SQL injection via the script query API ($services.query.hql). The only public PoC is a Velocity macro embedded in wiki page content and requires SCRIPT right; the advisory mentions a REST API got the same protection but no concrete REST path/parameter is confirmable. Cannot build a faithful single HTTP request to a named path+parameter without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://corgea.com/advisories/vulnerabilities/CVE-2025-32968",
+      "https://github.com/xwiki/xwiki-platform/security/advisories/GHSA-g9jj-75mx-wjcx"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-32956",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ManageWiki SQL injection when renaming a namespace at Special:ManageWiki/namespaces using the namespace-name (page prefix). The special page is known but the exact POST form field name for the namespace name is not confirmable (advisory/commit fetch blocked PROVENANCE_REQUIRED; source search did not reveal the HTMLForm field). Would require inventing the parameter name, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/miraheze/ManageWiki/security/advisories/GHSA-gg42-cv66-f5x7",
+      "https://github.com/miraheze/ManageWiki/commit/f504ed8eeb59b57ebb90f93cd44f23da4c5bc4c9",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-32956"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-32786",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GLPI Inventory Plugin <=1.5.0 'SQL Injection' with no file, endpoint, or parameter named in the advisory, changelog, or any aggregator. No confirmable path+parameter; cannot build.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/glpi-project/glpi-inventory-plugin/security/advisories/GHSA-w2cp-r675-6xpq",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-32786",
+      "https://osv.dev/vulnerability/CVE-2025-32786"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-32389",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "NamelessMC SQL injection via PHP square-bracket array GET syntax (?param[0]=...). The fix is a generic input-handling change, not tied to a single documented endpoint+parameter; no concrete path/parameter is confirmable (advisory/commit fetch blocked). A generic array payload to a guessed path/param fails condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/NamelessMC/Nameless/security/advisories/GHSA-5984-mhcp-cq2x",
+      "https://github.com/NamelessMC/Nameless/commit/02c81c7c45b98fad1ebe3bc085efae18aec4566f",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-32389"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-32020",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "crud-query-parser is a Node/TypeScript library (TypeORM adapter) that parses order/sort query params. SQLi lives in library code with no application endpoint; the vulnerable path/parameter depend entirely on the consuming app and are not defined by the CVE. No concrete entry point to build (also nodejs platform, not in the allowed platform list).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Guichaguri/crud-query-parser/security/advisories/GHSA-9r25-rp3p-h2w4"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-30473",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Apache Airflow Common SQL Provider SQLi via partition_clause in SQLTableCheckOperator. Exploitation requires an authenticated UI user triggering a specific DAG that exposes partition_clause as a templated conf param; there is no fixed HTTP path+parameter (dag_id and the conf key are deployment-specific). Not a faithful, reproducible single request without guessing dag_id/param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/apache/airflow/pull/48098",
+      "https://lists.apache.org/thread/53klkv790cylqcop0350w7nfq1y6h0t2"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-30217",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Frappe Framework SQL injection with no vulnerable endpoint, whitelisted method, or parameter named in the advisory or any aggregator checked. No confirmable path+parameter; cannot build without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/frappe/frappe/security/advisories/GHSA-6phg-4wmq-h5h3",
+      "https://advisories.gitlab.com/pkg/pypi/frappe/CVE-2025-30217/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-30217"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29391",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advisory names only the controller source file (Admin/Controller/BookController.class.php). No web URL path or injectable parameter is given, and the GitHub gist and issue PoC were unreachable this run (PROVENANCE_REQUIRED). Cannot place a faithful payload without guessing the route/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvemon.intruder.io/cves/CVE-2025-29391",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-29391",
+      "https://github.com/horvey/Library-Manager/issues/9",
+      "https://gist.github.com/jaylan545/73dee34609ac492b9009625fb985cde4"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29390",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advisory names the set_password function in application/controllers/home.php but no injectable parameter. Without a named parameter the SQLi payload cannot be placed faithfully. GitHub gist and issue PoC unreachable this run (PROVENANCE_REQUIRED).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cveawg.mitre.org/api/cve/CVE-2025-29390",
+      "https://cvemon.intruder.io/cves/CVE-2025-29390",
+      "https://github.com/jerryhanjj/ERP/issues/7",
+      "https://gist.github.com/jaylan545/dbe989f09c73e311ccbfe5336435638c"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29267",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Description names only the cid GET parameter for Adjutant Core Accounting ERP; no URL path or endpoint is given anywhere (NVD/Tenable/EUVD). The GitHub advisory (cmoncrook/Security-Advisories) was unreachable this run. Cannot build without inventing the path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.tenable.com/cve/CVE-2025-29267",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-29267",
+      "https://euvd.enisa.europa.eu/vulnerability/EUVD-2025-20497",
+      "https://github.com/cmoncrook/Security-Advisories/blob/main/CVE-2025-29267"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29189",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Flowise <= 2.2.3 SQLi is in the tableName field of the Postgres_VectorStores component (server-side node config), not a named on-the-wire HTTP parameter with a confirmable path. The only PoC is an opaque Google Drive file; no HTTP endpoint/method/parameter could be confirmed. Cannot build without inventing the API route and request shape.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://advisories.gitlab.com/pkg/npm/flowise-components/CVE-2025-29189/",
+      "https://cvefeed.io/vuln/detail/CVE-2025-29189",
+      "https://drive.google.com/file/d/1WHPslTmQmAM9xPJifULS2qAo7hcidB4L/view?usp=sharing"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29084",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advisory names only the execSqlFile function in Upgrade.php (CSZ-CMS 1.3.0). No web URL path or injectable HTTP parameter is given, and the GitHub exploit README was unreachable this run (PROVENANCE_REQUIRED). Cannot build without guessing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://db.gcve.eu/vuln/cve-2025-29084",
+      "https://security-tracker.debian.org/tracker/CVE-2025-29084",
+      "https://github.com/fax77829yz/CSZ_CMS-exploit/blob/main/README.md#cve1"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29083",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Advisory names only the execSqlFile function in Plugin_Manager.php (CSZ-CMS 1.3.0). No web URL path or injectable HTTP parameter is given, and the GitHub exploit README was unreachable this run (PROVENANCE_REQUIRED). Cannot build without guessing the endpoint/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2025-29083",
+      "https://cveawg.mitre.org/api/cve/CVE-2025-29083",
+      "https://github.com/fax77829yz/CSZ_CMS-exploit/blob/main/README.md#cve2"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-27018",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Apache Airflow MySQL Provider SQL injection: the 'table' value is passed through the dump_sql/load_sql operators and is exploitable only when a user-defined DAG wires that value into the operator. Exploitation is via triggering such a DAG (web UI/API conf), so there is no fixed HTTP path + named request parameter to build a CVE-faithful WAF signature against. No fixed endpoint/parameter is confirmable.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/apache/airflow/pull/47254",
+      "https://github.com/apache/airflow/pull/47255",
+      "https://lists.apache.org/thread/m8ohgkwz4mq9njohf66sjwqjdy28gvzf"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-26794",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Exim SQL injection is reached over SMTP (ETRN serialization with the SQLite hints DB), not over HTTP. It is not an inbound web request, so no webRequest can simulate it.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.exim.org/static/doc/security/CVE-2025-26794.txt",
+      "https://code.exim.org/exim/exim/commit/bfe32b5c6ea033736a26da8421513206db9fe305",
+      "https://github.com/Exim/exim/wiki/EximSecurity"
     ]
   },
   {
