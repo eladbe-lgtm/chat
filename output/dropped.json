@@ -13264,6 +13264,61 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-4351",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "Mislabeled as SQL injection. The advisory describes a missing capability check on the 'authenticate' function (CWE-862 / broken access control) in Tutor LMS Pro <= 2.7.0 that lets a subscriber take over an administrator account. There is no injectable parameter and no attack payload/signature a WAF could match (condition 1 cannot be met). Dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/59859583-49e5-4a80-8659-b9ca7ddc089d?source=cve",
+      "https://www.themeum.com/product/tutor-lms/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-4434",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated time-based SQLi in LearnPress <= 4.2.6.5. Parameter 'term_id' and sink confirmed (LP_Course_DB::get_courses / recursion_sub_categories concatenate term_ids into an 'IN (...)' clause via esc_sql instead of a %d placeholder, verified in the SVN source). However the exact HTTP entry point (REST route vs admin-ajax action that populates LP_Course_Filter->term_ids) could not be confirmed: the Notion PoC, the trac changeset, Wordfence and the projectdiscovery nuclei template were all permission-gated/blocked or JS-rendered empty this session. Did not build to avoid guessing the route. Resumable: a nuclei template exists at projectdiscovery/nuclei-templates http/cves/2024/CVE-2024-4434.yaml.",
+    "waf_rules_found": [
+      "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2024/CVE-2024-4434.yaml"
+    ],
+    "links_checked": [
+      "https://plugins.svn.wordpress.org/learnpress/tags/4.2.6.5/inc/Databases/class-lp-course-db.php",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/learnpress/learnpress-wordpress-lms-plugin-4265-unauthenticated-time-based-sql-injection",
+      "https://plugins.trac.wordpress.org/changeset/3082204/",
+      "https://inky-knuckle-2c2.notion.site/Unauthenticated-SQLI-in-Learnpress-plugin-Latest-Version-4-2-6-5-a86fe63bcc7b4c9988802688211817fd"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-4318",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Authenticated (Instructor+) time-based SQLi in Tutor LMS <= 2.7.0 via the 'question_id' parameter (sink in classes/Utils.php around lines 4456/4575). The specific admin-ajax action string that reaches the sink could not be confirmed: the trac changeset, Wordfence and nuclei templates were all permission-gated/blocked this session, and the SVN Utils.php fetch truncated before the relevant lines. Did not build to avoid guessing the AJAX action. Resumable: nuclei templates exist (topscoder/nuclei-wordfence-cve and adampielak/nuclei-templates CVE-2024-4318).",
+    "waf_rules_found": [
+      "https://github.com/topscoder/nuclei-wordfence-cve/blob/main/nuclei-templates/2024/CVE-2024-4318-tutor-9bbb3c65-f02c-4d6d-bd4e-b3232af5e21b.yaml"
+    ],
+    "links_checked": [
+      "https://plugins.svn.wordpress.org/tutor/tags/2.7.0/classes/Utils.php",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/tutor/tutor-lms-270-authenticated-instructor-sql-injection",
+      "https://plugins.trac.wordpress.org/changeset/3086489/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-4295",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQLi in Email Subscribers by Icegram Express <= 5.7.20 via the 'hash' parameter; patch touches lite/includes/db/class-es-db-lists-contacts.php (confirmed via cvefeed). The public HTTP entry point (REST route, admin-ajax action, or ?es= handler) that carries 'hash' could not be confirmed: appsecure and pentest-tools pages omit the request, the trac changeset and nuclei template were permission-gated/blocked this session. Did not build to avoid guessing the path. Resumable: a nuclei template exists at projectdiscovery/nuclei-templates http/cves/2024/CVE-2024-4295.yaml and ~18 GitHub PoCs are indexed.",
+    "waf_rules_found": [
+      "https://github.com/projectdiscovery/nuclei-templates/blob/main/http/cves/2024/CVE-2024-4295.yaml"
+    ],
+    "links_checked": [
+      "https://www.appsecure.security/vulnerability-database/cve-2024-4295/",
+      "https://pentest-tools.com/vulnerabilities-exploits/email-subscribers-by-icegram-express-5720-unauthenticated-sql-injection-via-hash_22976",
+      "https://cvefeed.io/vuln/detail/CVE-2024-4295",
+      "https://plugins.trac.wordpress.org/changeset/3090845/"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-11349",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -13296,6 +13351,66 @@
     "links_checked": [
       "https://blog.blacklanternsecurity.com/p/cve-2026-10880-osnexus-quantastor",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-10880"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3922",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Dokan Pro <=3.10.3 unauthenticated SQLi is described only as 'via the code parameter' with no path. Wordfence advisory page is JS-rendered (no content fetchable), and no aggregator, PoC or write-up discloses the vulnerable URL, REST route or admin-ajax action. The 'code' parameter alone is not a concrete entry point and the WordPress route cannot be guessed without inventing it, so dropped per spec (never invent an endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/dokan-pro/dokan-pro-3103-unauthenticated-sql-injection",
+      "https://www.appsecure.security/vulnerability-database/cve-2024-3922/",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d9de41de-f2f7-4b16-8ec9-d30bbd3d8786?source=cve"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3691",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the component 'Registration Page' - no file path and no parameter. The GitHub PoC (nikhil-aniill/Small-CRM-CVE) and raw.githubusercontent were blocked by permission in this session, and aggregators (cvefeed) do not reproduce the file/parameter. Cannot build without inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2024-3691",
+      "https://github.com/nikhil-aniill/Small-CRM-CVE",
+      "https://stack.watch/vuln/CVE-2024-3691/",
+      "https://vuldb.com/?id.260480"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3690",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the component 'Change Password Handler' - no file path and no parameter. GitHub PoCs (psudo-bugboy/CVE-2024, taeseongk/CVE-2024-3690) blocked by permission in this session; aggregators do not reproduce the file/parameter. Cannot build without inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cvefeed.io/vuln/detail/CVE-2024-3690",
+      "https://github.com/psudo-bugboy/CVE-2024",
+      "https://vuldb.com/?id.260479"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3293",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Blind SQLi in the rtMedia 'rtmedia_gallery' shortcode (contributor+). The exact injectable shortcode attribute is not stated in any accessible advisory; the Wordfence advisory and the GitHub PoC repos (truonghuuphuc/CVE-2024-3293-Poc) were blocked by the proxy, and the trac changeset browser is not fetchable. Cannot name a concrete parameter without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/32b6938a-0566-46c8-8761-0403b3a0e3e9?source=cve",
+      "https://cvefeed.io/vuln/detail/CVE-2024-3293",
+      "https://github.com/truonghuuphuc/CVE-2024-3293-Poc",
+      "https://plugins.trac.wordpress.org/changeset/3071359/buddypress-media"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3265",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Admin-only SQLi in the Advanced Search plugin 'List of Post Meta Keys' field at /wp-admin/admin.php?page=advance-search (WPScan PoC uses a sleep() subquery saved in a new shortcode). The exact POST parameter name for that field is not published and the plugin source was not fetchable, so a faithful named-parameter request cannot be built without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/ecb74622-eeed-48b6-a944-4e3494d6594d/"
     ]
   },
   {
