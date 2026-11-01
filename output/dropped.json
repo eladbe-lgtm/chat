@@ -23866,6 +23866,59 @@
     ]
   },
   {
+    "cve_id": "CVE-2020-23833",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE text only says 'malicious index.php POST request'; no parameter named. PacketStorm PoC (158811) sits behind a proof-of-work wall and no other accessible PoC names the injectable parameter, so the param cannot be confirmed without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://packetstormsecurity.com/files/158811/House-Rental-1.0-SQL-Injection.html",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-23833"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-23763",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CVE names admin.php auth-bypass SQLi but no parameter. The dedicated write-up (hidden-one.co.in) returned PROVENANCE_REQUIRED (blocked) and no accessible PoC names the login parameter, so it cannot be built without inventing the param.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "http://hidden-one.co.in/2021/04/09/cve-2020-23763-sql-injection-leading-to-authentication-bypass-in-online-book-store-1-0/",
+      "https://projectworlds.in/free-projects/php-projects/online-book-store-project-in-php/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-23282",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "mConnect logon SQLi. PoC is a GitHub blob (ifmacedo/mconnect/blob/main/SQLinjection, blocked) and a LinkedIn write-up; no accessible source gives the logon path or parameter name, so no faithful request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/ifmacedo/mconnect/blob/main/SQLinjection",
+      "https://www.linkedin.com/pulse/mconnect-mv-sql-injection-parcial-iran/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-23045",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Macs Framework CMS 1.14f SQLi names the 'roleId' parameter of the editRole/deletUser modules, but no concrete URL path/module invocation is public. vulnerability-lab.com advisory not fetchable; building would require inventing the request path.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.vulnerability-lab.com/get_content.php?id=2206"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-23150",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Same install/lib/ajaxHandlers/ajaxDbInstall.php file as CVE-2020-23149. CVE text references config.inc.php / source line 97 but names no distinct parameter; the GitHub blob is blocked. Cannot confirm which of server/port/dbName/dbUsername/dbPassword is injected here without duplicating 23149's dbName build, so dropped to avoid an invented/duplicate parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/rconfig/rconfig/blob/7ef8bd8d606bc10835e1b8f6f72a2048094816d3/www/install/lib/ajaxHandlers/ajaxDbInstall.php#L97"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-4798",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -24018,6 +24071,48 @@
     ]
   },
   {
+    "cve_id": "CVE-2020-21394",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CRMEB mall (ThinkPHP MVC). Vulnerable file (SystemDatabackup.php) and parameter (tablename) are known, but the exact inbound HTTP route to reach the controller is not recoverable: the only PoC is a github blob (blocked) and GitHub code search was rate-limited (429). Building a URL would require inventing the ThinkPHP route.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/mumu0215/cve_reference/blob/master/CRMEB_system.md",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-21394"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-21176",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ThinkJS 3.2.10 SQLi lives in the ORM functions model.increment/model.decrement via their 'step' argument. This is a framework/library API, not a fixed inbound HTTP endpoint: there is no CVE-defined path or HTTP parameter to target, so no faithful CVE-tied WAF request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://blog.jiguang.xyz/posts/thinkjs-sql-injection/",
+      "https://github.com/thinkjs/thinkjs"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-21133",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "MetInfo 7.0.0beta SQLi at member/getpassword.php?a=dovalid. Per the PoC the injection travels inside the 'p' parameter, which is RC4+base64 encrypted (authcode). The raw request carries only ciphertext (p=a2f4o5bx6RZI...), so no plaintext SQL signature is present for a WAF to match.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SZFsir/tmpProject/issues/1"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-21132",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "MetInfo 7.0.0beta SQLi via index.php. Per the PoC the injection travels inside the encrypted 'acc_auth' cookie (RC4+base64 authcode). The raw request carries only ciphertext, so no plaintext SQL signature is present for a WAF to match.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/SZFsir/tmpProject/issues/2"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-4608",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -24040,6 +24135,28 @@
       "https://vuldb.com/?id.352430",
       "https://github.com/erupts/erupt (erupt-ai module source)",
       "https://www.cve.org/CVERecord?id=CVE-2026-4593"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-15540",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the 'username' field on the administrator login page of We-com OpenData CMS 2.0, but no script path/URL for the login endpoint is given in the description. PacketStorm PoC is behind a proof-of-work wall and could not be opened; parameter known, path unknown, so building would require inventing the endpoint path (SPEC forbids).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://packetstormsecurity.com/files/157887/We-Com-OpenData-CMS-2.0-SQL-Injection.html",
+      "https://cxsecurity.com/issue/WLB-2020060010"
+    ]
+  },
+  {
+    "cve_id": "CVE-2020-15487",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Blind SQLi in getBaseCriteria() reached via the 'folder' GET parameter in Re:Desk 2.3, but the Yii route/script path for the request is not given in the CVE description. F-Secure advisory could not be fetched (PROVENANCE_REQUIRED block). Parameter known, path unknown; building would require inventing the Yii route (SPEC forbids).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://labs.f-secure.com/advisories/redesk-v2-3-multiple-issues/",
+      "https://www.re-desk.com/download-help-desk-software.html"
     ]
   },
   {
