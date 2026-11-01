@@ -12659,6 +12659,41 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-8757",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Post Author plugin SQLi via the linked_user_id parameter (admin-level). The parameter is named, but no HTTP endpoint / AJAX action path could be determined: the patched SVN trunk no longer reads linked_user_id from a request, the Wordfence advisory page renders client-side (no PoC extractable), and the vulnerable tag 3.8.1 source file was not fetchable. Building would require guessing the request path, which fails condition 2 (tied to the CVE).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d667bafc-5f19-4889-a988-236df050c013?source=cve",
+      "https://plugins.svn.wordpress.org/wp-post-author/trunk/includes/multi-authors/wpa-multi-authors.php",
+      "https://plugins.svn.wordpress.org/wp-post-author/tags/3.8.1/includes/multi-authors/wpa-multi-authors.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-8749",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "i-doit pro SQLi via the ID parameter inside the API model class isys_api_model_cmdb_objects_by_relation. The source file path is known but not an HTTP entry point: i-doit uses a JSON-RPC API whose exact endpoint, method name and request body structure for this call are not public. The INCIBE advisory (the only reference, which would carry the PoC) was blocked for this session and no PoC was found elsewhere. Building would require inventing the JSON-RPC request shape, failing condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.incibe.es/en/incibe-cert/notices/aviso/multiple-vulnerabilities-synetics-idoit-pro",
+      "https://security-tracker.debian.org/tracker/CVE-2024-8749"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-8705",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Shandong Star Heating Network Wireless Monitoring System SQLi in function GetDataKindByType of the ASMX web service /DataSrvs/UCCGSrv.asmx. No source names the vulnerable parameter ('the manipulation leads to sql injection' with no argument given) and no PoC was found; cvefeed was blocked for this session. Building a SOAP/POST request would require inventing the parameter name for GetDataKindByType, which the spec forbids (never invent a parameter), failing condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.277214",
+      "https://cvefeed.io/vuln/detail/CVE-2024-8705",
+      "https://vulnerability.circl.lu/vuln/cve-2024-8705"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-12079",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -12762,6 +12797,69 @@
       "https://zuso.ai/advisory/za-2024-04",
       "https://vulnerability.circl.lu/vuln/cve-2024-7871",
       "https://tenable.com/cve/CVE-2024-7871"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7827",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP EasyCart (wp-easycart) boolean-based SQLi via the 'model_number' parameter, authenticated Contributor+. The parameter is known but no concrete endpoint/AJAX action could be confirmed: Wordfence advisory is JS-rendered (empty), the main plugin file wpeasycart.php (ref line 8821) is too large and truncated on fetch, and the inc/admin AJAX paths returned 404 on plugins.svn. The admin-ajax action name would be a guess, which fails condition 2 (CVE tie). Dropped rather than guess the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/aa55dfe1-7ee8-4d25-a9f6-cbefeebb1376?source=cve",
+      "https://plugins.svn.wordpress.org/wp-easycart/trunk/wpeasycart.php",
+      "https://plugins.svn.wordpress.org/wp-easycart/tags/5.7.2/inc/admin/admin_ajax.php",
+      "https://securitricks.com/cve/CVE-2024-7827",
+      "https://plugins.trac.wordpress.org/changeset/3136347/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7780",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Bit Form SQLi via the 'id' parameter. The parameter is known but the specific admin-ajax action that reads the injectable 'id' could not be confirmed. Source review of AdminAjax.php confirmed getLogHistory reads entryID (CVE-2024-7702), and the only 'id' readers found (bitforms_update_form, bitforms_icn_save_setting) are not SQL query paths. Building would require guessing the action, which fails condition 2. Dropped rather than guess.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/73b6b22a-4699-4307-8a03-148dd9e95d36?source=cve",
+      "https://plugins.svn.wordpress.org/bit-form/tags/2.13.6/includes/Admin/AdminAjax.php",
+      "https://cvefeed.io/vuln/detail/CVE-2024-7702"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7607",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Front End Users WP plugin time-based SQLi via the 'order' sorting parameter (Contributor+). The Wordfence advisory names only the parameter, not a fixed reachable request path. 'order' is a list-sorting parameter whose host page/route is site-dependent (shortcode page or admin view); the fix diff (plugins.trac changeset 3142978) and SVN source were not fetchable in this environment (GitHub/SVN raw proxy-blocked, Wordfence JS-rendered empty). Parameter confirmed but no confirmable path; not inventing a WP endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/ec162cdc-d4cd-47d9-b941-24bfee6c48fd?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3142978/",
+      "https://plugins.svn.wordpress.org/front-end-only-users/trunk/html/UsersPage.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7548",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "LearnPress WP plugin time-based SQLi via the 'order' sorting parameter (Contributor+), vulnerable code in inc/curds/class-lp-course-curd.php. The Wordfence advisory names only the parameter, not a fixed reachable request path (course-ordering query reachable via a site-dependent page/REST route). Fix diff (changesets 3132019/3132002) and SVN source not fetchable here (GitHub/SVN raw proxy-blocked, Wordfence JS-rendered empty). Parameter confirmed but no confirmable path; not inventing a WP endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/702715a9-b180-4d31-a1df-37b732ae8226?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3132019/",
+      "https://plugins.svn.wordpress.org/learnpress/tags/4.2.6.9.3/inc/curds/class-lp-course-curd.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7456",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is in the ORDER BY clause of the /api/v1/external-users route (orderByClause via sql.unsafe), but the exact request parameter that feeds it is not named by the CVE text, and every PoC source was inaccessible this session (GitHub API/raw 403, jsdelivr 403, huntr blocked; MITRE and aggregators do not name the parameter). Not building to avoid inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.com/bounties/bfb3015e-5642-4d94-ab49-e8b49c4e07e4",
+      "https://github.com/lunary-ai/lunary/commit/6a0bc201181e0f4a0cc375ccf4ef0d7ae65c8a8e",
+      "https://cveawg.mitre.org/api/cve/CVE-2024-7456",
+      "https://securitricks.com/cve/CVE-2024-7456"
     ]
   },
   {
@@ -12894,6 +12992,30 @@
       "https://www.sentinelone.com/vulnerability-database/cve-2026-11590/",
       "https://wpscan.com/vulnerability/117853ca-0fd3-4bfa-ad60-799eb5c77bdf/",
       "https://radar.offseq.com/threat/cve-2026-11590-cwe-89-sql-injection-in-wp-support--aaa864ba3db668b3"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7349",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "LifterLMS blind SQLi via the 'order' parameter is real, but the only fix reference is the shared query abstraction includes/abstracts/abstract.llms.database.query.php, which is not an HTTP endpoint. The Wordfence advisory was not reachable (permission/provenance blocked) and no PoC names a concrete admin page, admin-ajax action, or REST route. Building a request would require guessing the path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/3a096506-b18e-419c-808b-6099baa628ce?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3139798/lifterlms/tags/7.7.6/includes/abstracts/abstract.llms.database.query.php",
+      "https://cvefeed.io/vuln/detail/CVE-2024-7349"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7150",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Slider by 10Web time-based SQLi via the 'id' parameter requires Contributor+ access and lives in frontend/models/WDSModelSlider.php, reached through the slider display/shortcode rather than a fixed public HTTP path with a named 'id' request parameter. No PoC, advisory, or aggregator gives a concrete method+path+parameter HTTP request. Wordfence advisory and plugins.trac.wordpress.org changeset were not fetchable (blocked).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/74d635b6-2b4a-49af-af5c-6bfa1b5d220e?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3131688/",
+      "https://cyber.vumetric.com/vulns/CVE-2024-7150"
     ]
   },
   {
