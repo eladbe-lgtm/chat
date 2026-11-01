@@ -13264,6 +13264,32 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-4902",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Tutor LMS <=2.7.1 time-based SQLi via course_id. The vulnerable functions (get_students/get_total_students/get_total_instructors in classes/Utils.php) interpolate course_id directly, but the exact admin-ajax action (or admin page) that passes a request-supplied course_id into them could not be confirmed online within budget. Checked classes/Ajax.php and classes/Course.php (course_id AJAX handlers found there use prepared statements and do not list students/instructors). Wordfence advisory is JS-rendered (empty) and trac is blocked. Without the specific action, /wp-admin/admin-ajax.php + course_id is not CVE-specific, so not built per 'never invent an endpoint'.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f00e8169-3b8f-44a0-9af2-e81777a913f8?source=cve",
+      "https://plugins.svn.wordpress.org/tutor/tags/2.7.0/classes/Utils.php",
+      "https://plugins.svn.wordpress.org/tutor/tags/2.7.0/classes/Ajax.php",
+      "https://plugins.svn.wordpress.org/tutor/tags/2.7.0/classes/Course.php",
+      "https://plugins.trac.wordpress.org/changeset?new=3098465%40tutor%2Ftrunk&old=3086489%40tutor%2Ftrunk"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-4845",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Icegram Express (Email Subscribers) <=5.7.22 SQLi via options[list_id]. Parameter name is known, but the exact admin-ajax action / controller receiving options[list_id] could not be located online within budget (handler lives under lite/includes which was not resolvable; trac changeset 3098321 and Wordfence advisory are blocked/JS-rendered). Without the specific action, /wp-admin/admin-ajax.php + options[list_id] is not CVE-specific, so not built per 'never invent an endpoint'.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/21be2215-8ce0-438e-94e0-6a350b8cc952?source=cve",
+      "https://plugins.svn.wordpress.org/email-subscribers/trunk/email-subscribers.php",
+      "https://plugins.trac.wordpress.org/changeset/3098321/email-subscribers"
+    ]
+  },
+  {
     "cve_id": "CVE-2024-4351",
     "group": "READY",
     "result": "DROPPED_NO_SIGNATURE",
@@ -13391,6 +13417,52 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-3518",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Contributor-level SQL injection via a Media Library Assistant shortcode attribute (payload lives in a WordPress post/shortcode, not a named HTTP request parameter). No fetchable source names the exact injectable shortcode or attribute: the Wordfence advisory rendered empty (JS-only), and the Trac source/changeset and GitHub are blocked in this session. Building an HTTP request would require guessing the shortcode attribute name, which fails condition 2 (tie to the CVE). Dropped rather than invent a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a7af1a03-8382-4593-a41f-8cdb1bb9e53b?source=cve",
+      "https://cyber.vumetric.com/vulns/CVE-2024-3518",
+      "https://plugins.trac.wordpress.org/browser/media-library-assistant/trunk/includes/class-mla-shortcode-custom-list.php#L1971"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3440",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi in /Admin/edit_profile.php but no injectable parameter is recoverable. The VulDB/CVE description names only the file (no argument), and the public PoC (github.com/fubxx/CVE PrisonManagementSystemSQL3.md) was provenance-blocked/unreachable. An edit-profile form has many candidate fields, so no single parameter can be determined without inventing one (spec 6.5 / 'never guess the parameter').",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/fubxx/CVE/blob/main/PrisonManagementSystemSQL3.md",
+      "https://vuldb.com/?id.259693",
+      "https://intel.controlassurance.com/cves/2024/3xxx/CVE-2024-3438.html"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3441",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi in /Employee/edit-profile.php but no injectable parameter is recoverable. The VulDB/CVE description names only the file (no argument), and the public PoC (github.com/fubxx/CVE PrisonManagementSystemSQL4.md) was provenance-blocked/unreachable. An edit-profile form has many candidate fields, so no single parameter can be determined without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/fubxx/CVE/blob/main/PrisonManagementSystemSQL4.md",
+      "https://vuldb.com/?id.259694"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-3314",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the file /classes/Users.php and says 'the manipulation leads to sql injection' with no argument/parameter named, and there is no PoC reference (poc_refs empty). classes/Users.php is a class/action handler, so no concrete injectable parameter can be identified; building would require guessing the parameter. Likely a near-duplicate of CVE-2024-3315 (classes/user.php, argument id).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.259385",
+      "https://www.cve.org/CVERecord?id=CVE-2024-3314"
+    ]
+  },
+  {
     "cve_id": "CVE-2024-3293",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -13435,6 +13507,18 @@
       "https://plugins.trac.wordpress.org/browser/tutor/tags/3.9.11/models/WithdrawModel.php",
       "https://plugins.trac.wordpress.org/browser/tutor/tags/3.9.11/views/pages/withdraw_requests.php",
       "https://cvepremium.circl.lu/vuln/cve-2026-10736"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-2954",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Action Network WordPress plugin 1.4.3 SQLi via the 'bulk-action' parameter is confirmed, but the exact admin page path (admin.php?page=<slug> / admin-post handler) is not given in the description and could not be confirmed: write-up pages (sth.sh blog, Wordfence, WPScan) were not fetchable in this session (WebFetch blocked) and gh/code search was blocked. Building a WP admin path would require guessing it, which fails condition 2. Parameter is known; path is not.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://blog.sth.sh/wordpress-action-network-1-4-3-authenticated-sql-injection-0-day-01fcd6e89e96",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wp-action-network/wordpress-action-network-143-authentcated-admin-sql-injection",
+      "https://wpscan.com/vulnerability/7df70f49-547f-4bdb-bf9b-2e06f93488c6"
     ]
   },
   {
