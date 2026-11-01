@@ -5755,6 +5755,18 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-14383",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Booking Calendar <=10.14.8 time-based blind SQLi. The advisory names 'dates_to_check', but in the plugin source (includes/_capacity/capacity.php) dates_to_check is an INTERNAL array key of a params struct populated from other fields (dates_ddmmyy_csv via create_booking.php); it is not a direct wire parameter. The actual unauthenticated HTTP entry point (admin-ajax action name and the real request field carrying the dates) could not be confirmed: the Wordfence advisory and the trac changeset (3416518) are blocked (empty render / PROVENANCE_REQUIRED) and no PoC gives the wire request. Building a request would require guessing the admin-ajax action and parameter, which fails spec condition 2.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/790f93b0-eb69-473f-a726-bfe215f5d870?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3416518/booking/trunk/includes/_capacity/capacity.php",
+      "https://github.com/common-repository/booking"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-14185",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -5775,6 +5787,84 @@
     "waf_rules_found": [],
     "links_checked": [
       "https://github.com/php/php-src/security/advisories/GHSA-w476-322c-wpvm"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14169",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated time-based blind SQLi via the 'opid' parameter in FunnelKit Funnel Builder optin merge-tag code (class-bwf-optin-tags.php / class-wffn-db-optin.php). The Wordfence advisory and trac source name the vulnerable code and parameter but not the concrete HTTP endpoint (admin-ajax action or REST route) that reaches it with opid. Wordfence page is JS-rendered (empty on fetch) and trac/github/raw are blocked this run (PROVENANCE_REQUIRED / proxy 403); no write-up disclosed the path. Building would require guessing the endpoint, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/fb19f920-0fd0-491e-9e87-62c828cad9b9?source=cve",
+      "https://plugins.trac.wordpress.org/browser/funnel-builder/tags/3.13.1.5/modules/optins/merge-tags/class-bwf-optin-tags.php#L126"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14153",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi via the 'id' SHORTCODE ATTRIBUTE of the Page Expire Popup/Redirection plugin (vfpageexpirepopupstructure.php), authenticated Author+. The payload enters as a shortcode attribute embedded in post content ([shortcode id=...]) and is a second-order injection rendered later; there is no direct inbound HTTP request parameter that carries the SQL on the wire in a way tied to this plugin's endpoint. No faithful path+parameter request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/b0c232b2-f7c8-4a8d-b282-72f61ecfc5da?source=cve",
+      "https://plugins.trac.wordpress.org/browser/page-expire-popup/tags/1.0/inc/vfpageexpirepopupstructure.php#L8"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14124",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Team WordPress plugin (<5.0.11) unauthenticated SQLi via an AJAX action. WPScan withheld both the AJAX action name and the vulnerable parameter; no PoC, advisory or WAF rule discloses them, and the WPScan page was not fetchable this run. Building the admin-ajax request would require guessing the action and parameter, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/fdd19027-b70e-45a4-882b-77ab1819af91/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14068",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WPNakama (<=0.6.3) unauthenticated time-based SQLi via the 'order_by' parameter in a REST API handler (class-wpnakama-api.php). The parameter is known but the concrete REST route (namespace + endpoint under /wp-json/) is not disclosed by Wordfence/NVD, and trac/github/raw source was not fetchable this run (blocked). Building a /wp-json or admin-ajax path would be a guess.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/wpnakama/wpnakama-063-unauthenticated-sql-injection-via-order-by-parameter",
+      "https://plugins.trac.wordpress.org/browser/wpnakama/tags/0.6.3/inc/class-wpnakama-api.php#L206"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14050",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Design Import/Export plugin (<=2.2) administrator-level SQLi triggered via XML File Import (importer.php). The injected SQL lives inside the content of an uploaded XML file rather than in a named request parameter, and the specific import endpoint/field is not disclosed. The on-wire payload would be opaque file content, so no faithful path+parameter WAF request tied to the CVE can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/beb489d3-2c1b-4af5-b73e-126d2526e0a3?source=cve",
+      "https://plugins.trac.wordpress.org/browser/design-import-export/tags/2.2/includes/importer.php#L162"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-13922",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Tag/Category/Taxonomy Manager (simple-tags / TaxoPress, <=3.40.1) authenticated (Contributor+) time-based SQLi via the 'existing_terms_orderby' parameter in the AI-preview admin-ajax handler (TaxoPressAiAjax.php). The parameter is known but the admin-ajax 'action' value required to reach the handler is not disclosed by Wordfence/NVD; the CleanTalk write-up and trac/github source were not fetchable this run (blocked). Without the exact action the admin-ajax.php request would fail condition 2 (guessed endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f40cc632-c6af-4c8b-a455-76319f7fe151?source=cve",
+      "https://research.cleantalk.org/cve-2025-13922/",
+      "https://plugins.trac.wordpress.org/browser/simple-tags/tags/3.40.1/modules/taxopress-ai/classes/TaxoPressAiAjax.php#L180"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-13811",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "jsnjfz WebStack-Guns 1.0 (Java/Spring, Guns framework) SQLi via the generic 'sort' pagination argument handled in PageFactory.java. PageFactory is a shared pagination helper consumed by many list controllers; neither NVD nor the PoC report (blocked this run) discloses which specific controller path was exploited, so the concrete HTTP path would be a guess. No faithful CVE-specific request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Xzzz111/exps/blob/main/archives/WebStack-Guns-SQLInjection-1/report.md",
+      "https://vuldb.com/?id.333821",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-13811"
     ]
   },
   {
@@ -5948,6 +6038,19 @@
     "links_checked": [
       "https://www.cisa.gov/news-events/ics-advisories/icsa-26-055-01",
       "https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-055-01.json"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-13192",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQL injection described generically as 'via the multiple REST API endpoints' with an unnamed user-supplied parameter. The Wordfence advisory and VulDB/aggregator pages do not name a concrete REST route or parameter; the plugin source (plugins.trac / SVN / downloads.wordpress.org) is blocked by the agent proxy and raw/trac WebFetch returned PROVENANCE_REQUIRED, so the exact REST namespace+route and the injectable parameter could not be confirmed. Per spec section 5, dropping instead of guessing the route/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/popup-builder-block/popup-builder-with-gamification-220-unauthenticated-sql-injection-via-multiple-rest-api-endpoints",
+      "https://fieldguide.lutrasecurity.com/CVE-2025-13192",
+      "https://plugins.trac.wordpress.org/browser/popup-builder-block/tags/2.1.5/includes/Routes/Popup.php",
+      "https://plugins.trac.wordpress.org/browser/popup-builder-block/tags/2.1.5/includes/Routes/Subscribers.php"
     ]
   },
   {
