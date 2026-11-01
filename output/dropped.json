@@ -3675,6 +3675,41 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-11777",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Form Maker by 10Web SQLi via admin-authenticated 'name' parameter (controller admin/controllers/Select_data_from_db.php, model FMSelectDataFromDb.php). The parameter is named, but the exact inbound endpoint could not be confirmed: it is a /wp-admin/admin.php?page=<slug>&task=<...> route and the page/task slug is not public. The plugins.trac source (which defines the slug at form-maker.php L911) was blocked (PROVENANCE_REQUIRED) and WebFetch was hourly rate-limited; no public PoC HTTP request exists. 'name' alone with a guessed admin.php page would fail condition 2 (tied-to-CVE path+parameter). Build requires reading the trac source to get the page/task slug.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.sentinelone.com/vulnerability-database/cve-2026-11777/",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/513f407d-e90f-4fd1-82dd-c28bab9f76d0?source=cve",
+      "https://plugins.trac.wordpress.org/browser/form-maker/tags/1.15.43/admin/controllers/Select_data_from_db.php#L84"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11776",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Form Maker by 10Web SQLi via admin-authenticated 'groupids' parameter (CSV export controller admin/controllers/Generete_csv.php, helper framework/WDW_FM_Library.php). The parameter is named and distinctive, but the exact inbound endpoint could not be confirmed: it is a /wp-admin/admin.php?page=<slug> (CSV generate) route whose page/task slug is defined in form-maker.php L873 on plugins.trac, which was blocked (PROVENANCE_REQUIRED), and WebFetch was hourly rate-limited; no public PoC HTTP request exists. Building to a guessed admin.php page would fail condition 2. Build requires reading the trac source for the page/task slug.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.sentinelone.com/vulnerability-database/cve-2026-11776/",
+      "https://plugins.trac.wordpress.org/browser/form-maker/tags/1.15.43/admin/controllers/Generete_csv.php#L33"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-11590",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Support Plus Responsive Ticket System <= 9.1.2 SQLi where the injection is in user-supplied ARRAY KEYS (not a named scalar parameter) placed into WHERE/ORDER BY/column clauses. The concrete request parameter name and endpoint/AJAX action are not named in NVD/SentinelOne, and the only detailed source (WPScan vulnerability report) is gated and has no public PoC HTTP request. An array-key injection cannot be expressed as a faithful, named-parameter, signature-bearing WAF request without the PoC, and spec forbids guessing the parameter. Not buildable from available online sources.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.sentinelone.com/vulnerability-database/cve-2026-11590/",
+      "https://wpscan.com/vulnerability/117853ca-0fd3-4bfa-ad60-799eb5c77bdf/",
+      "https://radar.offseq.com/threat/cve-2026-11590-cwe-89-sql-injection-in-wp-support--aaa864ba3db668b3"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-11529",
     "group": "READY",
     "result": "DROPPED_NOT_WEB",
@@ -3761,6 +3796,18 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-10176",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Aider-AI Aider 0.86.3 is a local terminal-based AI pair-programming CLI tool. The SQL injection is in the 'Code Generation Workflow' (the tool's own local/generated-code handling), not a server-side inbound HTTP endpoint. There is no HTTP request, path or parameter that a WAF could inspect, so it cannot be simulated as a webRequest.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Aider-AI/aider/issues/5077",
+      "https://vuldb.com/vuln/367457",
+      "https://www.cve.org/CVERecord?id=CVE-2026-10176"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-32593",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -3791,6 +3838,28 @@
     "links_checked": [
       "https://github.com/parse-community/parse-server/security/advisories/GHSA-c442-97qw-j6c6",
       "https://corgea.com/advisories/vulnerabilities/CVE-2026-32234"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-8125",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB/NVD description reads 'manipulation of the argument type/length/business parameter validity' - this is VulDB boilerplate for improper input validation and does NOT name a concrete vulnerable parameter. The only PoC is a GitHub issue (MICHEY-Ben/cve/issues/1) which could not be read (gh issue/API blocked, WebFetch rate-limited this hour); no source or write-up names the injectable parameter in sendMessage.php. Per spec, dropped rather than guessing the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/MICHEY-Ben/cve/issues/1",
+      "https://vuldb.com/vuln/361915",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-8125"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-8111",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ivanti Endpoint Manager authenticated SQL injection in the web console. Only reference is the Ivanti security advisory, which discloses neither the vulnerable URL/endpoint nor the parameter, and there is no public PoC, nuclei template or WAF rule. Cannot build a CVE-faithful request without an exact path+parameter; not guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://hub.ivanti.com/s/article/Security-Advisory-Ivanti-Endpoint-Manager-EPM-May-2026?language=en_US"
     ]
   },
   {
