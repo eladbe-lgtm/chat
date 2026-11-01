@@ -12568,6 +12568,97 @@
     ]
   },
   {
+    "cve_id": "CVE-2024-9771",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP-Recall stored XSS in the 'Link format to personal account' setting on admin.php?page=rcl-options. The admin page and payload are known, but the exact POST field name that stores the setting is not disclosed by the WPScan advisory and could not be recovered (plugin source fetches were blocked). Building the storing request would require inventing the parameter name, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/c33adc08-99c5-42e1-a2e3-e7c3412a6a3f/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-9770",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP-Recall SQL injection via the 'product[fields]' parameter in the Rcl Commerce Export/Import 'Upload products to a file' flow. The parameter and payload (sleep(1) FROM wp_posts ;#) are known, but the WPScan advisory does not disclose the HTTP path/endpoint (admin page or ajax action) that the form posts to, and it could not be recovered (plugin source fetches were blocked). Building a request would require guessing the path, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/d31f8713-b807-4ac4-8897-7d62a93bb2db/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-9286",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "TRtek Distant Education Platform SQLi. Only vendor/CERT bulletins (USOM TR-24-1649) are referenced; no public PoC, path or parameter disclosed, so no concrete endpoint to target.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.usom.gov.tr/bildirim/tr-24-1649",
+      "https://siberguvenlik.gov.tr/guvenlik-bildirimleri/detay/tr-24-1649"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-9156",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "TI WooCommerce Wishlist SQLi. WPScan gives the injectable parameter (lang_default, paired with lang=\\) and payload (lang_default=,0) OR t.language_code=sleep(10)--+) but NOT the endpoint URL/admin-ajax action. The full PoC on WPScan and the exact add/remove wishlist request path could not be confirmed (WPScan vuln PoC and blog give no URL; raw PoC blocked). Would be buildable once the admin-ajax action / REST route is known; refused to guess the action per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/e95974f9-1f68-4181-89b0-3559d61cfa93/",
+      "https://wpscan.com/blog/unpatched-vulnerability-in-ti-woocommerce-wishlist-plugin/",
+      "https://cyberinsider.com/sql-injection-flaw-in-ti-woocommerce-wishlist-plugin-no-patch-available/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-9293",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "skyselang yylAdmin File list SQLi. The only location is a server-side ThinkPHP controller source path (/app/admin/controller/file/File.php, function list, argument is_disable), not a web-accessible URL. The gitee PoC that would show the HTTP route is blocked (provenance), and no aggregator discloses the route. Deriving the MVC route would be inventing an endpoint, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gitee.com/A0kooo/cve_article/blob/master/yyladmin/yyladmin%20file%20list%20have%20SQL%20injection.md",
+      "https://cve.circl.lu/vuln/CVE-2024-9293",
+      "https://vuldb.com/?id.278785"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-9022",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "TS Poll plugin SQLi via the 'orderby' parameter is confirmed to be on the plugin's authenticated-admin poll listing screen (WP_List_Table in admin/class-ts_poll_list.php), but the exact admin page slug (admin.php?page=<slug>) is not disclosed in any fetchable source and could not be confirmed from the plugin source (SVN listing/main-file fetch failed). Parameter and attack class are known but the path cannot be built without inventing the slug.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/d16363d6-ca4b-4de0-abae-a7b07803e2e3?source=cve",
+      "https://www.sentinelone.com/vulnerability-database/cve-2024-9022/",
+      "https://plugins.svn.wordpress.org/poll-wp/trunk/",
+      "https://packetstormsecurity.com/files/179414/WordPress-Poll-2.3.6-SQL-Injection.html"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-9018",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Easy Gallery time-based SQLi via the 'key' parameter. Source review (plugins.svn.wordpress.org trunk main file) shows 'key' is a SHORTCODE attribute of [EasyGallery key=\"...\"] handled by EasyGallery_Handler($atts), not an HTTP GET/POST/AJAX parameter. The value reaches the vulnerable query only when a Contributor+ embeds the shortcode in post content and the post is rendered; there is no inbound HTTP request with a named 'key' parameter to send to a WAF. No faithful path+parameter HTTP request can be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/a1c4c632-66f2-4987-b7da-048dbe4a3044?source=cve",
+      "https://plugins.svn.wordpress.org/wp-easy-gallery/trunk/wp-easy-gallery.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-8911",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "LatePoint unauthenticated SQLi (arbitrary user password change). Neither Wordfence, NVD/AttackerKB nor other fetchable aggregators disclose the vulnerable endpoint/route, AJAX action, or the named parameter carrying the injection; advisories only say 'user supplied parameter'. The only concrete source located was a ProjectDiscovery nuclei template, which is excluded by task policy. Cannot build a faithful path+parameter request without inventing them.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/5c9a23a3-5eb5-4f5b-bf32-c9d163426f29?source=cve",
+      "https://attackerkb.com/topics/lRqEPzXVNT/cve-2024-8911",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-8911"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-12079",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -12627,6 +12718,50 @@
       "https://cvefeed.io/vuln/detail/CVE-2026-11920",
       "https://plugins.trac.wordpress.org/browser/joomsport-sports-league-results-management/tags/5.7.8/includes/pages/joomsport-page-boxfields.php#L35",
       "https://nvd.nist.gov/vuln/detail/CVE-2026-11920"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-8309",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "SQL injection in langchain GraphCypherQAChain occurs via LLM prompt injection: a natural-language prompt steers the LLM to emit malicious Cypher/SQL inside the library. There is no fixed HTTP path/parameter carrying an attack signature, so it cannot be expressed as a faithful WAF web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.com/bounties/8f4ad910-7fdc-4089-8f0a-b5df5f32e7c5",
+      "https://github.com/langchain-ai/langchain/commit/c2a3021bb0c5f54649d380b42a0684ca5778c255"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-8275",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is via the 'order' argument of the PHP template function tribe_has_next_event(); it is only reachable on sites that manually added that function to a template. No standard HTTP route/parameter is exposed, so there is no concrete path+parameter to build a faithful request without guessing.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/f59891c7-db1a-4688-8616-8877d7d7960d?source=cve"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-8055",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Vanna v0.6.3 'SQL injection' is actually a local-file-read via prompt injection into the text-to-SQL flow (natural-language question generates a Snowflake PUT/COPY query that reads /etc/passwd). There is no fixed HTTP path + named parameter that carries a recognizable SQL-injection signature a WAF (OWASP CRS) could block; the malicious SQL is model-generated from free-text prompt input. Not a faithful WAF-blockable request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://huntr.com/bounties/7c92a611-6756-4885-8969-01d8b85b6c63",
+      "https://www.cvelogic.com/cve/CVE-2024-8055"
+    ]
+  },
+  {
+    "cve_id": "CVE-2024-7871",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Easytest Online Test Platform SQL injection via the 'word' parameter of the online dictionary function. The parameter name is known but no public source gives a concrete URL path for the dictionary endpoint. The only primary advisory (zuso.ai ZA-2024-04) could not be fetched from this session (provenance/permission blocked), and mirror pages (circl.lu, tenable) do not include the path or a PoC request. No path means no faithful request can be built without inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://zuso.ai/advisory/za-2024-04",
+      "https://vulnerability.circl.lu/vuln/cve-2024-7871",
+      "https://tenable.com/cve/CVE-2024-7871"
     ]
   },
   {
