@@ -7920,6 +7920,33 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-4204",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Ultimate Auction Pro is a paid plugin; its source is not public. The free 'ultimate-auction' plugin sanitizes auction_id with absint() and $wpdb->prepare(), so it does not reveal the vulnerable path. The Wordfence advisory and CVE records name only the 'auction_id' parameter, not the admin-ajax action/endpoint that carries it. No PoC gives a concrete path+action, and guessing the AJAX action would fail condition 2, so dropped rather than inventing an endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/e492029d-6613-4881-b986-9fe14cb2cf74?source=cve",
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ultimate-woocommerce-auction-pro/ultimate-auction-pro-152-unauthenticated-sql-injection-via-auction-id",
+      "https://cvefeed.io/vuln/detail/CVE-2025-4204",
+      "https://plugins.svn.wordpress.org/ultimate-auction/trunk/ultimate-auction.php"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-4203",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Confirmed the vulnerable code: wpForo Members.php get_members() interpolates LIMIT $offset,$row_count (esc_sql only, no intval), and the payload is '1 PROCEDURE ANALYSE(...)' in row_count. However, no public PoC, advisory (Wordfence/WPScan pages returned empty), or source caller shows the HTTP transport - the URL/members-page/AJAX action and how offset/row_count are passed from the request into get_members. Without a concrete path+parameter mapping the request cannot be tied to the CVE (condition 2); not guessing the endpoint, so dropped.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://plugins.trac.wordpress.org/browser/wpforo/tags/2.4.9/classes/Members.php#L1557",
+      "https://plugins.svn.wordpress.org/wpforo/tags/2.4.5/classes/Members.php",
+      "https://wpscan.com/vulnerability/4c544bf9-d4c8-4f1e-9b56-f1d8871dea98/",
+      "https://alfa.zeropath.com/blog/cve-2025-4203-wpforo-sql-injection",
+      "https://securitricks.com/cve/cve-2025-4203"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-4072",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -7943,6 +7970,40 @@
       "https://vulnerability.circl.lu/vuln/cve-2025-3957",
       "https://cvemon.intruder.io/cves/CVE-2025-3957",
       "https://nvd.nist.gov/vuln/detail/CVE-2025-3957"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-3956",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB names only the MyBatis mapper file BookInfoMapper.xml and function RestResp; no HTTP path or request parameter is identifiable. GitHub PoC (Fc04dB/novel-cloud-vul) is flagged a broken link by NVD and was unreachable. Cannot tie a concrete path+parameter without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://db.gcve.eu/vuln/CVE-2025-3956",
+      "https://github.com/Fc04dB/novel-cloud-vul/blob/main/navol-cloud-vul.md",
+      "https://vuldb.com/?id.306292"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-3872",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Authenticated high-privilege SQL injection in the Centreon centreon-web contact/user configuration form, exploited by intercepting and altering the form request. No public advisory, PoC, or WAF rule names a concrete endpoint path or parameter; devguard reports no exploit available. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://docs.devguard.org/vulnerability-database/CVE-2025-3872/",
+      "https://thewatch.centreon.com/latest-security-bulletins-64/cve-2024-55571-centreon-web-high-severity-4496"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-3818",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "SQL injection is in the Python library function PostgresDB._process_insert_query of web/db.py (web.py). The vulnerable 'seqname' is an internal code/API argument supplied by the application developer, not an inbound HTTP request parameter with a known path. No server-side HTTP entry point; per spec this is a library API, not a web request.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.305724",
+      "https://noppgwz8if.feishu.cn/docx/TxjpddUpTokyBwxibSgcTRr7nUf"
     ]
   },
   {
