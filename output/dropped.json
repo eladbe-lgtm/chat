@@ -5408,6 +5408,40 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-24793",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "Snowflake Connector for Python: SQL injection in a function of the snowflake.connector.pandas_tools module (write_pandas). This is a client-side Python library API vulnerability reachable only from application code calling the connector, not via an inbound HTTP request to a server endpoint. No path/parameter exists at the HTTP layer.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/snowflakedb/snowflake-connector-python/security/advisories/GHSA-2vpq-fh52-j3wv",
+      "https://github.com/snowflakedb/snowflake-connector-python/commit/f3f9b666518d29c31a49384bbaa9a65889e72056"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-24787",
+    "group": "READY",
+    "result": "DROPPED_NO_SIGNATURE",
+    "notes": "WhoDB connection-string parameter injection: the exploit injects '&allowAllFiles=true' into a Go go-sql-driver/mysql DSN built by unsafe string concatenation of the DB connection fields (submitted via the login/connect GraphQL mutation). The on-the-wire payload is a benign-looking URL parameter token with no XSS/SQLi/traversal/RCE signature, so no OWASP CRS-class WAF rule would block it (condition 1 fails). Labeled NoSQL/CWE-943 but is really DSN argument injection.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/clidey/whodb/security/advisories/GHSA-c7w4-9wv8-7x7c",
+      "https://github.com/go-sql-driver/mysql/blob/7403860363ca112af503b4612568c3096fecb466/infile.go#L128"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-24368",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Cacti SQL injection via build_rule_item_filter() in lib/api_automation.php, from data stored by automation_tree_rules.php (authenticated admin, Automation tree rules). The HTTP endpoint (automation_tree_rules.php) and save action (save_component_automation_tree_rule_item) were confirmed via gh code search, and the injection is in a rule-item SQL identifier field, but the exact injectable POST parameter name (among the $fields_automation_tree_rule_item_edit form fields) could not be confirmed from public sources without the patch diff (github.com fetch blocked, no repo clones permitted). Building a faithful request would require guessing the parameter, so condition 2 fails.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Cacti/cacti/security/advisories/GHSA-f9c7-7rc3-574c",
+      "https://github.com/Cacti/cacti/commit/c7e4ee798d263a3209ae6e7ba182c7b65284d8f0",
+      "https://www.cvelogic.com/cve/CVE-2025-24368"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-22964",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -5600,6 +5634,44 @@
       "https://www.cvelogic.com/cve/CVE-2025-15029",
       "https://thewatch.centreon.com/latest-security-bulletins-64/cve-2025-15029-centreon-awie-critical-severity-5356",
       "https://github.com/centreon/centreon (centreon-awie module source via gh search code)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14966",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "FastAdmin selectpage SQLi lives in the function selectpage of application/common/controller/Backend.php - an MVC base-controller class, not a web-accessible .php path. The injectable parameters (custom[]/searchField) are known, but no concrete reachable URL/controller route is public in the VulDB description, and the PoC (note-hxlab) could not be fetched to confirm a path. Cannot build without inventing the endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.337601",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-14966",
+      "https://radar.offseq.com/threat/cve-2025-14966-sql-injection-in-fastadmin-169a822e",
+      "https://note-hxlab.wetolink.com/share/1924AEdgGFYu"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14899",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB description names the file /admin/stateadd.php but does NOT name the injectable argument ('This manipulation causes sql injection'). The PoC (github.com/YZS17/CVE blob) is PROVENANCE-blocked and could not be fetched, and mirrors copy the VulDB text verbatim. Building a request would require inventing the parameter name, which the spec forbids.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.337424",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-14899",
+      "https://github.com/YZS17/CVE/blob/main/CodeAstro_Real_Estate_Management_System/stateadd.php-sqli.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-14603",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "vsDesk blind SQLi. The CVE description and all reachable aggregators describe the flaw only generically ('the application component processes user-supplied parameters insecurely, passing them into SQL queries') with no concrete path or parameter. The only detailed source is the klsecservices GitHub advisory KLSA-00295, which was not fetchable in this run (raw.githubusercontent.com returned PROVENANCE_REQUIRED; lutrasecurity mirror confirms no endpoint/parameter is named). No concrete path+parameter could be confirmed, so no CVE-tied request can be built without guessing. CWE-89.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://raw.githubusercontent.com/klsecservices/Advisories/master/KLSA-00295-Blind-SQLi-via-User-Input-in-vsDesk.md",
+      "https://fieldguide.lutrasecurity.com/CVE-2025-14603/",
+      "https://vuldb.com/",
+      "https://app.opencve.io/cve/CVE-2025-14603"
     ]
   },
   {
