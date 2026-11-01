@@ -4617,5 +4617,41 @@
       "https://www.wordfence.com/threat-intel/vulnerabilities/id/f783e626-37c0-4ad9-9074-c5332583a0cb?source=cve",
       "https://codecanyon.net/item/weepie-cookie-allow-easy-complete-cookie-consent-plugin/10342528"
     ]
+  },
+  {
+    "cve_id": "CVE-2026-3985",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQLi in the 'checkout_uuid' parameter via has_checkout_consent() in Creative Mail plugin. The parameter name is known from the Wordfence advisory, but no public PoC/nuclei template or advisory gives the concrete HTTP path/transport. The available GitHub source mirror (common-repository/creative-mail-by-constant-contact) is a patched version: the REST route (namespace creativemail/v1) handler reads get_param('uuid') and is X-API-KEY protected, and CheckoutManager reads the uuid from the WooCommerce session (WC()->session->get(CHECKOUT_UUID)), not from a request parameter. The <=1.6.9 unauthenticated entry route could not be confirmed, so building a request would require guessing the path (forbidden by spec).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/39c17935-a853-407f-a99d-3828561919e6?source=cve",
+      "https://plugins.trac.wordpress.org/browser/creative-mail-by-constant-contact/tags/1.6.9/src/Managers/CheckoutManager.php#L100",
+      "https://research.cleantalk.org/cve-2026-3985",
+      "https://github.com/common-repository/creative-mail-by-constant-contact (source mirror, patched)"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3830",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Unauthenticated SQLi in Product Filter for WooCommerce by WBW < 3.1.3. The public CVE/WPScan description does not name the vulnerable parameter ('does not sanitize and escape a parameter') and gives no path. No nuclei template, PoC, or signature naming the parameter or endpoint was found via gh code search, and the only reference (WPScan) is unreachable from this environment (WebFetch blocked). Cannot build a faithful request without inventing the path/parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/768014fd-0403-4182-b19e-3d46c92d8755/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3200",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "z-9527 admin is a Node.js app; VulDB names controller functions (checkName/register/login/getUser/getUsers in /server/controller/user.js) but no HTTP route path and no specific injectable parameter. The route-mounting file (/server/routes/user.js) and the vendor repo are not publicly locatable, and GitHub issue PoCs (CC-T-454455/Vulnerabilities) are blocked (PROVENANCE_REQUIRED). Cannot build a faithful request without inventing both the route and the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/CC-T-454455/Vulnerabilities/tree/master/z9527-admin/vulnerability-1",
+      "https://github.com/CC-T-454455/Vulnerabilities/tree/master/z9527-admin/vulnerability-2",
+      "https://vuldb.com/?id.347772",
+      "https://radar.offseq.com/threat/cve-2026-3200-sql-injection-in-z-9527-admin-11a7aee8"
+    ]
   }
 ]
