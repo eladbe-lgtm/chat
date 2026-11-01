@@ -4619,6 +4619,43 @@
     ]
   },
   {
+    "cve_id": "CVE-2026-4173",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CodePhiliaX Chat2DB (<=0.3.7) 'SQL injection' in seven internal Java methods (exportTable/exportTableColumnComment/exportView/exportProcedure/exportTriggers/exportTrigger/updateProcedure) of DMDBManage.java. The advisory names NO injectable HTTP parameter, and these DBManage methods receive database object names (table/view/schema) through Chat2DB's opaque internal JSON API; Chat2DB is a self-hosted DB client where SQL against the user's own connected database is by design. No reproducible path+named-parameter attack boundary and the PoC issue is unreachable, so dropped rather than guess.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/AnalogyC0de/public_exp/issues/21",
+      "https://vuldb.com/?id.351080",
+      "https://github.com/CX-Benchmark/Chat2DB/blob/main/chat2db-server/chat2db-plugins/chat2db-dm/src/main/java/ai/chat2db/plugin/dm/DMDBManage.java",
+      "https://www.cve.org/CVERecord?id=CVE-2026-4173"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4079",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQL Chart Builder WordPress plugin (<2.3.8) SQLi via the 'dynamic filter' feature. The WPScan advisory PoC uses placeholder values only: the vulnerable URL is the admin-chosen public page that embeds the chart (example '/vulnerable-chart-page/') and the injectable GET parameter is the per-chart dynamic-filter variable name (example 'status_tag'), which the advisory explicitly says must be discovered per-site from the page source. There is no fixed/universal path or parameter to reproduce faithfully without guessing, so dropped per spec.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/8ec92881-4ae5-458d-995b-f097f2bcc590/",
+      "https://www.cve.org/CVERecord?id=CVE-2026-4079"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-4061",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Geo Mashup (<=1.13.18) time-based SQLi via the 'map_post_type' parameter. Confirmed from source (cyberhobo/wordpress-geo-mashup): the unsanitized sink is the else branch of the Geo Search feature's SearchResults hook (php/Hooks/SearchResults.php does $_POST=stripslashes_deep($_POST)), triggered only by the Geo Mashup search form which POSTs to an admin-configured results page (get_permalink($results_page_id) in php/Widgets/Search.php). The render-map/'any' branch applies esc_sql to map_post_type, so that path is not vulnerable. There is no fixed URL path for the vulnerable search POST without guessing the site's results-page slug, so dropped (object_ids variant CVE-2026-4062 was buildable and is included).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/cc3cf6c5-643e-49ca-b09c-bd7cfec328ee?source=cve",
+      "https://github.com/cyberhobo/wordpress-geo-mashup/blob/master/php/Hooks/SearchResults.php",
+      "https://github.com/cyberhobo/wordpress-geo-mashup/blob/master/php/Widgets/Search.php",
+      "https://plugins.trac.wordpress.org/changeset/3503627/"
+    ]
+  },
+  {
     "cve_id": "CVE-2026-3985",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -4639,6 +4676,52 @@
     "waf_rules_found": [],
     "links_checked": [
       "https://wpscan.com/vulnerability/768014fd-0403-4182-b19e-3d46c92d8755/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3496",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "JetBooking <= 4.0.3 unauthenticated SQLi via the 'check_in_date' parameter is confirmed (Wordfence), but the exact unauthenticated endpoint/route or admin-ajax action that accepts check_in_date in the affected version could not be confirmed from source, advisories, nuclei templates or write-ups. Building a request would require guessing the route, which fails the CVE-tie condition. Wordfence withholds the PoC.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/jet-booking/jetbooking-403-unauthenticated-sql-injection-via-check-in-date-parameter",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-3496",
+      "https://crocoblock.com/changelog/?plugin=jet-booking"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3489",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "DirectoryPress <= 3.6.26 unauthenticated SQLi via the 'packages' parameter is confirmed (Wordfence), but the exact endpoint (REST route, admin-ajax action, or listing page path) that reads 'packages' could not be confirmed from source, the fix changeset, advisories or write-ups. Only the parameter name is public; guessing the path would fail the CVE-tie condition.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/2e602223-8571-42e1-9b3f-e7cc51f8fa58?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3474986/directorypress"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3456",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "GeekyBot <= 1.2.0 unauthenticated SQLi via the 'attributekey' parameter is confirmed (Wordfence), but the exact endpoint/AJAX action that reads 'attributekey' could not be confirmed from source, the fix changeset, nuclei templates or write-ups. Only the parameter name is public; guessing the route would fail the CVE-tie condition.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.wordfence.com/threat-intel/vulnerabilities/id/4c716fd3-6297-4b3a-a796-65f68f2986cf?source=cve",
+      "https://plugins.trac.wordpress.org/changeset/3474168/geeky-bot"
+    ]
+  },
+  {
+    "cve_id": "CVE-2026-3430",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Creative Mail <= 1.6.9 unauthenticated SQLi (abandoned-cart email feature) is reported by WPScan, but neither the vulnerable parameter name nor the endpoint/REST route is public; the WPScan entry and aggregators give only a prose description. No path+parameter could be confirmed, so a CVE-tied request cannot be built.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/eb2f34bd-c626-4831-a886-c82882073bcd/",
+      "https://fieldguide.lutrasecurity.com/CVE-2026-3430",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-3430"
     ]
   },
   {
