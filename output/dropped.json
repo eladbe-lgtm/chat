@@ -4777,6 +4777,99 @@
     ]
   },
   {
+    "cve_id": "CVE-2025-30212",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Framework-wide SQL injection in Frappe (fixed in 14.89.0 / 15.51.0). The GHSA advisory and OSV entry describe it only as 'SQL injection due to improper validations' and name no HTTP path, whitelisted API method, or parameter. The two fix commits were not readable in this run (github.com access gated: PROVENANCE_REQUIRED and gh API 403). No concrete path+parameter to faithfully recreate the exploit.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://osv.dev/vulnerability/GHSA-3hj6-r5c9-q8f3",
+      "https://github.com/frappe/frappe/security/advisories/GHSA-3hj6-r5c9-q8f3",
+      "https://github.com/frappe/frappe/commit/27f13437db161a173137d91cd07d0f9287d7c556"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-30062",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CGM CLININET SQLi in the validateOrgUnit function of CheckUnitCodeAndKey.pl. The advisory names only the service file and the internal function, NOT a request parameter. Without a named parameter the SQLi payload cannot be placed in the exact input (cert.pl advisory access gated in this run). Not buildable faithfully.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cert.pl/en/posts/2026/03/CVE-2025-10350/",
+      "https://exploit-intel.com/search?vendor=CGM"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-30059",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CGM CLININET authenticated SQLi in the getPerfServiceIds function of PrepareCDExportJSON.pl. The advisory names only the service file and internal function, NOT a request parameter. Without a named parameter the payload cannot be placed in the exact input (cert.pl advisory access gated). Not buildable faithfully.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://cert.pl/en/posts/2025/08/CVE-2025-2313/",
+      "https://exploit-intel.com/search?vendor=CGM"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-30022",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CM Soluces Auto Atendimento SQLi via the 'DATANASC' parameter. The parameter is named but NO URL path/page is given in any accessible source. The PoC repo (github.com/Fr1t0viski/PoCs/blob/main/SQL_Injection_AutoAtendimento) was access gated (PROVENANCE_REQUIRED) and raw/jsdelivr/gh-api fetches were blocked by the proxy. Without a confirmed path the request cannot be tied to the CVE (condition 2 fails).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Fr1t0viski/PoCs/blob/main/SQL_Injection_AutoAtendimento",
+      "https://cvefeed.io/vuln/detail/CVE-2025-30022",
+      "https://cvemon.intruder.io/cves/CVE-2025-30022"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29980",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "CentralSquare eTRAKiT.Net 3.2.1.77 unauthenticated SQL injection. All accessible sources (NVD, CERT, CVElogic mirror) describe only that the 'CRM feature' is affected and name NO page/ASPX endpoint and NO parameter. The PoC is a CISA CSAF advisory JSON on raw.githubusercontent (gated). Closed-source product; no concrete path+parameter confirmable.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-29980",
+      "https://www.cvelogic.com/cve/CVE-2025-29980",
+      "https://raw.githubusercontent.com/cisagov/CSAF/develop/csaf_files/IT/white/2025/va-25-079-01.json"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29744",
+    "group": "READY",
+    "result": "DROPPED_NOT_WEB",
+    "notes": "pg-promise before 11.5.5 SQL injection due to improper handling of negative numbers. This is a Node.js PostgreSQL query-builder LIBRARY flaw (API-level), not a server-side HTTP endpoint. There is no CVE-defined path/parameter/request; exploitation depends on the host application. Out of scope per spec section 3.4 / 7 (library / JS API).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/vitaly-t/pg-promise/discussions/911",
+      "https://www.sonarsource.com/blog/double-dash-double-trouble-a-subtle-sql-injection-flaw/"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29647",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SeaCMS v13.3 SQL injection in the component admin_tempvideo.php. The description names only the component file, NOT the injectable parameter. The gitee PoC (gitee.com/B00W_NSD/poc .../seacms13.3-sql/poc.md) was access gated and proxy blocked github/jsdelivr source mirrors, so the exact parameter could not be confirmed. admin_tempvideo.php is an authenticated admin component; without the exact parameter the payload cannot be placed faithfully. Note: a parameter could likely be recovered by reading the SeaCMS 13.3 source or the gitee PoC in a run with source access.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://gitee.com/B00W_NSD/poc/blob/master/seacms13.3-sql/poc.md",
+      "https://cvemon.intruder.io/cves/CVE-2025-29647",
+      "https://www.tenable.com/cve/CVE-2025-29647"
+    ]
+  },
+  {
+    "cve_id": "CVE-2025-29529",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "ITC Systems Multiplan/Matrix OneCard v3.7.4.1002 SQL injection via the component Forgotpassword.aspx. The description names only the ASPX page, NOT the injectable parameter (field name). The PoC (github.com/Yoshik0xF6/CVE-2025-29529) was access gated in this run. Closed-source product; without the exact parameter the payload cannot be placed faithfully (condition 2). Note: the chamilo-lms commit in poc_refs appears mislinked/unrelated to this CVE.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://github.com/Yoshik0xF6/CVE-2025-29529",
+      "https://cvemon.intruder.io/cves/CVE-2025-29529",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-29529"
+    ]
+  },
+  {
     "cve_id": "CVE-2025-29391",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
