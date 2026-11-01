@@ -20809,6 +20809,74 @@
     ]
   },
   {
+    "cve_id": "CVE-2022-3241",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Build App Online WordPress plugin < 1.0.19 unauthenticated SQL injection via an AJAX action. The description confirms a vulnerable parameter and AJAX action exist, but neither the action name nor the parameter is public; the only reference is the WPScan advisory, which keeps the PoC behind authentication. Cannot name a real entry point without inventing one.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/a995dd67-43fc-4087-a7f1-5db57f4c828c",
+      "https://vulnerability.circl.lu/vuln/CVE-2022-3241"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-3150",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "WP Custom Cursors WordPress plugin < 3.2 authenticated (admin) SQL injection in an unnamed parameter. Only reference is the WPScan advisory, which does not publicly disclose the parameter or request path. No PoC, nuclei template, or fix diff recovered that names the parameter. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/bb0806d7-21e3-4a65-910c-bf0625c338ec",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-3150"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-3141",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "TranslatePress Multilingual WordPress plugin < 2.3.3 authenticated time-based blind SQL injection triggered by adding a new language (containing special characters that break out of backticks) via the settings page. The exact injectable parameter name and request shape live only in the exploit-db raw page (51043) and the ehtec/translatepress-exploit repo, both of which were blocked this session (PROVENANCE_REQUIRED / not fetchable). The settings-array parameter cannot be reconstructed with certainty from the CVE text alone, so dropping rather than inventing the parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/1fa355d1-cca8-4b27-9d21-0b420a2e1bf3",
+      "https://www.exploit-db.com/raw/51043",
+      "https://raw.githubusercontent.com/ehtec/translatepress-exploit/main/README.md"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-3131",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Search Logger WordPress plugin through 0.9 high-privilege SQL injection in an unnamed parameter. Only reference is the WPScan advisory, which does not publicly disclose the parameter or path. No PoC, nuclei template, or fix diff recovered naming the parameter. Cannot build without inventing a parameter.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/b6c62e53-ae49-4fe0-aed9-0c493fc4442d",
+      "https://cvefeed.io/vuln/detail/CVE-2022-3131"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-3059",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Schoolbox (Schoolbox Pty Ltd) multiple SQL injection instances through a 'vulnerable parameter' that the advisory never names, and the path is not disclosed. The vendor security advisory describes the class (stacked-query, sleep-based inferential SQLi) but gives no concrete path or parameter. No PoC or nuclei template found. Cannot build without inventing an entry point.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.themissinglink.com.au/security-advisories/cve-2022-3059"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-2801",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "VulDB description only names the 'Login' component and argument 'username' with no file path; no .php path given in CVE/NVD/GHSA records and the VulDB page (id.206247) was blocked. The PoC is not code-indexed/accessible. No concrete path+parameter can be built without inventing an endpoint.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://vuldb.com/?id.206247",
+      "https://db.gcve.eu/cve/CVE-2022-2801",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-2801",
+      "https://github.com/advisories/ghsa-mvpx-6xp2-66jp"
+    ]
+  },
+  {
     "cve_id": "CVE-2022-2687",
     "group": "READY",
     "result": "DROPPED_NO_ENTRY_POINT",
@@ -20830,6 +20898,29 @@
     "links_checked": [
       "https://vuldb.com/?id.205664",
       "https://github.com/Hanfu-l/Cve-vulnerability-mining/blob/main/Electronic%20Medical%20Records%20System/Electronic%20Medical%20Records%20System-loginpage-Sqlinjection.pdf"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-2272",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "Sante PACS Server 3.0.4 pre-auth SQL injection in the login endpoint username field (ZDI-22-955 / ZDI-CAN-17331). ZDI withheld the concrete login URL/path, and no public PoC, nuclei template, or write-up names the request path or exact parameter. A GitHub code search for the login endpoint returned nothing usable. Without a real path we would have to guess, so dropped per spec (never invent an endpoint).",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://www.zerodayinitiative.com/advisories/ZDI-22-955/",
+      "https://cve.circl.lu/vuln/CVE-2022-2272",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-2272"
+    ]
+  },
+  {
+    "cve_id": "CVE-2022-1023",
+    "group": "READY",
+    "result": "DROPPED_NO_ENTRY_POINT",
+    "notes": "SQLi is triggered via the <guid> element of an attacker-hosted podcast XML feed that an admin imports (tools.php?page=secondlinepodcastimport). The inbound HTTP request to the WordPress site only carries a plain feed URL in the 'Podcast Feed URL' field; the SQLi payload lives in the remote feed content fetched server-side, so no inbound request carries a WAF-detectable SQLi signature. No direct HTTP parameter to target.",
+    "waf_rules_found": [],
+    "links_checked": [
+      "https://wpscan.com/vulnerability/163069cd-98a8-4cfb-8b58-a6727a7d5c48",
+      "https://plugins.trac.wordpress.org/changeset/2696254"
     ]
   },
   {
